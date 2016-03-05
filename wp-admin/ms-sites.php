@@ -2,7 +2,7 @@
 /**
  * Multisite sites administration panel.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Multisite
  * @since 3.0.0
  */

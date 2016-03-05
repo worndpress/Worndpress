@@ -2,7 +2,7 @@
 /**
  * Send XML response back to AJAX request.
  *
- * @package WordPress
+ * @package Worndpress
  * @since 2.1.0
  */
 class WP_Ajax_Response {

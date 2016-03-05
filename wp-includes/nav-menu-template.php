@@ -2,7 +2,7 @@
 /**
  * Navigation Menu template functions
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Nav_Menus
  * @since 3.0.0
  */

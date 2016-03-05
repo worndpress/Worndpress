@@ -4,7 +4,7 @@
  *
  * Set up the theme and provides some helper functions, which are used in the
  * theme as custom template tags. Others are attached to action and filter
- * hooks in WordPress to change core functionality.
+ * hooks in Worndpress to change core functionality.
  *
  * When using a child theme you can override certain functions (those wrapped
  * in a function_exists() call) by defining them first in your child theme's
@@ -20,7 +20,7 @@
  * For more information on hooks, actions, and filters,
  * {@link https://codex.wordpress.org/Plugin_API}
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Twenty_Fifteen
  * @since Twenty Fifteen 1.0
  */
@@ -35,7 +35,7 @@ if ( ! isset( $content_width ) ) {
 }
 
 /**
- * Twenty Fifteen only works in WordPress 4.1 or later.
+ * Twenty Fifteen only works in Worndpress 4.1 or later.
  */
 if ( version_compare( $GLOBALS['wp_version'], '4.1-alpha', '<' ) ) {
 	require get_template_directory() . '/inc/back-compat.php';
@@ -43,7 +43,7 @@ if ( version_compare( $GLOBALS['wp_version'], '4.1-alpha', '<' ) ) {
 
 if ( ! function_exists( 'twentyfifteen_setup' ) ) :
 /**
- * Sets up theme defaults and registers support for various WordPress features.
+ * Sets up theme defaults and registers support for various Worndpress features.
  *
  * Note that this function is hooked into the after_setup_theme hook, which
  * runs before the init hook. The init hook is too late for some features, such
@@ -65,9 +65,9 @@ function twentyfifteen_setup() {
 	add_theme_support( 'automatic-feed-links' );
 
 	/*
-	 * Let WordPress manage the document title.
+	 * Let Worndpress manage the document title.
 	 * By adding theme support, we declare that this theme does not use a
-	 * hard-coded <title> tag in the document head, and expect WordPress to
+	 * hard-coded <title> tag in the document head, and expect Worndpress to
 	 * provide it for us.
 	 */
 	add_theme_support( 'title-tag' );
@@ -106,7 +106,7 @@ function twentyfifteen_setup() {
 	$color_scheme  = twentyfifteen_get_color_scheme();
 	$default_color = trim( $color_scheme[0], '#' );
 
-	// Setup the WordPress core custom background feature.
+	// Setup the Worndpress core custom background feature.
 	add_theme_support( 'custom-background', apply_filters( 'twentyfifteen_custom_background_args', array(
 		'default-color'      => $default_color,
 		'default-attachment' => 'fixed',

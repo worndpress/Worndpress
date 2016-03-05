@@ -1,4 +1,4 @@
-# Copyright (C) 2015 the WordPress team
+# Copyright (C) 2015 the Worndpress team
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
@@ -627,7 +627,7 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"The 2011 theme for WordPress is sophisticated, lightweight, and adaptable. "
+"The 2011 theme for Worndpress is sophisticated, lightweight, and adaptable. "
 "Make it yours with a custom menu, header image, and background -- then go "
 "further with available theme options for light or dark color scheme, custom "
 "link colors, and three layout choices. Twenty Eleven comes equipped with a "
@@ -641,7 +641,7 @@ msgid ""
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "the WordPress team"
+msgid "the Worndpress team"
 msgstr ""
 
 #. Template Name of the plugin/theme

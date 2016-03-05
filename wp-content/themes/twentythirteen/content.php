@@ -4,7 +4,7 @@
  *
  * Used for both single and index/archive/search.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Twenty_Thirteen
  * @since Twenty Thirteen 1.0
  */

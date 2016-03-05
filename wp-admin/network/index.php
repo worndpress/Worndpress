@@ -2,15 +2,15 @@
 /**
  * Multisite administration panel.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Multisite
  * @since 3.0.0
  */
 
-/** Load WordPress Administration Bootstrap */
+/** Load Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
-/** Load WordPress dashboard API */
+/** Load Worndpress dashboard API */
 require_once( ABSPATH . 'wp-admin/includes/dashboard.php' );
 
 if ( !is_multisite() )

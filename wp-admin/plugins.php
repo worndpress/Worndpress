@@ -2,11 +2,11 @@
 /**
  * Plugins administration panel.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  */
 
-/** WordPress Administration Bootstrap */
+/** Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( ! current_user_can('activate_plugins') )
@@ -370,10 +370,10 @@ get_current_screen()->add_help_tab( array(
 'id'		=> 'overview',
 'title'		=> __('Overview'),
 'content'	=>
-	'<p>' . __('Plugins extend and expand the functionality of WordPress. Once a plugin is installed, you may activate it or deactivate it here.') . '</p>' .
+	'<p>' . __('Plugins extend and expand the functionality of Worndpress. Once a plugin is installed, you may activate it or deactivate it here.') . '</p>' .
 	'<p>' . sprintf(
-		/* translators: 1: Plugin Browser/Installer URL, 2: WordPress Plugin Directory URL 3: local plugin directory */
-		__( 'You can find additional plugins for your site by using the <a href="%1$s">Plugin Browser/Installer</a> functionality or by browsing the <a href="%2$s" target="_blank">WordPress Plugin Directory</a> directly and installing new plugins manually. To manually install a plugin you generally just need to upload the plugin file into your %3$s directory. Once a plugin has been installed, you can activate it here.' ),
+		/* translators: 1: Plugin Browser/Installer URL, 2: Worndpress Plugin Directory URL 3: local plugin directory */
+		__( 'You can find additional plugins for your site by using the <a href="%1$s">Plugin Browser/Installer</a> functionality or by browsing the <a href="%2$s" target="_blank">Worndpress Plugin Directory</a> directly and installing new plugins manually. To manually install a plugin you generally just need to upload the plugin file into your %3$s directory. Once a plugin has been installed, you can activate it here.' ),
 		'plugin-install.php',
 		'https://wordpress.org/plugins/',
 		'<code>/wp-content/plugins</code>'
@@ -383,10 +383,10 @@ get_current_screen()->add_help_tab( array(
 'id'		=> 'compatibility-problems',
 'title'		=> __('Troubleshooting'),
 'content'	=>
-	'<p>' . __('Most of the time, plugins play nicely with the core of WordPress and with other plugins. Sometimes, though, a plugin&#8217;s code will get in the way of another plugin, causing compatibility issues. If your site starts doing strange things, this may be the problem. Try deactivating all your plugins and re-activating them in various combinations until you isolate which one(s) caused the issue.') . '</p>' .
+	'<p>' . __('Most of the time, plugins play nicely with the core of Worndpress and with other plugins. Sometimes, though, a plugin&#8217;s code will get in the way of another plugin, causing compatibility issues. If your site starts doing strange things, this may be the problem. Try deactivating all your plugins and re-activating them in various combinations until you isolate which one(s) caused the issue.') . '</p>' .
 	'<p>' . sprintf(
 		/* translators: WP_PLUGIN_DIR constant value */
-		__( 'If something goes wrong with a plugin and you can&#8217;t use WordPress, delete or rename that file in the %s directory and it will be automatically deactivated.' ),
+		__( 'If something goes wrong with a plugin and you can&#8217;t use Worndpress, delete or rename that file in the %s directory and it will be automatically deactivated.' ),
 		'<code>' . WP_PLUGIN_DIR . '</code>'
 	) . '</p>'
 ) );

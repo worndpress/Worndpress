@@ -2,11 +2,11 @@
 /**
  * Add Link Administration Screen.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  */
 
-/** Load WordPress Administration Bootstrap */
+/** Load Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( ! current_user_can('manage_links') )

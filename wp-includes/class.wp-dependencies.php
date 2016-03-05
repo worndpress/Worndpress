@@ -4,14 +4,14 @@
  *
  * @since 2.6.0
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Dependencies
  */
 
 /**
  * Core base class extended to register items.
  *
- * @package WordPress
+ * @package Worndpress
  * @since 2.6.0
  * @uses _WP_Dependency
  */

@@ -1,18 +1,18 @@
 <?php
 /**
- * Loads the WordPress environment and template.
+ * Loads the Worndpress environment and template.
  *
- * @package WordPress
+ * @package Worndpress
  */
 
 if ( !isset($wp_did_header) ) {
 
 	$wp_did_header = true;
 
-	// Load the WordPress library.
+	// Load the Worndpress library.
 	require_once( dirname(__FILE__) . '/wp-load.php' );
 
-	// Set up the WordPress query.
+	// Set up the Worndpress query.
 	wp();
 
 	// Load the theme template.

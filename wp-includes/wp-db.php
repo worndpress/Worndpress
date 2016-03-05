@@ -1,10 +1,10 @@
 <?php
 /**
- * WordPress DB Class
+ * Worndpress DB Class
  *
  * Original code from {@link http://php.justinvincent.com Justin Vincent (justin@visunet.ie)}
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Database
  * @since 0.71
  */
@@ -36,7 +36,7 @@ define( 'ARRAY_A', 'ARRAY_A' );
 define( 'ARRAY_N', 'ARRAY_N' );
 
 /**
- * WordPress Database Access Abstraction Object
+ * Worndpress Database Access Abstraction Object
  *
  * It is possible to replace this class with your own
  * by setting the $wpdb global variable in wp-content/db.php
@@ -45,7 +45,7 @@ define( 'ARRAY_N', 'ARRAY_N' );
  *
  * @link https://codex.wordpress.org/Function_Reference/wpdb_Class
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Database
  * @since 0.71
  */
@@ -209,9 +209,9 @@ class wpdb {
 	protected $reconnect_retries = 5;
 
 	/**
-	 * WordPress table prefix
+	 * Worndpress table prefix
 	 *
-	 * You can set this to have multiple WordPress installations
+	 * You can set this to have multiple Worndpress installations
 	 * in a single database. The second reason is for possible
 	 * security precautions.
 	 *
@@ -222,7 +222,7 @@ class wpdb {
 	public $prefix = '';
 
 	/**
-	 * WordPress base table prefix.
+	 * Worndpress base table prefix.
 	 *
 	 * @since 3.0.0
 	 * @access public
@@ -258,7 +258,7 @@ class wpdb {
 	public $siteid = 0;
 
 	/**
-	 * List of WordPress per-blog tables
+	 * List of Worndpress per-blog tables
 	 *
 	 * @since 2.5.0
 	 * @access private
@@ -269,7 +269,7 @@ class wpdb {
 		'terms', 'term_taxonomy', 'term_relationships', 'termmeta', 'commentmeta' );
 
 	/**
-	 * List of deprecated WordPress tables
+	 * List of deprecated Worndpress tables
 	 *
 	 * categories, post2cat, and link2cat were deprecated in 2.3.0, db version 5539
 	 *
@@ -281,7 +281,7 @@ class wpdb {
 	var $old_tables = array( 'categories', 'post2cat', 'link2cat' );
 
 	/**
-	 * List of WordPress global tables
+	 * List of Worndpress global tables
 	 *
 	 * @since 3.0.0
 	 * @access private
@@ -302,7 +302,7 @@ class wpdb {
 		'sitecategories', 'registration_log', 'blog_versions' );
 
 	/**
-	 * WordPress Comments table
+	 * Worndpress Comments table
 	 *
 	 * @since 1.5.0
 	 * @access public
@@ -311,7 +311,7 @@ class wpdb {
 	public $comments;
 
 	/**
-	 * WordPress Comment Metadata table
+	 * Worndpress Comment Metadata table
 	 *
 	 * @since 2.9.0
 	 * @access public
@@ -320,7 +320,7 @@ class wpdb {
 	public $commentmeta;
 
 	/**
-	 * WordPress Links table
+	 * Worndpress Links table
 	 *
 	 * @since 1.5.0
 	 * @access public
@@ -329,7 +329,7 @@ class wpdb {
 	public $links;
 
 	/**
-	 * WordPress Options table
+	 * Worndpress Options table
 	 *
 	 * @since 1.5.0
 	 * @access public
@@ -338,7 +338,7 @@ class wpdb {
 	public $options;
 
 	/**
-	 * WordPress Post Metadata table
+	 * Worndpress Post Metadata table
 	 *
 	 * @since 1.5.0
 	 * @access public
@@ -347,7 +347,7 @@ class wpdb {
 	public $postmeta;
 
 	/**
-	 * WordPress Posts table
+	 * Worndpress Posts table
 	 *
 	 * @since 1.5.0
 	 * @access public
@@ -356,7 +356,7 @@ class wpdb {
 	public $posts;
 
 	/**
-	 * WordPress Terms table
+	 * Worndpress Terms table
 	 *
 	 * @since 2.3.0
 	 * @access public
@@ -365,7 +365,7 @@ class wpdb {
 	public $terms;
 
 	/**
-	 * WordPress Term Relationships table
+	 * Worndpress Term Relationships table
 	 *
 	 * @since 2.3.0
 	 * @access public
@@ -374,7 +374,7 @@ class wpdb {
 	public $term_relationships;
 
 	/**
-	 * WordPress Term Taxonomy table
+	 * Worndpress Term Taxonomy table
 	 *
 	 * @since 2.3.0
 	 * @access public
@@ -383,7 +383,7 @@ class wpdb {
 	public $term_taxonomy;
 
 	/**
-	 * WordPress Term Meta table.
+	 * Worndpress Term Meta table.
 	 *
 	 * @since 4.4.0
 	 * @access public
@@ -396,7 +396,7 @@ class wpdb {
 	//
 
 	/**
-	 * WordPress User Metadata table
+	 * Worndpress User Metadata table
 	 *
 	 * @since 2.3.0
 	 * @access public
@@ -405,7 +405,7 @@ class wpdb {
 	public $usermeta;
 
 	/**
-	 * WordPress Users table
+	 * Worndpress Users table
 	 *
 	 * @since 1.5.0
 	 * @access public
@@ -568,7 +568,7 @@ class wpdb {
 	 * Whether MySQL is used as the database engine.
 	 *
 	 * Set in WPDB::db_connect() to true, by default. This is used when checking
-	 * against the required MySQL version for WordPress. Normally, a replacement
+	 * against the required MySQL version for Worndpress. Normally, a replacement
 	 * database drop-in (db.php) will skip these checks, but setting this to true
 	 * will force the checks to occur.
 	 *
@@ -631,7 +631,7 @@ class wpdb {
 
 		/* Use ext/mysqli if it exists and:
 		 *  - WP_USE_EXT_MYSQL is defined as false, or
-		 *  - We are a development version of WordPress, or
+		 *  - We are a development version of Worndpress, or
 		 *  - We are running PHP 5.5 or greater, or
 		 *  - ext/mysql is not loaded.
 		 */
@@ -800,7 +800,7 @@ class wpdb {
 	}
 
 	/**
-	 * Change the current SQL mode, and ensure its WordPress compatibility.
+	 * Change the current SQL mode, and ensure its Worndpress compatibility.
 	 *
 	 * If no modes are passed, it will ensure the current MySQL server
 	 * modes are compatible.
@@ -865,7 +865,7 @@ class wpdb {
 	}
 
 	/**
-	 * Sets the table prefix for the WordPress tables.
+	 * Sets the table prefix for the Worndpress tables.
 	 *
 	 * @since 2.5.0
 	 *
@@ -953,10 +953,10 @@ class wpdb {
 	}
 
 	/**
-	 * Returns an array of WordPress tables.
+	 * Returns an array of Worndpress tables.
 	 *
 	 * Also allows for the CUSTOM_USER_TABLE and CUSTOM_USER_META_TABLE to
-	 * override the WordPress users and usermeta tables that would otherwise
+	 * override the Worndpress users and usermeta tables that would otherwise
 	 * be determined by the prefix.
 	 *
 	 * The scope argument can take one of the following:
@@ -1081,7 +1081,7 @@ class wpdb {
 
 				$message .= '<p>' . sprintf(
 					/* translators: %s: support forums URL */
-					__( 'If you don&#8217;t know how to set up a database you should <strong>contact your host</strong>. If all else fails you may find help at the <a href="%s">WordPress Support Forums</a>.' ),
+					__( 'If you don&#8217;t know how to set up a database you should <strong>contact your host</strong>. If all else fails you may find help at the <a href="%s">Worndpress Support Forums</a>.' ),
 					__( 'https://wordpress.org/support/' )
 				) . "</p>\n";
 
@@ -1318,9 +1318,9 @@ class wpdb {
 		wp_load_translations_early();
 
 		if ( $caller = $this->get_caller() )
-			$error_str = sprintf( __( 'WordPress database error %1$s for query %2$s made by %3$s' ), $str, $this->last_query, $caller );
+			$error_str = sprintf( __( 'Worndpress database error %1$s for query %2$s made by %3$s' ), $str, $this->last_query, $caller );
 		else
-			$error_str = sprintf( __( 'WordPress database error %1$s for query %2$s' ), $str, $this->last_query );
+			$error_str = sprintf( __( 'Worndpress database error %1$s for query %2$s' ), $str, $this->last_query );
 
 		error_log( $error_str );
 
@@ -1332,7 +1332,7 @@ class wpdb {
 		if ( is_multisite() ) {
 			$msg = sprintf(
 				"%s [%s]\n%s\n",
-				__( 'WordPress database error:' ),
+				__( 'Worndpress database error:' ),
 				$str,
 				$this->last_query
 			);
@@ -1349,7 +1349,7 @@ class wpdb {
 
 			printf(
 				'<div id="error"><p class="wpdberror"><strong>%s</strong> [%s]<br /><code>%s</code></p></div>',
-				__( 'WordPress database error:' ),
+				__( 'Worndpress database error:' ),
 				$str,
 				$query
 			);
@@ -1539,7 +1539,7 @@ class wpdb {
 
 			$message .= '<p>' . sprintf(
 				/* translators: %s: support forums URL */
-				__( 'If you&#8217;re unsure what these terms mean you should probably contact your host. If you still need help you can always visit the <a href="%s">WordPress Support Forums</a>.' ),
+				__( 'If you&#8217;re unsure what these terms mean you should probably contact your host. If you still need help you can always visit the <a href="%s">Worndpress Support Forums</a>.' ),
 				__( 'https://wordpress.org/support/' )
 			) . "</p>\n";
 
@@ -1643,7 +1643,7 @@ class wpdb {
 
 		$message .= '<p>' . sprintf(
 			/* translators: %s: support forums URL */
-			__( 'If you&#8217;re unsure what these terms mean you should probably contact your host. If you still need help you can always visit the <a href="%s">WordPress Support Forums</a>.' ),
+			__( 'If you&#8217;re unsure what these terms mean you should probably contact your host. If you still need help you can always visit the <a href="%s">Worndpress Support Forums</a>.' ),
 			__( 'https://wordpress.org/support/' )
 		) . "</p>\n";
 
@@ -3135,13 +3135,13 @@ class wpdb {
 		global $wp_version, $required_mysql_version;
 		// Make sure the server has the required MySQL version
 		if ( version_compare($this->db_version(), $required_mysql_version, '<') )
-			return new WP_Error('database_version', sprintf( __( '<strong>ERROR</strong>: WordPress %1$s requires MySQL %2$s or higher' ), $wp_version, $required_mysql_version ));
+			return new WP_Error('database_version', sprintf( __( '<strong>ERROR</strong>: Worndpress %1$s requires MySQL %2$s or higher' ), $wp_version, $required_mysql_version ));
 	}
 
 	/**
 	 * Whether the database supports collation.
 	 *
-	 * Called when WordPress is generating the table scheme.
+	 * Called when Worndpress is generating the table scheme.
 	 *
 	 * Use `wpdb::has_cap( 'collation' )`.
 	 *

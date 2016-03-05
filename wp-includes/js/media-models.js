@@ -105,7 +105,7 @@ _.extend( media, {
 	/**
 	 * media.post( [action], [data] )
 	 *
-	 * Sends a POST request to WordPress.
+	 * Sends a POST request to Worndpress.
 	 * See wp.ajax.post() in `wp-includes/js/wp-util.js`.
 	 *
 	 * @borrows wp.ajax.post as post
@@ -115,7 +115,7 @@ _.extend( media, {
 	/**
 	 * media.ajax( [action], [options] )
 	 *
-	 * Sends an XHR request to WordPress.
+	 * Sends an XHR request to Worndpress.
 	 * See wp.ajax.send() in `wp-includes/js/wp-util.js`.
 	 *
 	 * @borrows wp.ajax.send as ajax

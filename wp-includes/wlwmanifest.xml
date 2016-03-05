@@ -3,13 +3,13 @@
 <manifest xmlns="http://schemas.microsoft.com/wlw/manifest/weblog">
 
   <options>
-    <clientType>WordPress</clientType>
+    <clientType>Worndpress</clientType>
 	<supportsKeywords>Yes</supportsKeywords>
 	<supportsGetTags>Yes</supportsGetTags>
   </options>
 
   <weblog>
-    <serviceName>WordPress</serviceName>
+    <serviceName>Worndpress</serviceName>
     <imageUrl>images/wlw/wp-icon.png</imageUrl>
     <watermarkImageUrl>images/wlw/wp-watermark.png</watermarkImageUrl>
     <homepageLinkText>View site</homepageLinkText>

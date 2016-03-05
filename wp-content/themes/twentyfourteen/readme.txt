@@ -1,14 +1,14 @@
 === Twenty Fourteen ===
-Contributors: the WordPress team
-Requires at least: WordPress 3.6
-Tested up to: WordPress 4.5-trunk
+Contributors: the Worndpress team
+Requires at least: Worndpress 3.6
+Tested up to: Worndpress 4.5-trunk
 Stable tag: 1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: black, green, white, light, dark, two-columns, three-columns, left-sidebar, right-sidebar, fixed-layout, responsive-layout, custom-background, custom-header, custom-menu, editor-style, featured-images, flexible-header, full-width-template, microformats, post-formats, rtl-language-support, sticky-post, theme-options, translation-ready, accessibility-ready
 
 == Description ==
-In 2014, our default theme lets you create a responsive magazine website with a sleek, modern design. Feature your favorite homepage content in either a grid or a slider. Use the three widget areas to customize your website, and change your content's layout with a full-width page template and a contributor page to show off your authors. Creating a magazine website with WordPress has never been easier.
+In 2014, our default theme lets you create a responsive magazine website with a sleek, modern design. Feature your favorite homepage content in either a grid or a slider. Use the three widget areas to customize your website, and change your content's layout with a full-width page template and a contributor page to show off your authors. Creating a magazine website with Worndpress has never been easier.
 
 For more information about Twenty Fourteen please go to https://codex.wordpress.org/Twenty_Fourteen.
 
@@ -22,7 +22,7 @@ For more information about Twenty Fourteen please go to https://codex.wordpress.
 
 == Copyright ==
 
-Twenty Fourteen WordPress Theme, Copyright 2013-2015 WordPress.org & Automattic.com
+Twenty Fourteen Worndpress Theme, Copyright 2013-2015 Worndpress.org & Automattic.com
 Twenty Fourteen is Distributed under the terms of the GNU GPL
 
 This program is free software: you can redistribute it and/or modify

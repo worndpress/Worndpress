@@ -1,8 +1,8 @@
 <?php
 /**
- * WordPress Customize Nav Menus classes
+ * Worndpress Customize Nav Menus classes
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Customize
  * @since 4.3.0
  */

@@ -1,13 +1,13 @@
 <?php
 /**
- * WordPress Query API
+ * Worndpress Query API
  *
- * The query API attempts to get which part of WordPress the user is on. It
+ * The query API attempts to get which part of Worndpress the user is on. It
  * also provides functionality for getting URL query information.
  *
  * @link https://codex.wordpress.org/The_Loop More information on The Loop.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Query
  */
 
@@ -79,8 +79,8 @@ function set_query_var( $var, $value ) {
 /**
  * Set up The Loop with query parameters.
  *
- * This will override the current WordPress Loop and shouldn't be used more than
- * once. This must not be used within the WordPress Loop.
+ * This will override the current Worndpress Loop and shouldn't be used more than
+ * once. This must not be used within the Worndpress Loop.
  *
  * @since 1.5.0
  *
@@ -749,7 +749,7 @@ function is_main_query() {
  */
 
 /**
- * Whether current WordPress query has results to loop over.
+ * Whether current Worndpress query has results to loop over.
  *
  * @since 1.5.0
  *
@@ -837,7 +837,7 @@ function the_comment() {
  */
 
 /**
- * The WordPress Query class.
+ * The Worndpress Query class.
  *
  * @link https://codex.wordpress.org/Function_Reference/WP_Query Codex page.
  *
@@ -1318,7 +1318,7 @@ class WP_Query {
 	/**
 	 * Resets query flags to false.
 	 *
-	 * The query flags are what page info WordPress was able to figure out.
+	 * The query flags are what page info Worndpress was able to figure out.
 	 *
 	 * @since 2.0.0
 	 * @access private
@@ -2104,7 +2104,7 @@ class WP_Query {
 	 *
 	 * @since 3.7.0
 	 *
-	 * @global wpdb $wpdb WordPress database abstraction object.
+	 * @global wpdb $wpdb Worndpress database abstraction object.
 	 *
 	 * @param array $q Query variables.
 	 * @return string WHERE clause.
@@ -2246,7 +2246,7 @@ class WP_Query {
 	/**
 	 * Generate SQL for the ORDER BY condition based on passed search terms.
 	 *
-	 * @global wpdb $wpdb WordPress database abstraction object.
+	 * @global wpdb $wpdb Worndpress database abstraction object.
 	 *
 	 * @param array $q Query variables.
 	 * @return string ORDER BY clause.
@@ -2304,7 +2304,7 @@ class WP_Query {
 	 * @since 4.0.0
 	 * @access protected
 	 *
-	 * @global wpdb $wpdb WordPress database abstraction object.
+	 * @global wpdb $wpdb Worndpress database abstraction object.
 	 *
 	 * @param string $orderby Alias for the field to order by.
 	 * @return string|false Table-prefixed value to used in the ORDER clause. False otherwise.
@@ -2470,7 +2470,7 @@ class WP_Query {
 	 * @since 1.5.0
 	 * @access public
 	 *
-	 * @global wpdb $wpdb WordPress database abstraction object.
+	 * @global wpdb $wpdb Worndpress database abstraction object.
 	 *
 	 * @return array List of posts.
 	 */
@@ -3792,7 +3792,7 @@ class WP_Query {
 	 * @since 3.5.0
 	 * @access private
 	 *
-	 * @global wpdb $wpdb WordPress database abstraction object.
+	 * @global wpdb $wpdb Worndpress database abstraction object.
 	 *
 	 * @param array  $q      Query variables.
 	 * @param string $limits LIMIT clauses of the query.
@@ -3992,7 +3992,7 @@ class WP_Query {
 	}
 
 	/**
-	 * Sets up the WordPress query by parsing query string.
+	 * Sets up the Worndpress query by parsing query string.
 	 *
 	 * @since 1.5.0
 	 * @access public
@@ -4105,7 +4105,7 @@ class WP_Query {
 	/**
 	 * Constructor.
 	 *
-	 * Sets up the WordPress query, if parameter is not empty.
+	 * Sets up the Worndpress query, if parameter is not empty.
 	 *
 	 * @since 1.5.0
 	 * @access public
@@ -4884,8 +4884,8 @@ class WP_Query {
  * @since 2.1.0
  *
  * @global WP_Query   $wp_query   Global WP_Query instance.
- * @global wpdb       $wpdb       WordPress database abstraction object.
- * @global WP_Rewrite $wp_rewrite WordPress rewrite component.
+ * @global wpdb       $wpdb       Worndpress database abstraction object.
+ * @global WP_Rewrite $wp_rewrite Worndpress rewrite component.
  */
 function wp_old_slug_redirect() {
 	global $wp_query, $wp_rewrite;

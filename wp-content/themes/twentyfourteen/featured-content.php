@@ -2,7 +2,7 @@
 /**
  * The template for displaying featured content
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Twenty_Fourteen
  * @since Twenty Fourteen 1.0
  */

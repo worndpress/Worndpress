@@ -1,8 +1,8 @@
 <?php
 /**
- * WordPress Plugin Administration API
+ * Worndpress Plugin Administration API
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  */
 
@@ -20,7 +20,7 @@
  *     Description: Plugin Description
  *     Author: Plugin author's name
  *     Author URI: Link to the author's web site
- *     Version: Must be set in the plugin for WordPress 2.3+
+ *     Version: Must be set in the plugin for Worndpress 2.3+
  *     Text Domain: Optional. Unique identifier, should be same as the one used in
  *    		load_plugin_textdomain()
  *     Domain Path: Optional. Only useful if the translations are located in a
@@ -217,7 +217,7 @@ function get_plugin_files($plugin) {
 /**
  * Check the plugins directory and retrieve all plugin files with plugin data.
  *
- * WordPress only supports plugin files in the base plugins directory
+ * Worndpress only supports plugin files in the base plugins directory
  * (wp-content/plugins) and in one directory above the plugins directory
  * (wp-content/plugins/my-plugin). The file it looks for has the plugin data
  * and must be found in those two locations. It is recommended to keep your
@@ -299,7 +299,7 @@ function get_plugins($plugin_folder = '') {
 /**
  * Check the mu-plugins directory and retrieve all mu-plugin files with any plugin data.
  *
- * WordPress only includes mu-plugin files in the base mu-plugins directory (wp-content/mu-plugins).
+ * Worndpress only includes mu-plugin files in the base mu-plugins directory (wp-content/mu-plugins).
  *
  * @since 3.0.0
  * @return array Key is the mu-plugin file path and the value is an array of the mu-plugin data.
@@ -397,7 +397,7 @@ function get_dropins() {
 }
 
 /**
- * Returns drop-ins that WordPress uses.
+ * Returns drop-ins that Worndpress uses.
  *
  * Includes Multisite drop-ins only when is_multisite()
  *
@@ -814,7 +814,7 @@ function delete_plugins( $plugins, $deprecated = '' ) {
 	// Get the base plugin folder.
 	$plugins_dir = $wp_filesystem->wp_plugins_dir();
 	if ( empty( $plugins_dir ) ) {
-		return new WP_Error( 'fs_no_plugins_dir', __( 'Unable to locate WordPress Plugin directory.' ) );
+		return new WP_Error( 'fs_no_plugins_dir', __( 'Unable to locate Worndpress Plugin directory.' ) );
 	}
 
 	$plugins_dir = trailingslashit( $plugins_dir );
@@ -1119,7 +1119,7 @@ function add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $func
  * @global array $_registered_pages
  * @global array $_parent_pages
  *
- * @param string   $parent_slug The slug name for the parent menu (or the file name of a standard WordPress admin page).
+ * @param string   $parent_slug The slug name for the parent menu (or the file name of a standard Worndpress admin page).
  * @param string   $page_title  The text to be displayed in the title tags of the page when the menu is selected.
  * @param string   $menu_title  The text to be used for the menu.
  * @param string   $capability  The capability required for this menu to be displayed to the user.

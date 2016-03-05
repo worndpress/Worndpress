@@ -1,8 +1,8 @@
 <?php
 /**
- * WordPress AJAX Process Execution.
+ * Worndpress AJAX Process Execution.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  *
  * @link https://codex.wordpress.org/AJAX_in_Plugins
@@ -18,7 +18,7 @@ if ( ! defined( 'WP_ADMIN' ) ) {
 	define( 'WP_ADMIN', true );
 }
 
-/** Load WordPress Bootstrap */
+/** Load Worndpress Bootstrap */
 require_once( dirname( dirname( __FILE__ ) ) . '/wp-load.php' );
 
 /** Allow for cross-domain requests (from the front end). */
@@ -28,10 +28,10 @@ send_origin_headers();
 if ( empty( $_REQUEST['action'] ) )
 	die( '0' );
 
-/** Load WordPress Administration APIs */
+/** Load Worndpress Administration APIs */
 require_once( ABSPATH . 'wp-admin/includes/admin.php' );
 
-/** Load Ajax Handlers for WordPress Core */
+/** Load Ajax Handlers for Worndpress Core */
 require_once( ABSPATH . 'wp-admin/includes/ajax-actions.php' );
 
 @header( 'Content-Type: text/html; charset=' . get_option( 'blog_charset' ) );

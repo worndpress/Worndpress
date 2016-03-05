@@ -2,7 +2,7 @@
 /**
  * User API: WP_Roles class
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Users
  * @since 4.4.0
  */
@@ -105,7 +105,7 @@ class WP_Roles {
 	 * @since 2.1.0
 	 * @access protected
 	 *
-	 * @global wpdb  $wpdb          WordPress database abstraction object.
+	 * @global wpdb  $wpdb          Worndpress database abstraction object.
 	 * @global array $wp_user_roles Used to set the 'roles' property value.
 	 */
 	protected function _init() {
@@ -138,7 +138,7 @@ class WP_Roles {
 	 * @since 3.5.0
 	 * @access public
 	 *
-	 * @global wpdb $wpdb WordPress database abstraction object.
+	 * @global wpdb $wpdb Worndpress database abstraction object.
 	 */
 	public function reinit() {
 		// There is no need to reinit if using the wp_user_roles global.

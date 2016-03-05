@@ -2,7 +2,7 @@
 /**
  * Comment API: WP_Comment_Query class
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Comments
  * @since 4.4.0
  */
@@ -327,7 +327,7 @@ class WP_Comment_Query {
 	}
 
 	/**
-	 * Sets up the WordPress query for retrieving comments.
+	 * Sets up the Worndpress query for retrieving comments.
 	 *
 	 * @since 3.1.0
 	 * @since 4.1.0 Introduced 'comment__in', 'comment__not_in', 'post_author__in',
@@ -351,7 +351,7 @@ class WP_Comment_Query {
 	 * @since 4.2.0
 	 * @access public
 	 *
-	 * @global wpdb $wpdb WordPress database abstraction object.
+	 * @global wpdb $wpdb Worndpress database abstraction object.
 	 *
 	 * @return int|array The list of comments.
 	 */
@@ -471,7 +471,7 @@ class WP_Comment_Query {
 	 * @since 4.4.0
 	 * @access protected
 	 *
-	 * @global wpdb $wpdb WordPress database abstraction object.
+	 * @global wpdb $wpdb Worndpress database abstraction object.
 	 */
 	protected function get_comment_ids() {
 		global $wpdb;
@@ -1001,7 +1001,7 @@ class WP_Comment_Query {
 	 * @since 3.1.0
 	 * @access protected
 	 *
-	 * @global wpdb $wpdb WordPress database abstraction object.
+	 * @global wpdb $wpdb Worndpress database abstraction object.
 	 *
 	 * @param string $string
 	 * @param array $cols
@@ -1026,7 +1026,7 @@ class WP_Comment_Query {
 	 * @since 4.2.0
 	 * @access protected
 	 *
-	 * @global wpdb $wpdb WordPress database abstraction object.
+	 * @global wpdb $wpdb Worndpress database abstraction object.
 	 *
 	 * @param string $orderby Alias for the field to order by.
 	 * @return string|false Value to used in the ORDER clause. False otherwise.

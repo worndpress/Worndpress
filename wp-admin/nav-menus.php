@@ -1,15 +1,15 @@
 <?php
 /**
- * WordPress Administration for Navigation Menus
+ * Worndpress Administration for Navigation Menus
  * Interface functions
  *
  * @version 2.0.0
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  */
 
-/** Load WordPress Administration Bootstrap */
+/** Load Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 // Load all the nav menu interface functions

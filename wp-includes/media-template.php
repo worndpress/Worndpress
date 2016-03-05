@@ -1,8 +1,8 @@
 <?php
 /**
- * WordPress media templates.
+ * Worndpress media templates.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Media
  * @since 3.5.0
  */

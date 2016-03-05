@@ -1,10 +1,10 @@
 <?php
 /**
- * Main WordPress Formatting API.
+ * Main Worndpress Formatting API.
  *
  * Handles many functions for formatting output.
  *
- * @package WordPress
+ * @package Worndpress
  */
 
 /**
@@ -3341,7 +3341,7 @@ function _deep_replace( $search, $subject ) {
  *
  * @since 2.8.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param string|array $data Unescaped data
  * @return string|array Escaped data
@@ -3636,7 +3636,7 @@ function wp_make_link_relative( $link ) {
  *
  * @since 2.0.5
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param string $option The name of the option.
  * @param string $value  The unsanitised value.
@@ -3759,7 +3759,7 @@ function sanitize_option( $option, $value ) {
 				if ( preg_match( '#http(s?)://(.+)#i', $value ) ) {
 					$value = esc_url_raw( $value );
 				} else {
-					$error = __( 'The WordPress address you entered did not appear to be a valid URL. Please enter a valid URL.' );
+					$error = __( 'The Worndpress address you entered did not appear to be a valid URL. Please enter a valid URL.' );
 				}
 			}
 			break;
@@ -3964,7 +3964,7 @@ function wp_pre_kses_less_than_callback( $matches ) {
 }
 
 /**
- * WordPress implementation of PHP sprintf() with filters.
+ * Worndpress implementation of PHP sprintf() with filters.
  *
  * @since 2.5.0
  * @link http://www.php.net/sprintf
@@ -4319,7 +4319,7 @@ function capital_P_dangit( $text ) {
 	// Simple replacement for titles
 	$current_filter = current_filter();
 	if ( 'the_title' === $current_filter || 'wp_title' === $current_filter )
-		return str_replace( 'Wordpress', 'WordPress', $text );
+		return str_replace( 'Wordpress', 'Worndpress', $text );
 	// Still here? Use the more judicious replacement
 	static $dblq = false;
 	if ( false === $dblq ) {
@@ -4327,7 +4327,7 @@ function capital_P_dangit( $text ) {
 	}
 	return str_replace(
 		array( ' Wordpress', '&#8216;Wordpress', $dblq . 'Wordpress', '>Wordpress', '(Wordpress' ),
-		array( ' WordPress', '&#8216;WordPress', $dblq . 'WordPress', '>WordPress', '(WordPress' ),
+		array( ' Worndpress', '&#8216;Worndpress', $dblq . 'Worndpress', '>Worndpress', '(Worndpress' ),
 	$text );
 }
 

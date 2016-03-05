@@ -1,16 +1,16 @@
 <?php
 /**
- * The User Interface "Skins" for the WordPress File Upgrader
+ * The User Interface "Skins" for the Worndpress File Upgrader
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Upgrader
  * @since 2.8.0
  */
 
 /**
- * Generic Skin for the WordPress Upgrader classes. This skin is designed to be extended for specific purposes.
+ * Generic Skin for the Worndpress Upgrader classes. This skin is designed to be extended for specific purposes.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Upgrader
  * @since 2.8.0
  */
@@ -191,9 +191,9 @@ class WP_Upgrader_Skin {
 }
 
 /**
- * Plugin Upgrader Skin for WordPress Plugin Upgrades.
+ * Plugin Upgrader Skin for Worndpress Plugin Upgrades.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Upgrader
  * @since 2.8.0
  */
@@ -253,9 +253,9 @@ class Plugin_Upgrader_Skin extends WP_Upgrader_Skin {
 }
 
 /**
- * Plugin Upgrader Skin for WordPress Plugin Upgrades.
+ * Plugin Upgrader Skin for Worndpress Plugin Upgrades.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Upgrader
  * @since 3.0.0
  */
@@ -450,7 +450,7 @@ class Bulk_Plugin_Upgrader_Skin extends Bulk_Upgrader_Skin {
 		parent::bulk_footer();
 		$update_actions =  array(
 			'plugins_page' => '<a href="' . self_admin_url( 'plugins.php' ) . '" target="_parent">' . __( 'Return to Plugins page' ) . '</a>',
-			'updates_page' => '<a href="' . self_admin_url( 'update-core.php' ) . '" target="_parent">' . __( 'Return to WordPress Updates page' ) . '</a>'
+			'updates_page' => '<a href="' . self_admin_url( 'update-core.php' ) . '" target="_parent">' . __( 'Return to Worndpress Updates page' ) . '</a>'
 		);
 		if ( ! current_user_can( 'activate_plugins' ) )
 			unset( $update_actions['plugins_page'] );
@@ -502,7 +502,7 @@ class Bulk_Theme_Upgrader_Skin extends Bulk_Upgrader_Skin {
 		parent::bulk_footer();
 		$update_actions =  array(
 			'themes_page' => '<a href="' . self_admin_url( 'themes.php' ) . '" target="_parent">' . __( 'Return to Themes page' ) . '</a>',
-			'updates_page' => '<a href="' . self_admin_url( 'update-core.php' ) . '" target="_parent">' . __( 'Return to WordPress Updates page' ) . '</a>'
+			'updates_page' => '<a href="' . self_admin_url( 'update-core.php' ) . '" target="_parent">' . __( 'Return to Worndpress Updates page' ) . '</a>'
 		);
 		if ( ! current_user_can( 'switch_themes' ) && ! current_user_can( 'edit_theme_options' ) )
 			unset( $update_actions['themes_page'] );
@@ -523,9 +523,9 @@ class Bulk_Theme_Upgrader_Skin extends Bulk_Upgrader_Skin {
 }
 
 /**
- * Plugin Installer Skin for WordPress Plugin Installer.
+ * Plugin Installer Skin for Worndpress Plugin Installer.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Upgrader
  * @since 2.8.0
  */
@@ -595,7 +595,7 @@ class Plugin_Installer_Skin extends WP_Upgrader_Skin {
 		 * @since 2.7.0
 		 *
 		 * @param array  $install_actions Array of plugin action links.
-		 * @param object $api             Object containing WordPress.org API plugin data. Empty
+		 * @param object $api             Object containing Worndpress.org API plugin data. Empty
 		 *                                for non-API installs, such as when a plugin is installed
 		 *                                via upload.
 		 * @param string $plugin_file     Path to the plugin file.
@@ -608,9 +608,9 @@ class Plugin_Installer_Skin extends WP_Upgrader_Skin {
 }
 
 /**
- * Theme Installer Skin for the WordPress Theme Installer.
+ * Theme Installer Skin for the Worndpress Theme Installer.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Upgrader
  * @since 2.8.0
  */
@@ -686,7 +686,7 @@ class Theme_Installer_Skin extends WP_Upgrader_Skin {
 		 * @since 2.8.0
 		 *
 		 * @param array    $install_actions Array of theme action links.
-		 * @param object   $api             Object containing WordPress.org API theme data.
+		 * @param object   $api             Object containing Worndpress.org API theme data.
 		 * @param string   $stylesheet      Theme directory name.
 		 * @param WP_Theme $theme_info      Theme object.
 		 */
@@ -697,9 +697,9 @@ class Theme_Installer_Skin extends WP_Upgrader_Skin {
 }
 
 /**
- * Theme Upgrader Skin for WordPress Theme Upgrades.
+ * Theme Upgrader Skin for Worndpress Theme Upgrades.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Upgrader
  * @since 2.8.0
  */
@@ -771,9 +771,9 @@ class Theme_Upgrader_Skin extends WP_Upgrader_Skin {
 }
 
 /**
- * Translation Upgrader Skin for WordPress Translation Upgrades.
+ * Translation Upgrader Skin for Worndpress Translation Upgrades.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Upgrader
  * @since 3.7.0
  */
@@ -832,7 +832,7 @@ class Language_Pack_Upgrader_Skin extends WP_Upgrader_Skin {
 	public function bulk_footer() {
 		$this->decrement_update_count( 'translation' );
 		$update_actions = array();
-		$update_actions['updates_page'] = '<a href="' . self_admin_url( 'update-core.php' ) . '" target="_parent">' . __( 'Return to WordPress Updates page' ) . '</a>';
+		$update_actions['updates_page'] = '<a href="' . self_admin_url( 'update-core.php' ) . '" target="_parent">' . __( 'Return to Worndpress Updates page' ) . '</a>';
 
 		/**
 		 * Filter the list of action links available following a translations update.
@@ -849,12 +849,12 @@ class Language_Pack_Upgrader_Skin extends WP_Upgrader_Skin {
 }
 
 /**
- * Upgrader Skin for Automatic WordPress Upgrades
+ * Upgrader Skin for Automatic Worndpress Upgrades
  *
  * This skin is designed to be used when no output is intended, all output
  * is captured and stored for the caller to process and log/email/discard.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Upgrader
  * @since 3.7.0
  */

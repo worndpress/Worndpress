@@ -2,12 +2,12 @@
 /**
  * Network Plugins administration panel.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Multisite
  * @since 3.1.0
  */
 
-/** Load WordPress Administration Bootstrap */
+/** Load Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( ! is_multisite() )

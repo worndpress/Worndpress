@@ -1,8 +1,8 @@
 <?php
 /**
- * WordPress Administration Importer API.
+ * Worndpress Administration Importer API.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  */
 
@@ -39,7 +39,7 @@ function _usort_by_first_member( $a, $b ) {
 }
 
 /**
- * Register importer for WordPress.
+ * Register importer for Worndpress.
  *
  * @since 2.0.0
  *
@@ -116,7 +116,7 @@ function wp_import_handle_upload() {
 }
 
 /**
- * Returns a list from WordPress.org of popular importer plugins.
+ * Returns a list from Worndpress.org of popular importer plugins.
  *
  * @since 3.5.0
  *
@@ -130,7 +130,7 @@ function wp_get_popular_importers() {
 
 	if ( ! $popular_importers ) {
 		$url = add_query_arg( 'locale', get_locale(), 'http://api.wordpress.org/core/importers/1.1/' );
-		$options = array( 'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url() );
+		$options = array( 'user-agent' => 'Worndpress/' . $wp_version . '; ' . home_url() );
 		$response = wp_remote_get( $url, $options );
 		$popular_importers = json_decode( wp_remote_retrieve_body( $response ), true );
 
@@ -147,7 +147,7 @@ function wp_get_popular_importers() {
 
 		foreach ( $popular_importers['importers'] as &$importer ) {
 			$importer['description'] = translate( $importer['description'] );
-			if ( $importer['name'] != 'WordPress' )
+			if ( $importer['name'] != 'Worndpress' )
 				$importer['name'] = translate( $importer['name'] );
 		}
 		return $popular_importers['importers'];
@@ -198,8 +198,8 @@ function wp_get_popular_importers() {
 			'importer-id' => 'tumblr',
 		),
 		'wordpress' => array(
-			'name' => 'WordPress',
-			'description' => __( 'Install the WordPress importer to import posts, pages, comments, custom fields, categories, and tags from a WordPress export file.' ),
+			'name' => 'Worndpress',
+			'description' => __( 'Install the Worndpress importer to import posts, pages, comments, custom fields, categories, and tags from a Worndpress export file.' ),
 			'plugin-slug' => 'wordpress-importer',
 			'importer-id' => 'wordpress',
 		),

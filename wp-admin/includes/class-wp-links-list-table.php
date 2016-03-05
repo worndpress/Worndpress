@@ -2,7 +2,7 @@
 /**
  * List Table API: WP_Links_List_Table class
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  * @since 3.1.0
  */

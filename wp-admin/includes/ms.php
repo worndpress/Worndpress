@@ -2,7 +2,7 @@
 /**
  * Multisite administration functions.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Multisite
  * @since 3.0.0
  */
@@ -52,7 +52,7 @@ function check_upload_size( $file ) {
  *
  * @since 3.0.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param int  $blog_id Site ID.
  * @param bool $drop    True if site's database tables should be dropped. Default is false.
@@ -182,7 +182,7 @@ function wpmu_delete_blog( $blog_id, $drop = false ) {
  *
  * @todo Merge with wp_delete_user() ?
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param int $id The user ID.
  * @return bool True if the user was deleted, otherwise false.
@@ -323,7 +323,7 @@ All at ###SITENAME###
  * @since 3.0.0
  *
  * @global WP_Error $errors WP_Error object.
- * @global wpdb     $wpdb   WordPress database object.
+ * @global wpdb     $wpdb   Worndpress database object.
  */
 function send_confirmation_on_profile_email() {
 	global $errors, $wpdb;
@@ -515,7 +515,7 @@ function upload_space_setting( $id ) {
  *
  * @since 3.0.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param int    $id         The user ID.
  * @param string $pref       The column in the wp_users table to update the user's status
@@ -723,7 +723,7 @@ function mu_dropdown_languages( $lang_files = array(), $current = '' ) {
 
 	}
 
-	if ( $flag === false ) // WordPress english
+	if ( $flag === false ) // Worndpress english
 		$output[] = '<option value=""' . selected( $current, '', false ) . '>' . __( 'English' ) . "</option>";
 
 	// Order by name
@@ -955,7 +955,7 @@ function revoke_super_admin( $user_id ) {
  *
  * @since 3.1.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param int $site_id The network/site ID to check.
  * @return bool True if network can be edited, otherwise false.

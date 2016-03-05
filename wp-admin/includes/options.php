@@ -1,8 +1,8 @@
 <?php
 /**
- * WordPress Options Administration API.
+ * Worndpress Options Administration API.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  * @since 4.4.0
  */

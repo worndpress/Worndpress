@@ -2,14 +2,14 @@
 /**
  * Theme Customize Screen.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Customize
  * @since 3.4.0
  */
 
 define( 'IFRAME_REQUEST', true );
 
-/** Load WordPress Administration Bootstrap */
+/** Load Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( ! current_user_can( 'customize' ) ) {

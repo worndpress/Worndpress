@@ -1,8 +1,8 @@
 <?php
 /**
- * WordPress Customize Manager classes
+ * Worndpress Customize Manager classes
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Customize
  * @since 3.4.0
  */
@@ -598,7 +598,7 @@ final class WP_Customize_Manager {
 	public function wp_loaded() {
 
 		/**
-		 * Fires once WordPress has loaded, allowing scripts and styles to be initialized.
+		 * Fires once Worndpress has loaded, allowing scripts and styles to be initialized.
 		 *
 		 * @since 3.4.0
 		 *
@@ -1083,7 +1083,7 @@ final class WP_Customize_Manager {
 	 * that have no corresponding setting created.
 	 *
 	 * This is a mechanism to "wake up" settings that have been dynamically created
-	 * on the front end and have been sent to WordPress in `$_POST['customized']`. When WP
+	 * on the front end and have been sent to Worndpress in `$_POST['customized']`. When WP
 	 * loads, the dynamically-created settings then will get created and previewed
 	 * even though they are not directly created statically with code.
 	 *

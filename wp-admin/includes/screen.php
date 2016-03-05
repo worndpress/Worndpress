@@ -1,8 +1,8 @@
 <?php
 /**
- * WordPress Administration Screen API.
+ * Worndpress Administration Screen API.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  */
 

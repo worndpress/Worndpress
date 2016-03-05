@@ -1,8 +1,8 @@
 <?php
 /**
- * WordPress User Administration Bootstrap
+ * Worndpress User Administration Bootstrap
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  * @since 3.1.0
  */

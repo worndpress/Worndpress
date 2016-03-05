@@ -1,7 +1,7 @@
 /* global tinymce */
 
 /**
- * WordPress View plugin.
+ * Worndpress View plugin.
  */
 tinymce.PluginManager.add( 'wpview', function( editor ) {
 	var $ = editor.$,

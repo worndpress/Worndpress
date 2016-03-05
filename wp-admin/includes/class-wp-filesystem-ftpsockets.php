@@ -1,16 +1,16 @@
 <?php
 /**
- * WordPress FTP Sockets Filesystem.
+ * Worndpress FTP Sockets Filesystem.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Filesystem
  */
 
 /**
- * WordPress Filesystem Class for implementing FTP Sockets.
+ * Worndpress Filesystem Class for implementing FTP Sockets.
  *
  * @since 2.5.0
- * @package WordPress
+ * @package Worndpress
  * @subpackage Filesystem
  * @uses WP_Filesystem_Base Extends class
  */

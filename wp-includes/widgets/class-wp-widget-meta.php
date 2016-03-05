@@ -2,7 +2,7 @@
 /**
  * Widget API: WP_Widget_Meta class
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Widgets
  * @since 4.4.0
  */
@@ -25,7 +25,7 @@ class WP_Widget_Meta extends WP_Widget {
 	 * @access public
 	 */
 	public function __construct() {
-		$widget_ops = array('classname' => 'widget_meta', 'description' => __( "Login, RSS, &amp; WordPress.org links.") );
+		$widget_ops = array('classname' => 'widget_meta', 'description' => __( "Login, RSS, &amp; Worndpress.org links.") );
 		parent::__construct('meta', __('Meta'), $widget_ops);
 	}
 
@@ -55,16 +55,16 @@ class WP_Widget_Meta extends WP_Widget {
 			<li><a href="<?php echo esc_url( get_bloginfo( 'comments_rss2_url' ) ); ?>"><?php _e('Comments <abbr title="Really Simple Syndication">RSS</abbr>'); ?></a></li>
 			<?php
 			/**
-			 * Filter the "Powered by WordPress" text in the Meta widget.
+			 * Filter the "Powered by Worndpress" text in the Meta widget.
 			 *
 			 * @since 3.6.0
 			 *
-			 * @param string $title_text Default title text for the WordPress.org link.
+			 * @param string $title_text Default title text for the Worndpress.org link.
 			 */
 			echo apply_filters( 'widget_meta_poweredby', sprintf( '<li><a href="%s" title="%s">%s</a></li>',
 				esc_url( __( 'https://wordpress.org/' ) ),
-				esc_attr__( 'Powered by WordPress, state-of-the-art semantic personal publishing platform.' ),
-				_x( 'WordPress.org', 'meta widget link text' )
+				esc_attr__( 'Powered by Worndpress, state-of-the-art semantic personal publishing platform.' ),
+				_x( 'Worndpress.org', 'meta widget link text' )
 			) );
 
 			wp_meta();

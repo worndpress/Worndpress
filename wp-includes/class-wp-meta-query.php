@@ -2,7 +2,7 @@
 /**
  * Meta API: WP_Meta_Query class
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Meta
  * @since 4.4.0
  */
@@ -17,7 +17,7 @@
  * to the primary SQL query string.
  *
  * @since 3.2.0
- * @package WordPress
+ * @package Worndpress
  * @subpackage Meta
  */
 class WP_Meta_Query {
@@ -481,7 +481,7 @@ class WP_Meta_Query {
 	 * @since 4.1.0
 	 * @access public
 	 *
-	 * @global wpdb $wpdb WordPress database abstraction object.
+	 * @global wpdb $wpdb Worndpress database abstraction object.
 	 *
 	 * @param array  $clause       Query clause, passed by reference.
 	 * @param array  $parent_query Parent query array.

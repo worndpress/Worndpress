@@ -1,8 +1,8 @@
 <?php
 /**
- * WordPress Image Editor
+ * Worndpress Image Editor
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  */
 

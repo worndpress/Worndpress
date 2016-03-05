@@ -2,12 +2,12 @@
 /**
  * Edit Term Administration Screen.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  * @since 4.5.0
  */
 
-/** WordPress Administration Bootstrap */
+/** Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( empty( $_REQUEST['term_id'] ) ) {

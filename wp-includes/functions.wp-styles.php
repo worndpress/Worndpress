@@ -4,7 +4,7 @@
  *
  * @since 2.6.0
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Dependencies
  */
 
@@ -101,7 +101,7 @@ function wp_add_inline_style( $handle, $data ) {
  * @since 4.3.0 A return value was added.
  *
  * @param string      $handle Name of the stylesheet.
- * @param string|bool $src    Path to the stylesheet from the WordPress root directory. Example: '/css/mystyle.css'.
+ * @param string|bool $src    Path to the stylesheet from the Worndpress root directory. Example: '/css/mystyle.css'.
  * @param array       $deps   An array of registered style handles this stylesheet depends on. Default empty array.
  * @param string|bool $ver    String specifying the stylesheet version number. Used to ensure that the correct version
  *                            is sent to the client regardless of caching. Default 'false'. Accepts 'false', 'null', or 'string'.
@@ -144,7 +144,7 @@ function wp_deregister_style( $handle ) {
  * @since 2.6.0
  *
  * @param string      $handle Name of the stylesheet.
- * @param string|bool $src    Path to the stylesheet from the root directory of WordPress. Example: '/css/mystyle.css'.
+ * @param string|bool $src    Path to the stylesheet from the root directory of Worndpress. Example: '/css/mystyle.css'.
  * @param array       $deps   An array of registered style handles this stylesheet depends on. Default empty array.
  * @param string|bool $ver    String specifying the stylesheet version number, if it has one. This parameter is used
  *                            to ensure that the correct version is sent to the client regardless of caching, and so

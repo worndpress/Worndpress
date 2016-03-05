@@ -1,14 +1,14 @@
 <?php
 /**
- * WordPress Generic Request (POST/GET) Handler
+ * Worndpress Generic Request (POST/GET) Handler
  *
  * Intended for form submission handling in themes and plugins.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  */
 
-/** We are located in WordPress Administration Screens */
+/** We are located in Worndpress Administration Screens */
 if ( ! defined( 'WP_ADMIN' ) ) {
 	define( 'WP_ADMIN', true );
 }

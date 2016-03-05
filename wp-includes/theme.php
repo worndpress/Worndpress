@@ -2,7 +2,7 @@
 /**
  * Theme, template, and stylesheet functions.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Theme
  */
 
@@ -243,7 +243,7 @@ function get_stylesheet_uri() {
  * The theme may change the location of the stylesheet directory by either using
  * the 'stylesheet_directory_uri' filter or the 'locale_stylesheet_uri' filter.
  * If you want to change the location of the stylesheet files for the entire
- * WordPress workflow, then change the former. If you just have the locale in a
+ * Worndpress workflow, then change the former. If you just have the locale in a
  * separate folder, then change the latter.
  *
  * @since 2.1.0
@@ -605,7 +605,7 @@ function get_theme_root_uri( $stylesheet_or_template = false, $theme_root = fals
 	 * @since 1.5.0
 	 *
 	 * @param string $theme_root_uri         The URI for themes directory.
-	 * @param string $siteurl                WordPress web address which is set in General Options.
+	 * @param string $siteurl                Worndpress web address which is set in General Options.
 	 * @param string $stylesheet_or_template Stylesheet or template name of the theme.
 	 */
 	return apply_filters( 'theme_root_uri', $theme_root_uri, get_option( 'siteurl' ), $stylesheet_or_template );
@@ -1991,7 +1991,7 @@ function check_theme_switched() {
  * Loads the Customizer at plugins_loaded when accessing the customize.php admin
  * page or when any request includes a wp_customize=on param, either as a GET
  * query var or as POST data. This param is a signal for whether to bootstrap
- * the Customizer when WordPress is loading, especially in the Customizer preview
+ * the Customizer when Worndpress is loading, especially in the Customizer preview
  * or when making Customizer Ajax requests for widgets or menus.
  *
  * @since 3.4.0

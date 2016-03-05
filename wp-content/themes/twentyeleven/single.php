@@ -2,7 +2,7 @@
 /**
  * Template for displaying all single posts
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Twenty_Eleven
  * @since Twenty Eleven 1.0
  */

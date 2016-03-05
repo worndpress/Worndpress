@@ -2,7 +2,7 @@
 /**
  * Core Comment API
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Comment
  */
 
@@ -24,7 +24,7 @@
  *
  * @since 1.2.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param string $author       Comment author name.
  * @param string $email        Comment author email.
@@ -220,7 +220,7 @@ function get_comments( $args = '' ) {
 }
 
 /**
- * Retrieve all of the WordPress supported comment statuses.
+ * Retrieve all of the Worndpress supported comment statuses.
  *
  * Comments have a limited set of valid status values, this provides the comment
  * status values and descriptions.
@@ -288,7 +288,7 @@ function get_default_comment_status( $post_type = 'post', $comment_type = 'comme
  *
  * @since 1.5.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  * @staticvar array $cache_lastcommentmodified
  *
  * @param string $timezone Which timezone to use in reference to 'gmt', 'blog',
@@ -330,7 +330,7 @@ function get_lastcommentmodified($timezone = 'server') {
  *
  * @since 2.0.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param int $post_id Optional. Comment amount in post if > 0, else total comments blog wide.
  * @return array The amount of spam, approved, awaiting moderation, and total comments.
@@ -584,7 +584,7 @@ function sanitize_comment_cookies() {
  *
  * @since 2.0.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param array $commentdata Contains information on the comment
  * @return int|string Signifies the approval status (0|1|'spam')
@@ -717,7 +717,7 @@ function wp_allow_comment( $commentdata ) {
  *
  * @since 2.3.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param string $ip Comment IP.
  * @param string $email Comment author email address.
@@ -856,7 +856,7 @@ function get_comment_pages_count( $comments = null, $per_page = null, $threaded 
  *
  * @since 2.7.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param int   $comment_ID Comment ID.
  * @param array $args {
@@ -976,7 +976,7 @@ function get_page_of_comment( $comment_ID, $args = array() ) {
  *
  * @since 4.5.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @return array Maximum character length for the comment form fields.
  */
@@ -1141,7 +1141,7 @@ function wp_count_comments( $post_id = 0 ) {
  *
  * @since 2.0.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param int|WP_Comment $comment_id   Comment ID or WP_Comment object.
  * @param bool           $force_delete Whether to bypass trash and force deletion. Default is false.
@@ -1531,7 +1531,7 @@ function wp_get_current_commenter() {
  * @since 2.0.0
  * @since 4.4.0 Introduced `$comment_meta` argument.
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param array $commentdata {
  *     Array of arguments for inserting a new comment.
@@ -1703,7 +1703,7 @@ function wp_throttle_comment_flood($block, $time_lastcomment, $time_newcomment) 
  *
  * Filters new comment to ensure that the fields are sanitized and valid before
  * inserting comment into database. Calls 'comment_post' action with comment ID
- * and whether comment is approved by WordPress. Also has 'preprocess_comment'
+ * and whether comment is approved by Worndpress. Also has 'preprocess_comment'
  * filter for processing the comment data before the function handles it.
  *
  * We use REMOTE_ADDR here directly. If you are behind a proxy, you should ensure
@@ -1714,7 +1714,7 @@ function wp_throttle_comment_flood($block, $time_lastcomment, $time_newcomment) 
  * @since 4.3.0 'comment_agent' and 'comment_author_IP' can be set via `$commentdata`.
  *
  * @see wp_insert_comment()
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param array $commentdata {
  *     Comment data.
@@ -1898,7 +1898,7 @@ function wp_new_comment_notify_postauthor( $comment_ID ) {
  *
  * @since 1.0.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param int|WP_Comment $comment_id     Comment ID or WP_Comment object.
  * @param string         $comment_status New comment status, either 'hold', 'approve', 'spam', or 'trash'.
@@ -1967,7 +1967,7 @@ function wp_set_comment_status($comment_id, $comment_status, $wp_error = false) 
  *
  * @since 2.0.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param array $commentarr Contains information on the comment.
  * @return int Comment was updated if value is 1, or was not updated if value is 0.
@@ -2120,7 +2120,7 @@ function wp_update_comment_count($post_id, $do_deferred=false) {
  *
  * @since 2.5.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param int $post_id Post ID
  * @return bool True on success, false on '0' $post_id or if post with ID does not exist.
@@ -2256,7 +2256,7 @@ function discover_pingback_server_uri( $url, $deprecated = '' ) {
  *
  * @since 2.1.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function do_all_pings() {
 	global $wpdb;
@@ -2288,7 +2288,7 @@ function do_all_pings() {
  *
  * @since 1.5.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param int $post_id Post ID to do trackbacks on.
  */
@@ -2425,14 +2425,14 @@ function pingback($content, $post_ID) {
 			 *
 			 * @since 2.9.0
 			 *
-			 * @param string $concat_useragent    The user agent concatenated with ' -- WordPress/'
-			 *                                    and the WordPress version.
+			 * @param string $concat_useragent    The user agent concatenated with ' -- Worndpress/'
+			 *                                    and the Worndpress version.
 			 * @param string $useragent           The useragent.
 			 * @param string $pingback_server_url The server URL being linked to.
 			 * @param string $pagelinkedto        URL of page linked to.
 			 * @param string $pagelinkedfrom      URL of page linked from.
 			 */
-			$client->useragent = apply_filters( 'pingback_useragent', $client->useragent . ' -- WordPress/' . $wp_version, $client->useragent, $pingback_server_url, $pagelinkedto, $pagelinkedfrom );
+			$client->useragent = apply_filters( 'pingback_useragent', $client->useragent . ' -- Worndpress/' . $wp_version, $client->useragent, $pingback_server_url, $pagelinkedto, $pagelinkedfrom );
 			// when set to true, this outputs debug messages by itself
 			$client->debug = false;
 
@@ -2464,7 +2464,7 @@ function privacy_ping_filter($sites) {
  *
  * @since 0.71
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param string $trackback_url URL to send trackbacks.
  * @param string $title Title of post.
@@ -2514,7 +2514,7 @@ function weblog_ping($server = '', $path = '') {
 	// using a timeout of 3 seconds should be enough to cover slow servers
 	$client = new WP_HTTP_IXR_Client($server, ((!strlen(trim($path)) || ('/' == $path)) ? false : $path));
 	$client->timeout = 3;
-	$client->useragent .= ' -- WordPress/'.$wp_version;
+	$client->useragent .= ' -- Worndpress/'.$wp_version;
 
 	// when set to true, this outputs debug messages by itself
 	$client->debug = false;
@@ -2616,7 +2616,7 @@ function update_comment_cache( $comments, $update_meta_cache = true ) {
  * @access private
  *
  * @see update_comment_cache()
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param array $comment_ids       Array of comment IDs.
  * @param bool  $update_meta_cache Optional. Whether to update the meta cache. Default true.

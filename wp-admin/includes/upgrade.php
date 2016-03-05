@@ -1,10 +1,10 @@
 <?php
 /**
- * WordPress Upgrade API
+ * Worndpress Upgrade API
  *
  * Most of the functions are pluggable and can be overwritten.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  */
 
@@ -12,10 +12,10 @@
 if ( file_exists(WP_CONTENT_DIR . '/install.php') )
 	require (WP_CONTENT_DIR . '/install.php');
 
-/** WordPress Administration API */
+/** Worndpress Administration API */
 require_once(ABSPATH . 'wp-admin/includes/admin.php');
 
-/** WordPress Schema API */
+/** Worndpress Schema API */
 require_once(ABSPATH . 'wp-admin/includes/schema.php');
 
 if ( !function_exists('wp_install') ) :
@@ -168,7 +168,7 @@ function wp_install_defaults( $user_id ) {
 		$first_post = str_replace( 'SITE_URL', esc_url( network_home_url() ), $first_post );
 		$first_post = str_replace( 'SITE_NAME', get_current_site()->site_name, $first_post );
 	} else {
-		$first_post = __( 'Welcome to WordPress. This is your first post. Edit or delete it, then start writing!' );
+		$first_post = __( 'Welcome to Worndpress. This is your first post. Edit or delete it, then start writing!' );
 	}
 
 	$wpdb->insert( $wpdb->posts, array(
@@ -191,7 +191,7 @@ function wp_install_defaults( $user_id ) {
 	$wpdb->insert( $wpdb->term_relationships, array('term_taxonomy_id' => $cat_tt_id, 'object_id' => 1) );
 
 	// Default comment
-	$first_comment_author = __('Mr WordPress');
+	$first_comment_author = __('Mr Worndpress');
 	$first_comment_url = 'https://wordpress.org/';
 	$first_comment = __('Hi, this is a comment.
 To delete a comment, just log in and view the post&#039;s comments. There you will have the option to edit or delete them.');
@@ -219,7 +219,7 @@ To delete a comment, just log in and view the post&#039;s comments. There you wi
 
 <blockquote>The XYZ Doohickey Company was founded in 1971, and has been providing quality doohickeys to the public ever since. Located in Gotham City, XYZ employs over 2,000 people and does all kinds of awesome things for the Gotham community.</blockquote>
 
-As a new WordPress user, you should go to <a href=\"%s\">your dashboard</a> to delete this page and create new pages for your content. Have fun!" ), admin_url() );
+As a new Worndpress user, you should go to <a href=\"%s\">your dashboard</a> to delete this page and create new pages for your content. Have fun!" ), admin_url() );
 	if ( is_multisite() )
 		$first_page = get_site_option( 'first_page', $first_page );
 	$first_post_guid = get_option('home') . '/?page_id=2';
@@ -283,7 +283,7 @@ endif;
  *
  * @since 4.2.0
  *
- * @global WP_Rewrite $wp_rewrite WordPress rewrite component.
+ * @global WP_Rewrite $wp_rewrite Worndpress rewrite component.
  *
  * @return bool Whether pretty permalinks are enabled. False otherwise.
  */
@@ -317,7 +317,7 @@ function wp_install_maybe_enable_pretty_permalinks() {
 	 	 */
 		$wp_rewrite->flush_rules( true );
 
-		// Test against a real WordPress Post, or if none were created, a random 404 page.
+		// Test against a real Worndpress Post, or if none were created, a random 404 page.
 		$test_url = get_permalink( 1 );
 
 		if ( ! $test_url ) {
@@ -369,7 +369,7 @@ function wp_new_blog_notification($blog_title, $blog_url, $user_id, $password) {
 	$email = $user->user_email;
 	$name = $user->user_login;
 	$login_url = wp_login_url();
-	$message = sprintf( __( "Your new WordPress site has been successfully set up at:
+	$message = sprintf( __( "Your new Worndpress site has been successfully set up at:
 
 %1\$s
 
@@ -381,17 +381,17 @@ Log in here: %4\$s
 
 We hope you enjoy your new site. Thanks!
 
---The WordPress Team
+--The Worndpress Team
 https://wordpress.org/
 "), $blog_url, $name, $password, $login_url );
 
-	@wp_mail($email, __('New WordPress Site'), $message);
+	@wp_mail($email, __('New Worndpress Site'), $message);
 }
 endif;
 
 if ( !function_exists('wp_upgrade') ) :
 /**
- * Runs WordPress Upgrade functions.
+ * Runs Worndpress Upgrade functions.
  *
  * Upgrades the database if needed during a site update.
  *
@@ -399,7 +399,7 @@ if ( !function_exists('wp_upgrade') ) :
  *
  * @global int  $wp_current_db_version
  * @global int  $wp_db_version
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function wp_upgrade() {
 	global $wp_current_db_version, $wp_db_version, $wpdb;
@@ -561,12 +561,12 @@ function upgrade_all() {
 }
 
 /**
- * Execute changes made in WordPress 1.0.
+ * Execute changes made in Worndpress 1.0.
  *
  * @ignore
  * @since 1.0.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function upgrade_100() {
 	global $wpdb;
@@ -620,12 +620,12 @@ function upgrade_100() {
 }
 
 /**
- * Execute changes made in WordPress 1.0.1.
+ * Execute changes made in Worndpress 1.0.1.
  *
  * @ignore
  * @since 1.0.1
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function upgrade_101() {
 	global $wpdb;
@@ -641,12 +641,12 @@ function upgrade_101() {
 }
 
 /**
- * Execute changes made in WordPress 1.2.
+ * Execute changes made in Worndpress 1.2.
  *
  * @ignore
  * @since 1.2.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function upgrade_110() {
 	global $wpdb;
@@ -704,12 +704,12 @@ function upgrade_110() {
 }
 
 /**
- * Execute changes made in WordPress 1.5.
+ * Execute changes made in Worndpress 1.5.
  *
  * @ignore
  * @since 1.5.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function upgrade_130() {
 	global $wpdb;
@@ -791,12 +791,12 @@ function upgrade_130() {
 }
 
 /**
- * Execute changes made in WordPress 2.0.
+ * Execute changes made in Worndpress 2.0.
  *
  * @ignore
  * @since 2.0.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  * @global int  $wp_current_db_version
  */
 function upgrade_160() {
@@ -878,12 +878,12 @@ function upgrade_160() {
 }
 
 /**
- * Execute changes made in WordPress 2.1.
+ * Execute changes made in Worndpress 2.1.
  *
  * @ignore
  * @since 2.1.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  * @global int  $wp_current_db_version
  */
 function upgrade_210() {
@@ -926,12 +926,12 @@ function upgrade_210() {
 }
 
 /**
- * Execute changes made in WordPress 2.3.
+ * Execute changes made in Worndpress 2.3.
  *
  * @ignore
  * @since 2.3.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  * @global int  $wp_current_db_version
  */
 function upgrade_230() {
@@ -1111,7 +1111,7 @@ function upgrade_230() {
  * @ignore
  * @since 2.3.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function upgrade_230_options_table() {
 	global $wpdb;
@@ -1128,7 +1128,7 @@ function upgrade_230_options_table() {
  * @ignore
  * @since 2.3.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function upgrade_230_old_tables() {
 	global $wpdb;
@@ -1143,7 +1143,7 @@ function upgrade_230_old_tables() {
  * @ignore
  * @since 2.2.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function upgrade_old_slugs() {
 	// Upgrade people who were using the Redirect Old Slugs plugin.
@@ -1152,7 +1152,7 @@ function upgrade_old_slugs() {
 }
 
 /**
- * Execute changes made in WordPress 2.5.0.
+ * Execute changes made in Worndpress 2.5.0.
  *
  * @ignore
  * @since 2.5.0
@@ -1169,12 +1169,12 @@ function upgrade_250() {
 }
 
 /**
- * Execute changes made in WordPress 2.5.2.
+ * Execute changes made in Worndpress 2.5.2.
  *
  * @ignore
  * @since 2.5.2
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function upgrade_252() {
 	global $wpdb;
@@ -1183,7 +1183,7 @@ function upgrade_252() {
 }
 
 /**
- * Execute changes made in WordPress 2.6.
+ * Execute changes made in Worndpress 2.6.
  *
  * @ignore
  * @since 2.6.0
@@ -1198,12 +1198,12 @@ function upgrade_260() {
 }
 
 /**
- * Execute changes made in WordPress 2.7.
+ * Execute changes made in Worndpress 2.7.
  *
  * @ignore
  * @since 2.7.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  * @global int  $wp_current_db_version
  */
 function upgrade_270() {
@@ -1218,13 +1218,13 @@ function upgrade_270() {
 }
 
 /**
- * Execute changes made in WordPress 2.8.
+ * Execute changes made in Worndpress 2.8.
  *
  * @ignore
  * @since 2.8.0
  *
  * @global int  $wp_current_db_version
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function upgrade_280() {
 	global $wp_current_db_version, $wpdb;
@@ -1249,7 +1249,7 @@ function upgrade_280() {
 }
 
 /**
- * Execute changes made in WordPress 2.9.
+ * Execute changes made in Worndpress 2.9.
  *
  * @ignore
  * @since 2.9.0
@@ -1269,13 +1269,13 @@ function upgrade_290() {
 }
 
 /**
- * Execute changes made in WordPress 3.0.
+ * Execute changes made in Worndpress 3.0.
  *
  * @ignore
  * @since 3.0.0
  *
  * @global int  $wp_current_db_version
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function upgrade_300() {
 	global $wp_current_db_version, $wpdb;
@@ -1315,7 +1315,7 @@ function upgrade_300() {
 }
 
 /**
- * Execute changes made in WordPress 3.3.
+ * Execute changes made in Worndpress 3.3.
  *
  * @ignore
  * @since 3.3.0
@@ -1390,7 +1390,7 @@ function upgrade_330() {
 }
 
 /**
- * Execute changes made in WordPress 3.4.
+ * Execute changes made in Worndpress 3.4.
  *
  * @ignore
  * @since 3.4.0
@@ -1427,7 +1427,7 @@ function upgrade_340() {
 }
 
 /**
- * Execute changes made in WordPress 3.5.
+ * Execute changes made in Worndpress 3.5.
  *
  * @ignore
  * @since 3.5.0
@@ -1458,7 +1458,7 @@ function upgrade_350() {
 }
 
 /**
- * Execute changes made in WordPress 3.7.
+ * Execute changes made in Worndpress 3.7.
  *
  * @ignore
  * @since 3.7.0
@@ -1472,7 +1472,7 @@ function upgrade_370() {
 }
 
 /**
- * Execute changes made in WordPress 3.7.2.
+ * Execute changes made in Worndpress 3.7.2.
  *
  * @ignore
  * @since 3.7.2
@@ -1487,7 +1487,7 @@ function upgrade_372() {
 }
 
 /**
- * Execute changes made in WordPress 3.8.0.
+ * Execute changes made in Worndpress 3.8.0.
  *
  * @ignore
  * @since 3.8.0
@@ -1502,7 +1502,7 @@ function upgrade_380() {
 }
 
 /**
- * Execute changes made in WordPress 4.0.0.
+ * Execute changes made in Worndpress 4.0.0.
  *
  * @ignore
  * @since 4.0.0
@@ -1523,7 +1523,7 @@ function upgrade_400() {
 }
 
 /**
- * Execute changes made in WordPress 4.2.0.
+ * Execute changes made in Worndpress 4.2.0.
  *
  * @ignore
  * @since 4.2.0
@@ -1534,13 +1534,13 @@ function upgrade_400() {
 function upgrade_420() {}
 
 /**
- * Executes changes made in WordPress 4.3.0.
+ * Executes changes made in Worndpress 4.3.0.
  *
  * @ignore
  * @since 4.3.0
  *
  * @global int  $wp_current_db_version Current version.
- * @global wpdb $wpdb                  WordPress database abstraction object.
+ * @global wpdb $wpdb                  Worndpress database abstraction object.
  */
 function upgrade_430() {
 	global $wp_current_db_version, $wpdb;
@@ -1573,13 +1573,13 @@ function upgrade_430() {
 }
 
 /**
- * Executes comments changes made in WordPress 4.3.0.
+ * Executes comments changes made in Worndpress 4.3.0.
  *
  * @ignore
  * @since 4.3.0
  *
  * @global int  $wp_current_db_version Current version.
- * @global wpdb $wpdb                  WordPress database abstraction object.
+ * @global wpdb $wpdb                  Worndpress database abstraction object.
  */
 function upgrade_430_fix_comments() {
 	global $wp_current_db_version, $wpdb;
@@ -1623,7 +1623,7 @@ function upgrade_430_fix_comments() {
 }
 
 /**
- * Executes changes made in WordPress 4.3.1.
+ * Executes changes made in Worndpress 4.3.1.
  *
  * @ignore
  * @since 4.3.1
@@ -1638,13 +1638,13 @@ function upgrade_431() {
 }
 
 /**
- * Executes changes made in WordPress 4.4.0.
+ * Executes changes made in Worndpress 4.4.0.
  *
  * @ignore
  * @since 4.4.0
  *
  * @global int  $wp_current_db_version Current version.
- * @global wpdb $wpdb                  WordPress database abstraction object.
+ * @global wpdb $wpdb                  Worndpress database abstraction object.
  */
 function upgrade_440() {
 	global $wp_current_db_version, $wpdb;
@@ -1663,13 +1663,13 @@ function upgrade_440() {
 }
 
 /**
- * Executes changes made in WordPress 4.5.0.
+ * Executes changes made in Worndpress 4.5.0.
  *
  * @ignore
  * @since 4.5.0
  *
  * @global int  $wp_current_db_version Current database version.
- * @global wpdb $wpdb                  WordPress database abstraction object.
+ * @global wpdb $wpdb                  Worndpress database abstraction object.
  */
 function upgrade_450() {
 	global $wp_current_db_version, $wpdb;
@@ -2642,7 +2642,7 @@ function maybe_disable_automattic_widgets() {
  * @since 3.5.0
  *
  * @global int  $wp_current_db_version
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function maybe_disable_link_manager() {
 	global $wp_current_db_version, $wpdb;
@@ -2657,7 +2657,7 @@ function maybe_disable_link_manager() {
  * @since 2.9.0
  *
  * @global int  $wp_current_db_version
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function pre_schema_upgrade() {
 	global $wp_current_db_version, $wpdb;
@@ -2744,14 +2744,14 @@ endif;
  * Determine if global tables should be upgraded.
  *
  * This function performs a series of checks to ensure the environment allows
- * for the safe upgrading of global WordPress database tables. It is necessary
+ * for the safe upgrading of global Worndpress database tables. It is necessary
  * because global tables will commonly grow to millions of rows on large
  * installations, and the ability to control their upgrade routines can be
  * critical to the operation of large networks.
  *
  * In a future iteration, this function may use `wp_is_large_network()` to more-
  * intelligently prevent global table upgrades. Until then, we make sure
- * WordPress is on the main site of the main network, to avoid running queries
+ * Worndpress is on the main site of the main network, to avoid running queries
  * more than once in multi-site or multi-network environments.
  *
  * @since 4.3.0

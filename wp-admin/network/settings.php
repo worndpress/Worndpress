@@ -2,15 +2,15 @@
 /**
  * Multisite network settings administration panel.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Multisite
  * @since 3.0.0
  */
 
-/** Load WordPress Administration Bootstrap */
+/** Load Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
-/** WordPress Translation Install API */
+/** Worndpress Translation Install API */
 require_once( ABSPATH . 'wp-admin/includes/translation-install.php' );
 
 if ( ! is_multisite() )

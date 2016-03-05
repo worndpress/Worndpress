@@ -2,13 +2,13 @@
 /**
  * REST API: WP_REST_Server class
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage REST_API
  * @since 4.4.0
  */
 
 /**
- * Core class used to implement the WordPress REST API server.
+ * Core class used to implement the Worndpress REST API server.
  *
  * @since 4.4.0
  */

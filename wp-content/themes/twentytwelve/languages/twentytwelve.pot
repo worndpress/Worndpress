@@ -1,4 +1,4 @@
-# Copyright (C) 2015 the WordPress team
+# Copyright (C) 2015 the Worndpress team
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
@@ -332,7 +332,7 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"The 2012 theme for WordPress is a fully responsive theme that looks great on "
+"The 2012 theme for Worndpress is a fully responsive theme that looks great on "
 "any device. Features include a front page template with its own widgets, an "
 "optional display font, styling for post formats on both index and single "
 "views, and an optional no-sidebar page template. Make it yours with a custom "
@@ -340,7 +340,7 @@ msgid ""
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "the WordPress team"
+msgid "the Worndpress team"
 msgstr ""
 
 #. Template Name of the plugin/theme

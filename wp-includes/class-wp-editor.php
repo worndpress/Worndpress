@@ -1,8 +1,8 @@
 <?php
 /**
- * Facilitates adding of the WordPress editor as used on the Write and Edit screens.
+ * Facilitates adding of the Worndpress editor as used on the Write and Edit screens.
  *
- * @package WordPress
+ * @package Worndpress
  * @since 3.3.0
  *
  * Private, not included by default. See wp_editor() in wp-includes/general-template.php.
@@ -420,7 +420,7 @@ final class _WP_Editors {
 					 * Filter the list of default TinyMCE plugins.
 					 *
 					 * The filter specifies which of the default plugins included
-					 * in WordPress should be added to the TinyMCE instance.
+					 * in Worndpress should be added to the TinyMCE instance.
 					 *
 					 * @since 3.3.0
 					 *
@@ -561,7 +561,7 @@ final class _WP_Editors {
 				$version = 'ver=' . $wp_version;
 				$dashicons = includes_url( "css/dashicons$suffix.css?$version" );
 
-				// WordPress default stylesheet and dashicons
+				// Worndpress default stylesheet and dashicons
 				$mce_css = array(
 					$dashicons,
 					self::$baseurl . '/skins/wordpress/wp-content.css?' . $version
@@ -1034,7 +1034,7 @@ final class _WP_Editors {
 			'Table' => _x( 'Table', 'TinyMCE menu' ),
 			'Format' => _x( 'Format', 'TinyMCE menu' ),
 
-			// WordPress strings
+			// Worndpress strings
 			'Toolbar Toggle' => __( 'Toolbar Toggle' ),
 			'Insert Read More tag' => __( 'Insert Read More tag' ),
 			'Insert Page Break tag' => __( 'Insert Page Break tag' ),

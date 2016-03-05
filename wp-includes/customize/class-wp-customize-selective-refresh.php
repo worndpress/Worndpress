@@ -1,14 +1,14 @@
 <?php
 /**
- * WordPress Customize Selective Refresh class
+ * Worndpress Customize Selective Refresh class
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Customize
  * @since 4.5.0
  */
 
 /**
- * WordPress Customize Selective Refresh class.
+ * Worndpress Customize Selective Refresh class.
  *
  * @since 4.5.0
  */

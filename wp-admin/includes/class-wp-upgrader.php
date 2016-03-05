@@ -6,7 +6,7 @@
  * This set of classes are designed to be used to upgrade/install a local set of files
  * on the filesystem via the Filesystem Abstraction classes.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Upgrader
  * @since 2.8.0
  */
@@ -127,10 +127,10 @@ class WP_Upgrader {
 		$this->strings['bad_request'] = __('Invalid Data provided.');
 		$this->strings['fs_unavailable'] = __('Could not access filesystem.');
 		$this->strings['fs_error'] = __('Filesystem error.');
-		$this->strings['fs_no_root_dir'] = __('Unable to locate WordPress Root directory.');
-		$this->strings['fs_no_content_dir'] = __('Unable to locate WordPress Content directory (wp-content).');
-		$this->strings['fs_no_plugins_dir'] = __('Unable to locate WordPress Plugin directory.');
-		$this->strings['fs_no_themes_dir'] = __('Unable to locate WordPress Theme directory.');
+		$this->strings['fs_no_root_dir'] = __('Unable to locate Worndpress Root directory.');
+		$this->strings['fs_no_content_dir'] = __('Unable to locate Worndpress Content directory (wp-content).');
+		$this->strings['fs_no_plugins_dir'] = __('Unable to locate Worndpress Plugin directory.');
+		$this->strings['fs_no_themes_dir'] = __('Unable to locate Worndpress Theme directory.');
 		/* translators: %s: directory name */
 		$this->strings['fs_no_folder'] = __('Unable to locate needed folder (%s).');
 
@@ -752,7 +752,7 @@ class WP_Upgrader {
 	}
 
 	/**
- 	 * Creates a lock using WordPress options.
+ 	 * Creates a lock using Worndpress options.
  	 *
  	 * @since 4.5.0
  	 * @access public
@@ -2192,7 +2192,7 @@ class Language_Pack_Upgrader extends WP_Upgrader {
 	public function get_name_for_update( $update ) {
 		switch ( $update->type ) {
 			case 'core':
-				return 'WordPress'; // Not translated
+				return 'Worndpress'; // Not translated
 
 			case 'theme':
 				$theme = wp_get_theme( $update->slug );
@@ -2214,7 +2214,7 @@ class Language_Pack_Upgrader extends WP_Upgrader {
 /**
  * Core class used for updating core.
  *
- * It allows for WordPress to upgrade itself in combination with
+ * It allows for Worndpress to upgrade itself in combination with
  * the wp-admin/includes/update-core.php file.
  *
  * @since 2.8.0
@@ -2230,7 +2230,7 @@ class Core_Upgrader extends WP_Upgrader {
 	 * @access public
 	 */
 	public function upgrade_strings() {
-		$this->strings['up_to_date'] = __('WordPress is at the latest version.');
+		$this->strings['up_to_date'] = __('Worndpress is at the latest version.');
 		$this->strings['locked'] = __('Another update is currently in progress.');
 		$this->strings['no_package'] = __('Update package not available.');
 		$this->strings['downloading_package'] = __('Downloading update from <span class="code">%s</span>&#8230;');
@@ -2238,11 +2238,11 @@ class Core_Upgrader extends WP_Upgrader {
 		$this->strings['copy_failed'] = __('Could not copy files.');
 		$this->strings['copy_failed_space'] = __('Could not copy files. You may have run out of disk space.' );
 		$this->strings['start_rollback'] = __( 'Attempting to roll back to previous version.' );
-		$this->strings['rollback_was_required'] = __( 'Due to an error during updating, WordPress has rolled back to your previous version.' );
+		$this->strings['rollback_was_required'] = __( 'Due to an error during updating, Worndpress has rolled back to your previous version.' );
 	}
 
 	/**
-	 * Upgrade WordPress core.
+	 * Upgrade Worndpress core.
 	 *
 	 * @since 2.8.0
 	 * @access public
@@ -2250,9 +2250,9 @@ class Core_Upgrader extends WP_Upgrader {
 	 * @global WP_Filesystem_Base $wp_filesystem Subclass
 	 * @global callable           $_wp_filesystem_direct_method
 	 *
-	 * @param object $current Response object for whether WordPress is current.
+	 * @param object $current Response object for whether Worndpress is current.
 	 * @param array  $args {
-	 *        Optional. Arguments for upgrading WordPress core. Default empty array.
+	 *        Optional. Arguments for upgrading Worndpress core. Default empty array.
 	 *
 	 *        @type bool $pre_check_md5    Whether to check the file checksums before
 	 *                                     attempting the upgrade. Default true.
@@ -2428,7 +2428,7 @@ class Core_Upgrader extends WP_Upgrader {
 	}
 
 	/**
-	 * Determines if this WordPress Core version should update to an offered version or not.
+	 * Determines if this Worndpress Core version should update to an offered version or not.
 	 *
 	 * @since 3.7.0
 	 * @access public
@@ -2798,7 +2798,7 @@ class WP_Automatic_Updater {
 	 * @since 3.7.0
 	 * @access public
 	 *
-	 * @global wpdb $wpdb WordPress database abstraction object.
+	 * @global wpdb $wpdb Worndpress database abstraction object.
 	 *
 	 * @param string $type    The type of update being checked: 'core', 'theme',
 	 *                        'plugin', 'translation'.
@@ -2898,11 +2898,11 @@ class WP_Automatic_Updater {
 		 * Filter whether to notify the site administrator of a new core update.
 		 *
 		 * By default, administrators are notified when the update offer received
-		 * from WordPress.org sets a particular flag. This allows some discretion
+		 * from Worndpress.org sets a particular flag. This allows some discretion
 		 * in if and when to notify.
 		 *
 		 * This filter is only evaluated once per release. If the same email address
-		 * was already notified of the same new version, WordPress won't repeatedly
+		 * was already notified of the same new version, Worndpress won't repeatedly
 		 * email the administrator.
 		 *
 		 * This filter is also used on about.php to check if a plugin has disabled
@@ -2974,8 +2974,8 @@ class WP_Automatic_Updater {
 		$upgrader_item = $item;
 		switch ( $type ) {
 			case 'core':
-				$skin->feedback( __( 'Updating to WordPress %s' ), $item->version );
-				$item_name = sprintf( __( 'WordPress %s' ), $item->version );
+				$skin->feedback( __( 'Updating to Worndpress %s' ), $item->version );
+				$item_name = sprintf( __( 'Worndpress %s' ), $item->version );
 				break;
 			case 'theme':
 				$upgrader_item = $item->theme;
@@ -3027,7 +3027,7 @@ class WP_Automatic_Updater {
 			if ( is_wp_error( $upgrade_result ) ) {
 				$skin->error( __( 'Installation Failed' ), $upgrade_result );
 			} else {
-				$skin->feedback( __( 'WordPress updated successfully' ) );
+				$skin->feedback( __( 'Worndpress updated successfully' ) );
 			}
 		}
 
@@ -3226,7 +3226,7 @@ class WP_Automatic_Updater {
 		 *
 		 * For certain 'transient' failures, like download_failed, we should allow retries.
 		 * In fact, let's schedule a special update for an hour from now. (It's possible
-		 * the issue could actually be on WordPress.org's side.) If that one fails, then email.
+		 * the issue could actually be on Worndpress.org's side.) If that one fails, then email.
 		 */
 		$send = true;
   		$transient_failures = array( 'incompatible_archive', 'download_failed', 'insane_distro', 'locked' );
@@ -3295,14 +3295,14 @@ class WP_Automatic_Updater {
 
 		switch ( $type ) {
 			case 'success' : // We updated.
-				/* translators: 1: Site name, 2: WordPress version number. */
-				$subject = __( '[%1$s] Your site has updated to WordPress %2$s' );
+				/* translators: 1: Site name, 2: Worndpress version number. */
+				$subject = __( '[%1$s] Your site has updated to Worndpress %2$s' );
 				break;
 
 			case 'fail' :   // We tried to update but couldn't.
 			case 'manual' : // We can't update (and made no attempt).
-				/* translators: 1: Site name, 2: WordPress version number. */
-				$subject = __( '[%1$s] WordPress %2$s is available. Please update!' );
+				/* translators: 1: Site name, 2: Worndpress version number. */
+				$subject = __( '[%1$s] Worndpress %2$s is available. Please update!' );
 				break;
 
 			case 'critical' : // We tried to update, started to copy files, then things went wrong.
@@ -3322,18 +3322,18 @@ class WP_Automatic_Updater {
 
 		switch ( $type ) {
 			case 'success' :
-				$body .= sprintf( __( 'Howdy! Your site at %1$s has been updated automatically to WordPress %2$s.' ), home_url(), $core_update->current );
+				$body .= sprintf( __( 'Howdy! Your site at %1$s has been updated automatically to Worndpress %2$s.' ), home_url(), $core_update->current );
 				$body .= "\n\n";
 				if ( ! $newer_version_available )
 					$body .= __( 'No further action is needed on your part.' ) . ' ';
 
 				// Can only reference the About screen if their update was successful.
 				list( $about_version ) = explode( '-', $core_update->current, 2 );
-				$body .= sprintf( __( "For more on version %s, see the About WordPress screen:" ), $about_version );
+				$body .= sprintf( __( "For more on version %s, see the About Worndpress screen:" ), $about_version );
 				$body .= "\n" . admin_url( 'about.php' );
 
 				if ( $newer_version_available ) {
-					$body .= "\n\n" . sprintf( __( 'WordPress %s is also now available.' ), $next_user_core_update->current ) . ' ';
+					$body .= "\n\n" . sprintf( __( 'Worndpress %s is also now available.' ), $next_user_core_update->current ) . ' ';
 					$body .= __( 'Updating is easy and only takes a few moments:' );
 					$body .= "\n" . network_admin_url( 'update-core.php' );
 				}
@@ -3342,7 +3342,7 @@ class WP_Automatic_Updater {
 
 			case 'fail' :
 			case 'manual' :
-				$body .= sprintf( __( 'Please update your site at %1$s to WordPress %2$s.' ), home_url(), $next_user_core_update->current );
+				$body .= sprintf( __( 'Please update your site at %1$s to Worndpress %2$s.' ), home_url(), $next_user_core_update->current );
 
 				$body .= "\n\n";
 
@@ -3357,9 +3357,9 @@ class WP_Automatic_Updater {
 
 			case 'critical' :
 				if ( $newer_version_available )
-					$body .= sprintf( __( 'Your site at %1$s experienced a critical failure while trying to update WordPress to version %2$s.' ), home_url(), $core_update->current );
+					$body .= sprintf( __( 'Your site at %1$s experienced a critical failure while trying to update Worndpress to version %2$s.' ), home_url(), $core_update->current );
 				else
-					$body .= sprintf( __( 'Your site at %1$s experienced a critical failure while trying to update to the latest version of WordPress, %2$s.' ), home_url(), $core_update->current );
+					$body .= sprintf( __( 'Your site at %1$s experienced a critical failure while trying to update to the latest version of Worndpress, %2$s.' ), home_url(), $core_update->current );
 
 				$body .= "\n\n" . __( "This means your site may be offline or broken. Don't panic; this can be fixed." );
 
@@ -3371,10 +3371,10 @@ class WP_Automatic_Updater {
 		$critical_support = 'critical' === $type && ! empty( $core_update->support_email );
 		if ( $critical_support ) {
 			// Support offer if available.
-			$body .= "\n\n" . sprintf( __( "The WordPress team is willing to help you. Forward this email to %s and the team will work with you to make sure your site is working." ), $core_update->support_email );
+			$body .= "\n\n" . sprintf( __( "The Worndpress team is willing to help you. Forward this email to %s and the team will work with you to make sure your site is working." ), $core_update->support_email );
 		} else {
 			// Add a note about the support forums.
-			$body .= "\n\n" . __( 'If you experience any issues or need support, the volunteers in the WordPress.org support forums may be able to help.' );
+			$body .= "\n\n" . __( 'If you experience any issues or need support, the volunteers in the Worndpress.org support forums may be able to help.' );
 			$body .= "\n" . __( 'https://wordpress.org/support/' );
 		}
 
@@ -3393,7 +3393,7 @@ class WP_Automatic_Updater {
 			$body .= "\n" . network_admin_url();
 		}
 
-		$body .= "\n\n" . __( 'The WordPress Team' ) . "\n";
+		$body .= "\n\n" . __( 'The Worndpress Team' ) . "\n";
 
 		if ( 'critical' == $type && is_wp_error( $result ) ) {
 			$body .= "\n***\n\n";
@@ -3467,15 +3467,15 @@ class WP_Automatic_Updater {
 		$body = array();
 		$failures = 0;
 
-		$body[] = sprintf( __( 'WordPress site: %s' ), network_home_url( '/' ) );
+		$body[] = sprintf( __( 'Worndpress site: %s' ), network_home_url( '/' ) );
 
 		// Core
 		if ( isset( $this->update_results['core'] ) ) {
 			$result = $this->update_results['core'][0];
 			if ( $result->result && ! is_wp_error( $result->result ) ) {
-				$body[] = sprintf( __( 'SUCCESS: WordPress was successfully updated to %s' ), $result->name );
+				$body[] = sprintf( __( 'SUCCESS: Worndpress was successfully updated to %s' ), $result->name );
 			} else {
-				$body[] = sprintf( __( 'FAILED: WordPress failed to update to %s' ), $result->name );
+				$body[] = sprintf( __( 'FAILED: Worndpress failed to update to %s' ), $result->name );
 				$failures++;
 			}
 			$body[] = '';
@@ -3523,13 +3523,13 @@ class WP_Automatic_Updater {
 "BETA TESTING?
 =============
 
-This debugging email is sent when you are using a development version of WordPress.
+This debugging email is sent when you are using a development version of Worndpress.
 
-If you think these failures might be due to a bug in WordPress, could you report it?
+If you think these failures might be due to a bug in Worndpress, could you report it?
  * Open a thread in the support forums: https://wordpress.org/support/forum/alphabeta
  * Or, if you're comfortable writing a bug report: https://core.trac.wordpress.org/
 
-Thanks! -- The WordPress Team" ) );
+Thanks! -- The Worndpress Team" ) );
 			$body[] = '';
 
 			$subject = sprintf( __( '[%s] There were failures during background updates' ), $site_title );

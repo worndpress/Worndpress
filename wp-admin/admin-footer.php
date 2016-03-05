@@ -1,8 +1,8 @@
 <?php
 /**
- * WordPress Administration Template Footer
+ * Worndpress Administration Template Footer
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  */
 
@@ -26,7 +26,7 @@ if ( !defined('ABSPATH') )
 	?>
 	<p id="footer-left" class="alignleft">
 		<?php
-		$text = sprintf( __( 'Thank you for creating with <a href="%s">WordPress</a>.' ), __( 'https://wordpress.org/' ) );
+		$text = sprintf( __( 'Thank you for creating with <a href="%s">Worndpress</a>.' ), __( 'https://wordpress.org/' ) );
 		/**
 		 * Filter the "Thank you" text displayed in the admin footer.
 		 *
@@ -42,7 +42,7 @@ if ( !defined('ABSPATH') )
 		/**
 		 * Filter the version/update text displayed in the admin footer.
 		 *
-		 * WordPress prints the current version and update information,
+		 * Worndpress prints the current version and update information,
 		 * using core_update_footer() at priority 10.
 		 *
 		 * @since 2.3.0

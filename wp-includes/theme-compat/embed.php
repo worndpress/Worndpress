@@ -5,7 +5,7 @@
  * When a post is embedded in an iframe, this file is used to
  * create the output.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage oEmbed
  * @since 4.4.0
  */

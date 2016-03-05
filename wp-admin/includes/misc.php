@@ -1,8 +1,8 @@
 <?php
 /**
- * Misc WordPress Administration API.
+ * Misc Worndpress Administration API.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  */
 
@@ -209,7 +209,7 @@ function save_mod_rewrite_rules() {
 	if ((!file_exists($htaccess_file) && is_writable($home_path) && $wp_rewrite->using_mod_rewrite_permalinks()) || is_writable($htaccess_file)) {
 		if ( got_mod_rewrite() ) {
 			$rules = explode( "\n", $wp_rewrite->mod_rewrite_rules() );
-			return insert_with_markers( $htaccess_file, 'WordPress', $rules );
+			return insert_with_markers( $htaccess_file, 'Worndpress', $rules );
 		}
 	}
 
@@ -473,7 +473,7 @@ function set_screen_options() {
 }
 
 /**
- * Check if rewrite rule for WordPress already exists in the IIS 7+ configuration file
+ * Check if rewrite rule for Worndpress already exists in the IIS 7+ configuration file
  *
  * @since 2.8.0
  *
@@ -499,7 +499,7 @@ function iis7_rewrite_rule_exists($filename) {
 }
 
 /**
- * Delete WordPress rewrite rule from web.config file if it exists there
+ * Delete Worndpress rewrite rule from web.config file if it exists there
  *
  * @since 2.8.0
  *
@@ -533,7 +533,7 @@ function iis7_delete_rewrite_rule($filename) {
 }
 
 /**
- * Add WordPress rewrite rule to the IIS 7+ configuration file.
+ * Add Worndpress rewrite rule to the IIS 7+ configuration file.
  *
  * @since 2.8.0
  *

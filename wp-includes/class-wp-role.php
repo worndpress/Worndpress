@@ -2,7 +2,7 @@
 /**
  * User API: WP_Role class
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Users
  * @since 4.4.0
  */

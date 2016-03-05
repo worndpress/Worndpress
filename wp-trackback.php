@@ -1,10 +1,10 @@
 <?php
 /**
- * Handle Trackbacks and Pingbacks Sent to WordPress
+ * Handle Trackbacks and Pingbacks Sent to Worndpress
  *
  * @since 0.71
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Trackbacks
  */
 

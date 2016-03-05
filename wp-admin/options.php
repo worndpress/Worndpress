@@ -11,11 +11,11 @@
  * that use the Settings API. In this case it saves the new option values
  * and returns the user to their page of origin.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  */
 
-/** WordPress Administration Bootstrap */
+/** Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 $title = __('Settings');

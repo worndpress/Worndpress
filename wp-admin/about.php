@@ -2,11 +2,11 @@
 /**
  * About This Version administration panel.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  */
 
-/** WordPress Administration Bootstrap */
+/** Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 wp_enqueue_style( 'wp-mediaelement' );
@@ -37,9 +37,9 @@ list( $display_version ) = explode( '-', $wp_version );
 include( ABSPATH . 'wp-admin/admin-header.php' );
 ?>
 	<div class="wrap about-wrap">
-		<h1><?php printf( __( 'Welcome to WordPress&nbsp;%s' ), $display_version ); ?></h1>
+		<h1><?php printf( __( 'Welcome to Worndpress&nbsp;%s' ), $display_version ); ?></h1>
 
-		<div class="about-text"><?php printf( __( 'Thank you for updating! WordPress %s makes your site more connected and responsive.' ), $display_version ); ?></div>
+		<div class="about-text"><?php printf( __( 'Thank you for updating! Worndpress %s makes your site more connected and responsive.' ), $display_version ); ?></div>
 		<div class="wp-badge"><?php printf( __( 'Version %s' ), $display_version ); ?></div>
 
 		<h2 class="nav-tab-wrapper wp-clearfix">
@@ -87,7 +87,7 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 			</div>
 			<div class="col">
 				<h3><?php _e( 'Responsive images' ); ?></h3>
-				<p><?php _e( 'WordPress now takes a smarter approach to displaying appropriate image sizes on any device, ensuring a perfect fit every time. You don&#8217;t need to do anything to your theme, it just works.' ); ?></p>
+				<p><?php _e( 'Worndpress now takes a smarter approach to displaying appropriate image sizes on any device, ensuring a perfect fit every time. You don&#8217;t need to do anything to your theme, it just works.' ); ?></p>
 			</div>
 		</div>
 
@@ -96,12 +96,12 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 		<div class="feature-section two-col">
 			<div class="col">
 				<div class="embed-container">
-					<blockquote data-secret="OcUe7B6Edh" class="wp-embedded-content"><a href="https://wordpress.org/news/2015/12/clifford/">WordPress 4.4 &ldquo;Clifford&rdquo;</a></blockquote><iframe class="wp-embedded-content" sandbox="allow-scripts" security="restricted" style="display:none;" src="https://wordpress.org/news/2015/12/clifford/embed/#?secret=OcUe7B6Edh" data-secret="OcUe7B6Edh" width="600" height="338" title="<?php esc_attr_e( 'Embedded WordPress Post' ); ?>" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+					<blockquote data-secret="OcUe7B6Edh" class="wp-embedded-content"><a href="https://wordpress.org/news/2015/12/clifford/">Worndpress 4.4 &ldquo;Clifford&rdquo;</a></blockquote><iframe class="wp-embedded-content" sandbox="allow-scripts" security="restricted" style="display:none;" src="https://wordpress.org/news/2015/12/clifford/embed/#?secret=OcUe7B6Edh" data-secret="OcUe7B6Edh" width="600" height="338" title="<?php esc_attr_e( 'Embedded Worndpress Post' ); ?>" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
 				</div>
 			</div>
 			<div class="col">
-				<h3><?php _e( 'Embed your WordPress content' ); ?></h3>
-				<p><?php _e( 'Now you can embed your posts on other sites, even other WordPress sites. Simply drop a post URL into the editor and see an instant embed preview, complete with the title, excerpt, and featured image if you&#8217;ve set one. We&#8217;ll even include your site icon and links for comments and sharing.' ); ?></p>
+				<h3><?php _e( 'Embed your Worndpress content' ); ?></h3>
+				<p><?php _e( 'Now you can embed your posts on other sites, even other Worndpress sites. Simply drop a post URL into the editor and see an instant embed preview, complete with the title, excerpt, and featured image if you&#8217;ve set one. We&#8217;ll even include your site icon and links for comments and sharing.' ); ?></p>
 			</div>
 		</div>
 
@@ -115,7 +115,7 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 			</div>
 			<div class="col">
 				<h3><?php _e( 'Even more embed providers' ); ?></h3>
-				<p><?php _e( 'In addition to post embeds, WordPress 4.4 also adds support for five new oEmbed providers: Cloudup, Reddit&nbsp;Comments, ReverbNation, Speaker&nbsp;Deck, and VideoPress.' ); ?></p>
+				<p><?php _e( 'In addition to post embeds, Worndpress 4.4 also adds support for five new oEmbed providers: Cloudup, Reddit&nbsp;Comments, ReverbNation, Speaker&nbsp;Deck, and VideoPress.' ); ?></p>
 			</div>
 		</div>
 
@@ -128,7 +128,7 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 				<div class="col">
 					<h4><?php _e( 'REST API infrastructure' ); ?></h4>
 					<div class="two-col-text">
-						<p><?php _e( 'Infrastructure for the REST API has been integrated into core, marking a new era in developing with WordPress. The REST API serves to provide developers with a path forward for building and extending RESTful APIs on top of WordPress.' ); ?></p>
+						<p><?php _e( 'Infrastructure for the REST API has been integrated into core, marking a new era in developing with Worndpress. The REST API serves to provide developers with a path forward for building and extending RESTful APIs on top of Worndpress.' ); ?></p>
 						<p><?php
 							if ( current_user_can( 'install_plugins' ) ) {
 								$url_args = array(
@@ -139,12 +139,12 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 									'height'    => 550
 								);
 
-								$plugin_link = '<a href="' . esc_url( add_query_arg( $url_args, network_admin_url( 'plugin-install.php' ) ) ) . '" class="thickbox">WordPress REST API</a>';
+								$plugin_link = '<a href="' . esc_url( add_query_arg( $url_args, network_admin_url( 'plugin-install.php' ) ) ) . '" class="thickbox">Worndpress REST API</a>';
 							} else {
-								$plugin_link = '<a href="https://wordpress.org/plugins/rest-api">WordPress REST API</a>';
+								$plugin_link = '<a href="https://wordpress.org/plugins/rest-api">Worndpress REST API</a>';
 							}
 
-							/* translators: WordPress REST API plugin link */
+							/* translators: Worndpress REST API plugin link */
 							printf( __( 'Infrastructure is the first part of a multi-stage rollout for the REST API. Inclusion of core endpoints is targeted for an upcoming release. To get a sneak peek of the core endpoints, and for more information on extending the REST API, check out the official %s plugin.' ), $plugin_link );
 						?></p>
 					</div>
@@ -210,20 +210,20 @@ __( 'Security Releases' );
 __( 'Maintenance and Security Release' );
 __( 'Maintenance and Security Releases' );
 
-/* translators: %s: WordPress version number */
+/* translators: %s: Worndpress version number */
 __( '<strong>Version %s</strong> addressed one security issue.' );
-/* translators: %s: WordPress version number */
+/* translators: %s: Worndpress version number */
 __( '<strong>Version %s</strong> addressed some security issues.' );
 
-/* translators: 1: WordPress version number, 2: plural number of bugs. */
+/* translators: 1: Worndpress version number, 2: plural number of bugs. */
 _n_noop( '<strong>Version %1$s</strong> addressed %2$s bug.',
          '<strong>Version %1$s</strong> addressed %2$s bugs.' );
 
-/* translators: 1: WordPress version number, 2: plural number of bugs. Singular security issue. */
+/* translators: 1: Worndpress version number, 2: plural number of bugs. Singular security issue. */
 _n_noop( '<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bug.',
          '<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bugs.' );
 
-/* translators: 1: WordPress version number, 2: plural number of bugs. More than one security issue. */
+/* translators: 1: Worndpress version number, 2: plural number of bugs. More than one security issue. */
 _n_noop( '<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bug.',
          '<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bugs.' );
 

@@ -1,15 +1,15 @@
 <?php
 /**
- * WordPress Network Administration Bootstrap
+ * Worndpress Network Administration Bootstrap
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Multisite
  * @since 3.1.0
  */
 
 define( 'WP_NETWORK_ADMIN', true );
 
-/** Load WordPress Administration Bootstrap */
+/** Load Worndpress Administration Bootstrap */
 require_once( dirname( dirname( __FILE__ ) ) . '/admin.php' );
 
 if ( ! is_multisite() )

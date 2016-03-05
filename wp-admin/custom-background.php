@@ -2,7 +2,7 @@
 /**
  * The custom background script.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  */
 
@@ -10,7 +10,7 @@
  * The custom background class.
  *
  * @since 3.0.0
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  */
 class Custom_Background {

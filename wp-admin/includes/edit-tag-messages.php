@@ -2,7 +2,7 @@
 /**
  * Edit Tags Administration: Messages
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  * @since 4.4.0
  */

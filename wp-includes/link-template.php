@@ -1,8 +1,8 @@
 <?php
 /**
- * WordPress Link Template Functions
+ * Worndpress Link Template Functions
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Template
  */
 
@@ -374,7 +374,7 @@ function _get_page_link( $post = false, $leavename = false, $sample = false ) {
 /**
  * Retrieve permalink for attachment.
  *
- * This can be used in the WordPress Loop or outside of it.
+ * This can be used in the Worndpress Loop or outside of it.
  *
  * @since 2.0.0
  *
@@ -1244,7 +1244,7 @@ function get_preview_post_link( $post = null, $query_args = array(), $preview_li
 /**
  * Retrieve edit posts link for post.
  *
- * Can be used within the WordPress loop or outside of it. Can be used with
+ * Can be used within the Worndpress loop or outside of it. Can be used with
  * pages, posts, attachments, and revisions.
  *
  * @since 2.3.0
@@ -1333,7 +1333,7 @@ function edit_post_link( $text = null, $before = '', $after = '', $id = 0, $clas
 /**
  * Retrieve delete posts link for post.
  *
- * Can be used within the WordPress loop or outside of it, with any post type.
+ * Can be used within the Worndpress loop or outside of it, with any post type.
  *
  * @since 2.9.0
  *
@@ -1564,7 +1564,7 @@ function get_next_post( $in_same_term = false, $excluded_terms = '', $taxonomy =
  *
  * @since 2.5.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param bool         $in_same_term   Optional. Whether post should be in a same taxonomy term.
  * @param array|string $excluded_terms Optional. Array or comma-separated list of excluded term IDs.
@@ -2423,7 +2423,7 @@ function the_post_navigation( $args = array() ) {
  *
  * @since 4.1.0
  *
- * @global WP_Query $wp_query WordPress Query object.
+ * @global WP_Query $wp_query Worndpress Query object.
  *
  * @param array $args {
  *     Optional. Default posts navigation arguments. Default empty array.
@@ -3001,7 +3001,7 @@ function get_home_url( $blog_id = null, $path = '', $scheme = null ) {
 }
 
 /**
- * Retrieve the URL for the current site where WordPress application files
+ * Retrieve the URL for the current site where Worndpress application files
  * (e.g. wp-blog-header.php or the wp-admin/ folder) are accessible.
  *
  * Returns the 'site_url' option with the appropriate protocol, 'https' if
@@ -3019,7 +3019,7 @@ function site_url( $path = '', $scheme = null ) {
 }
 
 /**
- * Retrieve the URL for a given site where WordPress application files
+ * Retrieve the URL for a given site where Worndpress application files
  * (e.g. wp-blog-header.php or the wp-admin/ folder) are accessible.
  *
  * Returns the 'site_url' option with the appropriate protocol, 'https' if

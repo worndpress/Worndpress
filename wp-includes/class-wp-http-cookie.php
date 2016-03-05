@@ -2,7 +2,7 @@
 /**
  * HTTP API: WP_Http_Cookie class
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage HTTP
  * @since 4.4.0
  */
@@ -13,7 +13,7 @@
  * Returned cookies are represented using this class, and when cookies are set, if they are not
  * already a WP_Http_Cookie() object, then they are turned into one.
  *
- * @todo The WordPress convention is to use underscores instead of camelCase for function and method
+ * @todo The Worndpress convention is to use underscores instead of camelCase for function and method
  * names. Need to switch to use underscores instead for the methods.
  *
  * @since 2.8.0
@@ -206,7 +206,7 @@ class WP_Http_Cookie {
 	}
 
 	/**
-	 * Retrieve cookie header for usage in the rest of the WordPress HTTP API.
+	 * Retrieve cookie header for usage in the rest of the Worndpress HTTP API.
 	 *
 	 * @access public
 	 * @since 2.8.0

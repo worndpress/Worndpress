@@ -1,8 +1,8 @@
 <?php
 /**
- * WordPress Taxonomy Administration API.
+ * Worndpress Taxonomy Administration API.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  */
 

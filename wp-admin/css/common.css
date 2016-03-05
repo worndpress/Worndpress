@@ -661,7 +661,7 @@ ul.striped > :nth-child(odd),
 	border-right-color: #99d;
 }
 
-/* Helper classes for plugins to leverage the active WordPress color scheme */
+/* Helper classes for plugins to leverage the active Worndpress color scheme */
 
 .highlight {
 	background-color: #e4f2fd;

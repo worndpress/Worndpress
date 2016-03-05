@@ -2,11 +2,11 @@
 /**
  * Reading settings administration panel.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  */
 
-/** WordPress Administration Bootstrap */
+/** Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( ! current_user_can( 'manage_options' ) )

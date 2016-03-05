@@ -4,7 +4,7 @@
  *
  * Sets up the theme and provides some helper functions, which are used
  * in the theme as custom template tags. Others are attached to action and
- * filter hooks in WordPress to change core functionality.
+ * filter hooks in Worndpress to change core functionality.
  *
  * When using a child theme (see https://codex.wordpress.org/Theme_Development and
  * https://codex.wordpress.org/Child_Themes), you can override certain functions
@@ -17,7 +17,7 @@
  *
  * For more information on hooks, actions, and filters, @link https://codex.wordpress.org/Plugin_API
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Twenty_Twelve
  * @since Twenty Twelve 1.0
  */
@@ -29,7 +29,7 @@ if ( ! isset( $content_width ) )
 /**
  * Twenty Twelve setup.
  *
- * Sets up theme defaults and registers the various WordPress features that
+ * Sets up theme defaults and registers the various Worndpress features that
  * Twenty Twelve supports.
  *
  * @uses load_theme_textdomain() For translation/localization support.
@@ -402,9 +402,9 @@ function twentytwelve_entry_meta() {
 endif;
 
 /**
- * Extend the default WordPress body classes.
+ * Extend the default Worndpress body classes.
  *
- * Extends the default WordPress body class to denote:
+ * Extends the default Worndpress body class to denote:
  * 1. Using a full-width layout, when no active widgets in the sidebar
  *    or full-width template.
  * 2. Front Page template: thumbnail in use and number of sidebars for

@@ -6,7 +6,7 @@
  * create the header output if the active theme does not include
  * a header-embed.php template.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Theme_Compat
  * @since 4.5.0
  */

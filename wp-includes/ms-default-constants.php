@@ -2,7 +2,7 @@
 /**
  * Defines constants and global variables that can be overridden, generally in wp-config.php.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Multisite
  * @since 3.0.0
  */
@@ -15,7 +15,7 @@
  *
  * @since 3.0.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function ms_upload_constants() {
 	global $wpdb;

@@ -1,15 +1,15 @@
 <?php
 /**
- * WordPress Post Template Functions.
+ * Worndpress Post Template Functions.
  *
  * Gets content for the current post in the loop.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Template
  */
 
 /**
- * Display the ID of the current item in the WordPress Loop.
+ * Display the ID of the current item in the Worndpress Loop.
  *
  * @since 0.71
  */
@@ -18,11 +18,11 @@ function the_ID() {
 }
 
 /**
- * Retrieve the ID of the current item in the WordPress Loop.
+ * Retrieve the ID of the current item in the Worndpress Loop.
  *
  * @since 2.1.0
  *
- * @return int|false The ID of the current item in the WordPress Loop. False if $post is not set.
+ * @return int|false The ID of the current item in the Worndpress Loop. False if $post is not set.
  */
 function get_the_ID() {
 	$post = get_post();

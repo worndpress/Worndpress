@@ -1,11 +1,11 @@
 <?php
 /**
- * Multisite: Deprecated admin functions from past versions and WordPress MU
+ * Multisite: Deprecated admin functions from past versions and Worndpress MU
  *
  * These functions should not be used and will be removed in a later version.
  * It is suggested to use for the alternatives instead when available.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Deprecated
  * @since 3.0.0
  */

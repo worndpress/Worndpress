@@ -2,12 +2,12 @@
 /**
  * User Dashboard Administration Screen
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  * @since 3.1.0
  */
 
-/** Load WordPress Administration Bootstrap */
+/** Load Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 require( ABSPATH . 'wp-admin/index.php' );

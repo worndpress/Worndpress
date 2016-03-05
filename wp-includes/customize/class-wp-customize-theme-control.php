@@ -2,7 +2,7 @@
 /**
  * Customize API: WP_Customize_Theme_Control class
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Customize
  * @since 4.4.0
  */

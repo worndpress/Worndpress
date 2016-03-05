@@ -1,8 +1,8 @@
 <?php
 /**
- * WordPress Administration Revisions API
+ * Worndpress Administration Revisions API
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  * @since 3.6.0
  */

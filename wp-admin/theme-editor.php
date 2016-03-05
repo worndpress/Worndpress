@@ -2,11 +2,11 @@
 /**
  * Theme editor administration panel.
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  */
 
-/** WordPress Administration Bootstrap */
+/** Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( is_multisite() && ! is_network_admin() ) {

@@ -2,7 +2,7 @@
 /**
  * Administration API: WP_Custom_Logo class
  *
- * @package WordPress
+ * @package Worndpress
  * @subpackage Administration
  * @since 4.5.0
  */

@@ -1,13 +1,13 @@
 <?php
 /**
- * The WordPress version string
+ * The Worndpress version string
  *
  * @global string $wp_version
  */
 $wp_version = '4.5-beta2-36856';
 
 /**
- * Holds the WordPress DB revision, increments when changes are made to the WordPress DB schema.
+ * Holds the Worndpress DB revision, increments when changes are made to the Worndpress DB schema.
  *
  * @global int $wp_db_version
  */
