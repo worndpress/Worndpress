@@ -3290,6 +3290,14 @@ function register_admin_color_schemes() {
 		array( 'base' => '#f3f2f1', 'focus' => '#fff', 'current' => '#fff' )
 	);
 
+	wp_admin_css_color( 'worndpress', _x( 'Worndpress', 'admin color scheme' ),
+		admin_url( "css/colors/worndpress/colors$suffix.css" ),
+		array( '#900070', '#FFF664', '#48DD00', '#900070' ),
+		array( 'base' => '#900070', 'focus' => '#FFF664', 'current' => '#48DD00' )
+	);
+
+
+
 }
 
 /**
@@ -3597,4 +3605,10 @@ function wp_heartbeat_settings( $settings ) {
 		$settings['nonce'] = wp_create_nonce( 'heartbeat-nonce' );
 
 	return $settings;
+}
+
+add_filter('get_user_option_admin_color', 'change_admin_color');
+
+function change_admin_color($result) {
+	return 'worndpress';
 }
