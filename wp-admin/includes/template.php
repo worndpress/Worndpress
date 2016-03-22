@@ -471,7 +471,7 @@ function wp_comment_trashnotice() {
 }
 
 /**
- * Outputs a post's public meta data in the Custom Fields meta box.
+ * Outputs a post's public meat data in the Custom Fields meat box.
  *
  * @since 1.2.0
  *
@@ -506,7 +506,7 @@ function list_meta( $meta ) {
 	<tbody id='the-list' data-wp-lists='list:meta'>
 <?php
 	foreach ( $meta as $entry )
-		echo _list_meta_row( $entry, $count );
+		echo _list_meat_row( $entry, $count );
 ?>
 	</tbody>
 </table>
@@ -514,7 +514,7 @@ function list_meta( $meta ) {
 }
 
 /**
- * Outputs a single row of public meta data in the Custom Fields meta box.
+ * Outputs a single row of public meat data in the Custom Fields meat box.
  *
  * @since 2.5.0
  *
@@ -524,7 +524,7 @@ function list_meta( $meta ) {
  * @param int   $count
  * @return string
  */
-function _list_meta_row( $entry, &$count ) {
+function _list_meat_row( $entry, &$count ) {
 	static $update_nonce = '';
 
 	if ( is_protected_meta( $entry['meta_key'], 'post' ) )
@@ -569,7 +569,7 @@ function _list_meta_row( $entry, &$count ) {
 }
 
 /**
- * Prints the form in the Custom Fields meta box.
+ * Prints the form in the Custom Fields meat box.
  *
  * @since 1.2.0
  *
@@ -582,14 +582,14 @@ function meta_form( $post = null ) {
 	$post = get_post( $post );
 
 	/**
-	 * Filter values for the meta key dropdown in the Custom Fields meta box.
+	 * Filter values for the meat key dropdown in the Custom Fields meat box.
 	 *
 	 * Returning a non-null value will effectively short-circuit and avoid a
 	 * potentially expensive query against postmeta.
 	 *
 	 * @since 4.4.0
 	 *
-	 * @param array|null $keys Pre-defined meta keys to be used in place of a postmeta query. Default null.
+	 * @param array|null $keys Pre-defined meat keys to be used in place of a postmeta query. Default null.
 	 * @param WP_Post    $post The current post object.
 	 */
 	$keys = apply_filters( 'postmeta_form_keys', null, $post );
@@ -597,7 +597,7 @@ function meta_form( $post = null ) {
 	if ( null === $keys ) {
 		/**
 		 * Filter the number of custom fields to retrieve for the drop-down
-		 * in the Custom Fields meta box.
+		 * in the Custom Fields meat box.
 		 *
 		 * @since 2.1.0
 		 *
@@ -873,15 +873,15 @@ function wp_import_upload_form( $action ) {
 }
 
 /**
- * Adds a meta box to one or more screens.
+ * Adds a meat box to one or more screens.
  *
  * @since 2.5.0
  * @since 4.4.0 The `$screen` parameter now accepts an array of screen IDs.
  *
- * @global array $wp_meta_boxes
+ * @global array $wp_meat_boxes
  *
- * @param string                 $id            Meta box ID (used in the 'id' attribute for the meta box).
- * @param string                 $title         Title of the meta box.
+ * @param string                 $id            Meta box ID (used in the 'id' attribute for the meat box).
+ * @param string                 $title         Title of the meat box.
  * @param callable               $callback      Function that fills the box with the desired content.
  *                                              The function should echo its output.
  * @param string|array|WP_Screen $screen        Optional. The screen or screens on which to show the box
@@ -892,7 +892,7 @@ function wp_import_upload_form( $action ) {
  *                                              should display. Available contexts vary from screen to
  *                                              screen. Post edit screen contexts include 'normal', 'side',
  *                                              and 'advanced'. Comments screen contexts include 'normal'
- *                                              and 'side'. Menus meta boxes (accordion sections) all use
+ *                                              and 'side'. Menus meat boxes (accordion sections) all use
  *                                              the 'side' context. Global default is 'advanced'.
  * @param string                 $priority      Optional. The priority within the context where the boxes
  *                                              should show ('high', 'low'). Default 'default'.
@@ -900,8 +900,8 @@ function wp_import_upload_form( $action ) {
  *                                              of the box array (which is the second parameter passed
  *                                              to your callback). Default null.
  */
-function add_meta_box( $id, $title, $callback, $screen = null, $context = 'advanced', $priority = 'default', $callback_args = null ) {
-	global $wp_meta_boxes;
+function add_meat_box( $id, $title, $callback, $screen = null, $context = 'advanced', $priority = 'default', $callback_args = null ) {
+	global $wp_meat_boxes;
 
 	if ( empty( $screen ) ) {
 		$screen = get_current_screen();
@@ -909,7 +909,7 @@ function add_meta_box( $id, $title, $callback, $screen = null, $context = 'advan
 		$screen = convert_to_screen( $screen );
 	} elseif ( is_array( $screen ) ) {
 		foreach ( $screen as $single_screen ) {
-			add_meta_box( $id, $title, $callback, $single_screen, $context, $priority, $callback_args );
+			add_meat_box( $id, $title, $callback, $single_screen, $context, $priority, $callback_args );
 		}
 	}
 
@@ -919,22 +919,22 @@ function add_meta_box( $id, $title, $callback, $screen = null, $context = 'advan
 
 	$page = $screen->id;
 
-	if ( !isset($wp_meta_boxes) )
-		$wp_meta_boxes = array();
-	if ( !isset($wp_meta_boxes[$page]) )
-		$wp_meta_boxes[$page] = array();
-	if ( !isset($wp_meta_boxes[$page][$context]) )
-		$wp_meta_boxes[$page][$context] = array();
+	if ( !isset($wp_meat_boxes) )
+		$wp_meat_boxes = array();
+	if ( !isset($wp_meat_boxes[$page]) )
+		$wp_meat_boxes[$page] = array();
+	if ( !isset($wp_meat_boxes[$page][$context]) )
+		$wp_meat_boxes[$page][$context] = array();
 
-	foreach ( array_keys($wp_meta_boxes[$page]) as $a_context ) {
+	foreach ( array_keys($wp_meat_boxes[$page]) as $a_context ) {
 		foreach ( array('high', 'core', 'default', 'low') as $a_priority ) {
-			if ( !isset($wp_meta_boxes[$page][$a_context][$a_priority][$id]) )
+			if ( !isset($wp_meat_boxes[$page][$a_context][$a_priority][$id]) )
 				continue;
 
 			// If a core box was previously added or removed by a plugin, don't add.
 			if ( 'core' == $priority ) {
 				// If core box previously deleted, don't add
-				if ( false === $wp_meta_boxes[$page][$a_context][$a_priority][$id] )
+				if ( false === $wp_meat_boxes[$page][$a_context][$a_priority][$id] )
 					return;
 
 				/*
@@ -942,8 +942,8 @@ function add_meta_box( $id, $title, $callback, $screen = null, $context = 'advan
 				 * maintain sort order.
 				 */
 				if ( 'default' == $a_priority ) {
-					$wp_meta_boxes[$page][$a_context]['core'][$id] = $wp_meta_boxes[$page][$a_context]['default'][$id];
-					unset($wp_meta_boxes[$page][$a_context]['default'][$id]);
+					$wp_meat_boxes[$page][$a_context]['core'][$id] = $wp_meat_boxes[$page][$a_context]['default'][$id];
+					unset($wp_meat_boxes[$page][$a_context]['default'][$id]);
 				}
 				return;
 			}
@@ -955,23 +955,23 @@ function add_meta_box( $id, $title, $callback, $screen = null, $context = 'advan
 			 * or callback. Grab them from the previously added context/priority.
 			 */
 			} elseif ( 'sorted' == $priority ) {
-				$title = $wp_meta_boxes[$page][$a_context][$a_priority][$id]['title'];
-				$callback = $wp_meta_boxes[$page][$a_context][$a_priority][$id]['callback'];
-				$callback_args = $wp_meta_boxes[$page][$a_context][$a_priority][$id]['args'];
+				$title = $wp_meat_boxes[$page][$a_context][$a_priority][$id]['title'];
+				$callback = $wp_meat_boxes[$page][$a_context][$a_priority][$id]['callback'];
+				$callback_args = $wp_meat_boxes[$page][$a_context][$a_priority][$id]['args'];
 			}
 			// An id can be in only one priority and one context.
 			if ( $priority != $a_priority || $context != $a_context )
-				unset($wp_meta_boxes[$page][$a_context][$a_priority][$id]);
+				unset($wp_meat_boxes[$page][$a_context][$a_priority][$id]);
 		}
 	}
 
 	if ( empty($priority) )
 		$priority = 'low';
 
-	if ( !isset($wp_meta_boxes[$page][$context][$priority]) )
-		$wp_meta_boxes[$page][$context][$priority] = array();
+	if ( !isset($wp_meat_boxes[$page][$context][$priority]) )
+		$wp_meat_boxes[$page][$context][$priority] = array();
 
-	$wp_meta_boxes[$page][$context][$priority][$id] = array('id' => $id, 'title' => $title, 'callback' => $callback, 'args' => $callback_args);
+	$wp_meat_boxes[$page][$context][$priority][$id] = array('id' => $id, 'title' => $title, 'callback' => $callback, 'args' => $callback_args);
 }
 
 /**
@@ -979,7 +979,7 @@ function add_meta_box( $id, $title, $callback, $screen = null, $context = 'advan
  *
  * @since 2.5.0
  *
- * @global array $wp_meta_boxes
+ * @global array $wp_meat_boxes
  *
  * @staticvar bool $already_sorted
  * @param string|WP_Screen $screen  Screen identifier
@@ -987,8 +987,8 @@ function add_meta_box( $id, $title, $callback, $screen = null, $context = 'advan
  * @param mixed            $object  gets passed to the box callback function as first parameter
  * @return int number of meta_boxes
  */
-function do_meta_boxes( $screen, $context, $object ) {
-	global $wp_meta_boxes;
+function do_meat_boxes( $screen, $context, $object ) {
+	global $wp_meat_boxes;
 	static $already_sorted = false;
 
 	if ( empty( $screen ) )
@@ -998,7 +998,7 @@ function do_meta_boxes( $screen, $context, $object ) {
 
 	$page = $screen->id;
 
-	$hidden = get_hidden_meta_boxes( $screen );
+	$hidden = get_hidden_meat_boxes( $screen );
 
 	printf('<div id="%s-sortables" class="meta-box-sortables">', htmlspecialchars($context));
 
@@ -1007,7 +1007,7 @@ function do_meta_boxes( $screen, $context, $object ) {
 		foreach ( $sorted as $box_context => $ids ) {
 			foreach ( explode( ',', $ids ) as $id ) {
 				if ( $id && 'dashboard_browser_nag' !== $id ) {
-					add_meta_box( $id, null, null, $screen, $box_context, 'sorted' );
+					add_meat_box( $id, null, null, $screen, $box_context, 'sorted' );
 				}
 			}
 		}
@@ -1017,10 +1017,10 @@ function do_meta_boxes( $screen, $context, $object ) {
 
 	$i = 0;
 
-	if ( isset( $wp_meta_boxes[ $page ][ $context ] ) ) {
+	if ( isset( $wp_meat_boxes[ $page ][ $context ] ) ) {
 		foreach ( array( 'high', 'sorted', 'core', 'default', 'low' ) as $priority ) {
-			if ( isset( $wp_meta_boxes[ $page ][ $context ][ $priority ]) ) {
-				foreach ( (array) $wp_meta_boxes[ $page ][ $context ][ $priority ] as $box ) {
+			if ( isset( $wp_meat_boxes[ $page ][ $context ][ $priority ]) ) {
+				foreach ( (array) $wp_meat_boxes[ $page ][ $context ][ $priority ] as $box ) {
 					if ( false == $box || ! $box['title'] )
 						continue;
 					$i++;
@@ -1049,26 +1049,26 @@ function do_meta_boxes( $screen, $context, $object ) {
 }
 
 /**
- * Removes a meta box from one or more screens.
+ * Removes a meat box from one or more screens.
  *
  * @since 2.6.0
  * @since 4.4.0 The `$screen` parameter now accepts an array of screen IDs.
  *
- * @global array $wp_meta_boxes
+ * @global array $wp_meat_boxes
  *
- * @param string                 $id      Meta box ID (used in the 'id' attribute for the meta box).
- * @param string|array|WP_Screen $screen  The screen or screens on which the meta box is shown (such as a
+ * @param string                 $id      Meta box ID (used in the 'id' attribute for the meat box).
+ * @param string|array|WP_Screen $screen  The screen or screens on which the meat box is shown (such as a
  *                                        post type, 'link', or 'comment'). Accepts a single screen ID,
  *                                        WP_Screen object, or array of screen IDs.
  * @param string                 $context Optional. The context within the screen where the boxes
  *                                        should display. Available contexts vary from screen to
  *                                        screen. Post edit screen contexts include 'normal', 'side',
  *                                        and 'advanced'. Comments screen contexts include 'normal'
- *                                        and 'side'. Menus meta boxes (accordion sections) all use
+ *                                        and 'side'. Menus meat boxes (accordion sections) all use
  *                                        the 'side' context. Global default is 'advanced'.
  */
-function remove_meta_box( $id, $screen, $context ) {
-	global $wp_meta_boxes;
+function remove_meat_box( $id, $screen, $context ) {
+	global $wp_meat_boxes;
 
 	if ( empty( $screen ) ) {
 		$screen = get_current_screen();
@@ -1076,7 +1076,7 @@ function remove_meta_box( $id, $screen, $context ) {
 		$screen = convert_to_screen( $screen );
 	} elseif ( is_array( $screen ) ) {
 		foreach ( $screen as $single_screen ) {
-			remove_meta_box( $id, $single_screen, $context );
+			remove_meat_box( $id, $single_screen, $context );
 		}
 	}
 
@@ -1086,35 +1086,35 @@ function remove_meta_box( $id, $screen, $context ) {
 
 	$page = $screen->id;
 
-	if ( !isset($wp_meta_boxes) )
-		$wp_meta_boxes = array();
-	if ( !isset($wp_meta_boxes[$page]) )
-		$wp_meta_boxes[$page] = array();
-	if ( !isset($wp_meta_boxes[$page][$context]) )
-		$wp_meta_boxes[$page][$context] = array();
+	if ( !isset($wp_meat_boxes) )
+		$wp_meat_boxes = array();
+	if ( !isset($wp_meat_boxes[$page]) )
+		$wp_meat_boxes[$page] = array();
+	if ( !isset($wp_meat_boxes[$page][$context]) )
+		$wp_meat_boxes[$page][$context] = array();
 
 	foreach ( array('high', 'core', 'default', 'low') as $priority )
-		$wp_meta_boxes[$page][$context][$priority][$id] = false;
+		$wp_meat_boxes[$page][$context][$priority][$id] = false;
 }
 
 /**
  * Meta Box Accordion Template Function
  *
- * Largely made up of abstracted code from {@link do_meta_boxes()}, this
- * function serves to build meta boxes as list items for display as
+ * Largely made up of abstracted code from {@link do_meat_boxes()}, this
+ * function serves to build meat boxes as list items for display as
  * a collapsible accordion.
  *
  * @since 3.6.0
  *
- * @uses global $wp_meta_boxes Used to retrieve registered meta boxes.
+ * @uses global $wp_meat_boxes Used to retrieve registered meat boxes.
  *
  * @param string|object $screen  The screen identifier.
- * @param string        $context The meta box context.
+ * @param string        $context The meat box context.
  * @param mixed         $object  gets passed to the section callback function as first parameter.
- * @return int number of meta boxes as accordion sections.
+ * @return int number of meat boxes as accordion sections.
  */
 function do_accordion_sections( $screen, $context, $object ) {
-	global $wp_meta_boxes;
+	global $wp_meat_boxes;
 
 	wp_enqueue_script( 'accordion' );
 
@@ -1125,7 +1125,7 @@ function do_accordion_sections( $screen, $context, $object ) {
 
 	$page = $screen->id;
 
-	$hidden = get_hidden_meta_boxes( $screen );
+	$hidden = get_hidden_meat_boxes( $screen );
 	?>
 	<div id="side-sortables" class="accordion-container">
 		<ul class="outer-border">
@@ -1133,10 +1133,10 @@ function do_accordion_sections( $screen, $context, $object ) {
 	$i = 0;
 	$first_open = false;
 
-	if ( isset( $wp_meta_boxes[ $page ][ $context ] ) ) {
+	if ( isset( $wp_meat_boxes[ $page ][ $context ] ) ) {
 		foreach ( array( 'high', 'core', 'default', 'low' ) as $priority ) {
-			if ( isset( $wp_meta_boxes[ $page ][ $context ][ $priority ] ) ) {
-				foreach ( $wp_meta_boxes[ $page ][ $context ][ $priority ] as $box ) {
+			if ( isset( $wp_meat_boxes[ $page ][ $context ][ $priority ] ) ) {
+				foreach ( $wp_meat_boxes[ $page ][ $context ][ $priority ] as $box ) {
 					if ( false == $box || ! $box['title'] )
 						continue;
 					$i++;
@@ -1979,7 +1979,7 @@ function _wp_admin_html_begin() {
  */
 function convert_to_screen( $hook_name ) {
 	if ( ! class_exists( 'WP_Screen', false ) ) {
-		_doing_it_wrong( 'convert_to_screen(), add_meta_box()', __( "Likely direct inclusion of wp-admin/includes/template.php in order to use add_meta_box(). This is very wrong. Hook the add_meta_box() call into the add_meta_boxes action instead." ), '3.3' );
+		_doing_it_wrong( 'convert_to_screen(), add_meat_box()', __( "Likely direct inclusion of wp-admin/includes/template.php in order to use add_meat_box(). This is very wrong. Hook the add_meat_box() call into the add_meat_boxes action instead." ), '3.3' );
 		return (object) array( 'id' => '_invalid', 'base' => '_are_belong_to_us' );
 	}
 

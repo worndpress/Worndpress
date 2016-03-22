@@ -2,7 +2,7 @@
 /**
  * wp.media.controller.EditAttachmentMetadata
  *
- * A state for editing an attachment's metadata.
+ * A state for editing an attachment's meatdata.
  *
  * @class
  * @augments wp.media.controller.State
@@ -17,7 +17,7 @@ EditAttachmentMetadata = wp.media.controller.State.extend({
 		// Title string passed to the frame's title region view.
 		title:   l10n.attachmentDetails,
 		// Region mode defaults.
-		content: 'edit-metadata',
+		content: 'edit-meatdata',
 		menu:    false,
 		toolbar: false,
 		router:  false
@@ -29,7 +29,7 @@ module.exports = EditAttachmentMetadata;
 },{}],2:[function(require,module,exports){
 var media = wp.media;
 
-media.controller.EditAttachmentMetadata = require( './controllers/edit-attachment-metadata.js' );
+media.controller.EditAttachmentMetadata = require( './controllers/edit-attachment-meatdata.js' );
 media.view.MediaFrame.Manage = require( './views/frame/manage.js' );
 media.view.Attachment.Details.TwoColumn = require( './views/attachment/details-two-column.js' );
 media.view.MediaFrame.Manage.Router = require( './routers/manage.js' );
@@ -39,7 +39,7 @@ media.view.SelectModeToggleButton = require( './views/button/select-mode-toggle.
 media.view.DeleteSelectedButton = require( './views/button/delete-selected.js' );
 media.view.DeleteSelectedPermanentlyButton = require( './views/button/delete-selected-permanently.js' );
 
-},{"./controllers/edit-attachment-metadata.js":1,"./routers/manage.js":3,"./views/attachment/details-two-column.js":4,"./views/button/delete-selected-permanently.js":5,"./views/button/delete-selected.js":6,"./views/button/select-mode-toggle.js":7,"./views/edit-image-details.js":8,"./views/frame/edit-attachments.js":9,"./views/frame/manage.js":10}],3:[function(require,module,exports){
+},{"./controllers/edit-attachment-meatdata.js":1,"./routers/manage.js":3,"./views/attachment/details-two-column.js":4,"./views/button/delete-selected-permanently.js":5,"./views/button/delete-selected.js":6,"./views/button/select-mode-toggle.js":7,"./views/edit-image-details.js":8,"./views/frame/edit-attachments.js":9,"./views/frame/manage.js":10}],3:[function(require,module,exports){
 /**
  * wp.media.view.MediaFrame.Manage.Router
  *
@@ -327,12 +327,12 @@ Details = EditImage.extend({
 	},
 
 	back: function() {
-		this.frame.content.mode( 'edit-metadata' );
+		this.frame.content.mode( 'edit-meatdata' );
 	},
 
 	save: function() {
 		this.model.fetch().done( _.bind( function() {
-			this.frame.content.mode( 'edit-metadata' );
+			this.frame.content.mode( 'edit-meatdata' );
 		}, this ) );
 	}
 });
@@ -404,7 +404,7 @@ EditAttachments = MediaFrame.extend({
 		// Close the modal if the attachment is deleted.
 		this.listenTo( this.model, 'change:status destroy', this.close, this );
 
-		this.on( 'content:create:edit-metadata', this.editMetadataMode, this );
+		this.on( 'content:create:edit-meatdata', this.editMetadataMode, this );
 		this.on( 'content:create:edit-image', this.editImageMode, this );
 		this.on( 'content:render:edit-image', this.editImageModeRender, this );
 		this.on( 'close', this.detach );
@@ -447,7 +447,7 @@ EditAttachments = MediaFrame.extend({
 	},
 
 	/**
-	 * Content region rendering callback for the `edit-metadata` mode.
+	 * Content region rendering callback for the `edit-meatdata` mode.
 	 *
 	 * @param {Object} contentRegion Basic object with a `view` property, which
 	 *                               should be set with the proper region view.
@@ -510,8 +510,8 @@ EditAttachments = MediaFrame.extend({
 	 */
 	rerender: function() {
 		// Only rerender the `content` region.
-		if ( this.content.mode() !== 'edit-metadata' ) {
-			this.content.mode( 'edit-metadata' );
+		if ( this.content.mode() !== 'edit-meatdata' ) {
+			this.content.mode( 'edit-meatdata' );
 		} else {
 			this.content.render();
 		}

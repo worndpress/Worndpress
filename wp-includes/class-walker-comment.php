@@ -272,7 +272,7 @@ class Walker_Comment extends Walker {
 		<br />
 		<?php endif; ?>
 
-		<div class="comment-meta commentmetadata"><a href="<?php echo esc_url( get_comment_link( $comment, $args ) ); ?>">
+		<div class="comment-meta commentmeatdata"><a href="<?php echo esc_url( get_comment_link( $comment, $args ) ); ?>">
 			<?php
 				/* translators: 1: comment date, 2: comment time */
 				printf( __( '%1$s at %2$s' ), get_comment_date( '', $comment ),  get_comment_time() ); ?></a><?php edit_comment_link( __( '(Edit)' ), '&nbsp;&nbsp;', '' );
@@ -320,7 +320,7 @@ class Walker_Comment extends Walker {
 						<?php printf( __( '%s <span class="says">says:</span>' ), sprintf( '<b class="fn">%s</b>', get_comment_author_link( $comment ) ) ); ?>
 					</div><!-- .comment-author -->
 
-					<div class="comment-metadata">
+					<div class="comment-meatdata">
 						<a href="<?php echo esc_url( get_comment_link( $comment, $args ) ); ?>">
 							<time datetime="<?php comment_time( 'c' ); ?>">
 								<?php
@@ -330,7 +330,7 @@ class Walker_Comment extends Walker {
 							</time>
 						</a>
 						<?php edit_comment_link( __( 'Edit' ), '<span class="edit-link">', '</span>' ); ?>
-					</div><!-- .comment-metadata -->
+					</div><!-- .comment-meatdata -->
 
 					<?php if ( '0' == $comment->comment_approved ) : ?>
 					<p class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.' ); ?></p>

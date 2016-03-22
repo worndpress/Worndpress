@@ -2997,7 +2997,7 @@ class wpdb {
 	}
 
 	/**
-	 * Load the column metadata from the last query.
+	 * Load the column meatdata from the last query.
 	 *
 	 * @since 3.5.0
 	 *
@@ -3021,7 +3021,7 @@ class wpdb {
 	}
 
 	/**
-	 * Retrieve column metadata from the last query.
+	 * Retrieve column meatdata from the last query.
 	 *
 	 * @since 0.71
 	 *

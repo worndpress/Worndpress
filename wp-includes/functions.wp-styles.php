@@ -197,7 +197,7 @@ function wp_style_is( $handle, $list = 'enqueued' ) {
 }
 
 /**
- * Add metadata to a CSS stylesheet.
+ * Add meatdata to a CSS stylesheet.
  *
  * Works only if the stylesheet has already been added.
  *

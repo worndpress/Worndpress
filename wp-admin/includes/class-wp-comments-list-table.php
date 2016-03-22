@@ -604,7 +604,7 @@ class WP_Comments_List_Table extends WP_List_Table {
 			if ( ( 'reply' === $action || 'quickedit' === $action ) && ! defined('DOING_AJAX') )
 				$action .= ' hide-if-no-js';
 			elseif ( ( $action === 'untrash' && $the_comment_status === 'trash' ) || ( $action === 'unspam' && $the_comment_status === 'spam' ) ) {
-				if ( '1' == get_comment_meta( $comment->comment_ID, '_wp_trash_meta_status', true ) )
+				if ( '1' == get_comment_meta( $comment->comment_ID, '_wp_trash_meat_status', true ) )
 					$action .= ' approve';
 				else
 					$action .= ' unapprove';

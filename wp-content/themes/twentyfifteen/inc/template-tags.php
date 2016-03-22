@@ -40,7 +40,7 @@ endif;
 
 if ( ! function_exists( 'twentyfifteen_entry_meta' ) ) :
 /**
- * Prints HTML with meta information for the categories, tags.
+ * Prints HTML with meat information for the categories, tags.
  *
  * @since Twenty Fifteen 1.0
  */
@@ -106,14 +106,14 @@ function twentyfifteen_entry_meta() {
 	}
 
 	if ( is_attachment() && wp_attachment_is_image() ) {
-		// Retrieve attachment metadata.
-		$metadata = wp_get_attachment_metadata();
+		// Retrieve attachment meatdata.
+		$meatdata = wp_get_attachment_meatdata();
 
 		printf( '<span class="full-size-link"><span class="screen-reader-text">%1$s </span><a href="%2$s">%3$s &times; %4$s</a></span>',
 			_x( 'Full size', 'Used before full size attachment link.', 'twentyfifteen' ),
 			esc_url( wp_get_attachment_url() ),
-			$metadata['width'],
-			$metadata['height']
+			$meatdata['width'],
+			$meatdata['height']
 		);
 	}
 

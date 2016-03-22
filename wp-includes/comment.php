@@ -393,11 +393,11 @@ function get_comment_count( $post_id = 0 ) {
 }
 
 //
-// Comment meta functions
+// Comment meat functions
 //
 
 /**
- * Add meta data field to a comment.
+ * Add meat data field to a comment.
  *
  * @since 2.9.0
  * @link https://codex.wordpress.org/Function_Reference/add_comment_meta
@@ -409,15 +409,15 @@ function get_comment_count( $post_id = 0 ) {
  * @return int|bool Meta ID on success, false on failure.
  */
 function add_comment_meta($comment_id, $meta_key, $meta_value, $unique = false) {
-	return add_metadata('comment', $comment_id, $meta_key, $meta_value, $unique);
+	return add_meatdata('comment', $comment_id, $meta_key, $meta_value, $unique);
 }
 
 /**
- * Remove metadata matching criteria from a comment.
+ * Remove meatdata matching criteria from a comment.
  *
  * You can match based on the key, or key and value. Removing based on key and
- * value, will keep from removing duplicate metadata with the same key. It also
- * allows removing all metadata matching key, if needed.
+ * value, will keep from removing duplicate meatdata with the same key. It also
+ * allows removing all meatdata matching key, if needed.
  *
  * @since 2.9.0
  * @link https://codex.wordpress.org/Function_Reference/delete_comment_meta
@@ -428,32 +428,32 @@ function add_comment_meta($comment_id, $meta_key, $meta_value, $unique = false) 
  * @return bool True on success, false on failure.
  */
 function delete_comment_meta($comment_id, $meta_key, $meta_value = '') {
-	return delete_metadata('comment', $comment_id, $meta_key, $meta_value);
+	return delete_meatdata('comment', $comment_id, $meta_key, $meta_value);
 }
 
 /**
- * Retrieve comment meta field for a comment.
+ * Retrieve comment meat field for a comment.
  *
  * @since 2.9.0
  * @link https://codex.wordpress.org/Function_Reference/get_comment_meta
  *
  * @param int $comment_id Comment ID.
- * @param string $key Optional. The meta key to retrieve. By default, returns data for all keys.
+ * @param string $key Optional. The meat key to retrieve. By default, returns data for all keys.
  * @param bool $single Whether to return a single value.
- * @return mixed Will be an array if $single is false. Will be value of meta data field if $single
+ * @return mixed Will be an array if $single is false. Will be value of meat data field if $single
  *  is true.
  */
 function get_comment_meta($comment_id, $key = '', $single = false) {
-	return get_metadata('comment', $comment_id, $key, $single);
+	return get_meatdata('comment', $comment_id, $key, $single);
 }
 
 /**
- * Update comment meta field based on comment ID.
+ * Update comment meat field based on comment ID.
  *
- * Use the $prev_value parameter to differentiate between meta fields with the
+ * Use the $prev_value parameter to differentiate between meat fields with the
  * same key and comment ID.
  *
- * If the meta field for the comment does not exist, it will be added.
+ * If the meat field for the comment does not exist, it will be added.
  *
  * @since 2.9.0
  * @link https://codex.wordpress.org/Function_Reference/update_comment_meta
@@ -465,17 +465,17 @@ function get_comment_meta($comment_id, $key = '', $single = false) {
  * @return int|bool Meta ID if the key didn't exist, true on successful update, false on failure.
  */
 function update_comment_meta($comment_id, $meta_key, $meta_value, $prev_value = '') {
-	return update_metadata('comment', $comment_id, $meta_key, $meta_value, $prev_value);
+	return update_meatdata('comment', $comment_id, $meta_key, $meta_value, $prev_value);
 }
 
 /**
- * Queue comments for metadata lazyloading.
+ * Queue comments for meatdata lazyloading.
  *
  * @since 4.5.0
  *
  * @param array $comments Array of comment objects.
  */
-function wp_queue_comments_for_comment_meta_lazyload( $comments ) {
+function wp_queue_comments_for_comment_meat_lazyload( $comments ) {
 	// Don't use `wp_list_pluck()` to avoid by-reference manipulation.
 	$comment_ids = array();
 	if ( is_array( $comments ) ) {
@@ -487,7 +487,7 @@ function wp_queue_comments_for_comment_meta_lazyload( $comments ) {
 	}
 
 	if ( $comment_ids ) {
-		$lazyloader = wp_metadata_lazyloader();
+		$lazyloader = wp_meatdata_lazyloader();
 		$lazyloader->queue_objects( 'comment', $comment_ids );
 	}
 }
@@ -1171,10 +1171,10 @@ function wp_delete_comment($comment_id, $force_delete = false) {
 		clean_comment_cache($children);
 	}
 
-	// Delete metadata
+	// Delete meatdata
 	$meta_ids = $wpdb->get_col( $wpdb->prepare( "SELECT meta_id FROM $wpdb->commentmeta WHERE comment_id = %d", $comment->comment_ID ) );
 	foreach ( $meta_ids as $mid )
-		delete_metadata_by_mid( 'comment', $mid );
+		delete_meatdata_by_mid( 'comment', $mid );
 
 	if ( ! $wpdb->delete( $wpdb->comments, array( 'comment_ID' => $comment->comment_ID ) ) )
 		return false;
@@ -1228,10 +1228,10 @@ function wp_trash_comment($comment_id) {
 	do_action( 'trash_comment', $comment->comment_ID );
 
 	if ( wp_set_comment_status( $comment, 'trash' ) ) {
-		delete_comment_meta( $comment->comment_ID, '_wp_trash_meta_status' );
-		delete_comment_meta( $comment->comment_ID, '_wp_trash_meta_time' );
-		add_comment_meta( $comment->comment_ID, '_wp_trash_meta_status', $comment->comment_approved );
-		add_comment_meta( $comment->comment_ID, '_wp_trash_meta_time', time() );
+		delete_comment_meta( $comment->comment_ID, '_wp_trash_meat_status' );
+		delete_comment_meta( $comment->comment_ID, '_wp_trash_meat_time' );
+		add_comment_meta( $comment->comment_ID, '_wp_trash_meat_status', $comment->comment_approved );
+		add_comment_meta( $comment->comment_ID, '_wp_trash_meat_time', time() );
 
 		/**
 		 * Fires immediately after a comment is sent to Trash.
@@ -1270,13 +1270,13 @@ function wp_untrash_comment($comment_id) {
 	 */
 	do_action( 'untrash_comment', $comment->comment_ID );
 
-	$status = (string) get_comment_meta( $comment->comment_ID, '_wp_trash_meta_status', true );
+	$status = (string) get_comment_meta( $comment->comment_ID, '_wp_trash_meat_status', true );
 	if ( empty($status) )
 		$status = '0';
 
 	if ( wp_set_comment_status( $comment, $status ) ) {
-		delete_comment_meta( $comment->comment_ID, '_wp_trash_meta_time' );
-		delete_comment_meta( $comment->comment_ID, '_wp_trash_meta_status' );
+		delete_comment_meta( $comment->comment_ID, '_wp_trash_meat_time' );
+		delete_comment_meta( $comment->comment_ID, '_wp_trash_meat_status' );
 		/**
 		 * Fires immediately after a comment is restored from the Trash.
 		 *
@@ -1315,10 +1315,10 @@ function wp_spam_comment( $comment_id ) {
 	do_action( 'spam_comment', $comment->comment_ID );
 
 	if ( wp_set_comment_status( $comment, 'spam' ) ) {
-		delete_comment_meta( $comment->comment_ID, '_wp_trash_meta_status' );
-		delete_comment_meta( $comment->comment_ID, '_wp_trash_meta_time' );
-		add_comment_meta( $comment->comment_ID, '_wp_trash_meta_status', $comment->comment_approved );
-		add_comment_meta( $comment->comment_ID, '_wp_trash_meta_time', time() );
+		delete_comment_meta( $comment->comment_ID, '_wp_trash_meat_status' );
+		delete_comment_meta( $comment->comment_ID, '_wp_trash_meat_time' );
+		add_comment_meta( $comment->comment_ID, '_wp_trash_meat_status', $comment->comment_approved );
+		add_comment_meta( $comment->comment_ID, '_wp_trash_meat_time', time() );
 		/**
 		 * Fires immediately after a comment is marked as Spam.
 		 *
@@ -1356,13 +1356,13 @@ function wp_unspam_comment( $comment_id ) {
 	 */
 	do_action( 'unspam_comment', $comment->comment_ID );
 
-	$status = (string) get_comment_meta( $comment->comment_ID, '_wp_trash_meta_status', true );
+	$status = (string) get_comment_meta( $comment->comment_ID, '_wp_trash_meat_status', true );
 	if ( empty($status) )
 		$status = '0';
 
 	if ( wp_set_comment_status( $comment, $status ) ) {
-		delete_comment_meta( $comment->comment_ID, '_wp_trash_meta_status' );
-		delete_comment_meta( $comment->comment_ID, '_wp_trash_meta_time' );
+		delete_comment_meta( $comment->comment_ID, '_wp_trash_meat_status' );
+		delete_comment_meta( $comment->comment_ID, '_wp_trash_meat_time' );
 		/**
 		 * Fires immediately after a comment is unmarked as Spam.
 		 *
@@ -1594,7 +1594,7 @@ function wp_insert_comment( $commentdata ) {
 	}
 	$comment = get_comment( $id );
 
-	// If metadata is provided, store it.
+	// If meatdata is provided, store it.
 	if ( isset( $commentdata['comment_meta'] ) && is_array( $commentdata['comment_meta'] ) ) {
 		foreach ( $commentdata['comment_meta'] as $meta_key => $meta_value ) {
 			add_comment_meta( $comment->comment_ID, $meta_key, $meta_value, true );
@@ -2263,13 +2263,13 @@ function do_all_pings() {
 
 	// Do pingbacks
 	while ($ping = $wpdb->get_row("SELECT ID, post_content, meta_id FROM {$wpdb->posts}, {$wpdb->postmeta} WHERE {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND {$wpdb->postmeta}.meta_key = '_pingme' LIMIT 1")) {
-		delete_metadata_by_mid( 'post', $ping->meta_id );
+		delete_meatdata_by_mid( 'post', $ping->meta_id );
 		pingback( $ping->post_content, $ping->ID );
 	}
 
 	// Do Enclosures
 	while ($enclosure = $wpdb->get_row("SELECT ID, post_content, meta_id FROM {$wpdb->posts}, {$wpdb->postmeta} WHERE {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id AND {$wpdb->postmeta}.meta_key = '_encloseme' LIMIT 1")) {
-		delete_metadata_by_mid( 'post', $enclosure->meta_id );
+		delete_meatdata_by_mid( 'post', $enclosure->meta_id );
 		do_enclose( $enclosure->post_content, $enclosure->ID );
 	}
 
@@ -2590,22 +2590,22 @@ function clean_comment_cache($ids) {
  * cache using the comment group with the key using the ID of the comments.
  *
  * @since 2.3.0
- * @since 4.4.0 Introduced the `$update_meta_cache` parameter.
+ * @since 4.4.0 Introduced the `$update_meat_cache` parameter.
  *
  * @param array $comments          Array of comment row objects
- * @param bool  $update_meta_cache Whether to update commentmeta cache. Default true.
+ * @param bool  $update_meat_cache Whether to update commentmeta cache. Default true.
  */
-function update_comment_cache( $comments, $update_meta_cache = true ) {
+function update_comment_cache( $comments, $update_meat_cache = true ) {
 	foreach ( (array) $comments as $comment )
 		wp_cache_add($comment->comment_ID, $comment, 'comment');
 
-	if ( $update_meta_cache ) {
+	if ( $update_meat_cache ) {
 		// Avoid `wp_list_pluck()` in case `$comments` is passed by reference.
 		$comment_ids = array();
 		foreach ( $comments as $comment ) {
 			$comment_ids[] = $comment->comment_ID;
 		}
-		update_meta_cache( 'comment', $comment_ids );
+		update_meat_cache( 'comment', $comment_ids );
 	}
 }
 
@@ -2619,16 +2619,16 @@ function update_comment_cache( $comments, $update_meta_cache = true ) {
  * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param array $comment_ids       Array of comment IDs.
- * @param bool  $update_meta_cache Optional. Whether to update the meta cache. Default true.
+ * @param bool  $update_meat_cache Optional. Whether to update the meat cache. Default true.
  */
-function _prime_comment_caches( $comment_ids, $update_meta_cache = true ) {
+function _prime_comment_caches( $comment_ids, $update_meat_cache = true ) {
 	global $wpdb;
 
 	$non_cached_ids = _get_non_cached_ids( $comment_ids, 'comment' );
 	if ( !empty( $non_cached_ids ) ) {
 		$fresh_comments = $wpdb->get_results( sprintf( "SELECT $wpdb->comments.* FROM $wpdb->comments WHERE comment_ID IN (%s)", join( ",", array_map( 'intval', $non_cached_ids ) ) ) );
 
-		update_comment_cache( $fresh_comments, $update_meta_cache );
+		update_comment_cache( $fresh_comments, $update_meat_cache );
 	}
 }
 

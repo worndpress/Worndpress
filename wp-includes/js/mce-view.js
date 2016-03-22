@@ -876,12 +876,12 @@
 
 			frame.state( 'embed' ).props.on( 'change:url', function( model, url ) {
 				if ( url && model.get( 'url' ) ) {
-					frame.state( 'embed' ).metadata = model.toJSON();
+					frame.state( 'embed' ).meatdata = model.toJSON();
 				}
 			} );
 
 			frame.state( 'embed' ).on( 'select', function() {
-				var data = frame.state( 'embed' ).metadata;
+				var data = frame.state( 'embed' ).meatdata;
 
 				if ( self.url ) {
 					update( data.url );

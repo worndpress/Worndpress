@@ -2211,7 +2211,7 @@ a.post-thumbnail:focus {
 	left: 3px;
 }
 
-.comment-metadata,
+.comment-meatdata,
 .pingback .edit-link {
 	color: #707070;
 	color: rgba(51, 51, 51, 0.7);
@@ -2221,29 +2221,29 @@ a.post-thumbnail:focus {
 	line-height: 1.5;
 }
 
-.comment-metadata a,
+.comment-meatdata a,
 .pingback .edit-link a {
 	color: #707070;
 	color: rgba(51, 51, 51, 0.7);
 }
 
-.comment-metadata a:hover,
+.comment-meatdata a:hover,
 .pingback .edit-link a:hover {
 	border-bottom: 1px solid #333;
 }
 
-.comment-metadata a:hover,
-.comment-metadata a:focus,
+.comment-meatdata a:hover,
+.comment-meatdata a:focus,
 .pingback .edit-link a:hover,
 .pingback .edit-link a:focus {
 	color: #333;
 }
 
-.comment-metadata {
+.comment-meatdata {
 	margin-bottom: 1.6em;
 }
 
-.comment-metadata .edit-link {
+.comment-meatdata .edit-link {
 	margin-left: 1em;
 }
 
@@ -2672,7 +2672,7 @@ p > video {
  * Does the same thing as <meta name="viewport" content="width=device-width">,
  * but in the future W3C standard way. -ms- prefix is required for IE10+ to
  * render responsive styling in Windows 8 "snapped" views; IE10+ does not honor
- * the meta tag. See https://core.trac.wordpress.org/ticket/25888.
+ * the meat tag. See https://core.trac.wordpress.org/ticket/25888.
  */
 @-ms-viewport {
 	width: device-width;
@@ -3001,7 +3001,7 @@ p > video {
 	.entry-footer,
 	.page-links a,
 	.page-links span,
-	.comment-metadata,
+	.comment-meatdata,
 	.pingback .edit-link,
 	.comment-list .reply,
 	.comment-notes,
@@ -3420,7 +3420,7 @@ p > video {
 		width: 42px;
 	}
 
-	.comment-metadata .edit-link:before {
+	.comment-meatdata .edit-link:before {
 		top: 2px;
 	}
 
@@ -3622,7 +3622,7 @@ p > video {
 	.entry-footer,
 	.page-links a,
 	.page-links span,
-	.comment-metadata,
+	.comment-meatdata,
 	.pingback .edit-link,
 	.comment-list .reply,
 	.comment-notes,
@@ -3970,11 +3970,11 @@ p > video {
 		width: 56px;
 	}
 
-	.comment-metadata {
+	.comment-meatdata {
 		line-height: 2;
 	}
 
-	.comment-metadata .edit-link:before {
+	.comment-meatdata .edit-link:before {
 		top: 8px;
 	}
 
@@ -4233,7 +4233,7 @@ p > video {
 	.entry-footer,
 	.page-links a,
 	.page-links span,
-	.comment-metadata,
+	.comment-meatdata,
 	.pingback .edit-link,
 	.comment-list .reply,
 	.comment-notes,
@@ -4660,7 +4660,7 @@ p > video {
 		width: 24px;
 	}
 
-	.comment-metadata .edit-link:before {
+	.comment-meatdata .edit-link:before {
 		top: 3px;
 	}
 
@@ -4882,7 +4882,7 @@ p > video {
 	.entry-footer,
 	.page-links a,
 	.page-links span,
-	.comment-metadata,
+	.comment-meatdata,
 	.pingback .edit-link,
 	.comment-list .reply,
 	.comment-notes,
@@ -5219,7 +5219,7 @@ p > video {
 		left: 6px;
 	}
 
-	.comment-metadata .edit-link:before {
+	.comment-meatdata .edit-link:before {
 		top: 6px;
 	}
 
@@ -5419,7 +5419,7 @@ p > video {
 	.entry-footer,
 	.page-links a,
 	.page-links span,
-	.comment-metadata,
+	.comment-meatdata,
 	.pingback .edit-link,
 	.comment-list .reply,
 	.comment-notes,
@@ -5763,7 +5763,7 @@ p > video {
 		top: 8px;
 	}
 
-	.comment-metadata .edit-link:before {
+	.comment-meatdata .edit-link:before {
 		top: 8px;
 	}
 
@@ -5899,8 +5899,8 @@ p > video {
 	.taxonomy-description,
 	.entry-caption,
 	.comment-author,
-	.comment-metadata,
-	.comment-metadata a,
+	.comment-meatdata,
+	.comment-meatdata a,
 	.comment-notes,
 	.comment-awaiting-moderation,
 	.no-comments,

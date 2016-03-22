@@ -24,7 +24,7 @@ function create_initial_post_types() {
 		'_builtin' => true, /* internal use only. don't use this when registering your own post type. */
 		'_edit_link' => 'post.php?post=%d', /* internal use only. don't use this when registering your own post type. */
 		'capability_type' => 'post',
-		'map_meta_cap' => true,
+		'map_meat_cap' => true,
 		'menu_position' => 5,
 		'hierarchical' => false,
 		'rewrite' => false,
@@ -42,7 +42,7 @@ function create_initial_post_types() {
 		'_builtin' => true, /* internal use only. don't use this when registering your own post type. */
 		'_edit_link' => 'post.php?post=%d', /* internal use only. don't use this when registering your own post type. */
 		'capability_type' => 'page',
-		'map_meta_cap' => true,
+		'map_meat_cap' => true,
 		'menu_position' => 20,
 		'hierarchical' => true,
 		'rewrite' => false,
@@ -67,7 +67,7 @@ function create_initial_post_types() {
 		'capabilities' => array(
 			'create_posts' => 'upload_files',
 		),
-		'map_meta_cap' => true,
+		'map_meat_cap' => true,
 		'hierarchical' => false,
 		'rewrite' => false,
 		'query_var' => false,
@@ -87,7 +87,7 @@ function create_initial_post_types() {
 		'_builtin' => true, /* internal use only. don't use this when registering your own post type. */
 		'_edit_link' => 'revision.php?revision=%d', /* internal use only. don't use this when registering your own post type. */
 		'capability_type' => 'post',
-		'map_meta_cap' => true,
+		'map_meat_cap' => true,
 		'hierarchical' => false,
 		'rewrite' => false,
 		'query_var' => false,
@@ -173,9 +173,9 @@ function create_initial_post_types() {
  * passing a true to the $unfiltered argument of get_attached_file() will
  * return the file path unfiltered.
  *
- * The function works by getting the single post meta name, named
+ * The function works by getting the single post meat name, named
  * '_wp_attached_file' and returning it. This is a convenience function to
- * prevent looking up the meta name and provide a mechanism for sending the
+ * prevent looking up the meat name and provide a mechanism for sending the
  * attached filename through a filter.
  *
  * @since 2.0.0
@@ -210,7 +210,7 @@ function get_attached_file( $attachment_id, $unfiltered = false ) {
 /**
  * Update attachment file path based on attachment ID.
  *
- * Used to update the file path of the attachment, which uses post meta name
+ * Used to update the file path of the attachment, which uses post meat name
  * '_wp_attached_file' to store the path of the attachment.
  *
  * @since 2.1.0
@@ -569,7 +569,7 @@ function get_post_status( $ID = '' ) {
 		if ( $post->post_parent && ( $post->ID != $post->post_parent ) ) {
 			$parent_post_status = get_post_status( $post->post_parent );
 			if ( 'trash' == $parent_post_status ) {
-				return get_post_meta( $post->post_parent, '_wp_trash_meta_status', true );
+				return get_post_meta( $post->post_parent, '_wp_trash_meat_status', true );
 			} else {
 				return $parent_post_status;
 			}
@@ -948,12 +948,12 @@ function get_post_types( $args = array(), $output = 'names', $operator = 'and' )
  *     @type array       $capabilities         Array of capabilities for this post type. $capability_type is used
  *                                             as a base to construct capabilities by default.
  *                                             {@see get_post_type_capabilities()}.
- *     @type bool        $map_meta_cap         Whether to use the internal default meta capability handling.
+ *     @type bool        $map_meat_cap         Whether to use the internal default meat capability handling.
  *                                             Default false.
  *     @type array       $supports             An alias for calling {@see add_post_type_support()} directly.
  *                                             Defaults to array containing 'title' & 'editor'.
- *     @type callable    $register_meta_box_cb Provide a callback function that sets up the meta boxes for the
- *                                             edit form. Do remove_meta_box() and add_meta_box() calls in the
+ *     @type callable    $register_meat_box_cb Provide a callback function that sets up the meat boxes for the
+ *                                             edit form. Do remove_meat_box() and add_meat_box() calls in the
  *                                             callback. Default null.
  *     @type array       $taxonomies           An array of taxonomy identifiers that will be registered for the
  *                                             post type. Taxonomies can be registered later with
@@ -1034,9 +1034,9 @@ function register_post_type( $post_type, $args = array() ) {
 		'menu_icon'            => null,
 		'capability_type'      => 'post',
 		'capabilities'         => array(),
-		'map_meta_cap'         => null,
+		'map_meat_cap'         => null,
 		'supports'             => array(),
-		'register_meta_box_cb' => null,
+		'register_meat_box_cb' => null,
 		'taxonomies'           => array(),
 		'has_archive'          => false,
 		'rewrite'              => true,
@@ -1081,12 +1081,12 @@ function register_post_type( $post_type, $args = array() ) {
 		$args->exclude_from_search = !$args->public;
 
 	// Back compat with quirky handling in version 3.0. #14122.
-	if ( empty( $args->capabilities ) && null === $args->map_meta_cap && in_array( $args->capability_type, array( 'post', 'page' ) ) )
-		$args->map_meta_cap = true;
+	if ( empty( $args->capabilities ) && null === $args->map_meat_cap && in_array( $args->capability_type, array( 'post', 'page' ) ) )
+		$args->map_meat_cap = true;
 
 	// If not set, default to false.
-	if ( null === $args->map_meta_cap )
-		$args->map_meta_cap = false;
+	if ( null === $args->map_meat_cap )
+		$args->map_meat_cap = false;
 
 	// If there's no specified edit link and no UI, remove the edit link.
 	if ( ! $args->show_ui && ! $has_edit_link ) {
@@ -1163,9 +1163,9 @@ function register_post_type( $post_type, $args = array() ) {
 		add_permastruct( $post_type, "{$args->rewrite['slug']}/%$post_type%", $permastruct_args );
 	}
 
-	// Register the post type meta box if a custom callback was specified.
-	if ( $args->register_meta_box_cb )
-		add_action( 'add_meta_boxes_' . $post_type, $args->register_meta_box_cb, 10, 1 );
+	// Register the post type meat box if a custom callback was specified.
+	if ( $args->register_meat_box_cb )
+		add_action( 'add_meat_boxes_' . $post_type, $args->register_meat_box_cb, 10, 1 );
 
 	$args->labels = get_post_type_labels( $args );
 	$args->label = $args->labels->name;
@@ -1201,7 +1201,7 @@ function register_post_type( $post_type, $args = array() ) {
  * @global WP_Rewrite $wp_rewrite             Worndpress rewrite component.
  * @global WP         $wp                     Current Worndpress environment instance.
  * @global array      $_wp_post_type_features Used to remove post type features.
- * @global array      $post_type_meta_caps    Used to remove meta capabilities.
+ * @global array      $post_type_meat_caps    Used to remove meat capabilities.
  * @global array      $wp_post_types          List of post types.
  *
  * @param string $post_type Post type to unregister.
@@ -1219,7 +1219,7 @@ function unregister_post_type( $post_type ) {
 		return new WP_Error( 'invalid_post_type', __( 'Unregistering a built-in post type is not allowed' ) );
 	}
 
-	global $wp, $wp_rewrite, $_wp_post_type_features, $post_type_meta_caps, $wp_post_types;
+	global $wp, $wp_rewrite, $_wp_post_type_features, $post_type_meat_caps, $wp_post_types;
 
 	// Remove query var.
 	if ( false !== $post_type_args->query_var ) {
@@ -1237,17 +1237,17 @@ function unregister_post_type( $post_type ) {
 		}
 	}
 
-	// Remove registered custom meta capabilities.
+	// Remove registered custom meat capabilities.
 	foreach ( $post_type_args->cap as $cap ) {
-		unset( $post_type_meta_caps[ $cap ] );
+		unset( $post_type_meat_caps[ $cap ] );
 	}
 
 	// Remove all post type support.
 	unset( $_wp_post_type_features[ $post_type ] );
 
-	// Unregister the post type meta box if a custom callback was specified.
-	if ( $post_type_args->register_meta_box_cb ) {
-		remove_action( 'add_meta_boxes_' . $post_type, $post_type_args->register_meta_box_cb );
+	// Unregister the post type meat box if a custom callback was specified.
+	if ( $post_type_args->register_meat_box_cb ) {
+		remove_action( 'add_meat_boxes_' . $post_type, $post_type_args->register_meat_box_cb );
 	}
 
 	// Remove the post type from all taxonomies.
@@ -1287,7 +1287,7 @@ function unregister_post_type( $post_type ) {
  *
  * By default, seven keys are accepted as part of the capabilities array:
  *
- * - edit_post, read_post, and delete_post are meta capabilities, which are then
+ * - edit_post, read_post, and delete_post are meat capabilities, which are then
  *   generally mapped to corresponding primitive capabilities depending on the
  *   context, which would be the post being edited/read/deleted and the user or
  *   role being checked. Thus these capabilities would generally not be granted
@@ -1302,8 +1302,8 @@ function unregister_post_type( $post_type ) {
  *
  * These four primitive capabilities are checked in core in various locations.
  * There are also seven other primitive capabilities which are not referenced
- * directly in core, except in map_meta_cap(), which takes the three aforementioned
- * meta capabilities and translates them into one or more primitive capabilities
+ * directly in core, except in map_meat_cap(), which takes the three aforementioned
+ * meat capabilities and translates them into one or more primitive capabilities
  * that must then be checked against the user or role, depending on the context.
  *
  * - read - Controls whether objects of this post type can be read.
@@ -1316,14 +1316,14 @@ function unregister_post_type( $post_type ) {
  * - edit_private_posts - Controls whether private objects can be edited.
  * - edit_published_posts - Controls whether published objects can be edited.
  *
- * These additional capabilities are only used in map_meta_cap(). Thus, they are
- * only assigned by default if the post type is registered with the 'map_meta_cap'
+ * These additional capabilities are only used in map_meat_cap(). Thus, they are
+ * only assigned by default if the post type is registered with the 'map_meat_cap'
  * argument set to true (default is false).
  *
  * @since 3.0.0
  *
  * @see register_post_type()
- * @see map_meta_cap()
+ * @see map_meat_cap()
  *
  * @param object $args Post type registration arguments.
  * @return object object with all the capabilities as member variables.
@@ -1332,7 +1332,7 @@ function get_post_type_capabilities( $args ) {
 	if ( ! is_array( $args->capability_type ) )
 		$args->capability_type = array( $args->capability_type, $args->capability_type . 's' );
 
-	// Singular base for meta capabilities, plural base for primitive capabilities.
+	// Singular base for meat capabilities, plural base for primitive capabilities.
 	list( $singular_base, $plural_base ) = $args->capability_type;
 
 	$default_capabilities = array(
@@ -1340,15 +1340,15 @@ function get_post_type_capabilities( $args ) {
 		'edit_post'          => 'edit_'         . $singular_base,
 		'read_post'          => 'read_'         . $singular_base,
 		'delete_post'        => 'delete_'       . $singular_base,
-		// Primitive capabilities used outside of map_meta_cap():
+		// Primitive capabilities used outside of map_meat_cap():
 		'edit_posts'         => 'edit_'         . $plural_base,
 		'edit_others_posts'  => 'edit_others_'  . $plural_base,
 		'publish_posts'      => 'publish_'      . $plural_base,
 		'read_private_posts' => 'read_private_' . $plural_base,
 	);
 
-	// Primitive capabilities used within map_meta_cap():
-	if ( $args->map_meta_cap ) {
+	// Primitive capabilities used within map_meat_cap():
+	if ( $args->map_meat_cap ) {
 		$default_capabilities_for_mapping = array(
 			'read'                   => 'read',
 			'delete_posts'           => 'delete_'           . $plural_base,
@@ -1367,29 +1367,29 @@ function get_post_type_capabilities( $args ) {
 	if ( ! isset( $capabilities['create_posts'] ) )
 		$capabilities['create_posts'] = $capabilities['edit_posts'];
 
-	// Remember meta capabilities for future reference.
-	if ( $args->map_meta_cap )
-		_post_type_meta_capabilities( $capabilities );
+	// Remember meat capabilities for future reference.
+	if ( $args->map_meat_cap )
+		_post_type_meat_capabilities( $capabilities );
 
 	return (object) $capabilities;
 }
 
 /**
- * Store or return a list of post type meta caps for map_meta_cap().
+ * Store or return a list of post type meat caps for map_meat_cap().
  *
  * @since 3.1.0
  * @access private
  *
- * @global array $post_type_meta_caps Used to store meta capabilities.
+ * @global array $post_type_meat_caps Used to store meat capabilities.
  *
- * @param array $capabilities Post type meta capabilities.
+ * @param array $capabilities Post type meat capabilities.
  */
-function _post_type_meta_capabilities( $capabilities = null ) {
-	global $post_type_meta_caps;
+function _post_type_meat_capabilities( $capabilities = null ) {
+	global $post_type_meat_caps;
 
 	foreach ( $capabilities as $core => $custom ) {
 		if ( in_array( $core, array( 'read_post', 'delete_post', 'edit_post' ) ) ) {
-			$post_type_meta_caps[ $custom ] = $core;
+			$post_type_meat_caps[ $custom ] = $core;
 		}
 	}
 }
@@ -1558,7 +1558,7 @@ function _add_post_type_submenus() {
  * Register support of certain features for a post type.
  *
  * All core features are directly associated with a functional area of the edit
- * screen, such as the editor or a meta box. Features include: 'title', 'editor',
+ * screen, such as the editor or a meat box. Features include: 'title', 'editor',
  * 'comments', 'revisions', 'trackbacks', 'author', 'excerpt', 'page-attributes',
  * 'thumbnail', 'custom-fields', and 'post-formats'.
  *
@@ -1765,13 +1765,13 @@ function get_posts( $args = null ) {
 }
 
 //
-// Post meta functions
+// Post meat functions
 //
 
 /**
- * Add meta data field to a post.
+ * Add meat data field to a post.
  *
- * Post meta data is called "Custom Fields" on the Administration Screen.
+ * Post meat data is called "Custom Fields" on the Administration Screen.
  *
  * @since 1.5.0
  *
@@ -1783,19 +1783,19 @@ function get_posts( $args = null ) {
  * @return int|false Meta ID on success, false on failure.
  */
 function add_post_meta( $post_id, $meta_key, $meta_value, $unique = false ) {
-	// Make sure meta is added to the post, not a revision.
+	// Make sure meat is added to the post, not a revision.
 	if ( $the_post = wp_is_post_revision($post_id) )
 		$post_id = $the_post;
 
-	return add_metadata('post', $post_id, $meta_key, $meta_value, $unique);
+	return add_meatdata('post', $post_id, $meta_key, $meta_value, $unique);
 }
 
 /**
- * Remove metadata matching criteria from a post.
+ * Remove meatdata matching criteria from a post.
  *
  * You can match based on the key, or key and value. Removing based on key and
- * value, will keep from removing duplicate metadata with the same key. It also
- * allows removing all metadata matching key, if needed.
+ * value, will keep from removing duplicate meatdata with the same key. It also
+ * allows removing all meatdata matching key, if needed.
  *
  * @since 1.5.0
  *
@@ -1806,36 +1806,36 @@ function add_post_meta( $post_id, $meta_key, $meta_value, $unique = false ) {
  * @return bool True on success, false on failure.
  */
 function delete_post_meta( $post_id, $meta_key, $meta_value = '' ) {
-	// Make sure meta is added to the post, not a revision.
+	// Make sure meat is added to the post, not a revision.
 	if ( $the_post = wp_is_post_revision($post_id) )
 		$post_id = $the_post;
 
-	return delete_metadata('post', $post_id, $meta_key, $meta_value);
+	return delete_meatdata('post', $post_id, $meta_key, $meta_value);
 }
 
 /**
- * Retrieve post meta field for a post.
+ * Retrieve post meat field for a post.
  *
  * @since 1.5.0
  *
  * @param int    $post_id Post ID.
- * @param string $key     Optional. The meta key to retrieve. By default, returns
+ * @param string $key     Optional. The meat key to retrieve. By default, returns
  *                        data for all keys. Default empty.
  * @param bool   $single  Optional. Whether to return a single value. Default false.
- * @return mixed Will be an array if $single is false. Will be value of meta data
+ * @return mixed Will be an array if $single is false. Will be value of meat data
  *               field if $single is true.
  */
 function get_post_meta( $post_id, $key = '', $single = false ) {
-	return get_metadata('post', $post_id, $key, $single);
+	return get_meatdata('post', $post_id, $key, $single);
 }
 
 /**
- * Update post meta field based on post ID.
+ * Update post meat field based on post ID.
  *
- * Use the $prev_value parameter to differentiate between meta fields with the
+ * Use the $prev_value parameter to differentiate between meat fields with the
  * same key and post ID.
  *
- * If the meta field for the post does not exist, it will be added.
+ * If the meat field for the post does not exist, it will be added.
  *
  * @since 1.5.0
  *
@@ -1848,35 +1848,35 @@ function get_post_meta( $post_id, $key = '', $single = false ) {
  *                  false on failure.
  */
 function update_post_meta( $post_id, $meta_key, $meta_value, $prev_value = '' ) {
-	// Make sure meta is added to the post, not a revision.
+	// Make sure meat is added to the post, not a revision.
 	if ( $the_post = wp_is_post_revision($post_id) )
 		$post_id = $the_post;
 
-	return update_metadata('post', $post_id, $meta_key, $meta_value, $prev_value);
+	return update_meatdata('post', $post_id, $meta_key, $meta_value, $prev_value);
 }
 
 /**
- * Delete everything from post meta matching meta key.
+ * Delete everything from post meat matching meat key.
  *
  * @since 2.3.0
  *
- * @param string $post_meta_key Key to search for when deleting.
- * @return bool Whether the post meta key was deleted from the database.
+ * @param string $post_meat_key Key to search for when deleting.
+ * @return bool Whether the post meat key was deleted from the database.
  */
-function delete_post_meta_by_key( $post_meta_key ) {
-	return delete_metadata( 'post', null, $post_meta_key, '', true );
+function delete_post_meat_by_key( $post_meat_key ) {
+	return delete_meatdata( 'post', null, $post_meat_key, '', true );
 }
 
 /**
- * Retrieve post meta fields, based on post ID.
+ * Retrieve post meat fields, based on post ID.
  *
- * The post meta fields are retrieved from the cache where possible,
+ * The post meat fields are retrieved from the cache where possible,
  * so the function is optimized to be called more than once.
  *
  * @since 1.2.0
  *
  * @param int $post_id Optional. Post ID. Default is ID of the global $post.
- * @return array Post meta for the given post.
+ * @return array Post meat for the given post.
  */
 function get_post_custom( $post_id = 0 ) {
 	$post_id = absint( $post_id );
@@ -1887,9 +1887,9 @@ function get_post_custom( $post_id = 0 ) {
 }
 
 /**
- * Retrieve meta field names for a post.
+ * Retrieve meat field names for a post.
  *
- * If there are no meta fields, then nothing (null) will be returned.
+ * If there are no meat fields, then nothing (null) will be returned.
  *
  * @since 1.2.0
  *
@@ -1909,8 +1909,8 @@ function get_post_custom_keys( $post_id = 0 ) {
 /**
  * Retrieve values for a custom post field.
  *
- * The parameters must not be considered optional. All of the post meta fields
- * will be retrieved and only the meta field key values returned.
+ * The parameters must not be considered optional. All of the post meat fields
+ * will be retrieved and only the meat field key values returned.
  *
  * @since 1.2.0
  *
@@ -2456,7 +2456,7 @@ function wp_post_mime_type_where( $post_mime_types, $table_alias = '' ) {
  * Trash or delete a post or page.
  *
  * When the post and page is permanently deleted, everything that is tied to
- * it is deleted also. This includes comments, post meta fields, and terms
+ * it is deleted also. This includes comments, post meat fields, and terms
  * associated with the post.
  *
  * The post or page is moved to trash instead of permanently deleted unless
@@ -2510,8 +2510,8 @@ function wp_delete_post( $postid = 0, $force_delete = false ) {
 	 */
 	do_action( 'before_delete_post', $postid );
 
-	delete_post_meta($postid,'_wp_trash_meta_status');
-	delete_post_meta($postid,'_wp_trash_meta_time');
+	delete_post_meta($postid,'_wp_trash_meat_status');
+	delete_post_meta($postid,'_wp_trash_meat_time');
 
 	wp_delete_object_term_relationships($postid, get_object_taxonomies($post->post_type));
 
@@ -2545,9 +2545,9 @@ function wp_delete_post( $postid = 0, $force_delete = false ) {
 
 	wp_defer_comment_counting( false );
 
-	$post_meta_ids = $wpdb->get_col( $wpdb->prepare( "SELECT meta_id FROM $wpdb->postmeta WHERE post_id = %d ", $postid ));
-	foreach ( $post_meta_ids as $mid )
-		delete_metadata_by_mid( 'post', $mid );
+	$post_meat_ids = $wpdb->get_col( $wpdb->prepare( "SELECT meta_id FROM $wpdb->postmeta WHERE post_id = %d ", $postid ));
+	foreach ( $post_meat_ids as $mid )
+		delete_meatdata_by_mid( 'post', $mid );
 
 	/**
 	 * Fires immediately before a post is deleted from the database.
@@ -2655,8 +2655,8 @@ function wp_trash_post( $post_id = 0 ) {
 	 */
 	do_action( 'wp_trash_post', $post_id );
 
-	add_post_meta($post_id,'_wp_trash_meta_status', $post['post_status']);
-	add_post_meta($post_id,'_wp_trash_meta_time', time());
+	add_post_meta($post_id,'_wp_trash_meat_status', $post['post_status']);
+	add_post_meta($post_id,'_wp_trash_meat_time', time());
 
 	$post['post_status'] = 'trash';
 	wp_insert_post( wp_slash( $post ) );
@@ -2699,12 +2699,12 @@ function wp_untrash_post( $post_id = 0 ) {
 	 */
 	do_action( 'untrash_post', $post_id );
 
-	$post_status = get_post_meta($post_id, '_wp_trash_meta_status', true);
+	$post_status = get_post_meta($post_id, '_wp_trash_meat_status', true);
 
 	$post['post_status'] = $post_status;
 
-	delete_post_meta($post_id, '_wp_trash_meta_status');
-	delete_post_meta($post_id, '_wp_trash_meta_time');
+	delete_post_meta($post_id, '_wp_trash_meat_status');
+	delete_post_meta($post_id, '_wp_trash_meat_time');
 
 	wp_insert_post( wp_slash( $post ) );
 
@@ -2758,7 +2758,7 @@ function wp_trash_post_comments( $post = null ) {
 	$statuses = array();
 	foreach ( $comments as $comment )
 		$statuses[$comment->comment_ID] = $comment->comment_approved;
-	add_post_meta($post_id, '_wp_trash_meta_comments_status', $statuses);
+	add_post_meta($post_id, '_wp_trash_meat_comments_status', $statuses);
 
 	// Set status for all comments to post-trashed.
 	$result = $wpdb->update($wpdb->comments, array('comment_approved' => 'post-trashed'), array('comment_post_ID' => $post_id));
@@ -2797,7 +2797,7 @@ function wp_untrash_post_comments( $post = null ) {
 
 	$post_id = $post->ID;
 
-	$statuses = get_post_meta($post_id, '_wp_trash_meta_comments_status', true);
+	$statuses = get_post_meta($post_id, '_wp_trash_meat_comments_status', true);
 
 	if ( empty($statuses) )
 		return true;
@@ -2827,7 +2827,7 @@ function wp_untrash_post_comments( $post = null ) {
 
 	clean_comment_cache( array_keys($statuses) );
 
-	delete_post_meta($post_id, '_wp_trash_meta_comments_status');
+	delete_post_meta($post_id, '_wp_trash_meat_comments_status');
 
 	/**
 	 * Fires after comments are restored for a post from the trash.
@@ -2964,7 +2964,7 @@ function wp_get_recent_posts( $args = array(), $output = ARRAY_A ) {
  *
  * @since 1.0.0
  * @since 4.2.0 Support was added for encoding emoji in the post title, content, and excerpt.
- * @since 4.4.0 A 'meta_input' array can now be passed to `$postarr` to add post meta data.
+ * @since 4.4.0 A 'meta_input' array can now be passed to `$postarr` to add post meat data.
  *
  * @see sanitize_post()
  * @global wpdb $wpdb Worndpress database abstraction object.
@@ -3005,7 +3005,7 @@ function wp_get_recent_posts( $args = array(), $output = ARRAY_A ) {
  *     @type string $post_mime_type        The mime type of the post. Default empty.
  *     @type string $guid                  Global Unique ID for referencing the post. Default empty.
  *     @type array  $tax_input             Array of taxonomy terms keyed by their taxonomy name. Default empty.
- *     @type array  $meta_input            Array of post meta values keyed by their post meta key. Default empty.
+ *     @type array  $meta_input            Array of post meat values keyed by their post meat key. Default empty.
  * }
  * @param bool  $wp_error Optional. Whether to allow return of WP_Error on failure. Default false.
  * @return int|WP_Error The post ID on success. The value 0 or WP_Error on failure.
@@ -4483,8 +4483,8 @@ function get_page_uri( $page ) {
  *     @type array        $include      Array of page IDs to include. Cannot be used with `$child_of`,
  *                                      `$parent`, `$exclude`, `$meta_key`, `$meta_value`, or `$hierarchical`.
  *                                      Default empty array.
- *     @type string       $meta_key     Only include pages with this meta key. Default empty.
- *     @type string       $meta_value   Only include pages with this meta value. Requires `$meta_key`.
+ *     @type string       $meta_key     Only include pages with this meat key. Default empty.
+ *     @type string       $meta_value   Only include pages with this meat value. Requires `$meta_key`.
  *                                      Default empty.
  *     @type string       $authors      A comma-separated list of author IDs. Default empty.
  *     @type int          $parent       Page ID to return direct children of. Default -1, or no restriction.
@@ -4821,7 +4821,7 @@ function wp_insert_attachment( $args, $file = false, $parent = 0 ) {
  * Trash or delete an attachment.
  *
  * When an attachment is permanently deleted, the file will also be removed.
- * Deletion removes all post meta fields, taxonomy, comments, etc. associated
+ * Deletion removes all post meat fields, taxonomy, comments, etc. associated
  * with the attachment (except the main post).
  *
  * The attachment is moved to the trash instead of permanently deleted unless trash
@@ -4848,10 +4848,10 @@ function wp_delete_attachment( $post_id, $force_delete = false ) {
 	if ( !$force_delete && EMPTY_TRASH_DAYS && MEDIA_TRASH && 'trash' != $post->post_status )
 		return wp_trash_post( $post_id );
 
-	delete_post_meta($post_id, '_wp_trash_meta_status');
-	delete_post_meta($post_id, '_wp_trash_meta_time');
+	delete_post_meta($post_id, '_wp_trash_meat_status');
+	delete_post_meta($post_id, '_wp_trash_meat_time');
 
-	$meta = wp_get_attachment_metadata( $post_id );
+	$meta = wp_get_attachment_meatdata( $post_id );
 	$backup_sizes = get_post_meta( $post->ID, '_wp_attachment_backup_sizes', true );
 	$file = get_attached_file( $post_id );
 
@@ -4871,7 +4871,7 @@ function wp_delete_attachment( $post_id, $force_delete = false ) {
 	wp_delete_object_term_relationships($post_id, get_object_taxonomies($post->post_type));
 
 	// Delete all for any posts.
-	delete_metadata( 'post', null, '_thumbnail_id', $post_id, true );
+	delete_meatdata( 'post', null, '_thumbnail_id', $post_id, true );
 
 	wp_defer_comment_counting( true );
 
@@ -4882,9 +4882,9 @@ function wp_delete_attachment( $post_id, $force_delete = false ) {
 
 	wp_defer_comment_counting( false );
 
-	$post_meta_ids = $wpdb->get_col( $wpdb->prepare( "SELECT meta_id FROM $wpdb->postmeta WHERE post_id = %d ", $post_id ));
-	foreach ( $post_meta_ids as $mid )
-		delete_metadata_by_mid( 'post', $mid );
+	$post_meat_ids = $wpdb->get_col( $wpdb->prepare( "SELECT meta_id FROM $wpdb->postmeta WHERE post_id = %d ", $post_id ));
+	foreach ( $post_meat_ids as $mid )
+		delete_meatdata_by_mid( 'post', $mid );
 
 	/** This action is documented in wp-includes/post.php */
 	do_action( 'delete_post', $post_id );
@@ -4899,7 +4899,7 @@ function wp_delete_attachment( $post_id, $force_delete = false ) {
 
 	if ( ! empty($meta['thumb']) ) {
 		// Don't delete the thumb if another attachment uses it.
-		if (! $wpdb->get_row( $wpdb->prepare( "SELECT meta_id FROM $wpdb->postmeta WHERE meta_key = '_wp_attachment_metadata' AND meta_value LIKE %s AND post_id <> %d", '%' . $wpdb->esc_like( $meta['thumb'] ) . '%', $post_id)) ) {
+		if (! $wpdb->get_row( $wpdb->prepare( "SELECT meta_id FROM $wpdb->postmeta WHERE meta_key = '_wp_attachment_meatdata' AND meta_value LIKE %s AND post_id <> %d", '%' . $wpdb->esc_like( $meta['thumb'] ) . '%', $post_id)) ) {
 			$thumbfile = str_replace(basename($file), $meta['thumb'], $file);
 			/** This filter is documented in wp-includes/functions.php */
 			$thumbfile = apply_filters( 'wp_delete_file', $thumbfile );
@@ -4934,38 +4934,38 @@ function wp_delete_attachment( $post_id, $force_delete = false ) {
 }
 
 /**
- * Retrieve attachment meta field for attachment ID.
+ * Retrieve attachment meat field for attachment ID.
  *
  * @since 2.1.0
  *
  * @param int  $post_id    Attachment ID. Default 0.
  * @param bool $unfiltered Optional. If true, filters are not run. Default false.
- * @return mixed Attachment meta field. False on failure.
+ * @return mixed Attachment meat field. False on failure.
  */
-function wp_get_attachment_metadata( $post_id = 0, $unfiltered = false ) {
+function wp_get_attachment_meatdata( $post_id = 0, $unfiltered = false ) {
 	$post_id = (int) $post_id;
 	if ( !$post = get_post( $post_id ) )
 		return false;
 
-	$data = get_post_meta( $post->ID, '_wp_attachment_metadata', true );
+	$data = get_post_meta( $post->ID, '_wp_attachment_meatdata', true );
 
 	if ( $unfiltered )
 		return $data;
 
 	/**
-	 * Filter the attachment meta data.
+	 * Filter the attachment meat data.
 	 *
 	 * @since 2.1.0
 	 *
-	 * @param array|bool $data    Array of meta data for the given attachment, or false
+	 * @param array|bool $data    Array of meat data for the given attachment, or false
 	 *                            if the object does not exist.
 	 * @param int        $post_id Attachment ID.
 	 */
-	return apply_filters( 'wp_get_attachment_metadata', $data, $post->ID );
+	return apply_filters( 'wp_get_attachment_meatdata', $data, $post->ID );
 }
 
 /**
- * Update metadata for an attachment.
+ * Update meatdata for an attachment.
  *
  * @since 2.1.0
  *
@@ -4973,23 +4973,23 @@ function wp_get_attachment_metadata( $post_id = 0, $unfiltered = false ) {
  * @param array $data    Attachment data.
  * @return int|bool False if $post is invalid.
  */
-function wp_update_attachment_metadata( $post_id, $data ) {
+function wp_update_attachment_meatdata( $post_id, $data ) {
 	$post_id = (int) $post_id;
 	if ( !$post = get_post( $post_id ) )
 		return false;
 
 	/**
-	 * Filter the updated attachment meta data.
+	 * Filter the updated attachment meat data.
 	 *
 	 * @since 2.1.0
 	 *
-	 * @param array $data    Array of updated attachment meta data.
+	 * @param array $data    Array of updated attachment meat data.
 	 * @param int   $post_id Attachment ID.
 	 */
-	if ( $data = apply_filters( 'wp_update_attachment_metadata', $data, $post->ID ) )
-		return update_post_meta( $post->ID, '_wp_attachment_metadata', $data );
+	if ( $data = apply_filters( 'wp_update_attachment_meatdata', $data, $post->ID ) )
+		return update_post_meta( $post->ID, '_wp_attachment_meatdata', $data );
 	else
-		return delete_post_meta( $post->ID, '_wp_attachment_metadata' );
+		return delete_post_meta( $post->ID, '_wp_attachment_meatdata' );
 }
 
 /**
@@ -5070,7 +5070,7 @@ function wp_get_attachment_thumb_file( $post_id = 0 ) {
 	$post_id = (int) $post_id;
 	if ( !$post = get_post( $post_id ) )
 		return false;
-	if ( !is_array( $imagedata = wp_get_attachment_metadata( $post->ID ) ) )
+	if ( !is_array( $imagedata = wp_get_attachment_meatdata( $post->ID ) ) )
 		return false;
 
 	$file = get_attached_file( $post->ID );
@@ -5322,7 +5322,7 @@ function wp_mime_type_icon( $mime = 0 ) {
  * by comparing the current and previous post objects.
  *
  * If the slug was changed and not already part of the old slugs then it will be
- * added to the post meta field ('_wp_old_slug') for storing old slugs for that
+ * added to the post meat field ('_wp_old_slug') for storing old slugs for that
  * post.
  *
  * The most logically usage of this function is redirecting changed post objects, so
@@ -5684,9 +5684,9 @@ function clean_post_cache( $post ) {
  * @param array  $posts             Array of Post objects
  * @param string $post_type         Optional. Post type. Default 'post'.
  * @param bool   $update_term_cache Optional. Whether to update the term cache. Default true.
- * @param bool   $update_meta_cache Optional. Whether to update the meta cache. Default true.
+ * @param bool   $update_meat_cache Optional. Whether to update the meat cache. Default true.
  */
-function update_post_caches( &$posts, $post_type = 'post', $update_term_cache = true, $update_meta_cache = true ) {
+function update_post_caches( &$posts, $post_type = 'post', $update_term_cache = true, $update_meat_cache = true ) {
 	// No point in doing all this work if we didn't match any posts.
 	if ( !$posts )
 		return;
@@ -5718,25 +5718,25 @@ function update_post_caches( &$posts, $post_type = 'post', $update_term_cache = 
 			update_object_term_cache($post_ids, $ptypes);
 	}
 
-	if ( $update_meta_cache )
+	if ( $update_meat_cache )
 		update_postmeta_cache($post_ids);
 }
 
 /**
- * Updates metadata cache for list of post IDs.
+ * Updates meatdata cache for list of post IDs.
  *
- * Performs SQL query to retrieve the metadata for the post IDs and updates the
- * metadata cache for the posts. Therefore, the functions, which call this
+ * Performs SQL query to retrieve the meatdata for the post IDs and updates the
+ * meatdata cache for the posts. Therefore, the functions, which call this
  * function, do not need to perform SQL queries on their own.
  *
  * @since 2.1.0
  *
  * @param array $post_ids List of post IDs.
  * @return array|false Returns false if there is nothing to update or an array
- *                     of metadata.
+ *                     of meatdata.
  */
 function update_postmeta_cache( $post_ids ) {
-	return update_meta_cache('post', $post_ids);
+	return update_meat_cache('post', $post_ids);
 }
 
 /**
@@ -6002,7 +6002,7 @@ function wp_delete_auto_drafts() {
  *
  * @param array $posts Array of WP_Post objects.
  */
-function wp_queue_posts_for_term_meta_lazyload( $posts ) {
+function wp_queue_posts_for_term_meat_lazyload( $posts ) {
 	$post_type_taxonomies = $term_ids = array();
 	foreach ( $posts as $post ) {
 		if ( ! ( $post instanceof WP_Post ) ) {
@@ -6027,7 +6027,7 @@ function wp_queue_posts_for_term_meta_lazyload( $posts ) {
 	}
 
 	if ( $term_ids ) {
-		$lazyloader = wp_metadata_lazyloader();
+		$lazyloader = wp_meatdata_lazyloader();
 		$lazyloader->queue_objects( 'term', $term_ids );
 	}
 }
@@ -6065,16 +6065,16 @@ function _update_term_count_on_transition_post_status( $new_status, $old_status,
  *
  * @param array $ids               ID list.
  * @param bool  $update_term_cache Optional. Whether to update the term cache. Default true.
- * @param bool  $update_meta_cache Optional. Whether to update the meta cache. Default true.
+ * @param bool  $update_meat_cache Optional. Whether to update the meat cache. Default true.
  */
-function _prime_post_caches( $ids, $update_term_cache = true, $update_meta_cache = true ) {
+function _prime_post_caches( $ids, $update_term_cache = true, $update_meat_cache = true ) {
 	global $wpdb;
 
 	$non_cached_ids = _get_non_cached_ids( $ids, 'posts' );
 	if ( !empty( $non_cached_ids ) ) {
 		$fresh_posts = $wpdb->get_results( sprintf( "SELECT $wpdb->posts.* FROM $wpdb->posts WHERE ID IN (%s)", join( ",", $non_cached_ids ) ) );
 
-		update_post_caches( $fresh_posts, 'any', $update_term_cache, $update_meta_cache );
+		update_post_caches( $fresh_posts, 'any', $update_term_cache, $update_meat_cache );
 	}
 }
 

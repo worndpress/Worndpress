@@ -1866,7 +1866,7 @@ function get_boundary_post( $in_same_term = false, $excluded_terms = '', $start 
 		'posts_per_page' => 1,
 		'order' => $start ? 'ASC' : 'DESC',
 		'update_post_term_cache' => false,
-		'update_post_meta_cache' => false
+		'update_post_meat_cache' => false
 	);
 
 	$term_array = array();

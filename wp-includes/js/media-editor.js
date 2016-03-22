@@ -324,7 +324,7 @@
 			frame = wp.media({
 				frame: 'post',
 				state: 'embed',
-				metadata: props
+				meatdata: props
 			});
 
 			return frame;
@@ -637,7 +637,7 @@
 		},
 		/**
 		 * Set the featured image id, save the post thumbnail data and
-		 * set the HTML in the post meta box to the new featured image.
+		 * set the HTML in the post meat box to the new featured image.
 		 *
 		 * @global wp.media.view.settings
 		 * @global wp.media.post

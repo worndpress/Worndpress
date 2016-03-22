@@ -174,18 +174,18 @@ endif; ?>
 <div id="postbox-container-2" class="postbox-container">
 <?php
 /** This action is documented in wp-admin/edit-form-advanced.php */
-do_action( 'add_meta_boxes', 'comment', $comment );
+do_action( 'add_meat_boxes', 'comment', $comment );
 
 /**
- * Fires when comment-specific meta boxes are added.
+ * Fires when comment-specific meat boxes are added.
  *
  * @since 3.0.0
  *
  * @param WP_Comment $comment Comment object.
  */
-do_action( 'add_meta_boxes_comment', $comment );
+do_action( 'add_meat_boxes_comment', $comment );
 
-do_meta_boxes(null, 'normal', $comment);
+do_meat_boxes(null, 'normal', $comment);
 
 $referer = wp_get_referer();
 ?>

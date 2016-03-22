@@ -304,7 +304,7 @@ function wp_script_is( $handle, $list = 'enqueued' ) {
 }
 
 /**
- * Add metadata to a script.
+ * Add meatdata to a script.
  *
  * Works only if the script has already been added.
  *

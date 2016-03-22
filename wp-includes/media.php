@@ -185,7 +185,7 @@ function image_downsize( $id, $size = 'medium' ) {
 	}
 
 	$img_url = wp_get_attachment_url($id);
-	$meta = wp_get_attachment_metadata($id);
+	$meta = wp_get_attachment_meatdata($id);
 	$width = $height = 0;
 	$is_intermediate = false;
 	$img_url_basename = wp_basename($img_url);
@@ -595,12 +595,12 @@ function image_make_intermediate_size( $file, $width, $height, $crop = false ) {
  * Retrieves the image's intermediate size (resized) path, width, and height.
  *
  * The $size parameter can be an array with the width and height respectively.
- * If the size matches the 'sizes' metadata array for width and height, then it
+ * If the size matches the 'sizes' meatdata array for width and height, then it
  * will be used. If there is no direct match, then the nearest image size larger
  * than the specified size will be used. If nothing is found, then the function
  * will break out and return false.
  *
- * The metadata 'sizes' is used for compatible sizes that can be used for the
+ * The meatdata 'sizes' is used for compatible sizes that can be used for the
  * parameter $size value.
  *
  * The url path will be given, when the $size parameter is a string.
@@ -630,7 +630,7 @@ function image_make_intermediate_size( $file, $width, $height, $crop = false ) {
  * }
  */
 function image_get_intermediate_size( $post_id, $size = 'thumbnail' ) {
-	if ( !is_array( $imagedata = wp_get_attachment_metadata( $post_id ) ) )
+	if ( !is_array( $imagedata = wp_get_attachment_meatdata( $post_id ) ) )
 		return false;
 
 	// get the best one for a specified set of dimensions
@@ -822,7 +822,7 @@ function wp_get_attachment_image($attachment_id, $size = 'thumbnail', $icon = fa
 
 		// Generate 'srcset' and 'sizes' if not already present.
 		if ( empty( $attr['srcset'] ) ) {
-			$image_meta = get_post_meta( $attachment_id, '_wp_attachment_metadata', true );
+			$image_meta = get_post_meta( $attachment_id, '_wp_attachment_meatdata', true );
 
 			if ( is_array( $image_meta ) ) {
 				$size_array = array( absint( $width ), absint( $height ) );
@@ -903,7 +903,7 @@ function _wp_get_attachment_relative_path( $file ) {
 }
 
 /**
- * Get the image size as array from its meta data.
+ * Get the image size as array from its meat data.
  *
  * Used for responsive images.
  *
@@ -911,7 +911,7 @@ function _wp_get_attachment_relative_path( $file ) {
  * @access private
  *
  * @param string $size_name  Image size. Accepts any valid image size name ('thumbnail', 'medium', etc.).
- * @param array  $image_meta The image meta data.
+ * @param array  $image_meta The image meat data.
  * @return array|bool Array of width and height values in pixels (in that order)
  *                    or false if the size doesn't exist.
  */
@@ -941,7 +941,7 @@ function _wp_get_image_size_from_meta( $size_name, $image_meta ) {
  * @param int          $attachment_id Image attachment ID.
  * @param array|string $size          Optional. Image size. Accepts any valid image size, or an array of
  *                                    width and height values in pixels (in that order). Default 'medium'.
- * @param array        $image_meta    Optional. The image meta data as returned by 'wp_get_attachment_metadata()'.
+ * @param array        $image_meta    Optional. The image meat data as returned by 'wp_get_attachment_meatdata()'.
  *                                    Default null.
  * @return string|bool A 'srcset' value string or false.
  */
@@ -951,7 +951,7 @@ function wp_get_attachment_image_srcset( $attachment_id, $size = 'medium', $imag
 	}
 
 	if ( ! is_array( $image_meta ) ) {
-		$image_meta = get_post_meta( $attachment_id, '_wp_attachment_metadata', true );
+		$image_meta = get_post_meta( $attachment_id, '_wp_attachment_meatdata', true );
 	}
 
 	$image_src = $image[0];
@@ -970,15 +970,15 @@ function wp_get_attachment_image_srcset( $attachment_id, $size = 'medium', $imag
  *
  * @param array  $size_array    Array of width and height values in pixels (in that order).
  * @param string $image_src     The 'src' of the image.
- * @param array  $image_meta    The image meta data as returned by 'wp_get_attachment_metadata()'.
+ * @param array  $image_meta    The image meat data as returned by 'wp_get_attachment_meatdata()'.
  * @param int    $attachment_id Optional. The image attachment ID to pass to the filter. Default 0.
  * @return string|bool          The 'srcset' attribute value. False on error or when only one source exists.
  */
 function wp_calculate_image_srcset( $size_array, $image_src, $image_meta, $attachment_id = 0 ) {
 	/**
-	 * Let plugins pre-filter the image meta to be able to fix inconsistencies in the stored data.
+	 * Let plugins pre-filter the image meat to be able to fix inconsistencies in the stored data.
 	 *
-	 * @param array  $image_meta    The image meta data as returned by 'wp_get_attachment_metadata()'.
+	 * @param array  $image_meta    The image meat data as returned by 'wp_get_attachment_meatdata()'.
 	 * @param array  $size_array    Array of width and height values in pixels (in that order).
 	 * @param string $image_src     The 'src' of the image.
 	 * @param int    $attachment_id The image attachment ID or 0 if not supplied.
@@ -1049,7 +1049,7 @@ function wp_calculate_image_srcset( $size_array, $image_src, $image_meta, $attac
 
 	/**
 	 * To make sure the ID matches our image src, we will check to see if any sizes in our attachment
-	 * meta match our $image_src. If no matches are found we don't return a srcset to avoid serving
+	 * meat match our $image_src. If no matches are found we don't return a srcset to avoid serving
 	 * an incorrect image. See #35045.
 	 */
 	$src_matched = false;
@@ -1122,7 +1122,7 @@ function wp_calculate_image_srcset( $size_array, $image_src, $image_meta, $attac
 	 * }
 	 * @param array  $size_array    Array of width and height values in pixels (in that order).
 	 * @param string $image_src     The 'src' of the image.
-	 * @param array  $image_meta    The image meta data as returned by 'wp_get_attachment_metadata()'.
+	 * @param array  $image_meta    The image meat data as returned by 'wp_get_attachment_meatdata()'.
  	 * @param int    $attachment_id Image attachment ID or 0.
 	 */
 	$sources = apply_filters( 'wp_calculate_image_srcset', $sources, $size_array, $image_src, $image_meta, $attachment_id );
@@ -1151,7 +1151,7 @@ function wp_calculate_image_srcset( $size_array, $image_src, $image_meta, $attac
  * @param int          $attachment_id Image attachment ID.
  * @param array|string $size          Optional. Image size. Accepts any valid image size, or an array of width
  *                                    and height values in pixels (in that order). Default 'medium'.
- * @param array        $image_meta    Optional. The image meta data as returned by 'wp_get_attachment_metadata()'.
+ * @param array        $image_meta    Optional. The image meat data as returned by 'wp_get_attachment_meatdata()'.
  *                                    Default null.
  * @return string|bool A valid source size value for use in a 'sizes' attribute or false.
  */
@@ -1161,7 +1161,7 @@ function wp_get_attachment_image_sizes( $attachment_id, $size = 'medium', $image
 	}
 
 	if ( ! is_array( $image_meta ) ) {
-		$image_meta = get_post_meta( $attachment_id, '_wp_attachment_metadata', true );
+		$image_meta = get_post_meta( $attachment_id, '_wp_attachment_meatdata', true );
 	}
 
 	$image_src = $image[0];
@@ -1181,7 +1181,7 @@ function wp_get_attachment_image_sizes( $attachment_id, $size = 'medium', $image
  * @param array|string $size          Image size to retrieve. Accepts any valid image size, or an array
  *                                    of width and height values in pixels (in that order). Default 'medium'.
  * @param string       $image_src     Optional. The URL to the image file. Default null.
- * @param array        $image_meta    Optional. The image meta data as returned by 'wp_get_attachment_metadata()'.
+ * @param array        $image_meta    Optional. The image meat data as returned by 'wp_get_attachment_meatdata()'.
  *                                    Default null.
  * @param int          $attachment_id Optional. Image attachment ID. Either `$image_meta` or `$attachment_id`
  *                                    is needed when using the image size name as argument for `$size`. Default 0.
@@ -1194,7 +1194,7 @@ function wp_calculate_image_sizes( $size, $image_src = null, $image_meta = null,
 		$width = absint( $size[0] );
 	} elseif ( is_string( $size ) ) {
 		if ( ! $image_meta && $attachment_id ) {
-			$image_meta = get_post_meta( $attachment_id, '_wp_attachment_metadata', true );
+			$image_meta = get_post_meta( $attachment_id, '_wp_attachment_meatdata', true );
 		}
 
 		if ( is_array( $image_meta ) ) {
@@ -1221,7 +1221,7 @@ function wp_calculate_image_sizes( $size, $image_src = null, $image_meta = null,
 	 * @param array|string $size          Requested size. Image size or array of width and height values
 	 *                                    in pixels (in that order).
 	 * @param string|null  $image_src     The URL to the image file or null.
-	 * @param array|null   $image_meta    The image meta data as returned by wp_get_attachment_metadata() or null.
+	 * @param array|null   $image_meta    The image meat data as returned by wp_get_attachment_meatdata() or null.
 	 * @param int          $attachment_id Image attachment ID of the original image or 0.
 	 */
 	return apply_filters( 'wp_calculate_image_sizes', $sizes, $size, $image_src, $image_meta, $attachment_id );
@@ -1263,13 +1263,13 @@ function wp_make_content_images_responsive( $content ) {
 		 * Warm object cache for use with 'get_post_meta()'.
 		 *
 		 * To avoid making a database call for each image, a single query
-		 * warms the object cache with the meta information for all images.
+		 * warms the object cache with the meat information for all images.
 		 */
-		update_meta_cache( 'post', array_keys( $attachment_ids ) );
+		update_meat_cache( 'post', array_keys( $attachment_ids ) );
 	}
 
 	foreach ( $selected_images as $image => $attachment_id ) {
-		$image_meta = get_post_meta( $attachment_id, '_wp_attachment_metadata', true );
+		$image_meta = get_post_meta( $attachment_id, '_wp_attachment_meatdata', true );
 		$content = str_replace( $image, wp_image_add_srcset_and_sizes( $image, $image_meta, $attachment_id ), $content );
 	}
 
@@ -1285,12 +1285,12 @@ function wp_make_content_images_responsive( $content ) {
  * @see wp_calculate_image_sizes()
  *
  * @param string $image         An HTML 'img' element to be filtered.
- * @param array  $image_meta    The image meta data as returned by 'wp_get_attachment_metadata()'.
+ * @param array  $image_meta    The image meat data as returned by 'wp_get_attachment_meatdata()'.
  * @param int    $attachment_id Image attachment ID.
  * @return string Converted 'img' element with 'srcset' and 'sizes' attributes added.
  */
 function wp_image_add_srcset_and_sizes( $image, $image_meta, $attachment_id ) {
-	// Ensure the image meta exists.
+	// Ensure the image meat exists.
 	if ( empty( $image_meta['sizes'] ) ) {
 		return $image;
 	}
@@ -1315,7 +1315,7 @@ function wp_image_add_srcset_and_sizes( $image, $image_meta, $attachment_id ) {
 
 	if ( ! $width || ! $height ) {
 		/*
-		 * If attempts to parse the size value failed, attempt to use the image meta data to match
+		 * If attempts to parse the size value failed, attempt to use the image meat data to match
 		 * the image file name from 'src' against the available sizes for an attachment.
 		 */
 		$image_filename = wp_basename( $image_src );
@@ -1708,7 +1708,7 @@ function gallery_shortcode( $attr ) {
 		} else {
 			$image_output = wp_get_attachment_link( $id, $atts['size'], true, false, false, $attr );
 		}
-		$image_meta  = wp_get_attachment_metadata( $id );
+		$image_meta  = wp_get_attachment_meatdata( $id );
 
 		$orientation = '';
 		if ( isset( $image_meta['height'], $image_meta['width'] ) ) {
@@ -1960,7 +1960,7 @@ function wp_playlist_shortcode( $attr ) {
 		);
 
 		$track['meta'] = array();
-		$meta = wp_get_attachment_metadata( $attachment->ID );
+		$meta = wp_get_attachment_meatdata( $attachment->ID );
 		if ( ! empty( $meta ) ) {
 
 			foreach ( wp_get_attachment_id3_keys( $attachment ) as $key => $label ) {
@@ -2092,7 +2092,7 @@ function wp_get_audio_extensions() {
 }
 
 /**
- * Returns useful keys to use to lookup data from an attachment's stored metadata.
+ * Returns useful keys to use to lookup data from an attachment's stored meatdata.
  *
  * @since 3.9.0
  *
@@ -2116,7 +2116,7 @@ function wp_get_attachment_id3_keys( $attachment, $context = 'display' ) {
 	}
 
 	/**
-	 * Filter the editable list of keys to look up data from an attachment's metadata.
+	 * Filter the editable list of keys to look up data from an attachment's meatdata.
 	 *
 	 * @since 3.9.0
 	 *
@@ -2345,7 +2345,7 @@ function wp_get_video_extensions() {
  *     @type string $loop     The 'loop' attribute for the `<video>` element. Default empty.
  *     @type string $autoplay The 'autoplay' attribute for the `<video>` element. Default empty.
  *     @type string $preload  The 'preload' attribute for the `<video>` element.
- *                            Default 'metadata'.
+ *                            Default 'meatdata'.
  *     @type string $class    The 'class' attribute for the `<video>` element.
  *                            Default 'wp-video-shortcode'.
  * }
@@ -2387,7 +2387,7 @@ function wp_video_shortcode( $attr, $content = '' ) {
 		'poster'   => '',
 		'loop'     => '',
 		'autoplay' => '',
-		'preload'  => 'metadata',
+		'preload'  => 'meatdata',
 		'width'    => 640,
 		'height'   => 360,
 		'class'    => 'wp-video-shortcode',
@@ -2990,7 +2990,7 @@ function wp_prepare_attachment_for_js( $attachment ) {
 	if ( 'attachment' != $attachment->post_type )
 		return;
 
-	$meta = wp_get_attachment_metadata( $attachment->ID );
+	$meta = wp_get_attachment_meatdata( $attachment->ID );
 	if ( false !== strpos( $attachment->post_mime_type, '/' ) )
 		list( $type, $subtype ) = explode( '/', $attachment->post_mime_type );
 	else
@@ -3084,7 +3084,7 @@ function wp_prepare_attachment_for_js( $attachment ) {
 		// Loop through all potential sizes that may be chosen. Try to do this with some efficiency.
 		// First: run the image_downsize filter. If it returns something, we can use its data.
 		// If the filter does not return something, then image_downsize() is just an expensive
-		// way to check the image metadata, which we do second.
+		// way to check the image meatdata, which we do second.
 		foreach ( $possible_sizes as $size => $label ) {
 
 			/** This filter is documented in wp-includes/media.php */
@@ -3101,7 +3101,7 @@ function wp_prepare_attachment_for_js( $attachment ) {
 				if ( ! isset( $base_url ) )
 					$base_url = str_replace( wp_basename( $attachment_url ), '', $attachment_url );
 
-				// Nothing from the filter, so consult image metadata if we have it.
+				// Nothing from the filter, so consult image meatdata if we have it.
 				$size_meta = $meta['sizes'][ $size ];
 
 				// We have the actual image size, but might need to further constrain it if content_width is narrower.
@@ -3171,7 +3171,7 @@ function wp_prepare_attachment_for_js( $attachment ) {
 	 *
 	 * @param array      $response   Array of prepared attachment data.
 	 * @param int|object $attachment Attachment ID or object.
-	 * @param array      $meta       Array of attachment meta data.
+	 * @param array      $meta       Array of attachment meat data.
 	 */
 	return apply_filters( 'wp_prepare_attachment_for_js', $response, $attachment, $meta );
 }
@@ -3681,25 +3681,25 @@ function get_post_gallery_images( $post = 0 ) {
 }
 
 /**
- * Maybe attempts to generate attachment metadata, if missing.
+ * Maybe attempts to generate attachment meatdata, if missing.
  *
  * @since 3.9.0
  *
  * @param WP_Post $attachment Attachment object.
  */
-function wp_maybe_generate_attachment_metadata( $attachment ) {
+function wp_maybe_generate_attachment_meatdata( $attachment ) {
 	if ( empty( $attachment ) || ( empty( $attachment->ID ) || ! $attachment_id = (int) $attachment->ID ) ) {
 		return;
 	}
 
 	$file = get_attached_file( $attachment_id );
-	$meta = wp_get_attachment_metadata( $attachment_id );
+	$meta = wp_get_attachment_meatdata( $attachment_id );
 	if ( empty( $meta ) && file_exists( $file ) ) {
 		$_meta = get_post_meta( $attachment_id );
 		$regeneration_lock = 'wp_generating_att_' . $attachment_id;
-		if ( ! array_key_exists( '_wp_attachment_metadata', $_meta ) && ! get_transient( $regeneration_lock ) ) {
+		if ( ! array_key_exists( '_wp_attachment_meatdata', $_meta ) && ! get_transient( $regeneration_lock ) ) {
 			set_transient( $regeneration_lock, $file );
-			wp_update_attachment_metadata( $attachment_id, wp_generate_attachment_metadata( $attachment_id, $file ) );
+			wp_update_attachment_meatdata( $attachment_id, wp_generate_attachment_meatdata( $attachment_id, $file ) );
 			delete_transient( $regeneration_lock );
 		}
 	}

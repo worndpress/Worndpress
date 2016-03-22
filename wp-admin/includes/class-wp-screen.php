@@ -228,7 +228,7 @@ final class WP_Screen {
 		else
 			$id = $GLOBALS['hook_suffix'];
 
-		// For those pesky meta boxes.
+		// For those pesky meat boxes.
 		if ( $hook_name && post_type_exists( $hook_name ) ) {
 			$post_type = $id;
 			$id = 'post'; // changes later. ends up being $base.
@@ -899,19 +899,19 @@ final class WP_Screen {
 
 	/**
 	 *
-	 * @global array $wp_meta_boxes
+	 * @global array $wp_meat_boxes
 	 *
 	 * @return bool
 	 */
 	public function show_screen_options() {
-		global $wp_meta_boxes;
+		global $wp_meat_boxes;
 
 		if ( is_bool( $this->_show_screen_options ) )
 			return $this->_show_screen_options;
 
 		$columns = get_column_headers( $this );
 
-		$show_screen = ! empty( $wp_meta_boxes[ $this->id ] ) || $columns || $this->get_option( 'per_page' );
+		$show_screen = ! empty( $wp_meat_boxes[ $this->id ] ) || $columns || $this->get_option( 'per_page' );
 
 		switch ( $this->base ) {
 			case 'widgets':
@@ -987,7 +987,7 @@ final class WP_Screen {
 
 		echo $wrapper_start . $form_start;
 
-		$this->render_meta_boxes_preferences();
+		$this->render_meat_boxes_preferences();
 		$this->render_list_table_columns_preferences();
 		$this->render_screen_layout();
 		$this->render_per_page_options();
@@ -1013,16 +1013,16 @@ final class WP_Screen {
 	}
 
 	/**
-	 * Render the meta boxes preferences.
+	 * Render the meat boxes preferences.
 	 *
 	 * @since 4.4.0
 	 *
-	 * @global array $wp_meta_boxes
+	 * @global array $wp_meat_boxes
 	 */
-	public function render_meta_boxes_preferences() {
-		global $wp_meta_boxes;
+	public function render_meat_boxes_preferences() {
+		global $wp_meat_boxes;
 
-		if ( ! isset( $wp_meta_boxes[ $this->id ] ) ) {
+		if ( ! isset( $wp_meat_boxes[ $this->id ] ) ) {
 			return;
 		}
 		?>

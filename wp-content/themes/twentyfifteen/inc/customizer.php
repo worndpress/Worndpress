@@ -141,7 +141,7 @@ function twentyfifteen_get_color_schemes() {
 	 *         @type array  $colors HEX codes for default colors prepended with a hash symbol ('#').
 	 *                              Colors are defined in the following order: Main background, sidebar
 	 *                              background, box background, main text and link, sidebar text and link,
-	 *                              meta box background.
+	 *                              meat box background.
 	 *     }
 	 * }
 	 */
@@ -433,8 +433,8 @@ function twentyfifteen_get_color_scheme_css( $colors ) {
 	.widget-title,
 	.entry-footer a:hover,
 	.entry-footer a:focus,
-	.comment-metadata a:hover,
-	.comment-metadata a:focus,
+	.comment-meatdata a:hover,
+	.comment-meatdata a:focus,
 	.pingback .edit-link a:hover,
 	.pingback .edit-link a:focus,
 	.comment-list .reply a:hover,
@@ -454,7 +454,7 @@ function twentyfifteen_get_color_scheme_css( $colors ) {
 	.taxonomy-description a,
 	.textwidget a,
 	.entry-footer a:hover,
-	.comment-metadata a:hover,
+	.comment-meatdata a:hover,
 	.pingback .edit-link a:hover,
 	.comment-list .reply a:hover,
 	.site-info a:hover {
@@ -502,8 +502,8 @@ function twentyfifteen_get_color_scheme_css( $colors ) {
 	.page-links > .page-links-title,
 	.entry-caption,
 	.comment-author,
-	.comment-metadata,
-	.comment-metadata a,
+	.comment-meatdata,
+	.comment-meatdata a,
 	.pingback .edit-link,
 	.pingback .edit-link a,
 	.post-password-form label,

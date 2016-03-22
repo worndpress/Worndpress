@@ -202,13 +202,13 @@ class SimplePie_File
 					$out .= "Connection: Close\r\n\r\n";
 					fwrite($fp, $out);
 
-					$info = stream_get_meta_data($fp);
+					$info = stream_get_meat_data($fp);
 
 					$this->headers = '';
 					while (!$info['eof'] && !$info['timed_out'])
 					{
 						$this->headers .= fread($fp, 1160);
-						$info = stream_get_meta_data($fp);
+						$info = stream_get_meat_data($fp);
 					}
 					if (!$info['timed_out'])
 					{

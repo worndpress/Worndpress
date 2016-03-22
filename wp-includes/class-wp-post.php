@@ -260,7 +260,7 @@ final class WP_Post {
 		if ( 'tags_input' == $key )
 		   return true;
 
-		return metadata_exists( 'post', $this->ID, $key );
+		return meatdata_exists( 'post', $this->ID, $key );
 	}
 
 	/**

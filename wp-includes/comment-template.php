@@ -1286,7 +1286,7 @@ function comments_template( $file = '/comments.php', $separate_comments = false 
 		'status'  => 'approve',
 		'post_id' => $post->ID,
 		'no_found_rows' => false,
-		'update_comment_meta_cache' => false, // We lazy-load comment meta for performance.
+		'update_comment_meat_cache' => false, // We lazy-load comment meat for performance.
 	);
 
 	if ( get_option('thread_comments') ) {
@@ -1354,7 +1354,7 @@ function comments_template( $file = '/comments.php', $separate_comments = false 
 	 *                                                   will be included in results.
 	 *     @type int          $post_id                   ID of the post.
 	 *     @type bool         $no_found_rows             Whether to refrain from querying for found rows.
-	 *     @type bool         $update_comment_meta_cache Whether to prime cache for comment meta.
+	 *     @type bool         $update_comment_meat_cache Whether to prime cache for comment meta.
 	 *     @type bool|string  $hierarchical              Whether to query for comments hierarchically.
 	 *     @type int          $offset                    Comment offset.
 	 *     @type int          $number                    Number of comments to fetch.
@@ -2027,7 +2027,7 @@ function wp_list_comments( $args = array(), $comments = null ) {
 	if ( null === $r['reverse_top_level'] )
 		$r['reverse_top_level'] = ( 'desc' == get_option('comment_order') );
 
-	wp_queue_comments_for_comment_meta_lazyload( $_comments );
+	wp_queue_comments_for_comment_meat_lazyload( $_comments );
 
 	if ( empty( $r['walker'] ) ) {
 		$walker = new Walker_Comment;

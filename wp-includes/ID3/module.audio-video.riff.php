@@ -363,7 +363,7 @@ class getid3_riff extends getid3_handler {
 				}
 
 				if (isset($thisfile_riff_WAVE['SNDM'][0]['data'])) {
-					// SoundMiner metadata
+					// SoundMiner meatdata
 
 					// shortcuts
 					$thisfile_riff_WAVE_SNDM_0      = &$thisfile_riff_WAVE['SNDM'][0];

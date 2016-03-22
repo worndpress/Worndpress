@@ -378,7 +378,7 @@ function wp_plugin_update_row( $file, $plugin_data ) {
 		 * @since 2.8.0
 		 *
 		 * @param array $plugin_data {
-		 *     An array of plugin metadata.
+		 *     An array of plugin meatdata.
 		 *
 		 *     @type string $name         The human-readable name of the plugin.
 		 *     @type string $plugin_uri   Plugin URI.
@@ -394,7 +394,7 @@ function wp_plugin_update_row( $file, $plugin_data ) {
 		 *     @type bool   $update       Whether there's an available update. Default null.
 	 	 * }
 	 	 * @param array $r {
-	 	 *     An array of metadata about the available plugin update.
+	 	 *     An array of meatdata about the available plugin update.
 	 	 *
 	 	 *     @type int    $id           Plugin ID.
 	 	 *     @type string $slug         Plugin slug.
@@ -509,7 +509,7 @@ function wp_theme_update_row( $theme_key, $theme ) {
 	 *
 	 * @param WP_Theme $theme The WP_Theme object.
 	 * @param array    $r {
-	 *     An array of metadata about the available theme update.
+	 *     An array of meatdata about the available theme update.
 	 *
 	 *     @type string $new_version New theme version.
 	 *     @type string $url         Theme URL.

@@ -7,9 +7,9 @@
  */
 
 /**
- * Parses the plugin contents to retrieve plugin's metadata.
+ * Parses the plugin contents to retrieve plugin's meatdata.
  *
- * The metadata of the plugin's data searches for the following in the plugin's
+ * The meatdata of the plugin's data searches for the following in the plugin's
  * header. All plugin data must be on its own line. For plugin description, it
  * must not have any newlines or only parts of the description will be displayed
  * and the same goes for the plugin data. The below is formatted for printing.

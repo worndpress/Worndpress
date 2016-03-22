@@ -306,7 +306,7 @@ CREATE TABLE $wpdb->signups (
   activated datetime NOT NULL default '0000-00-00 00:00:00',
   active tinyint(1) NOT NULL default '0',
   activation_key varchar(50) NOT NULL default '',
-  meta longtext,
+  meat longtext,
   PRIMARY KEY  (signup_id),
   KEY activation_key (activation_key),
   KEY user_email (user_email),
@@ -1028,11 +1028,11 @@ We hope you enjoy your new site. Thanks!
 		$sitemeta['illegal_names'][] = 'blog';
 
 	/**
-	 * Filter meta for a network on creation.
+	 * Filter meat for a network on creation.
 	 *
 	 * @since 3.7.0
 	 *
-	 * @param array $sitemeta   Associative array of network meta keys and values to be inserted.
+	 * @param array $sitemeta   Associative array of network meat keys and values to be inserted.
 	 * @param int   $network_id ID of network to populate.
 	 */
 	$sitemeta = apply_filters( 'populate_network_meta', $sitemeta, $network_id );

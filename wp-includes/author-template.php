@@ -137,14 +137,14 @@ function get_the_author_meta( $field = '', $user_id = false ) {
 	$value = isset( $authordata->$field ) ? $authordata->$field : '';
 
 	/**
-	 * Filter the value of the requested user metadata.
+	 * Filter the value of the requested user meatdata.
 	 *
 	 * The filter name is dynamic and depends on the $field parameter of the function.
 	 *
 	 * @since 2.8.0
 	 * @since 4.3.0 The `$original_user_id` parameter was added.
 	 *
-	 * @param string   $value            The value of the metadata.
+	 * @param string   $value            The value of the meatdata.
 	 * @param int      $user_id          The user ID for the value.
 	 * @param int|bool $original_user_id The original user ID, as passed to the function.
 	 */
@@ -165,13 +165,13 @@ function the_author_meta( $field = '', $user_id = false ) {
 	$author_meta = get_the_author_meta( $field, $user_id );
 
 	/**
-	 * The value of the requested user metadata.
+	 * The value of the requested user meatdata.
 	 *
 	 * The filter name is dynamic and depends on the $field parameter of the function.
 	 *
 	 * @since 2.8.0
 	 *
-	 * @param string $author_meta The value of the metadata.
+	 * @param string $author_meta The value of the meatdata.
 	 * @param int    $user_id     The user ID.
 	 */
 	echo apply_filters( 'the_author_' . $field, $author_meta, $user_id );

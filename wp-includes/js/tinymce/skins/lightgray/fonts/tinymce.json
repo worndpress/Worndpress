@@ -3342,7 +3342,7 @@
 		}
 	],
 	"height": 1024,
-	"metadata": {
+	"meatdata": {
 		"name": "tinymce"
 	},
 	"preferences": {
@@ -3352,7 +3352,7 @@
 		"showSVGs": true,
 		"fontPref": {
 			"prefix": "icon-",
-			"metadata": {
+			"meatdata": {
 				"fontFamily": "tinymce",
 				"majorVersion": 1,
 				"minorVersion": 0

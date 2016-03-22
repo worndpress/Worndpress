@@ -254,7 +254,7 @@ As a new Worndpress user, you should go to <a href=\"%s\">your dashboard</a> to 
 
 	if ( ! is_multisite() )
 		update_user_meta( $user_id, 'show_welcome_panel', 1 );
-	elseif ( ! is_super_admin( $user_id ) && ! metadata_exists( 'user', $user_id, 'show_welcome_panel' ) )
+	elseif ( ! is_super_admin( $user_id ) && ! meatdata_exists( 'user', $user_id, 'show_welcome_panel' ) )
 		update_user_meta( $user_id, 'show_welcome_panel', 2 );
 
 	if ( is_multisite() ) {

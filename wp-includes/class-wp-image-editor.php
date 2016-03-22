@@ -120,7 +120,7 @@ abstract class WP_Image_Editor {
 	 *         @type bool $crop   Optional. Whether to crop the image. Default false.
 	 *     }
 	 * }
-	 * @return array An array of resized images metadata by size.
+	 * @return array An array of resized images meatdata by size.
 	 */
 	abstract public function multi_resize( $sizes );
 

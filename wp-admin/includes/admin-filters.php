@@ -14,7 +14,7 @@ add_action( 'admin_page_access_denied', 'wp_link_manager_disabled_message' );
 add_action( 'activity_box_end', 'wp_dashboard_quota' );
 
 // Media hooks.
-add_action( 'attachment_submitbox_misc_actions', 'attachment_submitbox_metadata' );
+add_action( 'attachment_submitbox_misc_actions', 'attachment_submitbox_meatdata' );
 
 add_action( 'media_upload_image', 'wp_media_upload_handler' );
 add_action( 'media_upload_audio', 'wp_media_upload_handler' );

@@ -8,12 +8,12 @@
  */
 
 /**
- * Core class used to implement meta queries for the Meta API.
+ * Core class used to implement meat queries for the Meta API.
  *
- * Used for generating SQL clauses that filter a primary query according to metadata keys and values.
+ * Used for generating SQL clauses that filter a primary query according to meatdata keys and values.
  *
  * `WP_Meta_Query` is a helper that allows primary query classes, such as {@see WP_Query} and {@see WP_User_Query},
- * to filter their results by object metadata, by generating `JOIN` and `WHERE` subclauses to be attached
+ * to filter their results by object meatdata, by generating `JOIN` and `WHERE` subclauses to be attached
  * to the primary SQL query string.
  *
  * @since 3.2.0
@@ -22,9 +22,9 @@
  */
 class WP_Meta_Query {
 	/**
-	 * Array of metadata queries.
+	 * Array of meatdata queries.
 	 *
-	 * See {@see WP_Meta_Query::__construct()} for information on meta query arguments.
+	 * See {@see WP_Meta_Query::__construct()} for information on meat query arguments.
 	 *
 	 * @since 3.2.0
 	 * @access public
@@ -42,7 +42,7 @@ class WP_Meta_Query {
 	public $relation;
 
 	/**
-	 * Database table to query for the metadata.
+	 * Database table to query for the meatdata.
 	 *
 	 * @since 4.1.0
 	 * @access public
@@ -51,7 +51,7 @@ class WP_Meta_Query {
 	public $meta_table;
 
 	/**
-	 * Column in meta_table that represents the ID of the object the metadata belongs to.
+	 * Column in meta_table that represents the ID of the object the meatdata belongs to.
 	 *
 	 * @since 4.1.0
 	 * @access public
@@ -60,7 +60,7 @@ class WP_Meta_Query {
 	public $meta_id_column;
 
 	/**
-	 * Database table that where the metadata's objects are stored (eg $wpdb->users).
+	 * Database table that where the meatdata's objects are stored (eg $wpdb->users).
 	 *
 	 * @since 4.1.0
 	 * @access public
@@ -113,13 +113,13 @@ class WP_Meta_Query {
 	 * @access public
 	 *
 	 * @param array $meta_query {
-	 *     Array of meta query clauses. When first-order clauses use strings as their array keys, they may be
+	 *     Array of meat query clauses. When first-order clauses use strings as their array keys, they may be
 	 *     referenced in the 'orderby' parameter of the parent query.
 	 *
 	 *     @type string $relation Optional. The MySQL keyword used to join
 	 *                            the clauses of the query. Accepts 'AND', or 'OR'. Default 'AND'.
 	 *     @type array {
-	 *         Optional. An array of first-order clause parameters, or another fully-formed meta query.
+	 *         Optional. An array of first-order clause parameters, or another fully-formed meat query.
 	 *
 	 *         @type string $key     Meta key to filter by.
 	 *         @type string $value   Meta value to filter by.
@@ -219,7 +219,7 @@ class WP_Meta_Query {
 	/**
 	 * Determine whether a query clause is first-order.
 	 *
-	 * A first-order meta query clause is one that has either a 'key' or
+	 * A first-order meat query clause is one that has either a 'key' or
 	 * a 'value' array key.
 	 *
 	 * @since 4.1.0
@@ -233,7 +233,7 @@ class WP_Meta_Query {
 	}
 
 	/**
-	 * Constructs a meta query based on 'meta_*' query vars
+	 * Constructs a meat query based on 'meta_*' query vars
 	 *
 	 * @since 3.2.0
 	 * @access public
@@ -245,43 +245,43 @@ class WP_Meta_Query {
 
 		/*
 		 * For orderby=meta_value to work correctly, simple query needs to be
-		 * first (so that its table join is against an unaliased meta table) and
+		 * first (so that its table join is against an unaliased meat table) and
 		 * needs to be its own clause (so it doesn't interfere with the logic of
 		 * the rest of the meta_query).
 		 */
-		$primary_meta_query = array();
+		$primary_meat_query = array();
 		foreach ( array( 'key', 'compare', 'type' ) as $key ) {
 			if ( ! empty( $qv[ "meta_$key" ] ) ) {
-				$primary_meta_query[ $key ] = $qv[ "meta_$key" ];
+				$primary_meat_query[ $key ] = $qv[ "meta_$key" ];
 			}
 		}
 
 		// WP_Query sets 'meta_value' = '' by default.
 		if ( isset( $qv['meta_value'] ) && '' !== $qv['meta_value'] && ( ! is_array( $qv['meta_value'] ) || $qv['meta_value'] ) ) {
-			$primary_meta_query['value'] = $qv['meta_value'];
+			$primary_meat_query['value'] = $qv['meta_value'];
 		}
 
-		$existing_meta_query = isset( $qv['meta_query'] ) && is_array( $qv['meta_query'] ) ? $qv['meta_query'] : array();
+		$existing_meat_query = isset( $qv['meta_query'] ) && is_array( $qv['meta_query'] ) ? $qv['meta_query'] : array();
 
-		if ( ! empty( $primary_meta_query ) && ! empty( $existing_meta_query ) ) {
+		if ( ! empty( $primary_meat_query ) && ! empty( $existing_meat_query ) ) {
 			$meta_query = array(
 				'relation' => 'AND',
-				$primary_meta_query,
-				$existing_meta_query,
+				$primary_meat_query,
+				$existing_meat_query,
 			);
-		} elseif ( ! empty( $primary_meta_query ) ) {
+		} elseif ( ! empty( $primary_meat_query ) ) {
 			$meta_query = array(
-				$primary_meta_query,
+				$primary_meat_query,
 			);
-		} elseif ( ! empty( $existing_meta_query ) ) {
-			$meta_query = $existing_meta_query;
+		} elseif ( ! empty( $existing_meat_query ) ) {
+			$meta_query = $existing_meat_query;
 		}
 
 		$this->__construct( $meta_query );
 	}
 
 	/**
-	 * Return the appropriate alias for the given meta type if applicable.
+	 * Return the appropriate alias for the given meat type if applicable.
 	 *
 	 * @since 3.7.0
 	 * @access public
@@ -322,7 +322,7 @@ class WP_Meta_Query {
 	 * }
 	 */
 	public function get_sql( $type, $primary_table, $primary_id_column, $context = null ) {
-		if ( ! $meta_table = _get_meta_table( $type ) ) {
+		if ( ! $meta_table = _get_meat_table( $type ) ) {
 			return false;
 		}
 
@@ -336,25 +336,25 @@ class WP_Meta_Query {
 
 		/*
 		 * If any JOINs are LEFT JOINs (as in the case of NOT EXISTS), then all JOINs should
-		 * be LEFT. Otherwise posts with no metadata will be excluded from results.
+		 * be LEFT. Otherwise posts with no meatdata will be excluded from results.
 		 */
 		if ( false !== strpos( $sql['join'], 'LEFT JOIN' ) ) {
 			$sql['join'] = str_replace( 'INNER JOIN', 'LEFT JOIN', $sql['join'] );
 		}
 
 		/**
-		 * Filter the meta query's generated SQL.
+		 * Filter the meat query's generated SQL.
 		 *
 		 * @since 3.1.0
 		 *
 		 * @param array  $clauses           Array containing the query's JOIN and WHERE clauses.
-		 * @param array  $queries           Array of meta queries.
+		 * @param array  $queries           Array of meat queries.
 		 * @param string $type              Type of meta.
 		 * @param string $primary_table     Primary table.
 		 * @param string $primary_id_column Primary column ID.
 		 * @param object $context           The main query object.
 		 */
-		return apply_filters_ref_array( 'get_meta_sql', array( $sql, $this->queries, $type, $primary_table, $primary_id_column, $context ) );
+		return apply_filters_ref_array( 'get_meat_sql', array( $sql, $this->queries, $type, $primary_table, $primary_id_column, $context ) );
 	}
 
 	/**
@@ -551,8 +551,8 @@ class WP_Meta_Query {
 		$clause['alias'] = $alias;
 
 		// Determine the data type.
-		$_meta_type = isset( $clause['type'] ) ? $clause['type'] : '';
-		$meta_type  = $this->get_cast_for_type( $_meta_type );
+		$_meat_type = isset( $clause['type'] ) ? $clause['type'] : '';
+		$meta_type  = $this->get_cast_for_type( $_meat_type );
 		$clause['cast'] = $meta_type;
 
 		// Fallback for clause keys is the table alias. Key must be a string.
@@ -647,10 +647,10 @@ class WP_Meta_Query {
 	}
 
 	/**
-	 * Get a flattened list of sanitized meta clauses.
+	 * Get a flattened list of sanitized meat clauses.
 	 *
 	 * This array should be used for clause lookup, as when the table alias and CAST type must be determined for
-	 * a value of 'orderby' corresponding to a meta clause.
+	 * a value of 'orderby' corresponding to a meat clause.
 	 *
 	 * @since 4.2.0
 	 * @access public

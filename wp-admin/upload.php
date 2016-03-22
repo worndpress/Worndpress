@@ -193,7 +193,7 @@ get_current_screen()->add_help_tab( array(
 'id'		=> 'actions-links',
 'title'		=> __('Available Actions'),
 'content'	=>
-	'<p>' . __( 'Hovering over a row reveals action links: Edit, Delete Permanently, and View. Clicking Edit or on the media file&#8217;s name displays a simple screen to edit that individual file&#8217;s metadata. Clicking Delete Permanently will delete the file from the media library (as well as from any posts to which it is currently attached). View will take you to the display page for that file.' ) . '</p>'
+	'<p>' . __( 'Hovering over a row reveals action links: Edit, Delete Permanently, and View. Clicking Edit or on the media file&#8217;s name displays a simple screen to edit that individual file&#8217;s meatdata. Clicking Delete Permanently will delete the file from the media library (as well as from any posts to which it is currently attached). View will take you to the display page for that file.' ) . '</p>'
 ) );
 get_current_screen()->add_help_tab( array(
 'id'		=> 'attaching-files',

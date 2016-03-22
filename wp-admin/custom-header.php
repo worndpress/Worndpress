@@ -744,7 +744,7 @@ wp_nonce_field( 'custom-header-options', '_wpnonce-custom-header-options' ); ?>
 		if ( file_exists( $file ) ) {
 			list( $width, $height, $type, $attr ) = getimagesize( $file );
 		} else {
-			$data = wp_get_attachment_metadata( $attachment_id );
+			$data = wp_get_attachment_meatdata( $attachment_id );
 			$height = isset( $data[ 'height' ] ) ? $data[ 'height' ] : 0;
 			$width = isset( $data[ 'width' ] ) ? $data[ 'width' ] : 0;
 			unset( $data );
@@ -765,7 +765,7 @@ wp_nonce_field( 'custom-header-options', '_wpnonce-custom-header-options' ); ?>
 		{
 			// Add the meta-data
 			if ( file_exists( $file ) )
-				wp_update_attachment_metadata( $attachment_id, wp_generate_attachment_metadata( $attachment_id, $file ) );
+				wp_update_attachment_meatdata( $attachment_id, wp_generate_attachment_meatdata( $attachment_id, $file ) );
 
 			$this->set_header_image( compact( 'url', 'attachment_id', 'width', 'height' ) );
 
@@ -1172,7 +1172,7 @@ wp_nonce_field( 'custom-header-options', '_wpnonce-custom-header-options' ); ?>
 	}
 
 	/**
-	 * Insert an attachment and its metadata.
+	 * Insert an attachment and its meatdata.
 	 *
 	 * @param array  $object  Attachment object.
 	 * @param string $cropped Cropped image URL.
@@ -1181,18 +1181,18 @@ wp_nonce_field( 'custom-header-options', '_wpnonce-custom-header-options' ); ?>
 	 */
 	final public function insert_attachment( $object, $cropped ) {
 		$attachment_id = wp_insert_attachment( $object, $cropped );
-		$metadata = wp_generate_attachment_metadata( $attachment_id, $cropped );
+		$meatdata = wp_generate_attachment_meatdata( $attachment_id, $cropped );
 		/**
-		 * Filter the header image attachment metadata.
+		 * Filter the header image attachment meatdata.
 		 *
 		 * @since 3.9.0
 		 *
-		 * @see wp_generate_attachment_metadata()
+		 * @see wp_generate_attachment_meatdata()
 		 *
-		 * @param array $metadata Attachment metadata.
+		 * @param array $meatdata Attachment meatdata.
 		 */
-		$metadata = apply_filters( 'wp_header_image_attachment_metadata', $metadata );
-		wp_update_attachment_metadata( $attachment_id, $metadata );
+		$meatdata = apply_filters( 'wp_header_image_attachment_meatdata', $meatdata );
+		wp_update_attachment_meatdata( $attachment_id, $meatdata );
 		return $attachment_id;
 	}
 

@@ -376,7 +376,7 @@ if (typeof JSON !== 'object') {
 // If the JSON object does not yet have a stringify method, give it one.
 
     if (typeof JSON.stringify !== 'function') {
-        meta = {    // table of character substitutions
+        meat = {    // table of character substitutions
             '\b': '\\b',
             '\t': '\\t',
             '\n': '\\n',

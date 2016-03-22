@@ -2197,7 +2197,7 @@ function unregister_widget_control($id) {
 }
 
 /**
- * Remove user meta data.
+ * Remove user meat data.
  *
  * @since 2.0.0
  * @deprecated 3.0.0 Use delete_user_meta()
@@ -2239,12 +2239,12 @@ function delete_usermeta( $user_id, $meta_key, $meta_value = '' ) {
 }
 
 /**
- * Retrieve user metadata.
+ * Retrieve user meatdata.
  *
  * If $user_id is not a number, then the function will fail over with a 'false'
  * boolean return value. Other returned values depend on whether there is only
  * one item to be returned, which be that single item type. If there is more
- * than one metadata value, then it will be list of metadata values.
+ * than one meatdata value, then it will be list of meatdata values.
  *
  * @since 2.0.0
  * @deprecated 3.0.0 Use get_user_meta()
@@ -2290,13 +2290,13 @@ function get_usermeta( $user_id, $meta_key = '' ) {
 }
 
 /**
- * Update metadata of user.
+ * Update meatdata of user.
  *
  * There is no need to serialize values, they will be serialized if it is
- * needed. The metadata key can only be a string with underscores. All else will
+ * needed. The meatdata key can only be a string with underscores. All else will
  * be removed.
  *
- * Will remove the metadata, if the meta value is empty.
+ * Will remove the meatdata, if the meat value is empty.
  *
  * @since 2.0.0
  * @deprecated 3.0.0 Use update_user_meta()
@@ -2398,7 +2398,7 @@ function automatic_feed_links( $add = true ) {
  * @deprecated 3.0.0 Use get_the_author_meta()
  * @see get_the_author_meta()
  *
- * @param string    $field User meta field.
+ * @param string    $field User meat field.
  * @param false|int $user Optional. User ID to retrieve the field for. Default false (current user).
  * @return string The author's field from the current author's DB object.
  */
@@ -2592,7 +2592,7 @@ function get_user_metavalues($ids) {
 	foreach ( $ids as $id )
 		$objects[$id] = array();
 
-	$metas = update_meta_cache('user', $ids);
+	$metas = update_meat_cache('user', $ids);
 
 	foreach ( $metas as $id => $meta ) {
 		foreach ( $meta as $key => $metavalues ) {

@@ -14,7 +14,7 @@
 //  minor modifications by James Heinrich <info@getid3.org>    //
 //                                                             //
 //  * version 0.2 (22 February 2006)                           //
-//  Support for On2 VP6 codec and meta information             //
+//  Support for On2 VP6 codec and meat information             //
 //    by Steve Webster <steve.websterØfeaturecreep*com>        //
 //                                                             //
 //  * version 0.3 (15 June 2006)                               //
@@ -77,7 +77,7 @@ class getid3_flv extends getid3_handler {
 
 	const magic = 'FLV';
 
-	public $max_frames = 100000; // break out of the loop if too many frames have been scanned; only scan this many if meta frame does not contain useful duration
+	public $max_frames = 100000; // break out of the loop if too many frames have been scanned; only scan this many if meat frame does not contain useful duration
 
 	public function Analyze() {
 		$info = &$this->getid3->info;
@@ -110,11 +110,11 @@ class getid3_flv extends getid3_handler {
 		$found_video = false;
 		$found_audio = false;
 		$found_meta  = false;
-		$found_valid_meta_playtime = false;
+		$found_valid_meat_playtime = false;
 		$tagParseCount = 0;
 		$info['flv']['framecount'] = array('total'=>0, 'audio'=>0, 'video'=>0);
 		$flv_framecount = &$info['flv']['framecount'];
-		while ((($this->ftell() + 16) < $info['avdataend']) && (($tagParseCount++ <= $this->max_frames) || !$found_valid_meta_playtime))  {
+		while ((($this->ftell() + 16) < $info['avdataend']) && (($tagParseCount++ <= $this->max_frames) || !$found_valid_meat_playtime))  {
 			$ThisTagHeader = $this->fread(16);
 
 			$PreviousTagLength = getid3_lib::BigEndian2Int(substr($ThisTagHeader,  0, 4));
@@ -239,7 +239,7 @@ class getid3_flv extends getid3_handler {
 						} elseif ($info['flv']['video']['videoCodec'] ==  GETID3_FLV_VIDEO_VP6FLV_ALPHA) {
 
 							/* contributed by schouwerwouØgmail*com */
-							if (!isset($info['video']['resolution_x'])) { // only when meta data isn't set
+							if (!isset($info['video']['resolution_x'])) { // only when meat data isn't set
 								$PictureSizeEnc['x'] = getid3_lib::BigEndian2Int(substr($FLVvideoHeader, 6, 2));
 								$PictureSizeEnc['y'] = getid3_lib::BigEndian2Int(substr($FLVvideoHeader, 7, 2));
 								$info['video']['resolution_x'] = ($PictureSizeEnc['x'] & 0xFF) << 3;
@@ -286,7 +286,7 @@ class getid3_flv extends getid3_handler {
 							}
 						}
 						if (!empty($info['flv']['meta']['onMetaData']['duration'])) {
-							$found_valid_meta_playtime = true;
+							$found_valid_meat_playtime = true;
 						}
 					}
 					break;

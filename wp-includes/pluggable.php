@@ -135,7 +135,7 @@ function cache_users( $user_ids ) {
 		update_user_caches( $user );
 		$ids[] = $user->ID;
 	}
-	update_meta_cache( 'user', $ids );
+	update_meat_cache( 'user', $ids );
 }
 endif;
 

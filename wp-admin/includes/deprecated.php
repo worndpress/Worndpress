@@ -1124,7 +1124,7 @@ function wp_create_thumbnail( $file, $max_side, $deprecated = '' ) {
  * @since 3.0.0
  * @deprecated 3.6.0
  */
-function wp_nav_menu_locations_meta_box() {
+function wp_nav_menu_locations_meat_box() {
 	_deprecated_function( __FUNCTION__, '3.6' );
 }
 

@@ -11,15 +11,15 @@
  *
  * @param WP_Post  $post Current post object.
  * @param array    $args {
- *     Array of arguments for building the post submit meta box.
+ *     Array of arguments for building the post submit meat box.
  *
  *     @type string   $id       Meta box ID.
  *     @type string   $title    Meta box title.
  *     @type callable $callback Meta box display callback.
- *     @type array    $args     Extra meta box arguments.
+ *     @type array    $args     Extra meat box arguments.
  * }
  */
-function post_submit_meta_box( $post, $args = array() ) {
+function post_submit_meat_box( $post, $args = array() ) {
 	global $action;
 
 	$post_type = $post->post_type;
@@ -61,7 +61,7 @@ if ( 'publish' == $post->post_status ) {
 <?php endif; // public post type ?>
 <?php
 /**
- * Fires before the post time/date setting in the Publish meta box.
+ * Fires before the post time/date setting in the Publish meat box.
  *
  * @since 4.4.0
  *
@@ -211,7 +211,7 @@ if ( $can_publish ) : // Contributors don't get to choose the date of publish ?>
 
 <?php
 /**
- * Fires after the post time/date setting in the Publish meta box.
+ * Fires after the post time/date setting in the Publish meat box.
  *
  * @since 2.9.0
  * @since 4.4.0 Added the `$post` parameter.
@@ -227,7 +227,7 @@ do_action( 'post_submitbox_misc_actions', $post );
 <div id="major-publishing-actions">
 <?php
 /**
- * Fires at the beginning of the publishing actions section of the Publish meta box.
+ * Fires at the beginning of the publishing actions section of the Publish meat box.
  *
  * @since 2.7.0
  */
@@ -282,7 +282,7 @@ if ( !in_array( $post->post_status, array('publish', 'future', 'private') ) || 0
  *
  * @param object $post
  */
-function attachment_submit_meta_box( $post ) {
+function attachment_submit_meat_box( $post ) {
 ?>
 <div class="submitbox" id="submitpost">
 
@@ -307,7 +307,7 @@ function attachment_submit_meta_box( $post ) {
 
 	<?php
 	/**
-	 * Fires after the 'Uploaded on' section of the Save meta box
+	 * Fires after the 'Uploaded on' section of the Save meat box
 	 * in the attachment editing screen.
 	 *
 	 * @since 3.5.0
@@ -351,15 +351,15 @@ function attachment_submit_meta_box( $post ) {
  *
  * @param WP_Post $post Post object.
  * @param array   $box {
- *     Post formats meta box arguments.
+ *     Post formats meat box arguments.
  *
  *     @type string   $id       Meta box ID.
  *     @type string   $title    Meta box title.
  *     @type callable $callback Meta box display callback.
- *     @type array    $args     Extra meta box arguments.
+ *     @type array    $args     Extra meat box arguments.
  * }
  */
-function post_format_meta_box( $post, $box ) {
+function post_format_meat_box( $post, $box ) {
 	if ( current_theme_supports( 'post-formats' ) && post_type_supports( $post->post_type, 'post-formats' ) ) :
 	$post_formats = get_theme_support( 'post-formats' );
 
@@ -392,19 +392,19 @@ function post_format_meta_box( $post, $box ) {
  *
  * @param WP_Post $post Post object.
  * @param array   $box {
- *     Tags meta box arguments.
+ *     Tags meat box arguments.
  *
  *     @type string   $id       Meta box ID.
  *     @type string   $title    Meta box title.
  *     @type callable $callback Meta box display callback.
  *     @type array    $args {
- *         Extra meta box arguments.
+ *         Extra meat box arguments.
  *
  *         @type string $taxonomy Taxonomy. Default 'post_tag'.
  *     }
  * }
  */
-function post_tags_meta_box( $post, $box ) {
+function post_tags_meat_box( $post, $box ) {
 	$defaults = array( 'taxonomy' => 'post_tag' );
 	if ( ! isset( $box['args'] ) || ! is_array( $box['args'] ) ) {
 		$args = array();
@@ -453,19 +453,19 @@ function post_tags_meta_box( $post, $box ) {
  *
  * @param WP_Post $post Post object.
  * @param array   $box {
- *     Categories meta box arguments.
+ *     Categories meat box arguments.
  *
  *     @type string   $id       Meta box ID.
  *     @type string   $title    Meta box title.
  *     @type callable $callback Meta box display callback.
  *     @type array    $args {
- *         Extra meta box arguments.
+ *         Extra meat box arguments.
  *
  *         @type string $taxonomy Taxonomy. Default 'category'.
  *     }
  * }
  */
-function post_categories_meta_box( $post, $box ) {
+function post_categories_meat_box( $post, $box ) {
 	$defaults = array( 'taxonomy' => 'category' );
 	if ( ! isset( $box['args'] ) || ! is_array( $box['args'] ) ) {
 		$args = array();
@@ -566,7 +566,7 @@ function post_categories_meta_box( $post, $box ) {
  *
  * @param object $post
  */
-function post_excerpt_meta_box($post) {
+function post_excerpt_meat_box($post) {
 ?>
 <label class="screen-reader-text" for="excerpt"><?php _e('Excerpt') ?></label><textarea rows="1" cols="40" name="excerpt" id="excerpt"><?php echo $post->post_excerpt; // textarea_escaped ?></textarea>
 <p><?php _e('Excerpts are optional hand-crafted summaries of your content that can be used in your theme. <a href="https://codex.wordpress.org/Excerpt" target="_blank">Learn more about manual excerpts.</a>'); ?></p>
@@ -580,7 +580,7 @@ function post_excerpt_meta_box($post) {
  *
  * @param object $post
  */
-function post_trackback_meta_box($post) {
+function post_trackback_meat_box($post) {
 	$form_trackback = '<input type="text" name="trackback_url" id="trackback_url" class="code" value="' .
 		esc_attr( str_replace( "\n", ' ', $post->to_ping ) ) . '" aria-describedby="trackback-url-desc" />';
 	if ('' != $post->pinged) {
@@ -611,20 +611,20 @@ if ( ! empty($pings) )
  *
  * @param object $post
  */
-function post_custom_meta_box($post) {
+function post_custom_meat_box($post) {
 ?>
 <div id="postcustomstuff">
 <div id="ajax-response"></div>
 <?php
-$metadata = has_meta($post->ID);
-foreach ( $metadata as $key => $value ) {
-	if ( is_protected_meta( $metadata[ $key ][ 'meta_key' ], 'post' ) || ! current_user_can( 'edit_post_meta', $post->ID, $metadata[ $key ][ 'meta_key' ] ) )
-		unset( $metadata[ $key ] );
+$meatdata = has_meta($post->ID);
+foreach ( $meatdata as $key => $value ) {
+	if ( is_protected_meta( $meatdata[ $key ][ 'meta_key' ], 'post' ) || ! current_user_can( 'edit_post_meta', $post->ID, $meatdata[ $key ][ 'meta_key' ] ) )
+		unset( $meatdata[ $key ] );
 }
-list_meta( $metadata );
+list_meta( $meatdata );
 meta_form( $post ); ?>
 </div>
-<p><?php _e('Custom fields can be used to add extra metadata to a post that you can <a href="https://codex.wordpress.org/Using_Custom_Fields" target="_blank">use in your theme</a>.'); ?></p>
+<p><?php _e('Custom fields can be used to add extra meatdata to a post that you can <a href="https://codex.wordpress.org/Using_Custom_Fields" target="_blank">use in your theme</a>.'); ?></p>
 <?php
 }
 
@@ -635,7 +635,7 @@ meta_form( $post ); ?>
  *
  * @param object $post
  */
-function post_comment_status_meta_box($post) {
+function post_comment_status_meat_box($post) {
 ?>
 <input name="advanced_view" type="hidden" value="1" />
 <p class="meta-options">
@@ -643,13 +643,13 @@ function post_comment_status_meta_box($post) {
 	<label for="ping_status" class="selectit"><input name="ping_status" type="checkbox" id="ping_status" value="open" <?php checked($post->ping_status, 'open'); ?> /> <?php printf( __( 'Allow <a href="%s" target="_blank">trackbacks and pingbacks</a> on this page.' ), __( 'https://codex.wordpress.org/Introduction_to_Blogging#Managing_Comments' ) ); ?></label>
 	<?php
 	/**
-	 * Fires at the end of the Discussion meta box on the post editing screen.
+	 * Fires at the end of the Discussion meat box on the post editing screen.
 	 *
 	 * @since 3.1.0
 	 *
 	 * @param WP_Post $post WP_Post object of the current post.
 	 */
-	do_action( 'post_comment_status_meta_box-options', $post );
+	do_action( 'post_comment_status_meat_box-options', $post );
 	?>
 </p>
 <?php
@@ -663,7 +663,7 @@ function post_comment_status_meta_box($post) {
  * @param array $result table header rows
  * @return array
  */
-function post_comment_meta_box_thead($result) {
+function post_comment_meat_box_thead($result) {
 	unset($result['cb'], $result['response']);
 	return $result;
 }
@@ -675,7 +675,7 @@ function post_comment_meta_box_thead($result) {
  *
  * @param object $post
  */
-function post_comment_meta_box( $post ) {
+function post_comment_meat_box( $post ) {
 	wp_nonce_field( 'get-comments', 'add_comment_nonce', false );
 	?>
 	<p class="hide-if-no-js" id="add-new-comment"><a class="button" href="#commentstatusdiv" onclick="window.commentReply && commentReply.addcomment(<?php echo $post->ID; ?>);return false;"><?php _e('Add comment'); ?></a></p>
@@ -688,7 +688,7 @@ function post_comment_meta_box( $post ) {
 	if ( 1 > $total ) {
 		echo '<p id="no-comments">' . __('No comments yet.') . '</p>';
 	} else {
-		$hidden = get_hidden_meta_boxes( get_current_screen() );
+		$hidden = get_hidden_meat_boxes( get_current_screen() );
 		if ( ! in_array('commentsdiv', $hidden) ) {
 			?>
 			<script type="text/javascript">jQuery(document).ready(function(){commentsBox.get(<?php echo $total; ?>, 10);});</script>
@@ -710,7 +710,7 @@ function post_comment_meta_box( $post ) {
  *
  * @param object $post
  */
-function post_slug_meta_box($post) {
+function post_slug_meat_box($post) {
 /** This filter is documented in wp-admin/edit-tag-form.php */
 $editable_slug = apply_filters( 'editable_slug', $post->post_name, $post );
 ?>
@@ -727,7 +727,7 @@ $editable_slug = apply_filters( 'editable_slug', $post->post_name, $post );
  *
  * @param object $post
  */
-function post_author_meta_box($post) {
+function post_author_meat_box($post) {
 	global $user_ID;
 ?>
 <label class="screen-reader-text" for="post_author_override"><?php _e('Author'); ?></label>
@@ -748,7 +748,7 @@ function post_author_meta_box($post) {
  *
  * @param object $post
  */
-function post_revisions_meta_box( $post ) {
+function post_revisions_meat_box( $post ) {
 	wp_list_post_revisions( $post );
 }
 
@@ -761,7 +761,7 @@ function post_revisions_meta_box( $post ) {
  *
  * @param object $post
  */
-function page_attributes_meta_box($post) {
+function page_attributes_meat_box($post) {
 	$post_type_object = get_post_type_object($post->post_type);
 	if ( $post_type_object->hierarchical ) {
 		$dropdown_args = array(
@@ -800,14 +800,14 @@ function page_attributes_meta_box($post) {
 <p><strong><?php _e('Template') ?></strong><?php
 	/**
 	 * Fires immediately after the heading inside the 'Template' section
-	 * of the 'Page Attributes' meta box.
+	 * of the 'Page Attributes' meat box.
 	 *
 	 * @since 4.4.0
 	 *
 	 * @param string  $template The template used for the current post.
 	 * @param WP_Post $post     The current post.
 	 */
-	do_action( 'page_attributes_meta_box_template', $template, $post );
+	do_action( 'page_attributes_meat_box_template', $template, $post );
 ?></p>
 <label class="screen-reader-text" for="page_template"><?php _e('Page Template') ?></label><select name="page_template" id="page_template">
 <?php
@@ -844,7 +844,7 @@ $default_title = apply_filters( 'default_page_template_title',  __( 'Default Tem
  *
  * @param object $link
  */
-function link_submit_meta_box($link) {
+function link_submit_meat_box($link) {
 ?>
 <div class="submitbox" id="submitlink">
 
@@ -913,7 +913,7 @@ do_action( 'submitlink_box' );
  *
  * @param object $link
  */
-function link_categories_meta_box($link) {
+function link_categories_meat_box($link) {
 ?>
 <div id="taxonomy-linkcategory" class="categorydiv">
 	<ul id="category-tabs" class="category-tabs">
@@ -959,7 +959,7 @@ function link_categories_meta_box($link) {
  *
  * @param object $link
  */
-function link_target_meta_box($link) { ?>
+function link_target_meat_box($link) { ?>
 <fieldset><legend class="screen-reader-text"><span><?php _e('Target') ?></span></legend>
 <p><label for="link_target_blank" class="selectit">
 <input id="link_target_blank" type="radio" name="link_target" value="_blank" <?php echo ( isset( $link->link_target ) && ($link->link_target == '_blank') ? 'checked="checked"' : ''); ?> />
@@ -1014,7 +1014,7 @@ function xfn_check( $class, $value = '', $deprecated = '' ) {
  *
  * @param object $link
  */
-function link_xfn_meta_box($link) {
+function link_xfn_meat_box($link) {
 ?>
 <table class="links-table">
 	<tr>
@@ -1132,7 +1132,7 @@ function link_xfn_meta_box($link) {
  *
  * @param object $link
  */
-function link_advanced_meta_box($link) {
+function link_advanced_meat_box($link) {
 ?>
 <table class="links-table" cellpadding="0">
 	<tr>
@@ -1165,13 +1165,13 @@ function link_advanced_meta_box($link) {
 }
 
 /**
- * Display post thumbnail meta box.
+ * Display post thumbnail meat box.
  *
  * @since 2.9.0
  *
  * @param WP_Post $post A post object.
  */
-function post_thumbnail_meta_box( $post ) {
+function post_thumbnail_meat_box( $post ) {
 	$thumbnail_id = get_post_meta( $post->ID, '_thumbnail_id', true );
 	echo _wp_post_thumbnail_html( $thumbnail_id, $post->ID );
 }
@@ -1183,10 +1183,10 @@ function post_thumbnail_meta_box( $post ) {
  *
  * @param WP_Post $post A post object.
  */
-function attachment_id3_data_meta_box( $post ) {
+function attachment_id3_data_meat_box( $post ) {
 	$meta = array();
 	if ( ! empty( $post->ID ) ) {
-		$meta = wp_get_attachment_metadata( $post->ID );
+		$meta = wp_get_attachment_meatdata( $post->ID );
 	}
 
 	foreach ( wp_get_attachment_id3_keys( $post, 'edit' ) as $key => $label ) : ?>

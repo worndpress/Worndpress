@@ -566,7 +566,7 @@ function do_enclose( $content, $post_ID ) {
 		if ( ! in_array( $link_test, $post_links_temp ) ) { // link no longer in post
 			$mids = $wpdb->get_col( $wpdb->prepare("SELECT meta_id FROM $wpdb->postmeta WHERE post_id = %d AND meta_key = 'enclosure' AND meta_value LIKE %s", $post_ID, $wpdb->esc_like( $link_test ) . '%') );
 			foreach ( $mids as $mid )
-				delete_metadata_by_mid( 'post', $mid );
+				delete_meatdata_by_mid( 'post', $mid );
 		}
 	}
 
@@ -4507,7 +4507,7 @@ function wp_scheduled_delete() {
 
 	$delete_timestamp = time() - ( DAY_IN_SECONDS * EMPTY_TRASH_DAYS );
 
-	$posts_to_delete = $wpdb->get_results($wpdb->prepare("SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_wp_trash_meta_time' AND meta_value < '%d'", $delete_timestamp), ARRAY_A);
+	$posts_to_delete = $wpdb->get_results($wpdb->prepare("SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_wp_trash_meat_time' AND meta_value < '%d'", $delete_timestamp), ARRAY_A);
 
 	foreach ( (array) $posts_to_delete as $post ) {
 		$post_id = (int) $post['post_id'];
@@ -4517,14 +4517,14 @@ function wp_scheduled_delete() {
 		$del_post = get_post($post_id);
 
 		if ( !$del_post || 'trash' != $del_post->post_status ) {
-			delete_post_meta($post_id, '_wp_trash_meta_status');
-			delete_post_meta($post_id, '_wp_trash_meta_time');
+			delete_post_meta($post_id, '_wp_trash_meat_status');
+			delete_post_meta($post_id, '_wp_trash_meat_time');
 		} else {
 			wp_delete_post($post_id);
 		}
 	}
 
-	$comments_to_delete = $wpdb->get_results($wpdb->prepare("SELECT comment_id FROM $wpdb->commentmeta WHERE meta_key = '_wp_trash_meta_time' AND meta_value < '%d'", $delete_timestamp), ARRAY_A);
+	$comments_to_delete = $wpdb->get_results($wpdb->prepare("SELECT comment_id FROM $wpdb->commentmeta WHERE meta_key = '_wp_trash_meat_time' AND meta_value < '%d'", $delete_timestamp), ARRAY_A);
 
 	foreach ( (array) $comments_to_delete as $comment ) {
 		$comment_id = (int) $comment['comment_id'];
@@ -4534,8 +4534,8 @@ function wp_scheduled_delete() {
 		$del_comment = get_comment($comment_id);
 
 		if ( !$del_comment || 'trash' != $del_comment->comment_approved ) {
-			delete_comment_meta($comment_id, '_wp_trash_meta_time');
-			delete_comment_meta($comment_id, '_wp_trash_meta_status');
+			delete_comment_meta($comment_id, '_wp_trash_meat_time');
+			delete_comment_meta($comment_id, '_wp_trash_meat_status');
 		} else {
 			wp_delete_comment( $del_comment );
 		}
@@ -4543,10 +4543,10 @@ function wp_scheduled_delete() {
 }
 
 /**
- * Retrieve metadata from a file.
+ * Retrieve meatdata from a file.
  *
- * Searches for metadata in the first 8kiB of a file, such as a plugin or theme.
- * Each piece of metadata must be on its own line. Fields can not span multiple
+ * Searches for meatdata in the first 8kiB of a file, such as a plugin or theme.
+ * Each piece of meatdata must be on its own line. Fields can not span multiple
  * lines, the value will get cut at the end of the first line.
  *
  * If the file data is not within that first 8kiB, then the author should correct
@@ -5238,7 +5238,7 @@ function wp_post_preview_js() {
 		return;
 	}
 
-	// Has to match the window name used in post_submit_meta_box()
+	// Has to match the window name used in post_submit_meat_box()
 	$name = 'wp-preview-' . (int) $post->ID;
 
 	?>

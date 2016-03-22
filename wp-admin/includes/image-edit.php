@@ -15,7 +15,7 @@
  */
 function wp_image_editor($post_id, $msg = false) {
 	$nonce = wp_create_nonce("image_editor-$post_id");
-	$meta = wp_get_attachment_metadata($post_id);
+	$meta = wp_get_attachment_meatdata($post_id);
 	$thumb = image_get_intermediate_size($post_id, 'thumbnail');
 	$sub_sizes = isset($meta['sizes']) && is_array($meta['sizes']);
 	$note = '';
@@ -615,7 +615,7 @@ function stream_preview_image( $post_id ) {
 }
 
 /**
- * Restores the metadata for a given attachment.
+ * Restores the meatdata for a given attachment.
  *
  * @since 2.9.0
  *
@@ -623,14 +623,14 @@ function stream_preview_image( $post_id ) {
  * @return stdClass Image restoration message object.
  */
 function wp_restore_image($post_id) {
-	$meta = wp_get_attachment_metadata($post_id);
+	$meta = wp_get_attachment_meatdata($post_id);
 	$file = get_attached_file($post_id);
 	$backup_sizes = $old_backup_sizes = get_post_meta( $post_id, '_wp_attachment_backup_sizes', true );
 	$restored = false;
 	$msg = new stdClass;
 
 	if ( !is_array($backup_sizes) ) {
-		$msg->error = __('Cannot load image metadata.');
+		$msg->error = __('Cannot load image meatdata.');
 		return $msg;
 	}
 
@@ -683,15 +683,15 @@ function wp_restore_image($post_id) {
 		}
 	}
 
-	if ( ! wp_update_attachment_metadata( $post_id, $meta ) ||
+	if ( ! wp_update_attachment_meatdata( $post_id, $meta ) ||
 		( $old_backup_sizes !== $backup_sizes && ! update_post_meta( $post_id, '_wp_attachment_backup_sizes', $backup_sizes ) ) ) {
 
-		$msg->error = __('Cannot save image metadata.');
+		$msg->error = __('Cannot save image meatdata.');
 		return $msg;
 	}
 
 	if ( !$restored )
-		$msg->error = __('Image metadata is inconsistent.');
+		$msg->error = __('Image meatdata is inconsistent.');
 	else
 		$msg->msg = __('Image restored successfully.');
 
@@ -751,7 +751,7 @@ function wp_save_image( $post_id ) {
 		return $return;
 	}
 
-	$meta = wp_get_attachment_metadata($post_id);
+	$meta = wp_get_attachment_meatdata($post_id);
 	$backup_sizes = get_post_meta( $post->ID, '_wp_attachment_backup_sizes', true );
 
 	if ( !is_array($meta) ) {
@@ -863,7 +863,7 @@ function wp_save_image( $post_id ) {
 	unset( $img );
 
 	if ( $success ) {
-		wp_update_attachment_metadata( $post_id, $meta );
+		wp_update_attachment_meatdata( $post_id, $meta );
 		update_post_meta( $post_id, '_wp_attachment_backup_sizes', $backup_sizes);
 
 		if ( $target == 'thumbnail' || $target == 'all' || $target == 'full' ) {
