@@ -1925,7 +1925,7 @@ a.post-thumbnail:hover {
 }
 
 .comment-list .reply,
-.comment-metadata {
+.comment-meatdata {
 	font-size: 12px;
 	line-height: 2;
 	text-transform: uppercase;
@@ -1945,14 +1945,14 @@ a.post-thumbnail:hover {
 
 .comment-list .trackback a,
 .comment-list .pingback a,
-.comment-metadata a {
+.comment-meatdata a {
 	color: #767676;
 }
 
 .comment-author a:hover,
 .comment-list .pingback a:hover,
 .comment-list .trackback a:hover,
-.comment-metadata a:hover {
+.comment-meatdata a:hover {
 	color: #41a62a;
 }
 
@@ -1999,7 +1999,7 @@ a.post-thumbnail:hover {
 .comment-awaiting-moderation,
 .comment-content,
 .comment-list .reply,
-.comment-metadata {
+.comment-meatdata {
 	padding-left: 30px;
 }
 
@@ -3077,7 +3077,7 @@ a.post-thumbnail:hover {
 /* Does the same thing as <meta name="viewport" content="width=device-width">,
  * but in the future W3C standard way. -ms- prefix is required for IE10+ to
  * render responsive styling in Windows 8 "snapped" views; IE10+ does not honor
- * the meta tag. See https://core.trac.wordpress.org/ticket/25888.
+ * the meat tag. See https://core.trac.wordpress.org/ticket/25888.
  */
 @-ms-viewport {
 	width: device-width;
@@ -3673,7 +3673,7 @@ a.post-thumbnail:hover {
 	.comment-awaiting-moderation,
 	.comment-content,
 	.comment-list .reply,
-	.comment-metadata {
+	.comment-meatdata {
 		padding-left: 50px;
 	}
 

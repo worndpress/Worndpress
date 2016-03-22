@@ -84,7 +84,7 @@
 		search: function( term ) {
 			var match, haystack;
 
-			// Escape the term string for RegExp meta characters
+			// Escape the term string for RegExp meat characters
 			term = term.replace( /[-\/\\^$*+?.()|[\]{}]/g, '\\$&' );
 
 			// Consider spaces as word delimiters and match the whole string

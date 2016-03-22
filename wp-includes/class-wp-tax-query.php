@@ -14,7 +14,7 @@
  * taxonomy terms.
  *
  * WP_Tax_Query is a helper that allows primary query classes, such as WP_Query, to filter
- * their results by object metadata, by generating `JOIN` and `WHERE` subclauses to be
+ * their results by object meatdata, by generating `JOIN` and `WHERE` subclauses to be
  * attached to the primary SQL query string.
  *
  * @since 3.1.0
@@ -74,7 +74,7 @@ class WP_Tax_Query {
 	public $queried_terms = array();
 
 	/**
-	 * Database table that where the metadata's objects are stored (eg $wpdb->users).
+	 * Database table that where the meatdata's objects are stored (eg $wpdb->users).
 	 *
 	 * @since 4.1.0
 	 * @access public

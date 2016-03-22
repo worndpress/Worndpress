@@ -529,7 +529,7 @@ function wp_nav_menu_max_depth( $classes ) {
 add_filter('admin_body_class', 'wp_nav_menu_max_depth');
 
 wp_nav_menu_setup();
-wp_initial_nav_menu_meta_boxes();
+wp_initial_nav_menu_meat_boxes();
 
 if ( ! current_theme_supports( 'menus' ) && ! $num_locations )
 	$messages[] = '<div id="message" class="updated"><p>' . sprintf( __( 'Your theme does not natively support menus, but you can use them in sidebars by adding a &#8220;Custom Menu&#8221; widget on the <a href="%s">Widgets</a> screen.' ), admin_url( 'widgets.php' ) ) . '</p></div>';

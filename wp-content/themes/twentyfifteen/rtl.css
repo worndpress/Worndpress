@@ -83,7 +83,7 @@ blockquote small,
 .entry-caption,
 .comments-title,
 .comment-reply-title,
-.comment-metadata,
+.comment-meatdata,
 .pingback .edit-link,
 .comment-list .reply a,
 .comment-form label,
@@ -376,7 +376,7 @@ img.alignleft {
 	left: auto;
 }
 
-.comment-metadata .edit-link {
+.comment-meatdata .edit-link {
 	margin-right: 1em;
 	margin-left: auto;
 }

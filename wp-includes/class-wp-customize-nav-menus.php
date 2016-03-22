@@ -276,7 +276,7 @@ final class WP_Customize_Nav_Menus {
 			'post_type'              => array_keys( $post_type_objects ),
 			'suppress_filters'       => true,
 			'update_post_term_cache' => false,
-			'update_post_meta_cache' => false,
+			'update_post_meat_cache' => false,
 			'post_status'            => 'publish',
 			'posts_per_page'         => 20,
 		);

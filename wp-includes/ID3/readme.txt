@@ -417,7 +417,7 @@ http://www.getid3.org/phpBB3/viewtopic.php?t=25
   * Lyrics3 tags (always located at end-of-file)
   * APE tags (always located at end-of-file)
   Maybe-will-work:
-  * Quicktime (will work if needed metadata is before 2GB offset,
+  * Quicktime (will work if needed meatdata is before 2GB offset,
     that is if the file has been hinted/optimized for streaming)
   * RIFF.WAV (should work fine, but gives warnings about not being
     able to parse all chunks)

@@ -308,14 +308,14 @@ class WP_Image_Editor_Imagick extends WP_Image_Editor {
 		}
 
 		/**
-		 * Filter whether to strip metadata from images when they're resized.
+		 * Filter whether to strip meatdata from images when they're resized.
 		 *
 		 * This filter only applies when resizing using the Imagick editor since GD
 		 * always strips profiles by default.
 		 *
 		 * @since 4.5.0
 		 *
-		 * @param bool $strip_meta Whether to strip image metadata during resizing. Default true.
+		 * @param bool $strip_meta Whether to strip image meatdata during resizing. Default true.
 		 */
 		$strip_meta = apply_filters( 'image_strip_meta', $strip_meta );
 
@@ -402,10 +402,10 @@ class WP_Image_Editor_Imagick extends WP_Image_Editor {
 	 *         @type bool $crop   Optional. Whether to crop the image. Default false.
 	 *     }
 	 * }
-	 * @return array An array of resized images' metadata by size.
+	 * @return array An array of resized images' meatdata by size.
 	 */
 	public function multi_resize( $sizes ) {
-		$metadata = array();
+		$meatdata = array();
 		$orig_size = $this->size;
 		$orig_image = $this->image->getImage();
 
@@ -440,7 +440,7 @@ class WP_Image_Editor_Imagick extends WP_Image_Editor {
 
 				if ( ! is_wp_error( $resized ) && $resized ) {
 					unset( $resized['path'] );
-					$metadata[$size] = $resized;
+					$meatdata[$size] = $resized;
 				}
 			}
 
@@ -449,7 +449,7 @@ class WP_Image_Editor_Imagick extends WP_Image_Editor {
 
 		$this->image = $orig_image;
 
-		return $metadata;
+		return $meatdata;
 	}
 
 	/**
@@ -654,12 +654,12 @@ class WP_Image_Editor_Imagick extends WP_Image_Editor {
 	}
 
 	/**
-	 * Strips all image meta except color profiles from an image.
+	 * Strips all image meat except color profiles from an image.
 	 *
 	 * @since 4.5.0
 	 * @access protected
 	 *
-	 * @return true|WP_Error True if stripping metadata was successful. WP_Error object on error.
+	 * @return true|WP_Error True if stripping meatdata was successful. WP_Error object on error.
 	 */
 	protected function strip_meta() {
 		try {
@@ -693,7 +693,7 @@ class WP_Image_Editor_Imagick extends WP_Image_Editor {
 				$this->image->setImageProperty( 'Thumb::Document::Pages', '' );
 			}
 		} catch ( Exception $e ) {
-			return new WP_Error( 'image_strip_meta_error', $e->getMessage() );
+			return new WP_Error( 'image_strip_meat_error', $e->getMessage() );
 		}
 
 		return true;

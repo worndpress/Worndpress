@@ -120,7 +120,7 @@ function wp_import_handle_upload() {
  *
  * @since 3.5.0
  *
- * @return array Importers with metadata for each.
+ * @return array Importers with meatdata for each.
  */
 function wp_get_popular_importers() {
 	include( ABSPATH . WPINC . '/version.php' ); // include an unmodified $wp_version

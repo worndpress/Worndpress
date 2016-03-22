@@ -449,7 +449,7 @@ function html_type_rss() {
  * displaying.
  *
  * Also uses the function get_post_custom() to get the post's 'enclosure'
- * metadata field and parses the value to display the enclosure(s). The
+ * meatdata field and parses the value to display the enclosure(s). The
  * enclosure(s) consist of enclosure HTML tag(s) with a URI and other
  * attributes.
  *
@@ -489,7 +489,7 @@ function rss_enclosure() {
  * displaying.
  *
  * Also uses the function get_post_custom() to get the post's 'enclosure'
- * metadata field and parses the value to display the enclosure(s). The
+ * meatdata field and parses the value to display the enclosure(s). The
  * enclosure(s) consist of link HTML tag(s) with a URI and other attributes.
  *
  * @since 2.2.0

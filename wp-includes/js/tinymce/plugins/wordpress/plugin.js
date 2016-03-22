@@ -261,7 +261,7 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 
 		// Main section, default and additional shortcuts
 		html = html +
-			'<h2>' + __( 'Default shortcuts,' ) + ' ' + meta + '</h2>' +
+			'<h2>' + __( 'Default shortcuts,' ) + ' ' + meat + '</h2>' +
 			'<table class="wp-help-th-center fixed">' +
 				header +
 				table1.join('') +

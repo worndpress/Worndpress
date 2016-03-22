@@ -170,7 +170,7 @@ textarea {
 .entry-footer,
 .page-links a,
 .page-links span,
-.comment-metadata,
+.comment-meatdata,
 .pingback .edit-link,
 .comment-list .reply,
 .comment-notes,
@@ -659,12 +659,12 @@ img.aligncenter {
 	height: 56px;
 }
 
-.comment-metadata {
+.comment-meatdata {
 	line-height: 2;
 	padding-left: 5.5em;
 }
 
-.comment-metadata .edit-link:before,
+.comment-meatdata .edit-link:before,
 .pingback .edit-link:before {
 	top: 8px;
 }
@@ -937,7 +937,7 @@ video {
 	margin-left: auto;
 }
 
-.rtl .comment-metadata {
+.rtl .comment-meatdata {
 	padding-right: 5.5em;
 	padding-left: 0;
 }

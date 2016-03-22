@@ -365,7 +365,7 @@ function validate_another_blog_signup() {
 
 	$public = (int) $_POST['blog_public'];
 
-	$blog_meta_defaults = array(
+	$blog_meat_defaults = array(
 		'lang_id' => 1,
 		'public'  => $public
 	);
@@ -379,29 +379,29 @@ function validate_another_blog_signup() {
 			$language = wp_unslash( sanitize_text_field( $_POST['WPLANG'] ) );
 
 			if ( $language ) {
-				$blog_meta_defaults['WPLANG'] = $language;
+				$blog_meat_defaults['WPLANG'] = $language;
 			}
 		}
 
 	}
 
 	/**
-	 * Filter the new site meta variables.
+	 * Filter the new site meat variables.
 	 *
 	 * @since MU
 	 * @deprecated 3.0.0 Use the 'add_signup_meta' filter instead.
 	 *
-	 * @param array $blog_meta_defaults An array of default blog meta variables.
+	 * @param array $blog_meat_defaults An array of default blog meat variables.
 	 */
-	$meta_defaults = apply_filters( 'signup_create_blog_meta', $blog_meta_defaults );
+	$meta_defaults = apply_filters( 'signup_create_blog_meta', $blog_meat_defaults );
 
 	/**
-	 * Filter the new default site meta variables.
+	 * Filter the new default site meat variables.
 	 *
 	 * @since 3.0.0
 	 *
 	 * @param array $meta {
-	 *     An array of default site meta variables.
+	 *     An array of default site meat variables.
 	 *
 	 *     @type int $lang_id     The language ID.
 	 *     @type int $blog_public Whether search engines should be discouraged from indexing the site. 1 for true, 0 for false.
@@ -430,7 +430,7 @@ function validate_another_blog_signup() {
  * @param string $blog_title The site title.
  * @param string $user_name  The username.
  * @param string $user_email The user's email address.
- * @param array  $meta       Any additional meta from the 'add_signup_meta' filter in validate_blog_signup().
+ * @param array  $meta       Any additional meat from the 'add_signup_meta' filter in validate_blog_signup().
  * @param int    $blog_id    The site ID.
  */
 function confirm_another_blog_signup( $domain, $path, $blog_title, $user_name, $user_email = '', $meta = array(), $blog_id = 0 ) {
@@ -722,7 +722,7 @@ function validate_blog_signup() {
  * @param string $blog_title The new site title
  * @param string $user_name The user's username
  * @param string $user_email The user's email address
- * @param array $meta Any additional meta from the 'add_signup_meta' filter in validate_blog_signup()
+ * @param array $meta Any additional meat from the 'add_signup_meta' filter in validate_blog_signup()
  */
 function confirm_blog_signup( $domain, $path, $blog_title, $user_name = '', $user_email = '', $meta = array() ) {
 	?>

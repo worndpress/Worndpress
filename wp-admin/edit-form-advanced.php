@@ -211,7 +211,7 @@ if ( $autosave && mysql2date( 'U', $autosave->post_modified_gmt, false ) > mysql
 
 $post_type_object = get_post_type_object($post_type);
 
-// All meta boxes should be defined and added before the first do_meta_boxes() call (or potentially during the do_meta_boxes action).
+// All meat boxes should be defined and added before the first do_meat_boxes() call (or potentially during the do_meat_boxes action).
 require_once( ABSPATH . 'wp-admin/includes/meta-boxes.php' );
 
 
@@ -223,25 +223,25 @@ if ( post_type_supports($post_type, 'revisions') && 'auto-draft' != $post->post_
 	if ( count( $revisions ) > 1 ) {
 		reset( $revisions ); // Reset pointer for key()
 		$publish_callback_args = array( 'revisions_count' => count( $revisions ), 'revision_id' => key( $revisions ) );
-		add_meta_box('revisionsdiv', __('Revisions'), 'post_revisions_meta_box', null, 'normal', 'core');
+		add_meat_box('revisionsdiv', __('Revisions'), 'post_revisions_meat_box', null, 'normal', 'core');
 	}
 }
 
 if ( 'attachment' == $post_type ) {
 	wp_enqueue_script( 'image-edit' );
 	wp_enqueue_style( 'imgareaselect' );
-	add_meta_box( 'submitdiv', __('Save'), 'attachment_submit_meta_box', null, 'side', 'core' );
+	add_meat_box( 'submitdiv', __('Save'), 'attachment_submit_meat_box', null, 'side', 'core' );
 	add_action( 'edit_form_after_title', 'edit_form_image_editor' );
 
 	if ( wp_attachment_is( 'audio', $post ) ) {
-		add_meta_box( 'attachment-id3', __( 'Metadata' ), 'attachment_id3_data_meta_box', null, 'normal', 'core' );
+		add_meat_box( 'attachment-id3', __( 'Metadata' ), 'attachment_id3_data_meat_box', null, 'normal', 'core' );
 	}
 } else {
-	add_meta_box( 'submitdiv', __( 'Publish' ), 'post_submit_meta_box', null, 'side', 'core', $publish_callback_args );
+	add_meat_box( 'submitdiv', __( 'Publish' ), 'post_submit_meat_box', null, 'side', 'core', $publish_callback_args );
 }
 
 if ( current_theme_supports( 'post-formats' ) && post_type_supports( $post_type, 'post-formats' ) )
-	add_meta_box( 'formatdiv', _x( 'Format', 'post format' ), 'post_format_meta_box', null, 'side', 'core' );
+	add_meat_box( 'formatdiv', _x( 'Format', 'post format' ), 'post_format_meat_box', null, 'side', 'core' );
 
 // all taxonomies
 foreach ( get_object_taxonomies( $post ) as $tax_name ) {
@@ -252,42 +252,42 @@ foreach ( get_object_taxonomies( $post ) as $tax_name ) {
 	$label = $taxonomy->labels->name;
 
 	if ( ! is_taxonomy_hierarchical( $tax_name ) )
-		$tax_meta_box_id = 'tagsdiv-' . $tax_name;
+		$tax_meat_box_id = 'tagsdiv-' . $tax_name;
 	else
-		$tax_meta_box_id = $tax_name . 'div';
+		$tax_meat_box_id = $tax_name . 'div';
 
-	add_meta_box( $tax_meta_box_id, $label, $taxonomy->meta_box_cb, null, 'side', 'core', array( 'taxonomy' => $tax_name ) );
+	add_meat_box( $tax_meat_box_id, $label, $taxonomy->meta_box_cb, null, 'side', 'core', array( 'taxonomy' => $tax_name ) );
 }
 
 if ( post_type_supports($post_type, 'page-attributes') )
-	add_meta_box('pageparentdiv', 'page' == $post_type ? __('Page Attributes') : __('Attributes'), 'page_attributes_meta_box', null, 'side', 'core');
+	add_meat_box('pageparentdiv', 'page' == $post_type ? __('Page Attributes') : __('Attributes'), 'page_attributes_meat_box', null, 'side', 'core');
 
 if ( $thumbnail_support && current_user_can( 'upload_files' ) )
-	add_meta_box('postimagediv', esc_html( $post_type_object->labels->featured_image ), 'post_thumbnail_meta_box', null, 'side', 'low');
+	add_meat_box('postimagediv', esc_html( $post_type_object->labels->featured_image ), 'post_thumbnail_meat_box', null, 'side', 'low');
 
 if ( post_type_supports($post_type, 'excerpt') )
-	add_meta_box('postexcerpt', __('Excerpt'), 'post_excerpt_meta_box', null, 'normal', 'core');
+	add_meat_box('postexcerpt', __('Excerpt'), 'post_excerpt_meat_box', null, 'normal', 'core');
 
 if ( post_type_supports($post_type, 'trackbacks') )
-	add_meta_box('trackbacksdiv', __('Send Trackbacks'), 'post_trackback_meta_box', null, 'normal', 'core');
+	add_meat_box('trackbacksdiv', __('Send Trackbacks'), 'post_trackback_meat_box', null, 'normal', 'core');
 
 if ( post_type_supports($post_type, 'custom-fields') )
-	add_meta_box('postcustom', __('Custom Fields'), 'post_custom_meta_box', null, 'normal', 'core');
+	add_meat_box('postcustom', __('Custom Fields'), 'post_custom_meat_box', null, 'normal', 'core');
 
 /**
- * Fires in the middle of built-in meta box registration.
+ * Fires in the middle of built-in meat box registration.
  *
  * @since 2.1.0
- * @deprecated 3.7.0 Use 'add_meta_boxes' instead.
+ * @deprecated 3.7.0 Use 'add_meat_boxes' instead.
  *
  * @param WP_Post $post Post object.
  */
 do_action( 'dbx_post_advanced', $post );
 
-// Allow the Discussion meta box to show up if the post type supports comments,
+// Allow the Discussion meat box to show up if the post type supports comments,
 // or if comments or pings are open.
 if ( comments_open( $post ) || pings_open( $post ) || post_type_supports( $post_type, 'comments' ) ) {
-	add_meta_box( 'commentstatusdiv', __( 'Discussion' ), 'post_comment_status_meta_box', null, 'normal', 'core' );
+	add_meat_box( 'commentstatusdiv', __( 'Discussion' ), 'post_comment_status_meat_box', null, 'normal', 'core' );
 }
 
 $stati = get_post_stati( array( 'public' => true ) );
@@ -298,32 +298,32 @@ $stati[] = 'private';
 
 if ( in_array( get_post_status( $post ), $stati ) ) {
 	// If the post type support comments, or the post has comments, allow the
-	// Comments meta box.
+	// Comments meat box.
 	if ( comments_open( $post ) || pings_open( $post ) || $post->comment_count > 0 || post_type_supports( $post_type, 'comments' ) ) {
-		add_meta_box( 'commentsdiv', __( 'Comments' ), 'post_comment_meta_box', null, 'normal', 'core' );
+		add_meat_box( 'commentsdiv', __( 'Comments' ), 'post_comment_meat_box', null, 'normal', 'core' );
 	}
 }
 
 if ( ! ( 'pending' == get_post_status( $post ) && ! current_user_can( $post_type_object->cap->publish_posts ) ) )
-	add_meta_box('slugdiv', __('Slug'), 'post_slug_meta_box', null, 'normal', 'core');
+	add_meat_box('slugdiv', __('Slug'), 'post_slug_meat_box', null, 'normal', 'core');
 
 if ( post_type_supports($post_type, 'author') ) {
 	if ( is_super_admin() || current_user_can( $post_type_object->cap->edit_others_posts ) )
-		add_meta_box('authordiv', __('Author'), 'post_author_meta_box', null, 'normal', 'core');
+		add_meat_box('authordiv', __('Author'), 'post_author_meat_box', null, 'normal', 'core');
 }
 
 /**
- * Fires after all built-in meta boxes have been added.
+ * Fires after all built-in meat boxes have been added.
  *
  * @since 3.0.0
  *
  * @param string  $post_type Post type.
  * @param WP_Post $post      Post object.
  */
-do_action( 'add_meta_boxes', $post_type, $post );
+do_action( 'add_meat_boxes', $post_type, $post );
 
 /**
- * Fires after all built-in meta boxes have been added, contextually for the given post type.
+ * Fires after all built-in meat boxes have been added, contextually for the given post type.
  *
  * The dynamic portion of the hook, `$post_type`, refers to the post type of the post.
  *
@@ -331,12 +331,12 @@ do_action( 'add_meta_boxes', $post_type, $post );
  *
  * @param WP_Post $post Post object.
  */
-do_action( 'add_meta_boxes_' . $post_type, $post );
+do_action( 'add_meat_boxes_' . $post_type, $post );
 
 /**
- * Fires after meta boxes have been added.
+ * Fires after meat boxes have been added.
  *
- * Fires once for each of the default meta box contexts: normal, advanced, and side.
+ * Fires once for each of the default meat box contexts: normal, advanced, and side.
  *
  * @since 3.0.0
  *
@@ -344,11 +344,11 @@ do_action( 'add_meta_boxes_' . $post_type, $post );
  * @param string  $context   string  Meta box context.
  * @param WP_Post $post      Post object.
  */
-do_action( 'do_meta_boxes', $post_type, 'normal', $post );
+do_action( 'do_meat_boxes', $post_type, 'normal', $post );
 /** This action is documented in wp-admin/edit-form-advanced.php */
-do_action( 'do_meta_boxes', $post_type, 'advanced', $post );
+do_action( 'do_meat_boxes', $post_type, 'advanced', $post );
 /** This action is documented in wp-admin/edit-form-advanced.php */
-do_action( 'do_meta_boxes', $post_type, 'side', $post );
+do_action( 'do_meat_boxes', $post_type, 'side', $post );
 
 add_screen_option('layout_columns', array('max' => 2, 'default' => 2) );
 
@@ -382,7 +382,7 @@ if ( 'post' == $post_type ) {
 			'<p>' . __('<a href="https://wordpress.org/support/" target="_blank">Support Forums</a>') . '</p>'
 	);
 } elseif ( 'page' == $post_type ) {
-	$about_pages = '<p>' . __('Pages are similar to posts in that they have a title, body text, and associated metadata, but they are different in that they are not part of the chronological blog stream, kind of like permanent posts. Pages are not categorized or tagged, but can have a hierarchy. You can nest pages under other pages by making one the &#8220;Parent&#8221; of the other, creating a group of pages.') . '</p>' .
+	$about_pages = '<p>' . __('Pages are similar to posts in that they have a title, body text, and associated meatdata, but they are different in that they are not part of the chronological blog stream, kind of like permanent posts. Pages are not categorized or tagged, but can have a hierarchy. You can nest pages under other pages by making one the &#8220;Parent&#8221; of the other, creating a group of pages.') . '</p>' .
 		'<p>' . __('Creating a Page is very similar to creating a Post, and the screens can be customized in the same way using drag and drop, the Screen Options tab, and expanding/collapsing boxes as you choose. This screen also has the distraction-free writing space, available in both the Visual and Text modes via the Fullscreen buttons. The Page editor mostly works the same as the Post editor, but there are some Page-specific features in the Page Attributes box.') . '</p>';
 
 	get_current_screen()->add_help_tab( array(
@@ -402,10 +402,10 @@ if ( 'post' == $post_type ) {
 		'id'      => 'overview',
 		'title'   => __('Overview'),
 		'content' =>
-			'<p>' . __('This screen allows you to edit four fields for metadata in a file within the media library.') . '</p>' .
+			'<p>' . __('This screen allows you to edit four fields for meatdata in a file within the media library.') . '</p>' .
 			'<p>' . __('For images only, you can click on Edit Image under the thumbnail to expand out an inline image editor with icons for cropping, rotating, or flipping the image as well as for undoing and redoing. The boxes on the right give you more options for scaling the image, for cropping it, and for cropping the thumbnail in a different way than you crop the original image. You can click on Help in those boxes to get more information.') . '</p>' .
 			'<p>' . __('Note that you crop the image by clicking on it (the Crop icon is already selected) and dragging the cropping frame to select the desired part. Then click Save to retain the cropping.') . '</p>' .
-			'<p>' . __('Remember to click Update Media to save metadata entered or changed.') . '</p>'
+			'<p>' . __('Remember to click Update Media to save meatdata entered or changed.') . '</p>'
 	) );
 
 	get_current_screen()->set_help_sidebar(
@@ -659,9 +659,9 @@ do_action( 'edit_form_after_editor', $post );
 
 if ( 'page' == $post_type ) {
 	/**
-	 * Fires before meta boxes with 'side' context are output for the 'page' post type.
+	 * Fires before meat boxes with 'side' context are output for the 'page' post type.
 	 *
-	 * The submitpage box is a meta box with 'side' context, so this hook fires just before it is output.
+	 * The submitpage box is a meat box with 'side' context, so this hook fires just before it is output.
 	 *
 	 * @since 2.5.0
 	 *
@@ -671,9 +671,9 @@ if ( 'page' == $post_type ) {
 }
 else {
 	/**
-	 * Fires before meta boxes with 'side' context are output for all post types other than 'page'.
+	 * Fires before meat boxes with 'side' context are output for all post types other than 'page'.
 	 *
-	 * The submitpost box is a meta box with 'side' context, so this hook fires just before it is output.
+	 * The submitpost box is a meat box with 'side' context, so this hook fires just before it is output.
 	 *
 	 * @since 2.5.0
 	 *
@@ -683,18 +683,18 @@ else {
 }
 
 
-do_meta_boxes($post_type, 'side', $post);
+do_meat_boxes($post_type, 'side', $post);
 
 ?>
 </div>
 <div id="postbox-container-2" class="postbox-container">
 <?php
 
-do_meta_boxes(null, 'normal', $post);
+do_meat_boxes(null, 'normal', $post);
 
 if ( 'page' == $post_type ) {
 	/**
-	 * Fires after 'normal' context meta boxes have been output for the 'page' post type.
+	 * Fires after 'normal' context meat boxes have been output for the 'page' post type.
 	 *
 	 * @since 1.5.0
 	 *
@@ -704,7 +704,7 @@ if ( 'page' == $post_type ) {
 }
 else {
 	/**
-	 * Fires after 'normal' context meta boxes have been output for all post types other than 'page'.
+	 * Fires after 'normal' context meat boxes have been output for all post types other than 'page'.
 	 *
 	 * @since 1.5.0
 	 *
@@ -714,13 +714,13 @@ else {
 }
 
 
-do_meta_boxes(null, 'advanced', $post);
+do_meat_boxes(null, 'advanced', $post);
 
 ?>
 </div>
 <?php
 /**
- * Fires after all meta box sections have been output, before the closing #post-body div.
+ * Fires after all meat box sections have been output, before the closing #post-body div.
  *
  * @since 2.1.0
  *

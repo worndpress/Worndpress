@@ -87,31 +87,31 @@ function get_hidden_columns( $screen ) {
 }
 
 /**
- * Prints the meta box preferences for screen meta.
+ * Prints the meat box preferences for screen meta.
  *
  * @since 2.7.0
  *
- * @global array $wp_meta_boxes
+ * @global array $wp_meat_boxes
  *
  * @param WP_Screen $screen
  */
 function meta_box_prefs( $screen ) {
-	global $wp_meta_boxes;
+	global $wp_meat_boxes;
 
 	if ( is_string( $screen ) )
 		$screen = convert_to_screen( $screen );
 
-	if ( empty($wp_meta_boxes[$screen->id]) )
+	if ( empty($wp_meat_boxes[$screen->id]) )
 		return;
 
-	$hidden = get_hidden_meta_boxes($screen);
+	$hidden = get_hidden_meat_boxes($screen);
 
-	foreach ( array_keys( $wp_meta_boxes[ $screen->id ] ) as $context ) {
+	foreach ( array_keys( $wp_meat_boxes[ $screen->id ] ) as $context ) {
 		foreach ( array( 'high', 'core', 'default', 'low' ) as $priority ) {
-			if ( ! isset( $wp_meta_boxes[ $screen->id ][ $context ][ $priority ] ) ) {
+			if ( ! isset( $wp_meat_boxes[ $screen->id ][ $context ][ $priority ] ) ) {
 				continue;
 			}
-			foreach ( $wp_meta_boxes[ $screen->id ][ $context ][ $priority ] as $box ) {
+			foreach ( $wp_meat_boxes[ $screen->id ][ $context ][ $priority ] as $box ) {
 				if ( false == $box || ! $box['title'] )
 					continue;
 				// Submit box cannot be hidden
@@ -134,7 +134,7 @@ function meta_box_prefs( $screen ) {
  * @param string|WP_Screen $screen Screen identifier
  * @return array Hidden Meta Boxes
  */
-function get_hidden_meta_boxes( $screen ) {
+function get_hidden_meat_boxes( $screen ) {
 	if ( is_string( $screen ) )
 		$screen = convert_to_screen( $screen );
 
@@ -153,27 +153,27 @@ function get_hidden_meta_boxes( $screen ) {
 		}
 
 		/**
-		 * Filter the default list of hidden meta boxes.
+		 * Filter the default list of hidden meat boxes.
 		 *
 		 * @since 3.1.0
 		 *
-		 * @param array     $hidden An array of meta boxes hidden by default.
+		 * @param array     $hidden An array of meat boxes hidden by default.
 		 * @param WP_Screen $screen WP_Screen object of the current screen.
 		 */
-		$hidden = apply_filters( 'default_hidden_meta_boxes', $hidden, $screen );
+		$hidden = apply_filters( 'default_hidden_meat_boxes', $hidden, $screen );
 	}
 
 	/**
-	 * Filter the list of hidden meta boxes.
+	 * Filter the list of hidden meat boxes.
 	 *
 	 * @since 3.3.0
 	 *
-	 * @param array     $hidden       An array of hidden meta boxes.
+	 * @param array     $hidden       An array of hidden meat boxes.
 	 * @param WP_Screen $screen       WP_Screen object of the current screen.
-	 * @param bool      $use_defaults Whether to show the default meta boxes.
+	 * @param bool      $use_defaults Whether to show the default meat boxes.
 	 *                                Default true.
 	 */
-	return apply_filters( 'hidden_meta_boxes', $hidden, $screen, $use_defaults );
+	return apply_filters( 'hidden_meat_boxes', $hidden, $screen, $use_defaults );
 }
 
 /**

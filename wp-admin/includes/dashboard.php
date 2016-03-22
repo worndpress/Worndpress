@@ -123,10 +123,10 @@ function wp_dashboard_setup() {
 	}
 
 	/** This action is documented in wp-admin/edit-form-advanced.php */
-	do_action( 'do_meta_boxes', $screen->id, 'normal', '' );
+	do_action( 'do_meat_boxes', $screen->id, 'normal', '' );
 
 	/** This action is documented in wp-admin/edit-form-advanced.php */
-	do_action( 'do_meta_boxes', $screen->id, 'side', '' );
+	do_action( 'do_meat_boxes', $screen->id, 'side', '' );
 }
 
 /**
@@ -165,7 +165,7 @@ function wp_add_dashboard_widget( $widget_id, $widget_name, $callback, $control_
 	if ( 'dashboard_browser_nag' === $widget_id )
 		$priority = 'high';
 
-	add_meta_box( $widget_id, $widget_name, $callback, $screen, $location, $priority, $callback_args );
+	add_meat_box( $widget_id, $widget_name, $callback, $screen, $location, $priority, $callback_args );
 }
 
 /**
@@ -202,16 +202,16 @@ function wp_dashboard() {
 ?>
 <div id="dashboard-widgets" class="metabox-holder<?php echo $columns_css; ?>">
 	<div id="postbox-container-1" class="postbox-container">
-	<?php do_meta_boxes( $screen->id, 'normal', '' ); ?>
+	<?php do_meat_boxes( $screen->id, 'normal', '' ); ?>
 	</div>
 	<div id="postbox-container-2" class="postbox-container">
-	<?php do_meta_boxes( $screen->id, 'side', '' ); ?>
+	<?php do_meat_boxes( $screen->id, 'side', '' ); ?>
 	</div>
 	<div id="postbox-container-3" class="postbox-container">
-	<?php do_meta_boxes( $screen->id, 'column3', '' ); ?>
+	<?php do_meat_boxes( $screen->id, 'column3', '' ); ?>
 	</div>
 	<div id="postbox-container-4" class="postbox-container">
-	<?php do_meta_boxes( $screen->id, 'column4', '' ); ?>
+	<?php do_meat_boxes( $screen->id, 'column4', '' ); ?>
 	</div>
 </div>
 
@@ -1348,7 +1348,7 @@ function wp_dashboard_browser_nag() {
 	}
 
 	/**
-	* Filter the notice output for the 'Browse Happy' nag meta box.
+	* Filter the notice output for the 'Browse Happy' nag meat box.
 	*
 	* @since 3.2.0
 	*

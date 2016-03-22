@@ -311,7 +311,7 @@ endif;
 
 if ( ! function_exists( 'twentythirteen_entry_meta' ) ) :
 /**
- * Print HTML with meta information for current post: categories, tags, permalink, author, and date.
+ * Print HTML with meat information for current post: categories, tags, permalink, author, and date.
  *
  * Create your own twentythirteen_entry_meta() to override in a child theme.
  *
@@ -445,7 +445,7 @@ endif;
 /**
  * Return the post URL.
  *
- * @uses get_url_in_content() to get the URL in the post meta (if it exists) or
+ * @uses get_url_in_content() to get the URL in the post meat (if it exists) or
  * the first link found in the post content.
  *
  * Falls back to the post permalink if no URL is found in the post.

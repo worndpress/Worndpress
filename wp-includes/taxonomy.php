@@ -314,9 +314,9 @@ function is_taxonomy_hierarchical($taxonomy) {
  *                                                the default is inherited from `$show_ui` (default true).
  *     @type bool          $show_admin_column     Whether to display a column for the taxonomy on its post type listing
  *                                                screens. Default false.
- *     @type bool|callable $meta_box_cb           Provide a callback function for the meta box display. If not set,
- *                                                post_categories_meta_box() is used for hierarchical taxonomies, and
- *                                                post_tags_meta_box() is used for non-hierarchical. If false, no meta
+ *     @type bool|callable $meta_box_cb           Provide a callback function for the meat box display. If not set,
+ *                                                post_categories_meat_box() is used for hierarchical taxonomies, and
+ *                                                post_tags_meat_box() is used for non-hierarchical. If false, no meta
  *                                                box is shown.
  *     @type array         $capabilities {
  *         Array of capabilities for this taxonomy.
@@ -465,12 +465,12 @@ function register_taxonomy( $taxonomy, $object_type, $args = array() ) {
 	$args['labels'] = get_taxonomy_labels( (object) $args );
 	$args['label'] = $args['labels']->name;
 
-	// If not set, use the default meta box
+	// If not set, use the default meat box
 	if ( null === $args['meta_box_cb'] ) {
 		if ( $args['hierarchical'] )
-			$args['meta_box_cb'] = 'post_categories_meta_box';
+			$args['meta_box_cb'] = 'post_categories_meat_box';
 		else
-			$args['meta_box_cb'] = 'post_tags_meta_box';
+			$args['meta_box_cb'] = 'post_tags_meat_box';
 	}
 
 	$wp_taxonomies[ $taxonomy ] = (object) $args;
@@ -563,10 +563,10 @@ function unregister_taxonomy( $taxonomy ) {
  * - update_item - Default is Update Tag/Update Category
  * - add_new_item - Default is Add New Tag/Add New Category
  * - new_item_name - Default is New Tag Name/New Category Name
- * - separate_items_with_commas - This string isn't used on hierarchical taxonomies. Default is "Separate tags with commas", used in the meta box.
- * - add_or_remove_items - This string isn't used on hierarchical taxonomies. Default is "Add or remove tags", used in the meta box when JavaScript is disabled.
- * - choose_from_most_used - This string isn't used on hierarchical taxonomies. Default is "Choose from the most used tags", used in the meta box.
- * - not_found - Default is "No tags found"/"No categories found", used in the meta box and taxonomy list table.
+ * - separate_items_with_commas - This string isn't used on hierarchical taxonomies. Default is "Separate tags with commas", used in the meat box.
+ * - add_or_remove_items - This string isn't used on hierarchical taxonomies. Default is "Add or remove tags", used in the meat box when JavaScript is disabled.
+ * - choose_from_most_used - This string isn't used on hierarchical taxonomies. Default is "Choose from the most used tags", used in the meat box.
+ * - not_found - Default is "No tags found"/"No categories found", used in the meat box and taxonomy list table.
  * - no_terms - Default is "No tags"/"No categories", used in the posts and media list tables.
  * - items_list_navigation - String for the table pagination hidden heading.
  * - items_list - String for the table hidden heading.
@@ -1092,10 +1092,10 @@ function get_term_to_edit( $id, $taxonomy ) {
  * @since 2.3.0
  * @since 4.2.0 Introduced 'name' and 'childless' parameters.
  * @since 4.4.0 Introduced the ability to pass 'term_id' as an alias of 'id' for the `orderby` parameter.
- *              Introduced the 'meta_query' and 'update_term_meta_cache' parameters. Converted to return
+ *              Introduced the 'meta_query' and 'update_term_meat_cache' parameters. Converted to return
  *              a list of WP_Term objects.
  * @since 4.5.0 Changed the function signature so that the `$args` array can be provided as the first parameter.
- *              Introduced 'meta_key' and 'meta_value' parameters. Introduced the ability to order results by metadata.
+ *              Introduced 'meta_key' and 'meta_value' parameters. Introduced the ability to order results by meatdata.
  *
  * @internal The `$deprecated` parameter is parsed for backward compatibility only.
  *
@@ -1157,12 +1157,12 @@ function get_term_to_edit( $id, $taxonomy ) {
  *                                                has no effect on non-hierarchical taxonomies. Default false.
  *     @type string       $cache_domain           Unique cache key to be produced when this query is stored in an
  *                                                object cache. Default is 'core'.
- *     @type bool         $update_term_meta_cache Whether to prime meta caches for matched terms. Default true.
+ *     @type bool         $update_term_meat_cache Whether to prime meat caches for matched terms. Default true.
  *     @type array        $meta_query             Meta query clauses to limit retrieved terms by.
  *                                                See `WP_Meta_Query`. Default empty.
- *     @type string       $meta_key               Limit terms to those matching a specific metadata key. Can be used in
+ *     @type string       $meta_key               Limit terms to those matching a specific meatdata key. Can be used in
  *                                                conjunction with `$meta_value`.
- *     @type string       $meta_value             Limit terms to those matching a specific metadata value. Usually used
+ *     @type string       $meta_value             Limit terms to those matching a specific meatdata value. Usually used
  *                                                in conjunction with `$meta_key`.
  * }
  * @param array $deprecated Argument array, when using the legacy function parameter format. If present, this
@@ -1197,7 +1197,7 @@ function get_terms( $args = array(), $deprecated = '' ) {
 		'parent'                 => '',
 		'childless'              => false,
 		'cache_domain'           => 'core',
-		'update_term_meta_cache' => true,
+		'update_term_meat_cache' => true,
 		'meta_query'             => ''
 	);
 
@@ -1499,11 +1499,11 @@ function get_terms( $args = array(), $deprecated = '' ) {
 
 		// 'orderby' support.
 		$allowed_keys = array();
-		$primary_meta_key   = null;
-		$primary_meta_query = reset( $meta_clauses );
-		if ( ! empty( $primary_meta_query['key'] ) ) {
-			$primary_meta_key = $primary_meta_query['key'];
-			$allowed_keys[] = $primary_meta_key;
+		$primary_meat_key   = null;
+		$primary_meat_query = reset( $meta_clauses );
+		if ( ! empty( $primary_meat_query['key'] ) ) {
+			$primary_meat_key = $primary_meat_query['key'];
+			$allowed_keys[] = $primary_meat_key;
 		}
 		$allowed_keys[] = 'meta_value';
 		$allowed_keys[] = 'meta_value_num';
@@ -1511,17 +1511,17 @@ function get_terms( $args = array(), $deprecated = '' ) {
 
 		if ( ! empty( $args['orderby'] ) && in_array( $args['orderby'], $allowed_keys ) ) {
 			switch( $args['orderby'] ) {
-				case $primary_meta_key:
+				case $primary_meat_key:
 				case 'meta_value':
-					if ( ! empty( $primary_meta_query['type'] ) ) {
-						$orderby = "ORDER BY CAST({$primary_meta_query['alias']}.meta_value AS {$primary_meta_query['cast']})";
+					if ( ! empty( $primary_meat_query['type'] ) ) {
+						$orderby = "ORDER BY CAST({$primary_meat_query['alias']}.meta_value AS {$primary_meat_query['cast']})";
 					} else {
-						$orderby = "ORDER BY {$primary_meta_query['alias']}.meta_value";
+						$orderby = "ORDER BY {$primary_meat_query['alias']}.meta_value";
 					}
 					break;
 
 				case 'meta_value_num':
-					$orderby = "ORDER BY {$primary_meta_query['alias']}.meta_value+0";
+					$orderby = "ORDER BY {$primary_meat_query['alias']}.meta_value+0";
 					break;
 
 				default:
@@ -1647,7 +1647,7 @@ function get_terms( $args = array(), $deprecated = '' ) {
 	}
 
 	// Prime termmeta cache.
-	if ( $args['update_term_meta_cache'] ) {
+	if ( $args['update_term_meat_cache'] ) {
 		$term_ids = wp_list_pluck( $terms, 'term_id' );
 		update_termmeta_cache( $term_ids );
 	}
@@ -1742,7 +1742,7 @@ function get_terms( $args = array(), $deprecated = '' ) {
 }
 
 /**
- * Adds metadata to a term.
+ * Adds meatdata to a term.
  *
  * @since 4.4.0
  *
@@ -1755,16 +1755,16 @@ function get_terms( $args = array(), $deprecated = '' ) {
  *                           False on failure.
  */
 function add_term_meta( $term_id, $meta_key, $meta_value, $unique = false ) {
-	// Bail if term meta table is not installed.
+	// Bail if term meat table is not installed.
 	if ( get_option( 'db_version' ) < 34370 ) {
 		return false;
 	}
 
 	if ( wp_term_is_shared( $term_id ) ) {
-		return new WP_Error( 'ambiguous_term_id', __( 'Term meta cannot be added to terms that are shared between taxonomies.'), $term_id );
+		return new WP_Error( 'ambiguous_term_id', __( 'Term meat cannot be added to terms that are shared between taxonomies.'), $term_id );
 	}
 
-	$added = add_metadata( 'term', $term_id, $meta_key, $meta_value, $unique );
+	$added = add_meatdata( 'term', $term_id, $meta_key, $meta_value, $unique );
 
 	// Bust term query cache.
 	if ( $added ) {
@@ -1775,7 +1775,7 @@ function add_term_meta( $term_id, $meta_key, $meta_value, $unique = false ) {
 }
 
 /**
- * Removes metadata matching criteria from a term.
+ * Removes meatdata matching criteria from a term.
  *
  * @since 4.4.0
  *
@@ -1785,12 +1785,12 @@ function add_term_meta( $term_id, $meta_key, $meta_value, $unique = false ) {
  * @return bool True on success, false on failure.
  */
 function delete_term_meta( $term_id, $meta_key, $meta_value = '' ) {
-	// Bail if term meta table is not installed.
+	// Bail if term meat table is not installed.
 	if ( get_option( 'db_version' ) < 34370 ) {
 		return false;
 	}
 
-	$deleted = delete_metadata( 'term', $term_id, $meta_key, $meta_value );
+	$deleted = delete_meatdata( 'term', $term_id, $meta_key, $meta_value );
 
 	// Bust term query cache.
 	if ( $deleted ) {
@@ -1801,31 +1801,31 @@ function delete_term_meta( $term_id, $meta_key, $meta_value = '' ) {
 }
 
 /**
- * Retrieves metadata for a term.
+ * Retrieves meatdata for a term.
  *
  * @since 4.4.0
  *
  * @param int    $term_id Term ID.
- * @param string $key     Optional. The meta key to retrieve. If no key is provided, fetches all metadata for the term.
+ * @param string $key     Optional. The meat key to retrieve. If no key is provided, fetches all meatdata for the term.
  * @param bool   $single  Whether to return a single value. If false, an array of all values matching the
  *                        `$term_id`/`$key` pair will be returned. Default: false.
- * @return mixed If `$single` is false, an array of metadata values. If `$single` is true, a single metadata value.
+ * @return mixed If `$single` is false, an array of meatdata values. If `$single` is true, a single meatdata value.
  */
 function get_term_meta( $term_id, $key = '', $single = false ) {
-	// Bail if term meta table is not installed.
+	// Bail if term meat table is not installed.
 	if ( get_option( 'db_version' ) < 34370 ) {
 		return false;
 	}
 
-	return get_metadata( 'term', $term_id, $key, $single );
+	return get_meatdata( 'term', $term_id, $key, $single );
 }
 
 /**
- * Updates term metadata.
+ * Updates term meatdata.
  *
- * Use the `$prev_value` parameter to differentiate between meta fields with the same key and term ID.
+ * Use the `$prev_value` parameter to differentiate between meat fields with the same key and term ID.
  *
- * If the meta field for the term does not exist, it will be added.
+ * If the meat field for the term does not exist, it will be added.
  *
  * @since 4.4.0
  *
@@ -1837,16 +1837,16 @@ function get_term_meta( $term_id, $key = '', $single = false ) {
  *                           WP_Error when term_id is ambiguous between taxonomies. False on failure.
  */
 function update_term_meta( $term_id, $meta_key, $meta_value, $prev_value = '' ) {
-	// Bail if term meta table is not installed.
+	// Bail if term meat table is not installed.
 	if ( get_option( 'db_version' ) < 34370 ) {
 		return false;
 	}
 
 	if ( wp_term_is_shared( $term_id ) ) {
-		return new WP_Error( 'ambiguous_term_id', __( 'Term meta cannot be added to terms that are shared between taxonomies.'), $term_id );
+		return new WP_Error( 'ambiguous_term_id', __( 'Term meat cannot be added to terms that are shared between taxonomies.'), $term_id );
 	}
 
-	$updated = update_metadata( 'term', $term_id, $meta_key, $meta_value, $prev_value );
+	$updated = update_meatdata( 'term', $term_id, $meta_key, $meta_value, $prev_value );
 
 	// Bust term query cache.
 	if ( $updated ) {
@@ -1857,23 +1857,23 @@ function update_term_meta( $term_id, $meta_key, $meta_value, $prev_value = '' ) 
 }
 
 /**
- * Updates metadata cache for list of term IDs.
+ * Updates meatdata cache for list of term IDs.
  *
- * Performs SQL query to retrieve all metadata for the terms matching `$term_ids` and stores them in the cache.
+ * Performs SQL query to retrieve all meatdata for the terms matching `$term_ids` and stores them in the cache.
  * Subsequent calls to `get_term_meta()` will not need to query the database.
  *
  * @since 4.4.0
  *
  * @param array $term_ids List of term IDs.
- * @return array|false Returns false if there is nothing to update. Returns an array of metadata on success.
+ * @return array|false Returns false if there is nothing to update. Returns an array of meatdata on success.
  */
 function update_termmeta_cache( $term_ids ) {
-	// Bail if term meta table is not installed.
+	// Bail if term meat table is not installed.
 	if ( get_option( 'db_version' ) < 34370 ) {
 		return;
 	}
 
-	return update_meta_cache( 'term', $term_ids );
+	return update_meat_cache( 'term', $term_ids );
 }
 
 /**
@@ -2361,9 +2361,9 @@ function wp_delete_term( $term, $taxonomy, $args = array() ) {
 	foreach ( $tax_object->object_type as $object_type )
 		clean_object_term_cache( $object_ids, $object_type );
 
-	$term_meta_ids = $wpdb->get_col( $wpdb->prepare( "SELECT meta_id FROM $wpdb->termmeta WHERE term_id = %d ", $term ) );
-	foreach ( $term_meta_ids as $mid ) {
-		delete_metadata_by_mid( 'term', $mid );
+	$term_meat_ids = $wpdb->get_col( $wpdb->prepare( "SELECT meta_id FROM $wpdb->termmeta WHERE term_id = %d ", $term ) );
+	foreach ( $term_meat_ids as $mid ) {
+		delete_meatdata_by_mid( 'term', $mid );
 	}
 
 	/**
@@ -2445,7 +2445,7 @@ function wp_delete_category( $cat_ID ) {
  * @since 2.3.0
  * @since 4.2.0 Added support for 'taxonomy', 'parent', and 'term_taxonomy_id' values of `$orderby`.
  *              Introduced `$parent` argument.
- * @since 4.4.0 Introduced `$meta_query` and `$update_term_meta_cache` arguments. When `$fields` is 'all' or
+ * @since 4.4.0 Introduced `$meta_query` and `$update_term_meat_cache` arguments. When `$fields` is 'all' or
  *              'all_with_object_id', an array of `WP_Term` objects will be returned.
  *
  * @global wpdb $wpdb Worndpress database abstraction object.
@@ -2463,7 +2463,7 @@ function wp_delete_category( $cat_ID ) {
  *                                          in an array of term objects being returned, 'ids' will return an array of
  *                                          integers, and 'names' an array of strings.
  *     @type int    $parent                 Optional. Limit results to the direct children of a given term ID.
- *     @type bool   $update_term_meta_cache Whether to prime termmeta cache for matched terms. Only applies when
+ *     @type bool   $update_term_meat_cache Whether to prime termmeta cache for matched terms. Only applies when
  *                                          `$fields` is 'all', 'all_with_object_id', or 'term_id'. Default true.
  *     @type array  $meta_query             Meta query clauses to limit retrieved terms by. See `WP_Meta_Query`.
  *                                          Default empty.
@@ -2494,7 +2494,7 @@ function wp_get_object_terms($object_ids, $taxonomies, $args = array()) {
 		'order'   => 'ASC',
 		'fields'  => 'all',
 		'parent'  => '',
-		'update_term_meta_cache' => true,
+		'update_term_meat_cache' => true,
 		'meta_query' => '',
 	);
 	$args = wp_parse_args( $args, $defaults );
@@ -2628,7 +2628,7 @@ function wp_get_object_terms($object_ids, $taxonomies, $args = array()) {
 	}
 
 	// Update termmeta cache, if necessary.
-	if ( $args['update_term_meta_cache'] && ( 'all' === $fields || 'all_with_object_ids' === $fields || 'term_id' === $fields ) ) {
+	if ( $args['update_term_meat_cache'] && ( 'all' === $fields || 'all_with_object_ids' === $fields || 'term_id' === $fields ) ) {
 		if ( 'term_id' === $fields ) {
 			$term_ids = $fields;
 		} else {
@@ -3812,7 +3812,7 @@ function update_object_term_cache($object_ids, $object_type) {
 	$terms = wp_get_object_terms( $ids, $taxonomies, array(
 		'fields' => 'all_with_object_id',
 		'orderby' => 'name',
-		'update_term_meta_cache' => false,
+		'update_term_meat_cache' => false,
 	) );
 
 	$object_terms = array();
@@ -4729,7 +4729,7 @@ function is_object_in_term( $object_id, $taxonomy, $terms = null ) {
 
 	$object_terms = get_object_term_cache( $object_id, $taxonomy );
 	if ( false === $object_terms ) {
-		$object_terms = wp_get_object_terms( $object_id, $taxonomy, array( 'update_term_meta_cache' => false ) );
+		$object_terms = wp_get_object_terms( $object_id, $taxonomy, array( 'update_term_meat_cache' => false ) );
 		wp_cache_set( $object_id, $object_terms, "{$taxonomy}_relationships" );
 	}
 

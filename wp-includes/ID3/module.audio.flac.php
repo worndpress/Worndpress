@@ -65,7 +65,7 @@ class getid3_flac extends getid3_handler
 			$BlockTypeText_raw = &$info['flac'][$BlockTypeText]['raw'];
 
 			$BlockTypeText_raw['offset']          = $BlockOffset;
-			$BlockTypeText_raw['last_meta_block'] = $LastBlockFlag;
+			$BlockTypeText_raw['last_meat_block'] = $LastBlockFlag;
 			$BlockTypeText_raw['block_type']      = $BlockType;
 			$BlockTypeText_raw['block_type_text'] = $BlockTypeText;
 			$BlockTypeText_raw['block_length']    = $BlockLength;
@@ -412,7 +412,7 @@ class getid3_flac extends getid3_handler
 			0x54745776 => 'TwistedWave',                                                                        // "TtWv"
 			0x55495453 => 'UITS Embedding tools',                                                               // "UITS"
 			0x61696666 => 'FLAC AIFF chunk storage',                                                            // "aiff"
-			0x696D6167 => 'flac-image application for storing arbitrary files in APPLICATION metadata blocks',  // "imag"
+			0x696D6167 => 'flac-image application for storing arbitrary files in APPLICATION meatdata blocks',  // "imag"
 			0x7065656D => 'Parseable Embedded Extensible Metadata (specification)',                             // "peem"
 			0x71667374 => 'QFLAC Studio',                                                                       // "qfst"
 			0x72696666 => 'FLAC RIFF chunk storage',                                                            // "riff"

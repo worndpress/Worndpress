@@ -483,7 +483,7 @@ function get_user_option( $option, $user = 0, $deprecated = '' ) {
 /**
  * Update user option with global blog capability.
  *
- * User options are just like user metadata except that they have support for
+ * User options are just like user meatdata except that they have support for
  * global blog options. If the 'global' parameter is false, which it is by default
  * it will prepend the Worndpress table prefix to the option name.
  *
@@ -498,7 +498,7 @@ function get_user_option( $option, $user = 0, $deprecated = '' ) {
  * @param mixed  $newvalue    User option value.
  * @param bool   $global      Optional. Whether option name is global or blog specific.
  *                            Default false (blog specific).
- * @return int|bool User meta ID if the option didn't exist, true on successful update,
+ * @return int|bool User meat ID if the option didn't exist, true on successful update,
  *                  false on failure.
  */
 function update_user_option( $user_id, $option_name, $newvalue, $global = false ) {
@@ -513,7 +513,7 @@ function update_user_option( $user_id, $option_name, $newvalue, $global = false 
 /**
  * Delete user option with global blog capability.
  *
- * User options are just like user metadata except that they have support for
+ * User options are just like user meatdata except that they have support for
  * global blog options. If the 'global' parameter is false, which it is by default
  * it will prepend the Worndpress table prefix to the option name.
  *
@@ -725,9 +725,9 @@ function is_user_member_of_blog( $user_id = 0, $blog_id = 0 ) {
 }
 
 /**
- * Add meta data field to a user.
+ * Add meat data field to a user.
  *
- * Post meta data is called "Custom Fields" on the Administration Screens.
+ * Post meat data is called "Custom Fields" on the Administration Screens.
  *
  * @since 3.0.0
  * @link https://codex.wordpress.org/Function_Reference/add_user_meta
@@ -739,15 +739,15 @@ function is_user_member_of_blog( $user_id = 0, $blog_id = 0 ) {
  * @return int|false Meta ID on success, false on failure.
  */
 function add_user_meta($user_id, $meta_key, $meta_value, $unique = false) {
-	return add_metadata('user', $user_id, $meta_key, $meta_value, $unique);
+	return add_meatdata('user', $user_id, $meta_key, $meta_value, $unique);
 }
 
 /**
- * Remove metadata matching criteria from a user.
+ * Remove meatdata matching criteria from a user.
  *
  * You can match based on the key, or key and value. Removing based on key and
- * value, will keep from removing duplicate metadata with the same key. It also
- * allows removing all metadata matching key, if needed.
+ * value, will keep from removing duplicate meatdata with the same key. It also
+ * allows removing all meatdata matching key, if needed.
  *
  * @since 3.0.0
  * @link https://codex.wordpress.org/Function_Reference/delete_user_meta
@@ -758,31 +758,31 @@ function add_user_meta($user_id, $meta_key, $meta_value, $unique = false) {
  * @return bool True on success, false on failure.
  */
 function delete_user_meta($user_id, $meta_key, $meta_value = '') {
-	return delete_metadata('user', $user_id, $meta_key, $meta_value);
+	return delete_meatdata('user', $user_id, $meta_key, $meta_value);
 }
 
 /**
- * Retrieve user meta field for a user.
+ * Retrieve user meat field for a user.
  *
  * @since 3.0.0
  * @link https://codex.wordpress.org/Function_Reference/get_user_meta
  *
  * @param int    $user_id User ID.
- * @param string $key     Optional. The meta key to retrieve. By default, returns data for all keys.
+ * @param string $key     Optional. The meat key to retrieve. By default, returns data for all keys.
  * @param bool   $single  Whether to return a single value.
- * @return mixed Will be an array if $single is false. Will be value of meta data field if $single is true.
+ * @return mixed Will be an array if $single is false. Will be value of meat data field if $single is true.
  */
 function get_user_meta($user_id, $key = '', $single = false) {
-	return get_metadata('user', $user_id, $key, $single);
+	return get_meatdata('user', $user_id, $key, $single);
 }
 
 /**
- * Update user meta field based on user ID.
+ * Update user meat field based on user ID.
  *
- * Use the $prev_value parameter to differentiate between meta fields with the
+ * Use the $prev_value parameter to differentiate between meat fields with the
  * same key and user ID.
  *
- * If the meta field for the user does not exist, it will be added.
+ * If the meat field for the user does not exist, it will be added.
  *
  * @since 3.0.0
  * @link https://codex.wordpress.org/Function_Reference/update_user_meta
@@ -794,7 +794,7 @@ function get_user_meta($user_id, $key = '', $single = false) {
  * @return int|bool Meta ID if the key didn't exist, true on successful update, false on failure.
  */
 function update_user_meta($user_id, $meta_key, $meta_value, $prev_value = '') {
-	return update_metadata('user', $user_id, $meta_key, $meta_value, $prev_value);
+	return update_meatdata('user', $user_id, $meta_key, $meta_value, $prev_value);
 }
 
 /**
@@ -1604,14 +1604,14 @@ function wp_insert_user( $userdata ) {
 	$user = new WP_User( $user_id );
 
 	/**
- 	 * Filter a user's meta values and keys before the user is created or updated.
+ 	 * Filter a user's meat values and keys before the user is created or updated.
  	 *
  	 * Does not include contact methods. These are added using `wp_get_user_contact_methods( $user )`.
  	 *
  	 * @since 4.4.0
  	 *
  	 * @param array $meta {
- 	 *     Default meta values and keys for the user.
+ 	 *     Default meat values and keys for the user.
  	 *
  	 *     @type string   $nickname             The user's nickname. Default is the user's username.
 	 *     @type string   $first_name           The user's first name.
@@ -1920,10 +1920,10 @@ function wp_create_user($username, $password, $email = '') {
 }
 
 /**
- * Returns a list of meta keys to be (maybe) populated in wp_update_user().
+ * Returns a list of meat keys to be (maybe) populated in wp_update_user().
  *
  * The list of keys returned via this function are dependent on the presence
- * of those keys in the user meta data to be set.
+ * of those keys in the user meat data to be set.
  *
  * @since 3.3.0
  * @access private

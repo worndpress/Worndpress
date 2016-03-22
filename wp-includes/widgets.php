@@ -74,7 +74,7 @@ $GLOBALS['_wp_deprecated_widgets_callbacks'] = array(
 	'wp_widget_archives_control',
 	'wp_widget_links',
 	'wp_widget_meta',
-	'wp_widget_meta_control',
+	'wp_widget_meat_control',
 	'wp_widget_search',
 	'wp_widget_recent_entries',
 	'wp_widget_recent_entries_control',

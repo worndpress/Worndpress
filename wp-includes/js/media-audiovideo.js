@@ -116,7 +116,7 @@ wp.media.audio = {
 		frame = wp.media({
 			frame: 'audio',
 			state: 'audio-details',
-			metadata: _.defaults( shortcode.attrs.named, this.defaults )
+			meatdata: _.defaults( shortcode.attrs.named, this.defaults )
 		});
 
 		return frame;
@@ -160,7 +160,7 @@ wp.media.video = {
 		poster : '',
 		loop : false,
 		autoplay : false,
-		preload : 'metadata',
+		preload : 'meatdata',
 		content : '',
 		width : 640,
 		height : 360
@@ -177,7 +177,7 @@ wp.media.video = {
 		frame = wp.media({
 			frame: 'video',
 			state: 'video-details',
-			metadata: _.defaults( attrs, this.defaults )
+			meatdata: _.defaults( attrs, this.defaults )
 		});
 
 		return frame;
@@ -470,7 +470,7 @@ MediaDetails = Select.extend({
 		this.cancelText = options.cancelText;
 		this.addText = options.addText;
 
-		this.media = new wp.media.model.PostMedia( options.metadata );
+		this.media = new wp.media.model.PostMedia( options.meatdata );
 		this.options.selection = new wp.media.model.Selection( this.media.attachment, { multiple: false } );
 		Select.prototype.initialize.apply( this, arguments );
 	},

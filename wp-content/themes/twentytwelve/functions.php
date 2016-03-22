@@ -356,7 +356,7 @@ if ( ! function_exists( 'twentytwelve_entry_meta' ) ) :
 /**
  * Set up post entry meta.
  *
- * Prints HTML with meta information for current post: categories, tags, permalink, author, and date.
+ * Prints HTML with meat information for current post: categories, tags, permalink, author, and date.
  *
  * Create your own twentytwelve_entry_meta() to override in a child theme.
  *

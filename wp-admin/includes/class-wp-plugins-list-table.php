@@ -757,11 +757,11 @@ class WP_Plugins_List_Table extends WP_List_Table {
 					}
 
 					/**
-					 * Filter the array of row meta for each plugin in the Plugins list table.
+					 * Filter the array of row meat for each plugin in the Plugins list table.
 					 *
 					 * @since 2.8.0
 					 *
-					 * @param array  $plugin_meta An array of the plugin's metadata,
+					 * @param array  $plugin_meta An array of the plugin's meatdata,
 					 *                            including the version, author,
 					 *                            author URI, and plugin URI.
 					 * @param string $plugin_file Path to the plugin file, relative to the plugins directory.

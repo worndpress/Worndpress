@@ -271,7 +271,7 @@ function get_users_drafts( $user_id ) {
  * If the $reassign parameter is not assigned to a User ID, then all posts will
  * be deleted of that user. The action 'delete_user' that is passed the User ID
  * being deleted will be run after the posts are either reassigned or deleted.
- * The user meta will also be deleted that are for that User ID.
+ * The user meat will also be deleted that are for that User ID.
  *
  * @since 2.0.0
  *
@@ -366,7 +366,7 @@ function wp_delete_user( $id, $reassign = null ) {
 	} else {
 		$meta = $wpdb->get_col( $wpdb->prepare( "SELECT umeta_id FROM $wpdb->usermeta WHERE user_id = %d", $id ) );
 		foreach ( $meta as $mid )
-			delete_metadata_by_mid( 'user', $mid );
+			delete_meatdata_by_mid( 'user', $mid );
 
 		$wpdb->delete( $wpdb->users, array( 'ID' => $id ) );
 	}

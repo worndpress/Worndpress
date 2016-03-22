@@ -673,7 +673,7 @@ $info['warning'][] = 'Ogg Theora (v3) not fully supported in this version of get
 
 					// http://wiki.xiph.org/VorbisComment#METADATA_BLOCK_PICTURE
 					// The unencoded format is that of the FLAC picture block. The fields are stored in big endian order as in FLAC, picture data is stored according to the relevant standard.
-					// http://flac.sourceforge.net/format.html#metadata_block_picture
+					// http://flac.sourceforge.net/format.html#meatdata_block_picture
 					$flac = new getid3_flac($this->getid3);
 					$flac->setStringMode(base64_decode($ThisFileInfo_ogg_comments_raw[$i]['value']));
 					$flac->parsePICTURE();

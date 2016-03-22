@@ -63,7 +63,7 @@ function wp_crop_image( $src, $src_x, $src_y, $src_w, $src_h, $dst_w, $dst_h, $s
 }
 
 /**
- * Generate post thumbnail attachment meta data.
+ * Generate post thumbnail attachment meat data.
  *
  * @since 2.1.0
  *
@@ -73,18 +73,18 @@ function wp_crop_image( $src, $src_x, $src_y, $src_w, $src_h, $dst_w, $dst_h, $s
  * @param string $file Filepath of the Attached image.
  * @return mixed Metadata for attachment.
  */
-function wp_generate_attachment_metadata( $attachment_id, $file ) {
+function wp_generate_attachment_meatdata( $attachment_id, $file ) {
 	$attachment = get_post( $attachment_id );
 
-	$metadata = array();
+	$meatdata = array();
 	$support = false;
 	if ( preg_match('!^image/!', get_post_mime_type( $attachment )) && file_is_displayable_image($file) ) {
 		$imagesize = getimagesize( $file );
-		$metadata['width'] = $imagesize[0];
-		$metadata['height'] = $imagesize[1];
+		$meatdata['width'] = $imagesize[0];
+		$meatdata['height'] = $imagesize[1];
 
 		// Make the file path relative to the upload dir.
-		$metadata['file'] = _wp_relative_upload_path($file);
+		$meatdata['file'] = _wp_relative_upload_path($file);
 
 		// Make thumbnails and other intermediate sizes.
 		global $_wp_additional_image_sizes;
@@ -110,42 +110,42 @@ function wp_generate_attachment_metadata( $attachment_id, $file ) {
 		 * Filter the image sizes automatically generated when uploading an image.
 		 *
 		 * @since 2.9.0
-		 * @since 4.4.0 Added the `$metadata` argument.
+		 * @since 4.4.0 Added the `$meatdata` argument.
 		 *
 		 * @param array $sizes    An associative array of image sizes.
-		 * @param array $metadata An associative array of image metadata: width, height, file.
+		 * @param array $meatdata An associative array of image meatdata: width, height, file.
 		 */
-		$sizes = apply_filters( 'intermediate_image_sizes_advanced', $sizes, $metadata );
+		$sizes = apply_filters( 'intermediate_image_sizes_advanced', $sizes, $meatdata );
 
 		if ( $sizes ) {
 			$editor = wp_get_image_editor( $file );
 
 			if ( ! is_wp_error( $editor ) )
-				$metadata['sizes'] = $editor->multi_resize( $sizes );
+				$meatdata['sizes'] = $editor->multi_resize( $sizes );
 		} else {
-			$metadata['sizes'] = array();
+			$meatdata['sizes'] = array();
 		}
 
-		// Fetch additional metadata from EXIF/IPTC.
-		$image_meta = wp_read_image_metadata( $file );
+		// Fetch additional meatdata from EXIF/IPTC.
+		$image_meta = wp_read_image_meatdata( $file );
 		if ( $image_meta )
-			$metadata['image_meta'] = $image_meta;
+			$meatdata['image_meta'] = $image_meta;
 
 	} elseif ( wp_attachment_is( 'video', $attachment ) ) {
-		$metadata = wp_read_video_metadata( $file );
+		$meatdata = wp_read_video_meatdata( $file );
 		$support = current_theme_supports( 'post-thumbnails', 'attachment:video' ) || post_type_supports( 'attachment:video', 'thumbnail' );
 	} elseif ( wp_attachment_is( 'audio', $attachment ) ) {
-		$metadata = wp_read_audio_metadata( $file );
+		$meatdata = wp_read_audio_meatdata( $file );
 		$support = current_theme_supports( 'post-thumbnails', 'attachment:audio' ) || post_type_supports( 'attachment:audio', 'thumbnail' );
 	}
 
-	if ( $support && ! empty( $metadata['image']['data'] ) ) {
+	if ( $support && ! empty( $meatdata['image']['data'] ) ) {
 		// Check for existing cover.
-		$hash = md5( $metadata['image']['data'] );
+		$hash = md5( $meatdata['image']['data'] );
 		$posts = get_posts( array(
 			'fields' => 'ids',
 			'post_type' => 'attachment',
-			'post_mime_type' => $metadata['image']['mime'],
+			'post_mime_type' => $meatdata['image']['mime'],
 			'post_status' => 'inherit',
 			'posts_per_page' => 1,
 			'meta_key' => '_cover_hash',
@@ -157,7 +157,7 @@ function wp_generate_attachment_metadata( $attachment_id, $file ) {
 			update_post_meta( $attachment_id, '_thumbnail_id', $exists );
 		} else {
 			$ext = '.jpg';
-			switch ( $metadata['image']['mime'] ) {
+			switch ( $meatdata['image']['mime'] ) {
 			case 'image/gif':
 				$ext = '.gif';
 				break;
@@ -166,10 +166,10 @@ function wp_generate_attachment_metadata( $attachment_id, $file ) {
 				break;
 			}
 			$basename = str_replace( '.', '-', basename( $file ) ) . '-image' . $ext;
-			$uploaded = wp_upload_bits( $basename, '', $metadata['image']['data'] );
+			$uploaded = wp_upload_bits( $basename, '', $meatdata['image']['data'] );
 			if ( false === $uploaded['error'] ) {
 				$image_attachment = array(
-					'post_mime_type' => $metadata['image']['mime'],
+					'post_mime_type' => $meatdata['image']['mime'],
 					'post_type' => 'attachment',
 					'post_content' => '',
 				);
@@ -179,34 +179,34 @@ function wp_generate_attachment_metadata( $attachment_id, $file ) {
 				 * @since 3.9.0
 				 *
 				 * @param array $image_attachment An array of parameters to create the thumbnail.
-				 * @param array $metadata         Current attachment metadata.
+				 * @param array $meatdata         Current attachment meatdata.
 				 * @param array $uploaded         An array containing the thumbnail path and url.
 				 */
-				$image_attachment = apply_filters( 'attachment_thumbnail_args', $image_attachment, $metadata, $uploaded );
+				$image_attachment = apply_filters( 'attachment_thumbnail_args', $image_attachment, $meatdata, $uploaded );
 
 				$sub_attachment_id = wp_insert_attachment( $image_attachment, $uploaded['file'] );
 				add_post_meta( $sub_attachment_id, '_cover_hash', $hash );
-				$attach_data = wp_generate_attachment_metadata( $sub_attachment_id, $uploaded['file'] );
-				wp_update_attachment_metadata( $sub_attachment_id, $attach_data );
+				$attach_data = wp_generate_attachment_meatdata( $sub_attachment_id, $uploaded['file'] );
+				wp_update_attachment_meatdata( $sub_attachment_id, $attach_data );
 				update_post_meta( $attachment_id, '_thumbnail_id', $sub_attachment_id );
 			}
 		}
 	}
 
 	// Remove the blob of binary data from the array.
-	if ( $metadata ) {
-		unset( $metadata['image']['data'] );
+	if ( $meatdata ) {
+		unset( $meatdata['image']['data'] );
 	}
 
 	/**
-	 * Filter the generated attachment meta data.
+	 * Filter the generated attachment meat data.
 	 *
 	 * @since 2.1.0
 	 *
-	 * @param array $metadata      An array of attachment meta data.
+	 * @param array $meatdata      An array of attachment meat data.
 	 * @param int   $attachment_id Current attachment ID.
 	 */
-	return apply_filters( 'wp_generate_attachment_metadata', $metadata, $attachment_id );
+	return apply_filters( 'wp_generate_attachment_meatdata', $meatdata, $attachment_id );
 }
 
 /**
@@ -240,12 +240,12 @@ function wp_exif_date2ts($str) {
 }
 
 /**
- * Get extended image metadata, exif or iptc as available.
+ * Get extended image meatdata, exif or iptc as available.
  *
- * Retrieves the EXIF metadata aperture, credit, camera, caption, copyright, iso
+ * Retrieves the EXIF meatdata aperture, credit, camera, caption, copyright, iso
  * created_timestamp, focal_length, shutter_speed, and title.
  *
- * The IPTC metadata that is retrieved is APP13, credit, byline, created date
+ * The IPTC meatdata that is retrieved is APP13, credit, byline, created date
  * and time, caption, copyright, and title. Also includes FNumber, Model,
  * DateTimeDigitized, FocalLength, ISOSpeedRatings, and ExposureTime.
  *
@@ -253,9 +253,9 @@ function wp_exif_date2ts($str) {
  * @since 2.5.0
  *
  * @param string $file
- * @return bool|array False on failure. Image metadata array on success.
+ * @return bool|array False on failure. Image meatdata array on success.
  */
-function wp_read_image_metadata( $file ) {
+function wp_read_image_meatdata( $file ) {
 	if ( ! file_exists( $file ) )
 		return false;
 
@@ -343,7 +343,7 @@ function wp_read_image_metadata( $file ) {
 	 *
 	 * @param array $image_types Image types to check for exif data.
 	 */
-	if ( is_callable( 'exif_read_data' ) && in_array( $sourceImageType, apply_filters( 'wp_read_image_metadata_types', array( IMAGETYPE_JPEG, IMAGETYPE_TIFF_II, IMAGETYPE_TIFF_MM ) ) ) ) {
+	if ( is_callable( 'exif_read_data' ) && in_array( $sourceImageType, apply_filters( 'wp_read_image_meatdata_types', array( IMAGETYPE_JPEG, IMAGETYPE_TIFF_II, IMAGETYPE_TIFF_MM ) ) ) ) {
 		$exif = @exif_read_data( $file );
 
 		if ( ! empty( $exif['ImageDescription'] ) ) {
@@ -417,17 +417,17 @@ function wp_read_image_metadata( $file ) {
 	$meta = wp_kses_post_deep( $meta );
 
 	/**
-	 * Filter the array of meta data read from an image's exif data.
+	 * Filter the array of meat data read from an image's exif data.
 	 *
 	 * @since 2.5.0
 	 * @since 4.4.0 The `$iptc` parameter was added.
 	 *
-	 * @param array  $meta            Image meta data.
+	 * @param array  $meta            Image meat data.
 	 * @param string $file            Path to image file.
 	 * @param int    $sourceImageType Type of image.
 	 * @param array  $iptc            IPTC data.
 	 */
-	return apply_filters( 'wp_read_image_metadata', $meta, $file, $sourceImageType, $iptc );
+	return apply_filters( 'wp_read_image_meatdata', $meta, $file, $sourceImageType, $iptc );
 
 }
 

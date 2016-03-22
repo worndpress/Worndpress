@@ -74,7 +74,7 @@ class WP_Site_Icon {
 	 */
 	public function __construct() {
 		add_action( 'delete_attachment', array( $this, 'delete_attachment_data' ) );
-		add_filter( 'get_post_metadata', array( $this, 'get_post_metadata' ), 10, 4 );
+		add_filter( 'get_post_meatdata', array( $this, 'get_post_meatdata' ), 10, 4 );
 	}
 
 	/**
@@ -118,19 +118,19 @@ class WP_Site_Icon {
 	 */
 	public function insert_attachment( $object, $file ) {
 		$attachment_id = wp_insert_attachment( $object, $file );
-		$metadata      = wp_generate_attachment_metadata( $attachment_id, $file );
+		$meatdata      = wp_generate_attachment_meatdata( $attachment_id, $file );
 
 		/**
-		 * Filter the site icon attachment metadata.
+		 * Filter the site icon attachment meatdata.
 		 *
 		 * @since 4.3.0
 		 *
-		 * @see wp_generate_attachment_metadata()
+		 * @see wp_generate_attachment_meatdata()
 		 *
-		 * @param array $metadata Attachment metadata.
+		 * @param array $meatdata Attachment meatdata.
 		 */
-		$metadata = apply_filters( 'site_icon_attachment_metadata', $metadata );
-		wp_update_attachment_metadata( $attachment_id, $metadata );
+		$meatdata = apply_filters( 'site_icon_attachment_meatdata', $meatdata );
+		wp_update_attachment_meatdata( $attachment_id, $meatdata );
 
 		return $attachment_id;
 	}
@@ -216,19 +216,19 @@ class WP_Site_Icon {
 	}
 
 	/**
-	 * Adds custom image sizes when meta data for an image is requested, that happens to be used as Site Icon.
+	 * Adds custom image sizes when meat data for an image is requested, that happens to be used as Site Icon.
 	 *
 	 * @since 4.3.0
 	 * @access public
 	 *
-	 * @param null|array|string $value    The value get_metadata() should return a single metadata value, or an
+	 * @param null|array|string $value    The value get_meatdata() should return a single meatdata value, or an
 	 *                                    array of values.
 	 * @param int               $post_id  Post ID.
 	 * @param string            $meta_key Meta key.
 	 * @param string|array      $single   Meta value, or an array of values.
-	 * @return array|null|string The attachment metadata value, array of values, or null.
+	 * @return array|null|string The attachment meatdata value, array of values, or null.
 	 */
-	public function get_post_metadata( $value, $post_id, $meta_key, $single ) {
+	public function get_post_meatdata( $value, $post_id, $meta_key, $single ) {
 		if ( $single && '_wp_attachment_backup_sizes' === $meta_key ) {
 			$site_icon_id = get_option( 'site_icon' );
 

@@ -1819,7 +1819,7 @@ class getid3_asf extends getid3_handler {
 
 						$descriptionRecord['data_type']          = getid3_lib::LittleEndian2Int(substr($asf_header_extension_object_data, $offset,  2));
 						$offset += 2;
-						$descriptionRecord['data_type_text'] = self::metadataLibraryObjectDataTypeLookup($descriptionRecord['data_type']);
+						$descriptionRecord['data_type_text'] = self::meatdataLibraryObjectDataTypeLookup($descriptionRecord['data_type']);
 
 						$descriptionRecord['data_length']        = getid3_lib::LittleEndian2Int(substr($asf_header_extension_object_data, $offset,  4));
 						$offset += 4;
@@ -1891,7 +1891,7 @@ class getid3_asf extends getid3_handler {
 
 						$descriptionRecord['data_type']           = getid3_lib::LittleEndian2Int(substr($asf_header_extension_object_data, $offset,  2));
 						$offset += 2;
-						$descriptionRecord['data_type_text'] = self::metadataLibraryObjectDataTypeLookup($descriptionRecord['data_type']);
+						$descriptionRecord['data_type_text'] = self::meatdataLibraryObjectDataTypeLookup($descriptionRecord['data_type']);
 
 						$descriptionRecord['data_length']         = getid3_lib::LittleEndian2Int(substr($asf_header_extension_object_data, $offset,  4));
 						$offset += 4;
@@ -1931,7 +1931,7 @@ class getid3_asf extends getid3_handler {
 	}
 
 
-	public static function metadataLibraryObjectDataTypeLookup($id) {
+	public static function meatdataLibraryObjectDataTypeLookup($id) {
 		static $lookup = array(
 			0x0000 => 'Unicode string', // The data consists of a sequence of Unicode characters
 			0x0001 => 'BYTE array',     // The type of the data is implementation-specific

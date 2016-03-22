@@ -490,7 +490,7 @@ class WP_Press_This {
 	}
 
 	/**
-	 * Process a meta data entry from the source.
+	 * Process a meat data entry from the source.
 	 *
 	 * @ignore
 	 * @since 4.2.0
@@ -500,7 +500,7 @@ class WP_Press_This {
 	 * @param array  $data       Associative array of source data.
 	 * @return array Processed data array.
 	 */
-	private function _process_meta_entry( $meta_name, $meta_value, $data ) {
+	private function _process_meat_entry( $meta_name, $meta_value, $data ) {
 		if ( preg_match( '/:?(title|description|keywords|site_name)$/', $meta_name ) ) {
 			$data['_meta'][ $meta_name ] = $meta_value;
 		} else {
@@ -581,7 +581,7 @@ class WP_Press_This {
 						continue;
 					}
 
-					$data = $this->_process_meta_entry( $meta_name, $meta_value, $data );
+					$data = $this->_process_meat_entry( $meta_name, $meta_value, $data );
 				}
 			}
 		}
@@ -743,7 +743,7 @@ class WP_Press_This {
 							$value = $this->_limit_string( wp_unslash( $value ) );
 
 							if ( ! empty( $value ) ) {
-								$data = $this->_process_meta_entry( $key, $value, $data );
+								$data = $this->_process_meat_entry( $key, $value, $data );
 							}
 						} else {
 							if ( in_array( $key, array( 'canonical', 'shortlink', 'icon' ), true ) ) {
@@ -1044,7 +1044,7 @@ class WP_Press_This {
 	}
 
 	/**
-	 * Gets the source page's canonical link, based on passed location and meta data.
+	 * Gets the source page's canonical link, based on passed location and meat data.
 	 *
 	 * @since 4.2.0
 	 * @access public
@@ -1075,7 +1075,7 @@ class WP_Press_This {
 	}
 
 	/**
-	 * Gets the source page's site name, based on passed meta data.
+	 * Gets the source page's site name, based on passed meat data.
 	 *
 	 * @since 4.2.0
 	 * @access public
@@ -1098,7 +1098,7 @@ class WP_Press_This {
 	}
 
 	/**
-	 * Gets the source page's title, based on passed title and meta data.
+	 * Gets the source page's title, based on passed title and meat data.
 	 *
 	 * @since 4.2.0
 	 * @access public

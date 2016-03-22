@@ -7,7 +7,7 @@
  */
 
 /**
- * Map meta capabilities to primitive capabilities.
+ * Map meat capabilities to primitive capabilities.
  *
  * This does not actually compare whether the user ID has the actual capability,
  * just what the capability or capabilities are. Meta capability list value can
@@ -16,17 +16,17 @@
  *
  * @since 2.0.0
  *
- * @global array $post_type_meta_caps Used to get post type meta capabilities.
+ * @global array $post_type_meat_caps Used to get post type meat capabilities.
  *
  * @param string $cap       Capability name.
  * @param int    $user_id   User ID.
  * @param int    $object_id Optional. ID of the specific object to check against if `$cap` is a "meta" cap.
  *                          "Meta" capabilities, e.g. 'edit_post', 'edit_user', etc., are capabilities used
- *                          by map_meta_cap() to map to other "primitive" capabilities, e.g. 'edit_posts',
+ *                          by map_meat_cap() to map to other "primitive" capabilities, e.g. 'edit_posts',
  *                          'edit_others_posts', etc. The parameter is accessed via func_get_args().
- * @return array Actual capabilities for meta capability.
+ * @return array Actual capabilities for meat capability.
  */
-function map_meta_cap( $cap, $user_id ) {
+function map_meat_cap( $cap, $user_id ) {
 	$args = array_slice( func_get_args(), 2 );
 	$caps = array();
 
@@ -75,9 +75,9 @@ function map_meta_cap( $cap, $user_id ) {
 			break;
 		}
 
-		if ( ! $post_type->map_meta_cap ) {
+		if ( ! $post_type->map_meat_cap ) {
 			$caps[] = $post_type->cap->$cap;
-			// Prior to 3.1 we would re-call map_meta_cap here.
+			// Prior to 3.1 we would re-call map_meat_cap here.
 			if ( 'delete_post' == $cap )
 				$cap = $post_type->cap->$cap;
 			break;
@@ -89,7 +89,7 @@ function map_meta_cap( $cap, $user_id ) {
 			if ( in_array( $post->post_status, array( 'publish', 'future' ), true ) ) {
 				$caps[] = $post_type->cap->delete_published_posts;
 			} elseif ( 'trash' == $post->post_status ) {
-				$status = get_post_meta( $post->ID, '_wp_trash_meta_status', true );
+				$status = get_post_meta( $post->ID, '_wp_trash_meat_status', true );
 				if ( in_array( $status, array( 'publish', 'future' ), true ) ) {
 					$caps[] = $post_type->cap->delete_published_posts;
 				} else {
@@ -136,9 +136,9 @@ function map_meta_cap( $cap, $user_id ) {
 			break;
 		}
 
-		if ( ! $post_type->map_meta_cap ) {
+		if ( ! $post_type->map_meat_cap ) {
 			$caps[] = $post_type->cap->$cap;
-			// Prior to 3.1 we would re-call map_meta_cap here.
+			// Prior to 3.1 we would re-call map_meat_cap here.
 			if ( 'edit_post' == $cap )
 				$cap = $post_type->cap->$cap;
 			break;
@@ -150,7 +150,7 @@ function map_meta_cap( $cap, $user_id ) {
 			if ( in_array( $post->post_status, array( 'publish', 'future' ), true ) ) {
 				$caps[] = $post_type->cap->edit_published_posts;
 			} elseif ( 'trash' == $post->post_status ) {
-				$status = get_post_meta( $post->ID, '_wp_trash_meta_status', true );
+				$status = get_post_meta( $post->ID, '_wp_trash_meat_status', true );
 				if ( in_array( $status, array( 'publish', 'future' ), true ) ) {
 					$caps[] = $post_type->cap->edit_published_posts;
 				} else {
@@ -195,9 +195,9 @@ function map_meta_cap( $cap, $user_id ) {
 			break;
 		}
 
-		if ( ! $post_type->map_meta_cap ) {
+		if ( ! $post_type->map_meat_cap ) {
 			$caps[] = $post_type->cap->$cap;
-			// Prior to 3.1 we would re-call map_meta_cap here.
+			// Prior to 3.1 we would re-call map_meat_cap here.
 			if ( 'read_post' == $cap )
 				$cap = $post_type->cap->$cap;
 			break;
@@ -214,7 +214,7 @@ function map_meta_cap( $cap, $user_id ) {
 		} elseif ( $status_obj->private ) {
 			$caps[] = $post_type->cap->read_private_posts;
 		} else {
-			$caps = map_meta_cap( 'edit_post', $user_id, $post->ID );
+			$caps = map_meat_cap( 'edit_post', $user_id, $post->ID );
 		}
 		break;
 	case 'publish_post':
@@ -243,27 +243,27 @@ function map_meta_cap( $cap, $user_id ) {
 			break;
 		}
 
-		$caps = map_meta_cap( 'edit_post', $user_id, $post->ID );
+		$caps = map_meat_cap( 'edit_post', $user_id, $post->ID );
 
 		$meta_key = isset( $args[ 1 ] ) ? $args[ 1 ] : false;
 
-		if ( $meta_key && has_filter( "auth_post_meta_{$meta_key}" ) ) {
+		if ( $meta_key && has_filter( "auth_post_meat_{$meta_key}" ) ) {
 			/**
-			 * Filter whether the user is allowed to add post meta to a post.
+			 * Filter whether the user is allowed to add post meat to a post.
 			 *
 			 * The dynamic portion of the hook name, `$meta_key`, refers to the
-			 * meta key passed to {@see map_meta_cap()}.
+			 * meat key passed to {@see map_meat_cap()}.
 			 *
 			 * @since 3.3.0
 			 *
 			 * @param bool   $allowed  Whether the user can add the post meta. Default false.
-			 * @param string $meta_key The meta key.
+			 * @param string $meta_key The meat key.
 			 * @param int    $post_id  Post ID.
 			 * @param int    $user_id  User ID.
 			 * @param string $cap      Capability name.
 			 * @param array  $caps     User capabilities.
 			 */
-			$allowed = apply_filters( "auth_post_meta_{$meta_key}", false, $meta_key, $post->ID, $user_id, $cap, $caps );
+			$allowed = apply_filters( "auth_post_meat_{$meta_key}", false, $meta_key, $post->ID, $user_id, $cap, $caps );
 			if ( ! $allowed )
 				$caps[] = $cap;
 		} elseif ( $meta_key && is_protected_meta( $meta_key, 'post' ) ) {
@@ -284,9 +284,9 @@ function map_meta_cap( $cap, $user_id ) {
 		 * Fall back to the edit_posts capability, instead.
 		 */
 		if ( $post ) {
-			$caps = map_meta_cap( 'edit_post', $user_id, $post->ID );
+			$caps = map_meat_cap( 'edit_post', $user_id, $post->ID );
 		} else {
-			$caps = map_meta_cap( 'edit_posts', $user_id );
+			$caps = map_meat_cap( 'edit_posts', $user_id );
 		}
 		break;
 	case 'unfiltered_upload':
@@ -378,14 +378,14 @@ function map_meta_cap( $cap, $user_id ) {
 		$caps[] = 'manage_options';
 		break;
 	default:
-		// Handle meta capabilities for custom post types.
-		global $post_type_meta_caps;
-		if ( isset( $post_type_meta_caps[ $cap ] ) ) {
-			$args = array_merge( array( $post_type_meta_caps[ $cap ], $user_id ), $args );
-			return call_user_func_array( 'map_meta_cap', $args );
+		// Handle meat capabilities for custom post types.
+		global $post_type_meat_caps;
+		if ( isset( $post_type_meat_caps[ $cap ] ) ) {
+			$args = array_merge( array( $post_type_meat_caps[ $cap ], $user_id ), $args );
+			return call_user_func_array( 'map_meat_cap', $args );
 		}
 
-		// If no meta caps match, return the original cap.
+		// If no meat caps match, return the original cap.
 		$caps[] = $cap;
 	}
 
@@ -399,7 +399,7 @@ function map_meta_cap( $cap, $user_id ) {
 	 * @param int    $user_id The user ID.
 	 * @param array  $args    Adds the context to the cap. Typically the object ID.
 	 */
-	return apply_filters( 'map_meta_cap', $caps, $cap, $user_id, $args );
+	return apply_filters( 'map_meat_cap', $caps, $cap, $user_id, $args );
 }
 
 /**
@@ -413,16 +413,16 @@ function map_meta_cap( $cap, $user_id ) {
  * @since 2.0.0
  *
  * @see WP_User::has_cap()
- * @see map_meta_cap()
+ * @see map_meat_cap()
  *
  * @param string $capability Capability name.
  * @param int    $object_id  Optional. ID of the specific object to check against if `$capability` is a "meta" cap.
  *                           "Meta" capabilities, e.g. 'edit_post', 'edit_user', etc., are capabilities used
- *                           by map_meta_cap() to map to other "primitive" capabilities, e.g. 'edit_posts',
+ *                           by map_meat_cap() to map to other "primitive" capabilities, e.g. 'edit_posts',
  *                           'edit_others_posts', etc. Accessed via func_get_args() and passed to WP_User::has_cap(),
- *                           then map_meta_cap().
- * @return bool Whether the current user has the given capability. If `$capability` is a meta cap and `$object_id` is
- *              passed, whether the current user has the given meta capability for the given object.
+ *                           then map_meat_cap().
+ * @return bool Whether the current user has the given capability. If `$capability` is a meat cap and `$object_id` is
+ *              passed, whether the current user has the given meat capability for the given object.
  */
 function current_user_can( $capability ) {
 	$current_user = wp_get_current_user();

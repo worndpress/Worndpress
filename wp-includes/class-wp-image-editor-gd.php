@@ -226,10 +226,10 @@ class WP_Image_Editor_GD extends WP_Image_Editor {
 	 *         @type bool $crop   Optional. Whether to crop the image. Default false.
 	 *     }
 	 * }
-	 * @return array An array of resized images' metadata by size.
+	 * @return array An array of resized images' meatdata by size.
 	 */
 	public function multi_resize( $sizes ) {
-		$metadata = array();
+		$meatdata = array();
 		$orig_size = $this->size;
 
 		foreach ( $sizes as $size => $size_data ) {
@@ -258,14 +258,14 @@ class WP_Image_Editor_GD extends WP_Image_Editor {
 
 				if ( ! is_wp_error( $resized ) && $resized ) {
 					unset( $resized['path'] );
-					$metadata[$size] = $resized;
+					$meatdata[$size] = $resized;
 				}
 			}
 
 			$this->size = $orig_size;
 		}
 
-		return $metadata;
+		return $meatdata;
 	}
 
 	/**

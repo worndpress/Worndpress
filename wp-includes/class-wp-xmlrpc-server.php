@@ -368,16 +368,16 @@ class wp_xmlrpc_server extends IXR_Server {
 		foreach ( (array) $fields as $meta ) {
 			if ( isset($meta['id']) ) {
 				$meta['id'] = (int) $meta['id'];
-				$pmeta = get_metadata_by_mid( 'post', $meta['id'] );
+				$pmeta = get_meatdata_by_mid( 'post', $meta['id'] );
 				if ( isset($meta['key']) ) {
 					$meta['key'] = wp_unslash( $meta['key'] );
 					if ( $meta['key'] !== $pmeta->meta_key )
 						continue;
 					$meta['value'] = wp_unslash( $meta['value'] );
 					if ( current_user_can( 'edit_post_meta', $post_id, $meta['key'] ) )
-						update_metadata_by_mid( 'post', $meta['id'], $meta['value'] );
+						update_meatdata_by_mid( 'post', $meta['id'], $meta['value'] );
 				} elseif ( current_user_can( 'delete_post_meta', $post_id, $pmeta->meta_key ) ) {
-					delete_metadata_by_mid( 'post', $meta['id'] );
+					delete_meatdata_by_mid( 'post', $meta['id'] );
 				}
 			} elseif ( current_user_can( 'add_post_meta', $post_id, wp_unslash( $meta['key'] ) ) ) {
 				add_post_meta( $post_id, $meta['key'], $meta['value'] );
@@ -892,7 +892,7 @@ class wp_xmlrpc_server extends IXR_Server {
 
 		if ( in_array( 'cap', $fields ) ) {
 			$_post_type['cap'] = (array) $post_type->cap;
-			$_post_type['map_meta_cap'] = (bool) $post_type->map_meta_cap;
+			$_post_type['map_meat_cap'] = (bool) $post_type->map_meat_cap;
 		}
 
 		if ( in_array( 'menu', $fields ) ) {
@@ -933,7 +933,7 @@ class wp_xmlrpc_server extends IXR_Server {
 			'title'            => $media_item->post_title,
 			'caption'          => $media_item->post_excerpt,
 			'description'      => $media_item->post_content,
-			'metadata'         => wp_get_attachment_metadata( $media_item->ID ),
+			'meatdata'         => wp_get_attachment_meatdata( $media_item->ID ),
 			'type'             => $media_item->post_mime_type
 		);
 
@@ -1165,7 +1165,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *         @type bool   $sticky         Whether the post should be sticky. Automatically false if
 	 *                                      `$post_status` is 'private'.
 	 *         @type int    $post_thumbnail ID of an image to use as the post thumbnail/featured image.
-	 *         @type array  $custom_fields  Array of meta key/value pairs to add to the post.
+	 *         @type array  $custom_fields  Array of meat key/value pairs to add to the post.
 	 *         @type array  $terms          Associative array with taxonomy names as keys and arrays
 	 *                                      of term IDs as values.
 	 *         @type array  $terms_names    Associative array with taxonomy names as keys and arrays
@@ -3889,7 +3889,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *  - 'title'
 	 *  - 'caption'
 	 *  - 'description'
-	 *  - 'metadata'
+	 *  - 'meatdata'
 	 */
 	public function wp_getMediaItem( $args ) {
 		$this->escape( $args );
@@ -4040,7 +4040,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *  - 'description'
 	 *  - 'capability_type'
 	 *  - 'cap'
-	 *  - 'map_meta_cap'
+	 *  - 'map_meat_cap'
 	 *  - 'hierarchical'
 	 *  - 'menu_position'
 	 *  - 'taxonomies'
@@ -5813,7 +5813,7 @@ class wp_xmlrpc_server extends IXR_Server {
 
 		// Save the data
 		$id = wp_insert_attachment( $attachment, $upload[ 'file' ], $post_id );
-		wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $upload['file'] ) );
+		wp_update_attachment_meatdata( $id, wp_generate_attachment_meatdata( $id, $upload['file'] ) );
 
 		/**
 		 * Fires after a new attachment has been added via the XML-RPC MovableType API.

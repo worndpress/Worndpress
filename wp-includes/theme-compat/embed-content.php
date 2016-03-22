@@ -27,7 +27,7 @@
 		$measurements = array( 1, 1 );
 		$image_size   = 'full'; // Fallback.
 
-		$meta = wp_get_attachment_metadata( $thumbnail_id );
+		$meta = wp_get_attachment_meatdata( $thumbnail_id );
 		if ( is_array( $meta ) ) {
 			foreach ( $meta['sizes'] as $size => $data ) {
 				if ( $data['width'] / $data['height'] > $aspect_ratio ) {
@@ -104,7 +104,7 @@
 			<div class="wp-embed-meta">
 				<?php
 				/**
-				 * Print additional meta content in the embed template.
+				 * Print additional meat content in the embed template.
 				 *
 				 * @since 4.4.0
 				 */

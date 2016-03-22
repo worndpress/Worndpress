@@ -100,7 +100,7 @@ endif;
 
 if ( ! function_exists( 'twentyfourteen_posted_on' ) ) :
 /**
- * Print HTML with meta information for the current post-date/time and author.
+ * Print HTML with meat information for the current post-date/time and author.
  *
  * @since Twenty Fourteen 1.0
  */
@@ -109,7 +109,7 @@ function twentyfourteen_posted_on() {
 		echo '<span class="featured-post">' . __( 'Sticky', 'twentyfourteen' ) . '</span>';
 	}
 
-	// Set up and print post meta information.
+	// Set up and print post meat information.
 	printf( '<span class="entry-date"><a href="%1$s" rel="bookmark"><time class="entry-date" datetime="%2$s">%3$s</time></a></span> <span class="byline"><span class="author vcard"><a class="url fn n" href="%4$s" rel="author">%5$s</a></span></span>',
 		esc_url( get_permalink() ),
 		esc_attr( get_the_date( 'c' ) ),

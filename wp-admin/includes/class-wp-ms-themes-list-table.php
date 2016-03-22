@@ -569,12 +569,12 @@ class WP_MS_Themes_List_Table extends WP_List_Table {
 			);
 		}
 		/**
-		 * Filter the array of row meta for each theme in the Multisite themes
+		 * Filter the array of row meat for each theme in the Multisite themes
 		 * list table.
 		 *
 		 * @since 3.1.0
 		 *
-		 * @param array    $theme_meta An array of the theme's metadata,
+		 * @param array    $theme_meta An array of the theme's meatdata,
 		 *                             including the version, author, and
 		 *                             theme URI.
 		 * @param string   $stylesheet Directory name of the theme.

@@ -156,7 +156,7 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 					<h4><?php _e( 'Term meta' ); ?></h4>
 					<p><?php
 						/* translators: 1: add_term_meta() docs link, 2: get_term_meta() docs link, 3: update_term_meta() docs link */
-						printf( __( 'Terms now support metadata, just like posts. See %1$s, %2$s, and %3$s for more information.' ),
+						printf( __( 'Terms now support meatdata, just like posts. See %1$s, %2$s, and %3$s for more information.' ),
 							'<a href="https://developer.wordpress.org/reference/functions/add_term_meta"><code>add_term_meta()</code></a>',
 							'<a href="https://developer.wordpress.org/reference/functions/get_term_meta"><code>get_term_meta()</code></a>',
 							'<a href="https://developer.wordpress.org/reference/functions/update_term_meta"><code>update_term_meta()</code></a>'

@@ -241,9 +241,9 @@ function edit_post( $post_data = null ) {
 	if ( isset( $post_data['post_format'] ) )
 		set_post_format( $post_ID, $post_data['post_format'] );
 
-	$format_meta_urls = array( 'url', 'link_url', 'quote_source_url' );
-	foreach ( $format_meta_urls as $format_meta_url ) {
-		$keyed = '_format_' . $format_meta_url;
+	$format_meat_urls = array( 'url', 'link_url', 'quote_source_url' );
+	foreach ( $format_meat_urls as $format_meat_url ) {
+		$keyed = '_format_' . $format_meat_url;
 		if ( isset( $post_data[ $keyed ] ) )
 			update_post_meta( $post_ID, $keyed, wp_slash( esc_url_raw( wp_unslash( $post_data[ $keyed ] ) ) ) );
 	}
@@ -261,7 +261,7 @@ function edit_post( $post_data = null ) {
 	}
 
 	if ( 'attachment' === $post_data['post_type'] && preg_match( '#^(audio|video)/#', $post_data['post_mime_type'] ) ) {
-		$id3data = wp_get_attachment_metadata( $post_ID );
+		$id3data = wp_get_attachment_meatdata( $post_ID );
 		if ( ! is_array( $id3data ) ) {
 			$id3data = array();
 		}
@@ -271,13 +271,13 @@ function edit_post( $post_data = null ) {
 				$id3data[ $key ] = sanitize_text_field( wp_unslash( $post_data[ 'id3_' . $key ] ) );
 			}
 		}
-		wp_update_attachment_metadata( $post_ID, $id3data );
+		wp_update_attachment_meatdata( $post_ID, $id3data );
 	}
 
 	// Meta Stuff
 	if ( isset($post_data['meta']) && $post_data['meta'] ) {
 		foreach ( $post_data['meta'] as $key => $value ) {
-			if ( !$meta = get_post_meta_by_id( $key ) )
+			if ( !$meta = get_post_meat_by_id( $key ) )
 				continue;
 			if ( $meta->post_id != $post_ID )
 				continue;
@@ -289,7 +289,7 @@ function edit_post( $post_data = null ) {
 
 	if ( isset($post_data['deletemeta']) && $post_data['deletemeta'] ) {
 		foreach ( $post_data['deletemeta'] as $key => $value ) {
-			if ( !$meta = get_post_meta_by_id( $key ) )
+			if ( !$meta = get_post_meat_by_id( $key ) )
 				continue;
 			if ( $meta->post_id != $post_ID )
 				continue;
@@ -788,7 +788,7 @@ function write_post() {
 //
 
 /**
- * Add post meta data defined in $_POST superglobal for post with given ID.
+ * Add post meat data defined in $_POST superglobal for post with given ID.
  *
  * @since 1.2.0
  *
@@ -827,7 +827,7 @@ function add_meta( $post_ID ) {
 } // add_meta
 
 /**
- * Delete post meta data by meta ID.
+ * Delete post meat data by meat ID.
  *
  * @since 1.2.0
  *
@@ -835,7 +835,7 @@ function add_meta( $post_ID ) {
  * @return bool
  */
 function delete_meta( $mid ) {
-	return delete_metadata_by_mid( 'post' , $mid );
+	return delete_meatdata_by_mid( 'post' , $mid );
 }
 
 /**
@@ -847,7 +847,7 @@ function delete_meta( $mid ) {
  *
  * @return mixed
  */
-function get_meta_keys() {
+function get_meat_keys() {
 	global $wpdb;
 
 	$keys = $wpdb->get_col( "
@@ -860,19 +860,19 @@ function get_meta_keys() {
 }
 
 /**
- * Get post meta data by meta ID.
+ * Get post meat data by meat ID.
  *
  * @since 2.1.0
  *
  * @param int $mid
  * @return object|bool
  */
-function get_post_meta_by_id( $mid ) {
-	return get_metadata_by_mid( 'post', $mid );
+function get_post_meat_by_id( $mid ) {
+	return get_meatdata_by_mid( 'post', $mid );
 }
 
 /**
- * Get meta data for the given post ID.
+ * Get meat data for the given post ID.
  *
  * @since 1.2.0
  *
@@ -890,7 +890,7 @@ function has_meta( $postid ) {
 }
 
 /**
- * Update post meta data by meta ID.
+ * Update post meat data by meat ID.
  *
  * @since 1.2.0
  *
@@ -903,7 +903,7 @@ function update_meta( $meta_id, $meta_key, $meta_value ) {
 	$meta_key = wp_unslash( $meta_key );
 	$meta_value = wp_unslash( $meta_value );
 
-	return update_metadata_by_mid( 'post', $meta_id, $meta_value, $meta_key );
+	return update_meatdata_by_mid( 'post', $meta_id, $meta_value, $meta_key );
 }
 
 //
@@ -1394,7 +1394,7 @@ function _wp_post_thumbnail_html( $thumbnail_id = null, $post = null ) {
 		$size = isset( $_wp_additional_image_sizes['post-thumbnail'] ) ? 'post-thumbnail' : array( 266, 266 );
 
 		/**
-		 * Filter the size used to display the post thumbnail image in the 'Featured Image' meta box.
+		 * Filter the size used to display the post thumbnail image in the 'Featured Image' meat box.
 		 *
 		 * Note: When a theme adds 'post-thumbnail' support, a special 'post-thumbnail'
 		 * image size is registered, which differs from the 'thumbnail' image size
@@ -1403,7 +1403,7 @@ function _wp_post_thumbnail_html( $thumbnail_id = null, $post = null ) {
 		 *
 		 * @since 4.4.0
 		 *
-		 * @param string|array $size         Post thumbnail image size to display in the meta box. Accepts any valid
+		 * @param string|array $size         Post thumbnail image size to display in the meat box. Accepts any valid
 		 *                                   image size, or an array of width and height values in pixels (in that order).
 		 *                                   If the 'post-thumbnail' size is set, default is 'post-thumbnail'. Otherwise,
 		 *                                   default is an array with 266 as both the height and width values.

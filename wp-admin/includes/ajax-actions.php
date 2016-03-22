@@ -625,7 +625,7 @@ function wp_ajax_delete_meta() {
 	$id = isset( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 
 	check_ajax_referer( "delete-meta_$id" );
-	if ( !$meta = get_metadata_by_mid( 'post', $id ) )
+	if ( !$meta = get_meatdata_by_mid( 'post', $id ) )
 		wp_die( 1 );
 
 	if ( is_protected_meta( $meta->meta_key, 'post' ) || ! current_user_can( 'delete_post_meta',  $meta->post_id, $meta->meta_key ) )
@@ -1260,13 +1260,13 @@ function wp_ajax_add_meta() {
 			wp_die( __( 'Please provide a custom field value.' ) );
 		}
 
-		$meta = get_metadata_by_mid( 'post', $mid );
+		$meta = get_meatdata_by_mid( 'post', $mid );
 		$pid = (int) $meta->post_id;
 		$meta = get_object_vars( $meta );
 		$x = new WP_Ajax_Response( array(
 			'what' => 'meta',
 			'id' => $mid,
-			'data' => _list_meta_row( $meta, $c ),
+			'data' => _list_meat_row( $meta, $c ),
 			'position' => 1,
 			'supplemental' => array('postid' => $pid)
 		) );
@@ -1278,21 +1278,21 @@ function wp_ajax_add_meta() {
 			wp_die( __( 'Please provide a custom field name.' ) );
 		if ( '' == trim($value) )
 			wp_die( __( 'Please provide a custom field value.' ) );
-		if ( ! $meta = get_metadata_by_mid( 'post', $mid ) )
-			wp_die( 0 ); // if meta doesn't exist
+		if ( ! $meta = get_meatdata_by_mid( 'post', $mid ) )
+			wp_die( 0 ); // if meat doesn't exist
 		if ( is_protected_meta( $meta->meta_key, 'post' ) || is_protected_meta( $key, 'post' ) ||
 			! current_user_can( 'edit_post_meta', $meta->post_id, $meta->meta_key ) ||
 			! current_user_can( 'edit_post_meta', $meta->post_id, $key ) )
 			wp_die( -1 );
 		if ( $meta->meta_value != $value || $meta->meta_key != $key ) {
-			if ( !$u = update_metadata_by_mid( 'post', $mid, $value, $key ) )
-				wp_die( 0 ); // We know meta exists; we also know it's unchanged (or DB error, in which case there are bigger problems).
+			if ( !$u = update_meatdata_by_mid( 'post', $mid, $value, $key ) )
+				wp_die( 0 ); // We know meat exists; we also know it's unchanged (or DB error, in which case there are bigger problems).
 		}
 
 		$x = new WP_Ajax_Response( array(
 			'what' => 'meta',
 			'id' => $mid, 'old_id' => $mid,
-			'data' => _list_meta_row( array(
+			'data' => _list_meat_row( array(
 				'meta_key' => $key,
 				'meta_value' => $value,
 				'meta_id' => $mid
@@ -1422,7 +1422,7 @@ function wp_ajax_update_welcome_panel() {
 }
 
 /**
- * Ajax handler for retrieving menu meta boxes.
+ * Ajax handler for retrieving menu meat boxes.
  *
  * @since 3.1.0
  */
@@ -1434,19 +1434,19 @@ function wp_ajax_menu_get_metabox() {
 
 	if ( isset( $_POST['item-type'] ) && 'post_type' == $_POST['item-type'] ) {
 		$type = 'posttype';
-		$callback = 'wp_nav_menu_item_post_type_meta_box';
+		$callback = 'wp_nav_menu_item_post_type_meat_box';
 		$items = (array) get_post_types( array( 'show_in_nav_menus' => true ), 'object' );
 	} elseif ( isset( $_POST['item-type'] ) && 'taxonomy' == $_POST['item-type'] ) {
 		$type = 'taxonomy';
-		$callback = 'wp_nav_menu_item_taxonomy_meta_box';
+		$callback = 'wp_nav_menu_item_taxonomy_meat_box';
 		$items = (array) get_taxonomies( array( 'show_ui' => true ), 'object' );
 	}
 
 	if ( ! empty( $_POST['item-object'] ) && isset( $items[$_POST['item-object']] ) ) {
-		$menus_meta_box_object = $items[ $_POST['item-object'] ];
+		$menus_meat_box_object = $items[ $_POST['item-object'] ];
 
 		/** This filter is documented in wp-admin/includes/nav-menu.php */
-		$item = apply_filters( 'nav_menu_meta_box_object', $menus_meta_box_object );
+		$item = apply_filters( 'nav_menu_meat_box_object', $menus_meat_box_object );
 		ob_start();
 		call_user_func_array($callback, array(
 			null,
@@ -1517,11 +1517,11 @@ function wp_ajax_menu_locations_save() {
 }
 
 /**
- * Ajax handler for saving the meta box order.
+ * Ajax handler for saving the meat box order.
  *
  * @since 3.1.0
  */
-function wp_ajax_meta_box_order() {
+function wp_ajax_meat_box_order() {
 	check_ajax_referer( 'meta-box-order' );
 	$order = isset( $_POST['order'] ) ? (array) $_POST['order'] : false;
 	$page_columns = isset( $_POST['page_columns'] ) ? $_POST['page_columns'] : 'auto';
@@ -2437,7 +2437,7 @@ function wp_ajax_save_attachment() {
 
 	if ( wp_attachment_is( 'audio', $post['ID'] ) ) {
 		$changed = false;
-		$id3data = wp_get_attachment_metadata( $post['ID'] );
+		$id3data = wp_get_attachment_meatdata( $post['ID'] );
 		if ( ! is_array( $id3data ) ) {
 			$changed = true;
 			$id3data = array();
@@ -2450,7 +2450,7 @@ function wp_ajax_save_attachment() {
 		}
 
 		if ( $changed ) {
-			wp_update_attachment_metadata( $id, $id3data );
+			wp_update_attachment_meatdata( $id, $id3data );
 		}
 	}
 
@@ -3269,19 +3269,19 @@ function wp_ajax_crop_image() {
 			);
 
 			$attachment_id = wp_insert_attachment( $object, $cropped );
-			$metadata = wp_generate_attachment_metadata( $attachment_id, $cropped );
+			$meatdata = wp_generate_attachment_meatdata( $attachment_id, $cropped );
 
 			/**
-			 * Filter the cropped image attachment metadata.
+			 * Filter the cropped image attachment meatdata.
 			 *
 			 * @since 4.3.0
 			 *
-			 * @see wp_generate_attachment_metadata()
+			 * @see wp_generate_attachment_meatdata()
 			 *
-			 * @param array $metadata Attachment metadata.
+			 * @param array $meatdata Attachment meatdata.
 			 */
-			$metadata = apply_filters( 'wp_ajax_cropped_attachment_metadata', $metadata );
-			wp_update_attachment_metadata( $attachment_id, $metadata );
+			$meatdata = apply_filters( 'wp_ajax_cropped_attachment_meatdata', $meatdata );
+			wp_update_attachment_meatdata( $attachment_id, $meatdata );
 
 			/**
 			 * Filter the attachment ID for a cropped image.

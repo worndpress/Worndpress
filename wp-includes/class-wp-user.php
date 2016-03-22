@@ -59,7 +59,7 @@ class WP_User {
 	public $caps = array();
 
 	/**
-	 * User metadata option name.
+	 * User meatdata option name.
 	 *
 	 * @since 2.0.0
 	 * @access public
@@ -264,8 +264,8 @@ class WP_User {
 	 * @since 3.3.0
 	 * @access public
 	 *
-	 * @param string $key User meta key to check if set.
-	 * @return bool Whether the given user meta key is set.
+	 * @param string $key User meat key to check if set.
+	 * @return bool Whether the given user meat key is set.
 	 */
 	public function __isset( $key ) {
 		if ( 'id' == $key ) {
@@ -285,7 +285,7 @@ class WP_User {
 		if ( isset( self::$back_compat_keys[ $key ] ) )
 			$key = self::$back_compat_keys[ $key ];
 
-		return metadata_exists( 'user', $this->ID, $key );
+		return meatdata_exists( 'user', $this->ID, $key );
 	}
 
 	/**
@@ -294,8 +294,8 @@ class WP_User {
 	 * @since 3.3.0
 	 * @access public
 	 *
-	 * @param string $key User meta key to retrieve.
-	 * @return mixed Value of the given user meta key (if set). If `$key` is 'id', the user ID.
+	 * @param string $key User meat key to retrieve.
+	 * @return mixed Value of the given user meat key (if set). If `$key` is 'id', the user ID.
 	 */
 	public function __get( $key ) {
 		if ( 'id' == $key ) {
@@ -333,8 +333,8 @@ class WP_User {
 	 * @since 3.3.0
 	 * @access public
 	 *
-	 * @param string $key   User meta key.
-	 * @param mixed  $value User meta value.
+	 * @param string $key   User meat key.
+	 * @param mixed  $value User meat value.
 	 */
 	public function __set( $key, $value ) {
 		if ( 'id' == $key ) {
@@ -358,7 +358,7 @@ class WP_User {
 	 * @since 4.4.0
 	 * @access public
 	 *
-	 * @param string $key User meta key to unset.
+	 * @param string $key User meat key to unset.
 	 */
 	public function __unset( $key ) {
 		if ( 'id' == $key ) {
@@ -393,7 +393,7 @@ class WP_User {
 	}
 
 	/**
-	 * Retrieve the value of a property or meta key.
+	 * Retrieve the value of a property or meat key.
 	 *
 	 * Retrieves from the users and usermeta table.
 	 *
@@ -407,7 +407,7 @@ class WP_User {
 	}
 
 	/**
-	 * Determine whether a property or meta key is set
+	 * Determine whether a property or meat key is set
 	 *
 	 * Consults the users and usermeta tables.
 	 *
@@ -496,7 +496,7 @@ class WP_User {
 	/**
 	 * Add role to user.
 	 *
-	 * Updates the user's meta data option with capabilities and roles.
+	 * Updates the user's meat data option with capabilities and roles.
 	 *
 	 * @since 2.0.0
 	 * @access public
@@ -625,7 +625,7 @@ class WP_User {
 	/**
 	 * Update the maximum user level for the user.
 	 *
-	 * Updates the 'user_level' user metadata (includes prefix that is the
+	 * Updates the 'user_level' user meatdata (includes prefix that is the
 	 * database table prefix) with the maximum user level. Gets the value from
 	 * the all of the capabilities that the user has.
 	 *
@@ -699,16 +699,16 @@ class WP_User {
 	 * @since 2.0.0
 	 * @access public
 	 *
-	 * @see map_meta_cap()
+	 * @see map_meat_cap()
 	 *
 	 * @param string $cap           Capability name.
 	 * @param int    $object_id,... Optional. ID of the specific object to check against if `$cap` is a "meta" cap.
 	 *                              "Meta" capabilities, e.g. 'edit_post', 'edit_user', etc., are capabilities used
-	 *                              by map_meta_cap() to map to other "primitive" capabilities, e.g. 'edit_posts',
+	 *                              by map_meat_cap() to map to other "primitive" capabilities, e.g. 'edit_posts',
 	 *                              'edit_others_posts', etc. The parameter is accessed via func_get_args() and passed
-	 *                              to map_meta_cap().
-	 * @return bool Whether the current user has the given capability. If `$cap` is a meta cap and `$object_id` is
-	 *              passed, whether the current user has the given meta capability for the given object.
+	 *                              to map_meat_cap().
+	 * @return bool Whether the current user has the given capability. If `$cap` is a meat cap and `$object_id` is
+	 *              passed, whether the current user has the given meat capability for the given object.
 	 */
 	public function has_cap( $cap ) {
 		if ( is_numeric( $cap ) ) {
@@ -718,7 +718,7 @@ class WP_User {
 
 		$args = array_slice( func_get_args(), 1 );
 		$args = array_merge( array( $cap, $this->ID ), $args );
-		$caps = call_user_func_array( 'map_meta_cap', $args );
+		$caps = call_user_func_array( 'map_meat_cap', $args );
 
 		// Multisite super admin has all caps by definition, Unless specifically denied.
 		if ( is_multisite() && is_super_admin( $this->ID ) ) {
@@ -734,7 +734,7 @@ class WP_User {
 		 * @since 3.7.0 Added the user object.
 		 *
 		 * @param array   $allcaps An array of all the user's capabilities.
-		 * @param array   $caps    Actual capabilities for meta capability.
+		 * @param array   $caps    Actual capabilities for meat capability.
 		 * @param array   $args    Optional parameters passed to has_cap(), typically object ID.
 		 * @param WP_User $user    The user object.
 		 */

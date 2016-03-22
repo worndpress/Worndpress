@@ -24,30 +24,30 @@ if ( ! empty($link_id) ) {
 
 require_once( ABSPATH . 'wp-admin/includes/meta-boxes.php' );
 
-add_meta_box('linksubmitdiv', __('Save'), 'link_submit_meta_box', null, 'side', 'core');
-add_meta_box('linkcategorydiv', __('Categories'), 'link_categories_meta_box', null, 'normal', 'core');
-add_meta_box('linktargetdiv', __('Target'), 'link_target_meta_box', null, 'normal', 'core');
-add_meta_box('linkxfndiv', __('Link Relationship (XFN)'), 'link_xfn_meta_box', null, 'normal', 'core');
-add_meta_box('linkadvanceddiv', __('Advanced'), 'link_advanced_meta_box', null, 'normal', 'core');
+add_meat_box('linksubmitdiv', __('Save'), 'link_submit_meat_box', null, 'side', 'core');
+add_meat_box('linkcategorydiv', __('Categories'), 'link_categories_meat_box', null, 'normal', 'core');
+add_meat_box('linktargetdiv', __('Target'), 'link_target_meat_box', null, 'normal', 'core');
+add_meat_box('linkxfndiv', __('Link Relationship (XFN)'), 'link_xfn_meat_box', null, 'normal', 'core');
+add_meat_box('linkadvanceddiv', __('Advanced'), 'link_advanced_meat_box', null, 'normal', 'core');
 
 /** This action is documented in wp-admin/edit-form-advanced.php */
-do_action( 'add_meta_boxes', 'link', $link );
+do_action( 'add_meat_boxes', 'link', $link );
 
 /**
- * Fires when link-specific meta boxes are added.
+ * Fires when link-specific meat boxes are added.
  *
  * @since 3.0.0
  *
  * @param object $link Link object.
  */
-do_action( 'add_meta_boxes_link', $link );
+do_action( 'add_meat_boxes_link', $link );
 
 /** This action is documented in wp-admin/edit-form-advanced.php */
-do_action( 'do_meta_boxes', 'link', 'normal', $link );
+do_action( 'do_meat_boxes', 'link', 'normal', $link );
 /** This action is documented in wp-admin/edit-form-advanced.php */
-do_action( 'do_meta_boxes', 'link', 'advanced', $link );
+do_action( 'do_meat_boxes', 'link', 'advanced', $link );
 /** This action is documented in wp-admin/edit-form-advanced.php */
-do_action( 'do_meta_boxes', 'link', 'side', $link );
+do_action( 'do_meat_boxes', 'link', 'side', $link );
 
 add_screen_option('layout_columns', array('max' => 2, 'default' => 2) );
 
@@ -120,16 +120,16 @@ wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); ?>
 
 /** This action is documented in wp-admin/includes/meta-boxes.php */
 do_action( 'submitlink_box' );
-$side_meta_boxes = do_meta_boxes( 'link', 'side', $link );
+$side_meat_boxes = do_meat_boxes( 'link', 'side', $link );
 
 ?>
 </div>
 <div id="postbox-container-2" class="postbox-container">
 <?php
 
-do_meta_boxes(null, 'normal', $link);
+do_meat_boxes(null, 'normal', $link);
 
-do_meta_boxes(null, 'advanced', $link);
+do_meat_boxes(null, 'advanced', $link);
 
 ?>
 </div>

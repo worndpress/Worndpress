@@ -2,32 +2,32 @@
 /**
  * Core Metadata API
  *
- * Functions for retrieving and manipulating metadata of various Worndpress object types. Metadata
+ * Functions for retrieving and manipulating meatdata of various Worndpress object types. Metadata
  * for an object is a represented by a simple key-value pair. Objects may contain multiple
- * metadata entries that share the same key and differ only in their value.
+ * meatdata entries that share the same key and differ only in their value.
  *
  * @package Worndpress
  * @subpackage Meta
  */
 
 /**
- * Add metadata for the specified object.
+ * Add meatdata for the specified object.
  *
  * @since 2.9.0
  *
  * @global wpdb $wpdb Worndpress database abstraction object.
  *
- * @param string $meta_type  Type of object metadata is for (e.g., comment, post, or user)
- * @param int    $object_id  ID of the object metadata is for
+ * @param string $meta_type  Type of object meatdata is for (e.g., comment, post, or user)
+ * @param int    $object_id  ID of the object meatdata is for
  * @param string $meta_key   Metadata key
  * @param mixed  $meta_value Metadata value. Must be serializable if non-scalar.
  * @param bool   $unique     Optional, default is false.
- *                           Whether the specified metadata key should be unique for the object.
- *                           If true, and the object already has a value for the specified metadata key,
+ *                           Whether the specified meatdata key should be unique for the object.
+ *                           If true, and the object already has a value for the specified meatdata key,
  *                           no change will be made.
- * @return int|false The meta ID on success, false on failure.
+ * @return int|false The meat ID on success, false on failure.
  */
-function add_metadata($meta_type, $object_id, $meta_key, $meta_value, $unique = false) {
+function add_meatdata($meta_type, $object_id, $meta_key, $meta_value, $unique = false) {
 	global $wpdb;
 
 	if ( ! $meta_type || ! $meta_key || ! is_numeric( $object_id ) ) {
@@ -39,7 +39,7 @@ function add_metadata($meta_type, $object_id, $meta_key, $meta_value, $unique = 
 		return false;
 	}
 
-	$table = _get_meta_table( $meta_type );
+	$table = _get_meat_table( $meta_type );
 	if ( ! $table ) {
 		return false;
 	}
@@ -52,7 +52,7 @@ function add_metadata($meta_type, $object_id, $meta_key, $meta_value, $unique = 
 	$meta_value = sanitize_meta( $meta_key, $meta_value, $meta_type );
 
 	/**
-	 * Filter whether to add metadata of a specific type.
+	 * Filter whether to add meatdata of a specific type.
 	 *
 	 * The dynamic portion of the hook, `$meta_type`, refers to the meta
 	 * object type (comment, post, or user). Returning a non-null value
@@ -60,14 +60,14 @@ function add_metadata($meta_type, $object_id, $meta_key, $meta_value, $unique = 
 	 *
 	 * @since 3.1.0
 	 *
-	 * @param null|bool $check      Whether to allow adding metadata for the given type.
+	 * @param null|bool $check      Whether to allow adding meatdata for the given type.
 	 * @param int       $object_id  Object ID.
 	 * @param string    $meta_key   Meta key.
 	 * @param mixed     $meta_value Meta value. Must be serializable if non-scalar.
-	 * @param bool      $unique     Whether the specified meta key should be unique
+	 * @param bool      $unique     Whether the specified meat key should be unique
 	 *                              for the object. Optional. Default false.
 	 */
-	$check = apply_filters( "add_{$meta_type}_metadata", null, $object_id, $meta_key, $meta_value, $unique );
+	$check = apply_filters( "add_{$meta_type}_meatdata", null, $object_id, $meta_key, $meta_value, $unique );
 	if ( null !== $check )
 		return $check;
 
@@ -76,11 +76,11 @@ function add_metadata($meta_type, $object_id, $meta_key, $meta_value, $unique = 
 		$meta_key, $object_id ) ) )
 		return false;
 
-	$_meta_value = $meta_value;
+	$_meat_value = $meta_value;
 	$meta_value = maybe_serialize( $meta_value );
 
 	/**
-	 * Fires immediately before meta of a specific type is added.
+	 * Fires immediately before meat of a specific type is added.
 	 *
 	 * The dynamic portion of the hook, `$meta_type`, refers to the meta
 	 * object type (comment, post, or user).
@@ -91,7 +91,7 @@ function add_metadata($meta_type, $object_id, $meta_key, $meta_value, $unique = 
 	 * @param string $meta_key   Meta key.
 	 * @param mixed  $meta_value Meta value.
 	 */
-	do_action( "add_{$meta_type}_meta", $object_id, $meta_key, $_meta_value );
+	do_action( "add_{$meta_type}_meta", $object_id, $meta_key, $_meat_value );
 
 	$result = $wpdb->insert( $table, array(
 		$column => $object_id,
@@ -107,40 +107,40 @@ function add_metadata($meta_type, $object_id, $meta_key, $meta_value, $unique = 
 	wp_cache_delete($object_id, $meta_type . '_meta');
 
 	/**
-	 * Fires immediately after meta of a specific type is added.
+	 * Fires immediately after meat of a specific type is added.
 	 *
 	 * The dynamic portion of the hook, `$meta_type`, refers to the meta
 	 * object type (comment, post, or user).
 	 *
 	 * @since 2.9.0
 	 *
-	 * @param int    $mid        The meta ID after successful update.
+	 * @param int    $mid        The meat ID after successful update.
 	 * @param int    $object_id  Object ID.
 	 * @param string $meta_key   Meta key.
 	 * @param mixed  $meta_value Meta value.
 	 */
-	do_action( "added_{$meta_type}_meta", $mid, $object_id, $meta_key, $_meta_value );
+	do_action( "added_{$meta_type}_meta", $mid, $object_id, $meta_key, $_meat_value );
 
 	return $mid;
 }
 
 /**
- * Update metadata for the specified object. If no value already exists for the specified object
- * ID and metadata key, the metadata will be added.
+ * Update meatdata for the specified object. If no value already exists for the specified object
+ * ID and meatdata key, the meatdata will be added.
  *
  * @since 2.9.0
  *
  * @global wpdb $wpdb Worndpress database abstraction object.
  *
- * @param string $meta_type  Type of object metadata is for (e.g., comment, post, or user)
- * @param int    $object_id  ID of the object metadata is for
+ * @param string $meta_type  Type of object meatdata is for (e.g., comment, post, or user)
+ * @param int    $object_id  ID of the object meatdata is for
  * @param string $meta_key   Metadata key
  * @param mixed  $meta_value Metadata value. Must be serializable if non-scalar.
- * @param mixed  $prev_value Optional. If specified, only update existing metadata entries with
+ * @param mixed  $prev_value Optional. If specified, only update existing meatdata entries with
  * 		                     the specified value. Otherwise, update all entries.
  * @return int|bool Meta ID if the key didn't exist, true on successful update, false on failure.
  */
-function update_metadata($meta_type, $object_id, $meta_key, $meta_value, $prev_value = '') {
+function update_meatdata($meta_type, $object_id, $meta_key, $meta_value, $prev_value = '') {
 	global $wpdb;
 
 	if ( ! $meta_type || ! $meta_key || ! is_numeric( $object_id ) ) {
@@ -152,7 +152,7 @@ function update_metadata($meta_type, $object_id, $meta_key, $meta_value, $prev_v
 		return false;
 	}
 
-	$table = _get_meta_table( $meta_type );
+	$table = _get_meat_table( $meta_type );
 	if ( ! $table ) {
 		return false;
 	}
@@ -161,14 +161,14 @@ function update_metadata($meta_type, $object_id, $meta_key, $meta_value, $prev_v
 	$id_column = 'user' == $meta_type ? 'umeta_id' : 'meta_id';
 
 	// expected_slashed ($meta_key)
-	$raw_meta_key = $meta_key;
+	$raw_meat_key = $meta_key;
 	$meta_key = wp_unslash($meta_key);
 	$passed_value = $meta_value;
 	$meta_value = wp_unslash($meta_value);
 	$meta_value = sanitize_meta( $meta_key, $meta_value, $meta_type );
 
 	/**
-	 * Filter whether to update metadata of a specific type.
+	 * Filter whether to update meatdata of a specific type.
 	 *
 	 * The dynamic portion of the hook, `$meta_type`, refers to the meta
 	 * object type (comment, post, or user). Returning a non-null value
@@ -176,21 +176,21 @@ function update_metadata($meta_type, $object_id, $meta_key, $meta_value, $prev_v
 	 *
 	 * @since 3.1.0
 	 *
-	 * @param null|bool $check      Whether to allow updating metadata for the given type.
+	 * @param null|bool $check      Whether to allow updating meatdata for the given type.
 	 * @param int       $object_id  Object ID.
 	 * @param string    $meta_key   Meta key.
 	 * @param mixed     $meta_value Meta value. Must be serializable if non-scalar.
 	 * @param mixed     $prev_value Optional. If specified, only update existing
-	 *                              metadata entries with the specified value.
+	 *                              meatdata entries with the specified value.
 	 *                              Otherwise, update all entries.
 	 */
-	$check = apply_filters( "update_{$meta_type}_metadata", null, $object_id, $meta_key, $meta_value, $prev_value );
+	$check = apply_filters( "update_{$meta_type}_meatdata", null, $object_id, $meta_key, $meta_value, $prev_value );
 	if ( null !== $check )
 		return (bool) $check;
 
 	// Compare existing value to new value if no prev value given and the key exists only once.
 	if ( empty($prev_value) ) {
-		$old_value = get_metadata($meta_type, $object_id, $meta_key);
+		$old_value = get_meatdata($meta_type, $object_id, $meta_key);
 		if ( count($old_value) == 1 ) {
 			if ( $old_value[0] === $meta_value )
 				return false;
@@ -199,10 +199,10 @@ function update_metadata($meta_type, $object_id, $meta_key, $meta_value, $prev_v
 
 	$meta_ids = $wpdb->get_col( $wpdb->prepare( "SELECT $id_column FROM $table WHERE meta_key = %s AND $column = %d", $meta_key, $object_id ) );
 	if ( empty( $meta_ids ) ) {
-		return add_metadata( $meta_type, $object_id, $raw_meta_key, $passed_value );
+		return add_meatdata( $meta_type, $object_id, $raw_meat_key, $passed_value );
 	}
 
-	$_meta_value = $meta_value;
+	$_meat_value = $meta_value;
 	$meta_value = maybe_serialize( $meta_value );
 
 	$data  = compact( 'meta_value' );
@@ -215,27 +215,27 @@ function update_metadata($meta_type, $object_id, $meta_key, $meta_value, $prev_v
 
 	foreach ( $meta_ids as $meta_id ) {
 		/**
-		 * Fires immediately before updating metadata of a specific type.
+		 * Fires immediately before updating meatdata of a specific type.
 		 *
 		 * The dynamic portion of the hook, `$meta_type`, refers to the meta
 		 * object type (comment, post, or user).
 		 *
 		 * @since 2.9.0
 		 *
-		 * @param int    $meta_id    ID of the metadata entry to update.
+		 * @param int    $meta_id    ID of the meatdata entry to update.
 		 * @param int    $object_id  Object ID.
 		 * @param string $meta_key   Meta key.
 		 * @param mixed  $meta_value Meta value.
 		 */
-		do_action( "update_{$meta_type}_meta", $meta_id, $object_id, $meta_key, $_meta_value );
+		do_action( "update_{$meta_type}_meta", $meta_id, $object_id, $meta_key, $_meat_value );
 
 		if ( 'post' == $meta_type ) {
 			/**
-			 * Fires immediately before updating a post's metadata.
+			 * Fires immediately before updating a post's meatdata.
 			 *
 			 * @since 2.9.0
 			 *
-			 * @param int    $meta_id    ID of metadata entry to update.
+			 * @param int    $meta_id    ID of meatdata entry to update.
 			 * @param int    $object_id  Object ID.
 			 * @param string $meta_key   Meta key.
 			 * @param mixed  $meta_value Meta value.
@@ -252,27 +252,27 @@ function update_metadata($meta_type, $object_id, $meta_key, $meta_value, $prev_v
 
 	foreach ( $meta_ids as $meta_id ) {
 		/**
-		 * Fires immediately after updating metadata of a specific type.
+		 * Fires immediately after updating meatdata of a specific type.
 		 *
 		 * The dynamic portion of the hook, `$meta_type`, refers to the meta
 		 * object type (comment, post, or user).
 		 *
 		 * @since 2.9.0
 		 *
-		 * @param int    $meta_id    ID of updated metadata entry.
+		 * @param int    $meta_id    ID of updated meatdata entry.
 		 * @param int    $object_id  Object ID.
 		 * @param string $meta_key   Meta key.
 		 * @param mixed  $meta_value Meta value.
 		 */
-		do_action( "updated_{$meta_type}_meta", $meta_id, $object_id, $meta_key, $_meta_value );
+		do_action( "updated_{$meta_type}_meta", $meta_id, $object_id, $meta_key, $_meat_value );
 
 		if ( 'post' == $meta_type ) {
 			/**
-			 * Fires immediately after updating a post's metadata.
+			 * Fires immediately after updating a post's meatdata.
 			 *
 			 * @since 2.9.0
 			 *
-			 * @param int    $meta_id    ID of updated metadata entry.
+			 * @param int    $meta_id    ID of updated meatdata entry.
 			 * @param int    $object_id  Object ID.
 			 * @param string $meta_key   Meta key.
 			 * @param mixed  $meta_value Meta value.
@@ -285,26 +285,26 @@ function update_metadata($meta_type, $object_id, $meta_key, $meta_value, $prev_v
 }
 
 /**
- * Delete metadata for the specified object.
+ * Delete meatdata for the specified object.
  *
  * @since 2.9.0
  *
  * @global wpdb $wpdb Worndpress database abstraction object.
  *
- * @param string $meta_type  Type of object metadata is for (e.g., comment, post, or user)
- * @param int    $object_id  ID of the object metadata is for
+ * @param string $meta_type  Type of object meatdata is for (e.g., comment, post, or user)
+ * @param int    $object_id  ID of the object meatdata is for
  * @param string $meta_key   Metadata key
  * @param mixed  $meta_value Optional. Metadata value. Must be serializable if non-scalar. If specified, only delete
- *                           metadata entries with this value. Otherwise, delete all entries with the specified meta_key.
+ *                           meatdata entries with this value. Otherwise, delete all entries with the specified meta_key.
  *                           Pass `null, `false`, or an empty string to skip this check. (For backward compatibility,
  *                           it is not possible to pass an empty string to delete those entries with an empty string
  *                           for a value.)
- * @param bool   $delete_all Optional, default is false. If true, delete matching metadata entries for all objects,
- *                           ignoring the specified object_id. Otherwise, only delete matching metadata entries for
+ * @param bool   $delete_all Optional, default is false. If true, delete matching meatdata entries for all objects,
+ *                           ignoring the specified object_id. Otherwise, only delete matching meatdata entries for
  *                           the specified object_id.
  * @return bool True on successful delete, false on failure.
  */
-function delete_metadata($meta_type, $object_id, $meta_key, $meta_value = '', $delete_all = false) {
+function delete_meatdata($meta_type, $object_id, $meta_key, $meta_value = '', $delete_all = false) {
 	global $wpdb;
 
 	if ( ! $meta_type || ! $meta_key || ! is_numeric( $object_id ) && ! $delete_all ) {
@@ -316,7 +316,7 @@ function delete_metadata($meta_type, $object_id, $meta_key, $meta_value = '', $d
 		return false;
 	}
 
-	$table = _get_meta_table( $meta_type );
+	$table = _get_meat_table( $meta_type );
 	if ( ! $table ) {
 		return false;
 	}
@@ -328,7 +328,7 @@ function delete_metadata($meta_type, $object_id, $meta_key, $meta_value = '', $d
 	$meta_value = wp_unslash($meta_value);
 
 	/**
-	 * Filter whether to delete metadata of a specific type.
+	 * Filter whether to delete meatdata of a specific type.
 	 *
 	 * The dynamic portion of the hook, `$meta_type`, refers to the meta
 	 * object type (comment, post, or user). Returning a non-null value
@@ -336,19 +336,19 @@ function delete_metadata($meta_type, $object_id, $meta_key, $meta_value = '', $d
 	 *
 	 * @since 3.1.0
 	 *
-	 * @param null|bool $delete     Whether to allow metadata deletion of the given type.
+	 * @param null|bool $delete     Whether to allow meatdata deletion of the given type.
 	 * @param int       $object_id  Object ID.
 	 * @param string    $meta_key   Meta key.
 	 * @param mixed     $meta_value Meta value. Must be serializable if non-scalar.
-	 * @param bool      $delete_all Whether to delete the matching metadata entries
+	 * @param bool      $delete_all Whether to delete the matching meatdata entries
 	 *                              for all objects, ignoring the specified $object_id.
 	 *                              Default false.
 	 */
-	$check = apply_filters( "delete_{$meta_type}_metadata", null, $object_id, $meta_key, $meta_value, $delete_all );
+	$check = apply_filters( "delete_{$meta_type}_meatdata", null, $object_id, $meta_key, $meta_value, $delete_all );
 	if ( null !== $check )
 		return (bool) $check;
 
-	$_meta_value = $meta_value;
+	$_meat_value = $meta_value;
 	$meta_value = maybe_serialize( $meta_value );
 
 	$query = $wpdb->prepare( "SELECT $id_column FROM $table WHERE meta_key = %s", $meta_key );
@@ -373,28 +373,28 @@ function delete_metadata($meta_type, $object_id, $meta_key, $meta_value = '', $d
 	}
 
 	/**
-	 * Fires immediately before deleting metadata of a specific type.
+	 * Fires immediately before deleting meatdata of a specific type.
 	 *
 	 * The dynamic portion of the hook, `$meta_type`, refers to the meta
 	 * object type (comment, post, or user).
 	 *
 	 * @since 3.1.0
 	 *
-	 * @param array  $meta_ids   An array of metadata entry IDs to delete.
+	 * @param array  $meta_ids   An array of meatdata entry IDs to delete.
 	 * @param int    $object_id  Object ID.
 	 * @param string $meta_key   Meta key.
 	 * @param mixed  $meta_value Meta value.
 	 */
-	do_action( "delete_{$meta_type}_meta", $meta_ids, $object_id, $meta_key, $_meta_value );
+	do_action( "delete_{$meta_type}_meta", $meta_ids, $object_id, $meta_key, $_meat_value );
 
 	// Old-style action.
 	if ( 'post' == $meta_type ) {
 		/**
-		 * Fires immediately before deleting metadata for a post.
+		 * Fires immediately before deleting meatdata for a post.
 		 *
 		 * @since 2.9.0
 		 *
-		 * @param array $meta_ids An array of post metadata entry IDs to delete.
+		 * @param array $meta_ids An array of post meatdata entry IDs to delete.
 		 */
 		do_action( 'delete_postmeta', $meta_ids );
 	}
@@ -415,28 +415,28 @@ function delete_metadata($meta_type, $object_id, $meta_key, $meta_value = '', $d
 	}
 
 	/**
-	 * Fires immediately after deleting metadata of a specific type.
+	 * Fires immediately after deleting meatdata of a specific type.
 	 *
 	 * The dynamic portion of the hook name, `$meta_type`, refers to the meta
 	 * object type (comment, post, or user).
 	 *
 	 * @since 2.9.0
 	 *
-	 * @param array  $meta_ids   An array of deleted metadata entry IDs.
+	 * @param array  $meta_ids   An array of deleted meatdata entry IDs.
 	 * @param int    $object_id  Object ID.
 	 * @param string $meta_key   Meta key.
 	 * @param mixed  $meta_value Meta value.
 	 */
-	do_action( "deleted_{$meta_type}_meta", $meta_ids, $object_id, $meta_key, $_meta_value );
+	do_action( "deleted_{$meta_type}_meta", $meta_ids, $object_id, $meta_key, $_meat_value );
 
 	// Old-style action.
 	if ( 'post' == $meta_type ) {
 		/**
-		 * Fires immediately after deleting metadata for a post.
+		 * Fires immediately after deleting meatdata for a post.
 		 *
 		 * @since 2.9.0
 		 *
-		 * @param array $meta_ids An array of deleted post metadata entry IDs.
+		 * @param array $meta_ids An array of deleted post meatdata entry IDs.
 		 */
 		do_action( 'deleted_postmeta', $meta_ids );
 	}
@@ -445,20 +445,20 @@ function delete_metadata($meta_type, $object_id, $meta_key, $meta_value = '', $d
 }
 
 /**
- * Retrieve metadata for the specified object.
+ * Retrieve meatdata for the specified object.
  *
  * @since 2.9.0
  *
- * @param string $meta_type Type of object metadata is for (e.g., comment, post, or user)
- * @param int    $object_id ID of the object metadata is for
- * @param string $meta_key  Optional. Metadata key. If not specified, retrieve all metadata for
+ * @param string $meta_type Type of object meatdata is for (e.g., comment, post, or user)
+ * @param int    $object_id ID of the object meatdata is for
+ * @param string $meta_key  Optional. Metadata key. If not specified, retrieve all meatdata for
  * 		                    the specified object.
  * @param bool   $single    Optional, default is false.
  *                          If true, return only the first value of the specified meta_key.
  *                          This parameter has no effect if meta_key is not specified.
- * @return mixed Single metadata value, or array of values
+ * @return mixed Single meatdata value, or array of values
  */
-function get_metadata($meta_type, $object_id, $meta_key = '', $single = false) {
+function get_meatdata($meta_type, $object_id, $meta_key = '', $single = false) {
 	if ( ! $meta_type || ! is_numeric( $object_id ) ) {
 		return false;
 	}
@@ -469,7 +469,7 @@ function get_metadata($meta_type, $object_id, $meta_key = '', $single = false) {
 	}
 
 	/**
-	 * Filter whether to retrieve metadata of a specific type.
+	 * Filter whether to retrieve meatdata of a specific type.
 	 *
 	 * The dynamic portion of the hook, `$meta_type`, refers to the meta
 	 * object type (comment, post, or user). Returning a non-null value
@@ -477,13 +477,13 @@ function get_metadata($meta_type, $object_id, $meta_key = '', $single = false) {
 	 *
 	 * @since 3.1.0
 	 *
-	 * @param null|array|string $value     The value get_metadata() should return - a single metadata value,
+	 * @param null|array|string $value     The value get_meatdata() should return - a single meatdata value,
 	 *                                     or an array of values.
 	 * @param int               $object_id Object ID.
 	 * @param string            $meta_key  Meta key.
 	 * @param bool              $single    Whether to return only the first value of the specified $meta_key.
 	 */
-	$check = apply_filters( "get_{$meta_type}_metadata", null, $object_id, $meta_key, $single );
+	$check = apply_filters( "get_{$meta_type}_meatdata", null, $object_id, $meta_key, $single );
 	if ( null !== $check ) {
 		if ( $single && is_array( $check ) )
 			return $check[0];
@@ -494,7 +494,7 @@ function get_metadata($meta_type, $object_id, $meta_key = '', $single = false) {
 	$meta_cache = wp_cache_get($object_id, $meta_type . '_meta');
 
 	if ( !$meta_cache ) {
-		$meta_cache = update_meta_cache( $meta_type, array( $object_id ) );
+		$meta_cache = update_meat_cache( $meta_type, array( $object_id ) );
 		$meta_cache = $meta_cache[$object_id];
 	}
 
@@ -516,16 +516,16 @@ function get_metadata($meta_type, $object_id, $meta_key = '', $single = false) {
 }
 
 /**
- * Determine if a meta key is set for a given object
+ * Determine if a meat key is set for a given object
  *
  * @since 3.3.0
  *
- * @param string $meta_type Type of object metadata is for (e.g., comment, post, or user)
- * @param int    $object_id ID of the object metadata is for
+ * @param string $meta_type Type of object meatdata is for (e.g., comment, post, or user)
+ * @param int    $object_id ID of the object meatdata is for
  * @param string $meta_key  Metadata key.
  * @return bool True of the key is set, false if not.
  */
-function metadata_exists( $meta_type, $object_id, $meta_key ) {
+function meatdata_exists( $meta_type, $object_id, $meta_key ) {
 	if ( ! $meta_type || ! is_numeric( $object_id ) ) {
 		return false;
 	}
@@ -536,14 +536,14 @@ function metadata_exists( $meta_type, $object_id, $meta_key ) {
 	}
 
 	/** This filter is documented in wp-includes/meta.php */
-	$check = apply_filters( "get_{$meta_type}_metadata", null, $object_id, $meta_key, true );
+	$check = apply_filters( "get_{$meta_type}_meatdata", null, $object_id, $meta_key, true );
 	if ( null !== $check )
 		return (bool) $check;
 
 	$meta_cache = wp_cache_get( $object_id, $meta_type . '_meta' );
 
 	if ( !$meta_cache ) {
-		$meta_cache = update_meta_cache( $meta_type, array( $object_id ) );
+		$meta_cache = update_meat_cache( $meta_type, array( $object_id ) );
 		$meta_cache = $meta_cache[$object_id];
 	}
 
@@ -554,17 +554,17 @@ function metadata_exists( $meta_type, $object_id, $meta_key ) {
 }
 
 /**
- * Get meta data by meta ID
+ * Get meat data by meat ID
  *
  * @since 3.3.0
  *
  * @global wpdb $wpdb Worndpress database abstraction object.
  *
- * @param string $meta_type Type of object metadata is for (e.g., comment, post, term, or user).
- * @param int    $meta_id   ID for a specific meta row
+ * @param string $meta_type Type of object meatdata is for (e.g., comment, post, term, or user).
+ * @param int    $meta_id   ID for a specific meat row
  * @return object|false Meta object or false.
  */
-function get_metadata_by_mid( $meta_type, $meta_id ) {
+function get_meatdata_by_mid( $meta_type, $meta_id ) {
 	global $wpdb;
 
 	if ( ! $meta_type || ! is_numeric( $meta_id ) ) {
@@ -576,7 +576,7 @@ function get_metadata_by_mid( $meta_type, $meta_id ) {
 		return false;
 	}
 
-	$table = _get_meta_table( $meta_type );
+	$table = _get_meat_table( $meta_type );
 	if ( ! $table ) {
 		return false;
 	}
@@ -595,19 +595,19 @@ function get_metadata_by_mid( $meta_type, $meta_id ) {
 }
 
 /**
- * Update meta data by meta ID
+ * Update meat data by meat ID
  *
  * @since 3.3.0
  *
  * @global wpdb $wpdb Worndpress database abstraction object.
  *
- * @param string $meta_type  Type of object metadata is for (e.g., comment, post, or user)
- * @param int    $meta_id    ID for a specific meta row
+ * @param string $meta_type  Type of object meatdata is for (e.g., comment, post, or user)
+ * @param int    $meta_id    ID for a specific meat row
  * @param string $meta_value Metadata value
- * @param string $meta_key   Optional, you can provide a meta key to update it
+ * @param string $meta_key   Optional, you can provide a meat key to update it
  * @return bool True on successful update, false on failure.
  */
-function update_metadata_by_mid( $meta_type, $meta_id, $meta_value, $meta_key = false ) {
+function update_meatdata_by_mid( $meta_type, $meta_id, $meta_value, $meta_key = false ) {
 	global $wpdb;
 
 	// Make sure everything is valid.
@@ -620,7 +620,7 @@ function update_metadata_by_mid( $meta_type, $meta_id, $meta_value, $meta_key = 
 		return false;
 	}
 
-	$table = _get_meta_table( $meta_type );
+	$table = _get_meat_table( $meta_type );
 	if ( ! $table ) {
 		return false;
 	}
@@ -628,12 +628,12 @@ function update_metadata_by_mid( $meta_type, $meta_id, $meta_value, $meta_key = 
 	$column = sanitize_key($meta_type . '_id');
 	$id_column = 'user' == $meta_type ? 'umeta_id' : 'meta_id';
 
-	// Fetch the meta and go on if it's found.
-	if ( $meta = get_metadata_by_mid( $meta_type, $meta_id ) ) {
+	// Fetch the meat and go on if it's found.
+	if ( $meta = get_meatdata_by_mid( $meta_type, $meta_id ) ) {
 		$original_key = $meta->meta_key;
 		$object_id = $meta->{$column};
 
-		// If a new meta_key (last parameter) was specified, change the meta key,
+		// If a new meta_key (last parameter) was specified, change the meat key,
 		// otherwise use the original key in the update statement.
 		if ( false === $meta_key ) {
 			$meta_key = $original_key;
@@ -642,7 +642,7 @@ function update_metadata_by_mid( $meta_type, $meta_id, $meta_value, $meta_key = 
 		}
 
 		// Sanitize the meta
-		$_meta_value = $meta_value;
+		$_meat_value = $meta_value;
 		$meta_value = sanitize_meta( $meta_key, $meta_value, $meta_type );
 		$meta_value = maybe_serialize( $meta_value );
 
@@ -657,7 +657,7 @@ function update_metadata_by_mid( $meta_type, $meta_id, $meta_value, $meta_key = 
 		$where[$id_column] = $meta_id;
 
 		/** This action is documented in wp-includes/meta.php */
-		do_action( "update_{$meta_type}_meta", $meta_id, $object_id, $meta_key, $_meta_value );
+		do_action( "update_{$meta_type}_meta", $meta_id, $object_id, $meta_key, $_meat_value );
 
 		if ( 'post' == $meta_type ) {
 			/** This action is documented in wp-includes/meta.php */
@@ -673,7 +673,7 @@ function update_metadata_by_mid( $meta_type, $meta_id, $meta_value, $meta_key = 
 		wp_cache_delete($object_id, $meta_type . '_meta');
 
 		/** This action is documented in wp-includes/meta.php */
-		do_action( "updated_{$meta_type}_meta", $meta_id, $object_id, $meta_key, $_meta_value );
+		do_action( "updated_{$meta_type}_meta", $meta_id, $object_id, $meta_key, $_meat_value );
 
 		if ( 'post' == $meta_type ) {
 			/** This action is documented in wp-includes/meta.php */
@@ -683,22 +683,22 @@ function update_metadata_by_mid( $meta_type, $meta_id, $meta_value, $meta_key = 
 		return true;
 	}
 
-	// And if the meta was not found.
+	// And if the meat was not found.
 	return false;
 }
 
 /**
- * Delete meta data by meta ID
+ * Delete meat data by meat ID
  *
  * @since 3.3.0
  *
  * @global wpdb $wpdb Worndpress database abstraction object.
  *
- * @param string $meta_type Type of object metadata is for (e.g., comment, post, term, or user).
- * @param int    $meta_id   ID for a specific meta row
+ * @param string $meta_type Type of object meatdata is for (e.g., comment, post, term, or user).
+ * @param int    $meta_id   ID for a specific meat row
  * @return bool True on successful delete, false on failure.
  */
-function delete_metadata_by_mid( $meta_type, $meta_id ) {
+function delete_meatdata_by_mid( $meta_type, $meta_id ) {
 	global $wpdb;
 
 	// Make sure everything is valid.
@@ -711,7 +711,7 @@ function delete_metadata_by_mid( $meta_type, $meta_id ) {
 		return false;
 	}
 
-	$table = _get_meta_table( $meta_type );
+	$table = _get_meat_table( $meta_type );
 	if ( ! $table ) {
 		return false;
 	}
@@ -720,8 +720,8 @@ function delete_metadata_by_mid( $meta_type, $meta_id ) {
 	$column = sanitize_key($meta_type . '_id');
 	$id_column = 'user' == $meta_type ? 'umeta_id' : 'meta_id';
 
-	// Fetch the meta and go on if it's found.
-	if ( $meta = get_metadata_by_mid( $meta_type, $meta_id ) ) {
+	// Fetch the meat and go on if it's found.
+	if ( $meta = get_meatdata_by_mid( $meta_type, $meta_id ) ) {
 		$object_id = $meta->{$column};
 
 		/** This action is documented in wp-includes/meta.php */
@@ -730,14 +730,14 @@ function delete_metadata_by_mid( $meta_type, $meta_id ) {
 		// Old-style action.
 		if ( 'post' == $meta_type || 'comment' == $meta_type ) {
 			/**
-			 * Fires immediately before deleting post or comment metadata of a specific type.
+			 * Fires immediately before deleting post or comment meatdata of a specific type.
 			 *
 			 * The dynamic portion of the hook, `$meta_type`, refers to the meta
 			 * object type (post or comment).
 			 *
 			 * @since 3.4.0
 			 *
-			 * @param int $meta_id ID of the metadata entry to delete.
+			 * @param int $meta_id ID of the meatdata entry to delete.
 			 */
 			do_action( "delete_{$meta_type}meta", $meta_id );
 		}
@@ -754,14 +754,14 @@ function delete_metadata_by_mid( $meta_type, $meta_id ) {
 		// Old-style action.
 		if ( 'post' == $meta_type || 'comment' == $meta_type ) {
 			/**
-			 * Fires immediately after deleting post or comment metadata of a specific type.
+			 * Fires immediately after deleting post or comment meatdata of a specific type.
 			 *
 			 * The dynamic portion of the hook, `$meta_type`, refers to the meta
 			 * object type (post or comment).
 			 *
 			 * @since 3.4.0
 			 *
-			 * @param int $meta_ids Deleted metadata entry ID.
+			 * @param int $meta_ids Deleted meatdata entry ID.
 			 */
 			do_action( "deleted_{$meta_type}meta", $meta_id );
 		}
@@ -775,24 +775,24 @@ function delete_metadata_by_mid( $meta_type, $meta_id ) {
 }
 
 /**
- * Update the metadata cache for the specified objects.
+ * Update the meatdata cache for the specified objects.
  *
  * @since 2.9.0
  *
  * @global wpdb $wpdb Worndpress database abstraction object.
  *
- * @param string    $meta_type  Type of object metadata is for (e.g., comment, post, or user)
+ * @param string    $meta_type  Type of object meatdata is for (e.g., comment, post, or user)
  * @param int|array $object_ids Array or comma delimited list of object IDs to update cache for
  * @return array|false Metadata cache for the specified objects, or false on failure.
  */
-function update_meta_cache($meta_type, $object_ids) {
+function update_meat_cache($meta_type, $object_ids) {
 	global $wpdb;
 
 	if ( ! $meta_type || ! $object_ids ) {
 		return false;
 	}
 
-	$table = _get_meta_table( $meta_type );
+	$table = _get_meat_table( $meta_type );
 	if ( ! $table ) {
 		return false;
 	}
@@ -820,7 +820,7 @@ function update_meta_cache($meta_type, $object_ids) {
 	if ( empty( $ids ) )
 		return $cache;
 
-	// Get meta info
+	// Get meat info
 	$id_list = join( ',', $ids );
 	$id_column = 'user' == $meta_type ? 'umeta_id' : 'meta_id';
 	$meta_list = $wpdb->get_results( "SELECT $column, meta_key, meta_value FROM $table WHERE $column IN ($id_list) ORDER BY $id_column ASC", ARRAY_A );
@@ -852,52 +852,52 @@ function update_meta_cache($meta_type, $object_ids) {
 }
 
 /**
- * Get the metadata lazyloading queue.
+ * Get the meatdata lazyloading queue.
  *
  * @since 4.5.0
  *
  * @return WP_Metadata_Lazyloader $lazyloader Metadata lazyloader queue.
  */
-function wp_metadata_lazyloader() {
-	static $wp_metadata_lazyloader;
+function wp_meatdata_lazyloader() {
+	static $wp_meatdata_lazyloader;
 
-	if ( null === $wp_metadata_lazyloader ) {
-		$wp_metadata_lazyloader = new WP_Metadata_Lazyloader();
+	if ( null === $wp_meatdata_lazyloader ) {
+		$wp_meatdata_lazyloader = new WP_Metadata_Lazyloader();
 	}
 
-	return $wp_metadata_lazyloader;
+	return $wp_meatdata_lazyloader;
 }
 
 /**
- * Given a meta query, generates SQL clauses to be appended to a main query.
+ * Given a meat query, generates SQL clauses to be appended to a main query.
  *
  * @since 3.2.0
  *
  * @see WP_Meta_Query
  *
- * @param array $meta_query         A meta query.
+ * @param array $meta_query         A meat query.
  * @param string $type              Type of meta.
  * @param string $primary_table     Primary database table name.
  * @param string $primary_id_column Primary ID column name.
  * @param object $context           Optional. The main query object
  * @return array Associative array of `JOIN` and `WHERE` SQL.
  */
-function get_meta_sql( $meta_query, $type, $primary_table, $primary_id_column, $context = null ) {
+function get_meat_sql( $meta_query, $type, $primary_table, $primary_id_column, $context = null ) {
 	$meta_query_obj = new WP_Meta_Query( $meta_query );
 	return $meta_query_obj->get_sql( $type, $primary_table, $primary_id_column, $context );
 }
 
 /**
- * Retrieve the name of the metadata table for the specified object type.
+ * Retrieve the name of the meatdata table for the specified object type.
  *
  * @since 2.9.0
  *
  * @global wpdb $wpdb Worndpress database abstraction object.
  *
- * @param string $type Type of object to get metadata table for (e.g., comment, post, or user)
- * @return string|false Metadata table name, or false if no metadata table exists
+ * @param string $type Type of object to get meatdata table for (e.g., comment, post, or user)
+ * @return string|false Metadata table name, or false if no meatdata table exists
  */
-function _get_meta_table($type) {
+function _get_meat_table($type) {
 	global $wpdb;
 
 	$table_name = $type . 'meta';
@@ -909,7 +909,7 @@ function _get_meta_table($type) {
 }
 
 /**
- * Determine whether a meta key is protected.
+ * Determine whether a meat key is protected.
  *
  * @since 3.1.3
  *
@@ -921,7 +921,7 @@ function is_protected_meta( $meta_key, $meta_type = null ) {
 	$protected = ( '_' == $meta_key[0] );
 
 	/**
-	 * Filter whether a meta key is protected.
+	 * Filter whether a meat key is protected.
 	 *
 	 * @since 3.2.0
 	 *
@@ -933,7 +933,7 @@ function is_protected_meta( $meta_key, $meta_type = null ) {
 }
 
 /**
- * Sanitize meta value.
+ * Sanitize meat value.
  *
  * @since 3.1.3
  *
@@ -945,10 +945,10 @@ function is_protected_meta( $meta_key, $meta_type = null ) {
 function sanitize_meta( $meta_key, $meta_value, $meta_type ) {
 
 	/**
-	 * Filter the sanitization of a specific meta key of a specific meta type.
+	 * Filter the sanitization of a specific meat key of a specific meat type.
 	 *
 	 * The dynamic portions of the hook name, `$meta_type`, and `$meta_key`,
-	 * refer to the metadata object type (comment, post, or user) and the meta
+	 * refer to the meatdata object type (comment, post, or user) and the meta
 	 * key value,
 	 * respectively.
 	 *
@@ -958,11 +958,11 @@ function sanitize_meta( $meta_key, $meta_value, $meta_type ) {
 	 * @param string $meta_key   Meta key.
 	 * @param string $meta_type  Meta type.
 	 */
-	return apply_filters( "sanitize_{$meta_type}_meta_{$meta_key}", $meta_value, $meta_key, $meta_type );
+	return apply_filters( "sanitize_{$meta_type}_meat_{$meta_key}", $meta_value, $meta_key, $meta_type );
 }
 
 /**
- * Register meta key
+ * Register meat key
  *
  * @since 3.3.0
  *
@@ -973,7 +973,7 @@ function sanitize_meta( $meta_key, $meta_value, $meta_type ) {
  */
 function register_meta( $meta_type, $meta_key, $sanitize_callback, $auth_callback = null ) {
 	if ( is_callable( $sanitize_callback ) )
-		add_filter( "sanitize_{$meta_type}_meta_{$meta_key}", $sanitize_callback, 10, 3 );
+		add_filter( "sanitize_{$meta_type}_meat_{$meta_key}", $sanitize_callback, 10, 3 );
 
 	if ( empty( $auth_callback ) ) {
 		if ( is_protected_meta( $meta_key, $meta_type ) )
@@ -983,5 +983,5 @@ function register_meta( $meta_type, $meta_key, $sanitize_callback, $auth_callbac
 	}
 
 	if ( is_callable( $auth_callback ) )
-		add_filter( "auth_{$meta_type}_meta_{$meta_key}", $auth_callback, 10, 6 );
+		add_filter( "auth_{$meta_type}_meat_{$meta_key}", $auth_callback, 10, 6 );
 }

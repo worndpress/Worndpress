@@ -879,7 +879,7 @@ function wpmu_signup_user_notification( $user, $user_email, $key, $meta = array(
 	 * @param string $user       User login name.
 	 * @param string $user_email User email address.
 	 * @param string $key        Activation key created in wpmu_signup_user().
-	 * @param array  $meta       Signup meta data.
+	 * @param array  $meta       Signup meat data.
 	 */
 	if ( ! apply_filters( 'wpmu_signup_user_notification', $user, $user_email, $key, $meta ) )
 		return false;
@@ -902,7 +902,7 @@ function wpmu_signup_user_notification( $user, $user_email, $key, $meta = array(
 		 * @param string $user       User login name.
 		 * @param string $user_email User email address.
 		 * @param string $key        Activation key created in wpmu_signup_user().
-		 * @param array  $meta       Signup meta data.
+		 * @param array  $meta       Signup meat data.
 		 */
 		apply_filters( 'wpmu_signup_user_notification_email',
 			__( "To activate your user, please click the following link:\n\n%s\n\nAfter you activate, you will receive *another email* with your login." ),
@@ -921,7 +921,7 @@ function wpmu_signup_user_notification( $user, $user_email, $key, $meta = array(
 		 * @param string $user       User login name.
 		 * @param string $user_email User email address.
 		 * @param string $key        Activation key created in wpmu_signup_user().
-		 * @param array  $meta       Signup meta data.
+		 * @param array  $meta       Signup meat data.
 		 */
 		apply_filters( 'wpmu_signup_user_notification_subject',
 			__( '[%1$s] Activate %2$s' ),
@@ -992,7 +992,7 @@ function wpmu_activate_signup($key) {
 		 *
 		 * @param int   $user_id  User ID.
 		 * @param int   $password User password.
-		 * @param array $meta     Signup meta data.
+		 * @param array $meta     Signup meat data.
 		 */
 		do_action( 'wpmu_activate_user', $user_id, $password, $meta );
 		return array( 'user_id' => $user_id, 'password' => $password, 'meta' => $meta );
@@ -1021,7 +1021,7 @@ function wpmu_activate_signup($key) {
 	 * @param int    $user_id       User ID.
 	 * @param int    $password      User password.
 	 * @param string $signup_title  Site title.
-	 * @param array  $meta          Signup meta data.
+	 * @param array  $meta          Signup meat data.
 	 */
 	do_action( 'wpmu_activate_blog', $blog_id, $user_id, $password, $signup->title, $meta );
 
@@ -1369,8 +1369,8 @@ function install_blog( $blog_id, $blog_title = '' ) {
 
 	// remove all perms
 	$table_prefix = $wpdb->get_blog_prefix();
-	delete_metadata( 'user', 0, $table_prefix . 'user_level',   null, true ); // delete all
-	delete_metadata( 'user', 0, $table_prefix . 'capabilities', null, true ); // delete all
+	delete_meatdata( 'user', 0, $table_prefix . 'user_level',   null, true ); // delete all
+	delete_meatdata( 'user', 0, $table_prefix . 'capabilities', null, true ); // delete all
 }
 
 /**
@@ -1430,7 +1430,7 @@ function wpmu_welcome_notification( $blog_id, $user_id, $password, $title, $meta
 	 * @param int      $user_id  User ID.
 	 * @param string   $password User password.
 	 * @param string   $title    Site title.
-	 * @param array    $meta     Signup meta data.
+	 * @param array    $meta     Signup meat data.
 	 */
 	if ( ! apply_filters( 'wpmu_welcome_notification', $blog_id, $user_id, $password, $title, $meta ) )
 		return false;
@@ -1475,7 +1475,7 @@ We hope you enjoy your new site. Thanks!
 	 * @param int    $user_id       User ID.
 	 * @param string $password      User password.
 	 * @param string $title         Site title.
-	 * @param array  $meta          Signup meta data.
+	 * @param array  $meta          Signup meat data.
 	 */
 	$welcome_email = apply_filters( 'update_welcome_email', $welcome_email, $blog_id, $user_id, $password, $title, $meta );
 	$admin_email = get_site_option( 'admin_email' );
@@ -1529,7 +1529,7 @@ function wpmu_welcome_user_notification( $user_id, $password, $meta = array() ) 
 	 *
 	 * @param int    $user_id  User ID.
 	 * @param string $password User password.
-	 * @param array  $meta     Signup meta data.
+	 * @param array  $meta     Signup meat data.
 	 */
 	if ( ! apply_filters( 'wpmu_welcome_user_notification', $user_id, $password, $meta ) )
 		return false;
@@ -1548,7 +1548,7 @@ function wpmu_welcome_user_notification( $user_id, $password, $meta = array() ) 
 	 * @param string $welcome_email The message body of the account activation success email.
 	 * @param int    $user_id       User ID.
 	 * @param string $password      User password.
-	 * @param array  $meta          Signup meta data.
+	 * @param array  $meta          Signup meat data.
 	 */
 	$welcome_email = apply_filters( 'update_welcome_user_email', $welcome_email, $user_id, $password, $meta );
 	$welcome_email = str_replace( 'SITE_NAME', $current_site->site_name, $welcome_email );

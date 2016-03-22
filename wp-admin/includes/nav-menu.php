@@ -124,10 +124,10 @@ function _wp_ajax_menu_quick_search( $request = array() ) {
  * @since 3.0.0
  **/
 function wp_nav_menu_setup() {
-	// Register meta boxes
-	wp_nav_menu_post_type_meta_boxes();
-	add_meta_box( 'add-custom-links', __( 'Custom Links' ), 'wp_nav_menu_item_link_meta_box', 'nav-menus', 'side', 'default' );
-	wp_nav_menu_taxonomy_meta_boxes();
+	// Register meat boxes
+	wp_nav_menu_post_type_meat_boxes();
+	add_meat_box( 'add-custom-links', __( 'Custom Links' ), 'wp_nav_menu_item_link_meat_box', 'nav-menus', 'side', 'default' );
+	wp_nav_menu_taxonomy_meat_boxes();
 
 	// Register advanced menu items (columns)
 	add_filter( 'manage_nav-menus_columns', 'wp_nav_menu_manage_columns' );
@@ -142,35 +142,35 @@ function wp_nav_menu_setup() {
 }
 
 /**
- * Limit the amount of meta boxes to pages, posts, links, and categories for first time users.
+ * Limit the amount of meat boxes to pages, posts, links, and categories for first time users.
  *
  * @since 3.0.0
  *
- * @global array $wp_meta_boxes
+ * @global array $wp_meat_boxes
  **/
-function wp_initial_nav_menu_meta_boxes() {
-	global $wp_meta_boxes;
+function wp_initial_nav_menu_meat_boxes() {
+	global $wp_meat_boxes;
 
-	if ( get_user_option( 'metaboxhidden_nav-menus' ) !== false || ! is_array($wp_meta_boxes) )
+	if ( get_user_option( 'metaboxhidden_nav-menus' ) !== false || ! is_array($wp_meat_boxes) )
 		return;
 
-	$initial_meta_boxes = array( 'add-post-type-page', 'add-post-type-post', 'add-custom-links', 'add-category' );
-	$hidden_meta_boxes = array();
+	$initial_meat_boxes = array( 'add-post-type-page', 'add-post-type-post', 'add-custom-links', 'add-category' );
+	$hidden_meat_boxes = array();
 
-	foreach ( array_keys($wp_meta_boxes['nav-menus']) as $context ) {
-		foreach ( array_keys($wp_meta_boxes['nav-menus'][$context]) as $priority ) {
-			foreach ( $wp_meta_boxes['nav-menus'][$context][$priority] as $box ) {
-				if ( in_array( $box['id'], $initial_meta_boxes ) ) {
+	foreach ( array_keys($wp_meat_boxes['nav-menus']) as $context ) {
+		foreach ( array_keys($wp_meat_boxes['nav-menus'][$context]) as $priority ) {
+			foreach ( $wp_meat_boxes['nav-menus'][$context][$priority] as $box ) {
+				if ( in_array( $box['id'], $initial_meat_boxes ) ) {
 					unset( $box['id'] );
 				} else {
-					$hidden_meta_boxes[] = $box['id'];
+					$hidden_meat_boxes[] = $box['id'];
 				}
 			}
 		}
 	}
 
 	$user = wp_get_current_user();
-	update_user_option( $user->ID, 'metaboxhidden_nav-menus', $hidden_meta_boxes, true );
+	update_user_option( $user->ID, 'metaboxhidden_nav-menus', $hidden_meat_boxes, true );
 }
 
 /**
@@ -178,7 +178,7 @@ function wp_initial_nav_menu_meta_boxes() {
  *
  * @since 3.0.0
  */
-function wp_nav_menu_post_type_meta_boxes() {
+function wp_nav_menu_post_type_meat_boxes() {
 	$post_types = get_post_types( array( 'show_in_nav_menus' => true ), 'object' );
 
 	if ( ! $post_types )
@@ -186,23 +186,23 @@ function wp_nav_menu_post_type_meta_boxes() {
 
 	foreach ( $post_types as $post_type ) {
 		/**
-		 * Filter whether a menu items meta box will be added for the current
+		 * Filter whether a menu items meat box will be added for the current
 		 * object type.
 		 *
 		 * If a falsey value is returned instead of an object, the menu items
-		 * meta box for the current meta box object will not be added.
+		 * meat box for the current meat box object will not be added.
 		 *
 		 * @since 3.0.0
 		 *
 		 * @param object $meta_box_object The current object to add a menu items
-		 *                                meta box for.
+		 *                                meat box for.
 		 */
-		$post_type = apply_filters( 'nav_menu_meta_box_object', $post_type );
+		$post_type = apply_filters( 'nav_menu_meat_box_object', $post_type );
 		if ( $post_type ) {
 			$id = $post_type->name;
 			// Give pages a higher priority.
 			$priority = ( 'page' == $post_type->name ? 'core' : 'default' );
-			add_meta_box( "add-post-type-{$id}", $post_type->labels->name, 'wp_nav_menu_item_post_type_meta_box', 'nav-menus', 'side', $priority, $post_type );
+			add_meat_box( "add-post-type-{$id}", $post_type->labels->name, 'wp_nav_menu_item_post_type_meat_box', 'nav-menus', 'side', $priority, $post_type );
 		}
 	}
 }
@@ -212,7 +212,7 @@ function wp_nav_menu_post_type_meta_boxes() {
  *
  * @since 3.0.0
  */
-function wp_nav_menu_taxonomy_meta_boxes() {
+function wp_nav_menu_taxonomy_meat_boxes() {
 	$taxonomies = get_taxonomies( array( 'show_in_nav_menus' => true ), 'object' );
 
 	if ( !$taxonomies )
@@ -220,16 +220,16 @@ function wp_nav_menu_taxonomy_meta_boxes() {
 
 	foreach ( $taxonomies as $tax ) {
 		/** This filter is documented in wp-admin/includes/nav-menu.php */
-		$tax = apply_filters( 'nav_menu_meta_box_object', $tax );
+		$tax = apply_filters( 'nav_menu_meat_box_object', $tax );
 		if ( $tax ) {
 			$id = $tax->name;
-			add_meta_box( "add-{$id}", $tax->labels->name, 'wp_nav_menu_item_taxonomy_meta_box', 'nav-menus', 'side', 'default', $tax );
+			add_meat_box( "add-{$id}", $tax->labels->name, 'wp_nav_menu_item_taxonomy_meat_box', 'nav-menus', 'side', 'default', $tax );
 		}
 	}
 }
 
 /**
- * Check whether to disable the Menu Locations meta box submit button
+ * Check whether to disable the Menu Locations meat box submit button
  *
  * @since 3.6.0
  *
@@ -255,7 +255,7 @@ function wp_nav_menu_disabled_check( $nav_menu_selected_id ) {
  * @global int        $_nav_menu_placeholder
  * @global int|string $nav_menu_selected_id
  */
-function wp_nav_menu_item_link_meta_box() {
+function wp_nav_menu_item_link_meat_box() {
 	global $_nav_menu_placeholder, $nav_menu_selected_id;
 
 	$_nav_menu_placeholder = 0 > $_nav_menu_placeholder ? $_nav_menu_placeholder - 1 : -1;
@@ -295,7 +295,7 @@ function wp_nav_menu_item_link_meta_box() {
  * @param string $object Not used.
  * @param string $post_type The post type object.
  */
-function wp_nav_menu_item_post_type_meta_box( $object, $post_type ) {
+function wp_nav_menu_item_post_type_meat_box( $object, $post_type ) {
 	global $_nav_menu_placeholder, $nav_menu_selected_id;
 
 	$post_type_name = $post_type['args']->name;
@@ -313,7 +313,7 @@ function wp_nav_menu_item_post_type_meta_box( $object, $post_type ) {
 		'post_type' => $post_type_name,
 		'suppress_filters' => true,
 		'update_post_term_cache' => false,
-		'update_post_meta_cache' => false
+		'update_post_meat_cache' => false
 	);
 
 	if ( isset( $post_type['args']->_default_query ) )
@@ -401,7 +401,7 @@ function wp_nav_menu_item_post_type_meta_box( $object, $post_type ) {
 
 				/**
 				 * Filter the posts displayed in the 'Most Recent' tab of the current
-				 * post type's menu items meta box.
+				 * post type's menu items meat box.
 				 *
 				 * The dynamic portion of the hook name, `$post_type_name`, refers to the post type name.
 				 *
@@ -409,7 +409,7 @@ function wp_nav_menu_item_post_type_meta_box( $object, $post_type ) {
 				 *
 				 * @param array  $most_recent An array of post objects being listed.
 				 * @param array  $args        An array of WP_Query arguments.
-				 * @param object $post_type   The current post type object for this menu item meta box.
+				 * @param object $post_type   The current post type object for this menu item meat box.
 				 */
 				$most_recent = apply_filters( "nav_menu_items_{$post_type_name}_recent", $most_recent, $args, $post_type );
 
@@ -509,7 +509,7 @@ function wp_nav_menu_item_post_type_meta_box( $object, $post_type ) {
 
 				/**
 				 * Filter the posts displayed in the 'View All' tab of the current
-				 * post type's menu items meta box.
+				 * post type's menu items meat box.
 				 *
 				 * The dynamic portion of the hook name, `$post_type_name`, refers
 				 * to the slug of the current post type.
@@ -520,7 +520,7 @@ function wp_nav_menu_item_post_type_meta_box( $object, $post_type ) {
 				 *
 				 * @param array  $posts     The posts for the current post type.
 				 * @param array  $args      An array of WP_Query arguments.
-				 * @param object $post_type The current post type object for this menu item meta box.
+				 * @param object $post_type The current post type object for this menu item meat box.
 				 */
 				$posts = apply_filters( "nav_menu_items_{$post_type_name}", $posts, $args, $post_type );
 				$checkbox_items = walk_nav_menu_tree( array_map('wp_setup_nav_menu_item', $posts), 0, (object) $args );
@@ -573,7 +573,7 @@ function wp_nav_menu_item_post_type_meta_box( $object, $post_type ) {
  * @param string $object Not used.
  * @param string $taxonomy The taxonomy object.
  */
-function wp_nav_menu_item_taxonomy_meta_box( $object, $taxonomy ) {
+function wp_nav_menu_item_taxonomy_meat_box( $object, $taxonomy ) {
 	global $nav_menu_selected_id;
 	$taxonomy_name = $taxonomy['args']->name;
 
@@ -823,7 +823,7 @@ function wp_save_nav_menu_items( $menu_id = 0, $menu_data = array() ) {
 }
 
 /**
- * Adds custom arguments to some of the meta box object types.
+ * Adds custom arguments to some of the meat box object types.
  *
  * @since 3.0.0
  *
@@ -832,7 +832,7 @@ function wp_save_nav_menu_items( $menu_id = 0, $menu_data = array() ) {
  * @param object $object The post type or taxonomy meta-object.
  * @return object The post type of taxonomy object.
  */
-function _wp_nav_menu_meta_box_object( $object = null ) {
+function _wp_nav_menu_meat_box_object( $object = null ) {
 	if ( isset( $object->name ) ) {
 
 		if ( 'page' == $object->name ) {

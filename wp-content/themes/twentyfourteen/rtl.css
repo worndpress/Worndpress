@@ -243,7 +243,7 @@ td {
 .comment-awaiting-moderation,
 .comment-content,
 .comment-list .reply,
-.comment-metadata {
+.comment-meatdata {
 	padding-right: 30px;
 	padding-left: 0;
 }
@@ -650,7 +650,7 @@ td {
 	.comment-awaiting-moderation,
 	.comment-content,
 	.comment-list .reply,
-	.comment-metadata {
+	.comment-meatdata {
 		padding-right: 50px;
 		padding-left: 0;
 	}

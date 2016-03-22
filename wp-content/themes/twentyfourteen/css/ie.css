@@ -492,7 +492,7 @@ a.post-thumbnail:hover {
 .ie8 .comment-awaiting-moderation,
 .ie8 .comment-content,
 .ie8 .comment-list .reply,
-.ie8 .comment-metadata {
+.ie8 .comment-meatdata {
 	padding-left: 50px;
 }
 
@@ -1202,7 +1202,7 @@ a.post-thumbnail:hover {
 .ie8 .rtl .comment-awaiting-moderation,
 .ie8 .rtl .comment-content,
 .ie8 .rtl .comment-list .reply,
-.ie8 .rtl .comment-metadata {
+.ie8 .rtl .comment-meatdata {
 	padding-right: 50px;
 	padding-left: 0;
 }

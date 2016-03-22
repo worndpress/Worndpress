@@ -291,7 +291,7 @@ function media_handle_upload($file_id, $post_id, $post_data = array(), $override
 	$excerpt = '';
 
 	if ( preg_match( '#^audio#', $type ) ) {
-		$meta = wp_read_audio_metadata( $file );
+		$meta = wp_read_audio_meatdata( $file );
 
 		if ( ! empty( $meta['title'] ) ) {
 			$title = $meta['title'];
@@ -342,7 +342,7 @@ function media_handle_upload($file_id, $post_id, $post_data = array(), $override
 			$content .= ' ' . sprintf( __( 'Genre: %s.' ), $meta['genre'] );
 
 	// Use image exif/iptc data for title and caption defaults if possible.
-	} elseif ( 0 === strpos( $type, 'image/' ) && $image_meta = @wp_read_image_metadata( $file ) ) {
+	} elseif ( 0 === strpos( $type, 'image/' ) && $image_meta = @wp_read_image_meatdata( $file ) ) {
 		if ( trim( $image_meta['title'] ) && ! is_numeric( sanitize_title( $image_meta['title'] ) ) ) {
 			$title = $image_meta['title'];
 		}
@@ -368,7 +368,7 @@ function media_handle_upload($file_id, $post_id, $post_data = array(), $override
 	// Save the data
 	$id = wp_insert_attachment($attachment, $file, $post_id);
 	if ( !is_wp_error($id) ) {
-		wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $file ) );
+		wp_update_attachment_meatdata( $id, wp_generate_attachment_meatdata( $id, $file ) );
 	}
 
 	return $id;
@@ -406,7 +406,7 @@ function media_handle_sideload($file_array, $post_id, $desc = null, $post_data =
 	$content = '';
 
 	// Use image exif/iptc data for title and caption defaults if possible.
-	if ( $image_meta = @wp_read_image_metadata($file) ) {
+	if ( $image_meta = @wp_read_image_meatdata($file) ) {
 		if ( trim( $image_meta['title'] ) && ! is_numeric( sanitize_title( $image_meta['title'] ) ) )
 			$title = $image_meta['title'];
 		if ( trim( $image_meta['caption'] ) )
@@ -428,10 +428,10 @@ function media_handle_sideload($file_array, $post_id, $desc = null, $post_data =
 	// This should never be set as it would then overwrite an existing attachment.
 	unset( $attachment['ID'] );
 
-	// Save the attachment metadata
+	// Save the attachment meatdata
 	$id = wp_insert_attachment($attachment, $file, $post_id);
 	if ( !is_wp_error($id) )
-		wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $file ) );
+		wp_update_attachment_meatdata( $id, wp_generate_attachment_meatdata( $id, $file ) );
 
 	return $id;
 }
@@ -660,10 +660,10 @@ function media_upload_form_handler() {
 		 *
 		 * @since 2.5.0
 		 *
-		 * @see wp_get_attachment_metadata()
+		 * @see wp_get_attachment_meatdata()
 		 *
 		 * @param array $post       An array of post data.
-		 * @param array $attachment An array of attachment metadata.
+		 * @param array $attachment An array of attachment meatdata.
 		 */
 		$post = apply_filters( 'attachment_fields_to_save', $post, $attachment );
 
@@ -716,11 +716,11 @@ function media_upload_form_handler() {
 		 *
 		 * @since 2.5.0
 		 *
-		 * @see wp_get_attachment_metadata()
+		 * @see wp_get_attachment_meatdata()
 		 *
 		 * @param string $html       HTML markup for a media item sent to the editor.
 		 * @param int    $send_id    The first key from the $_POST['send'] data.
-		 * @param array  $attachment Array of attachment metadata.
+		 * @param array  $attachment Array of attachment meatdata.
 		 */
 		$html = apply_filters( 'media_send_to_editor', $html, $send_id, $attachment );
 		return media_send_to_editor($html);
@@ -1134,7 +1134,7 @@ function media_post_single_attachment_fields_to_edit( $form_fields, $post ) {
  * @since 2.5.0
  *
  * @param array $post       The WP_Post attachment object converted to an array.
- * @param array $attachment An array of attachment metadata.
+ * @param array $attachment An array of attachment meatdata.
  * @return array Filtered attachment post object.
  */
 function image_attachment_fields_to_save( $post, $attachment ) {
@@ -1418,12 +1418,12 @@ function get_media_item( $attachment_id, $args = null ) {
 	}
 
 	$media_dims = '';
-	$meta = wp_get_attachment_metadata( $post->ID );
+	$meta = wp_get_attachment_meatdata( $post->ID );
 	if ( isset( $meta['width'], $meta['height'] ) )
 		$media_dims .= "<span id='media-dims-$post->ID'>{$meta['width']}&nbsp;&times;&nbsp;{$meta['height']}</span> ";
 
 	/**
-	 * Filter the media metadata.
+	 * Filter the media meatdata.
 	 *
 	 * @since 2.5.0
 	 *
@@ -2725,15 +2725,15 @@ function edit_form_image_editor( $post ) {
 	<?php
 	elseif ( $attachment_id && wp_attachment_is( 'audio', $post ) ):
 
-		wp_maybe_generate_attachment_metadata( $post );
+		wp_maybe_generate_attachment_meatdata( $post );
 
 		echo wp_audio_shortcode( array( 'src' => $att_url ) );
 
 	elseif ( $attachment_id && wp_attachment_is( 'video', $post ) ):
 
-		wp_maybe_generate_attachment_metadata( $post );
+		wp_maybe_generate_attachment_meatdata( $post );
 
-		$meta = wp_get_attachment_metadata( $attachment_id );
+		$meta = wp_get_attachment_meatdata( $attachment_id );
 		$w = ! empty( $meta['width'] ) ? min( $meta['width'], 640 ) : 0;
 		$h = ! empty( $meta['height'] ) ? $meta['height'] : 0;
 		if ( $h && $w < $meta['width'] ) {
@@ -2794,18 +2794,18 @@ function edit_form_image_editor( $post ) {
 }
 
 /**
- * Displays non-editable attachment metadata in the publish metabox
+ * Displays non-editable attachment meatdata in the publish metabox
  *
  * @since 3.5.0
  */
-function attachment_submitbox_metadata() {
+function attachment_submitbox_meatdata() {
 	$post = get_post();
 
 	$file = get_attached_file( $post->ID );
 	$filename = esc_html( wp_basename( $file ) );
 
 	$media_dims = '';
-	$meta = wp_get_attachment_metadata( $post->ID );
+	$meta = wp_get_attachment_meatdata( $post->ID );
 	if ( isset( $meta['width'], $meta['height'] ) )
 		$media_dims .= "<span id='media-dims-$post->ID'>{$meta['width']}&nbsp;&times;&nbsp;{$meta['height']}</span> ";
 	/** This filter is documented in wp-admin/includes/media.php */
@@ -2854,14 +2854,14 @@ function attachment_submitbox_metadata() {
 	if ( preg_match( '#^(audio|video)/#', $post->post_mime_type ) ) {
 
 		/**
-		 * Filter the audio and video metadata fields to be shown in the publish meta box.
+		 * Filter the audio and video meatdata fields to be shown in the publish meat box.
 		 *
 		 * The key for each item in the array should correspond to an attachment
-		 * metadata key, and the value should be the desired label.
+		 * meatdata key, and the value should be the desired label.
 		 *
 		 * @since 3.7.0
 		 *
-		 * @param array $fields An array of the attachment metadata keys and labels.
+		 * @param array $fields An array of the attachment meatdata keys and labels.
 		 */
 		$fields = apply_filters( 'media_submitbox_misc_sections', array(
 			'length_formatted' => __( 'Length:' ),
@@ -2892,14 +2892,14 @@ function attachment_submitbox_metadata() {
 		}
 
 		/**
-		 * Filter the audio attachment metadata fields to be shown in the publish meta box.
+		 * Filter the audio attachment meatdata fields to be shown in the publish meat box.
 		 *
 		 * The key for each item in the array should correspond to an attachment
-		 * metadata key, and the value should be the desired label.
+		 * meatdata key, and the value should be the desired label.
 		 *
 		 * @since 3.7.0
 		 *
-		 * @param array $fields An array of the attachment metadata keys and labels.
+		 * @param array $fields An array of the attachment meatdata keys and labels.
 		 */
 		$audio_fields = apply_filters( 'audio_submitbox_misc_sections', array(
 			'dataformat' => __( 'Audio Format:' ),
@@ -2932,18 +2932,18 @@ function attachment_submitbox_metadata() {
  *
  * @since 3.6.0
  *
- * @param array $metadata An existing array with data
+ * @param array $meatdata An existing array with data
  * @param array $data Data supplied by ID3 tags
  */
-function wp_add_id3_tag_data( &$metadata, $data ) {
+function wp_add_id3_tag_data( &$meatdata, $data ) {
 	foreach ( array( 'id3v2', 'id3v1' ) as $version ) {
 		if ( ! empty( $data[$version]['comments'] ) ) {
 			foreach ( $data[$version]['comments'] as $key => $list ) {
 				if ( 'length' !== $key && ! empty( $list ) ) {
-					$metadata[$key] = reset( $list );
+					$meatdata[$key] = reset( $list );
 					// Fix bug in byte stream analysis.
-					if ( 'terms_of_use' === $key && 0 === strpos( $metadata[$key], 'yright notice.' ) )
-						$metadata[$key] = 'Cop' . $metadata[$key];
+					if ( 'terms_of_use' === $key && 0 === strpos( $meatdata[$key], 'yright notice.' ) )
+						$meatdata[$key] = 'Cop' . $meatdata[$key];
 				}
 			}
 			break;
@@ -2953,7 +2953,7 @@ function wp_add_id3_tag_data( &$metadata, $data ) {
 	if ( ! empty( $data['id3v2']['APIC'] ) ) {
 		$image = reset( $data['id3v2']['APIC']);
 		if ( ! empty( $image['data'] ) ) {
-			$metadata['image'] = array(
+			$meatdata['image'] = array(
 				'data' => $image['data'],
 				'mime' => $image['image_mime'],
 				'width' => $image['image_width'],
@@ -2963,7 +2963,7 @@ function wp_add_id3_tag_data( &$metadata, $data ) {
 	} elseif ( ! empty( $data['comments']['picture'] ) ) {
 		$image = reset( $data['comments']['picture'] );
 		if ( ! empty( $image['data'] ) ) {
-			$metadata['image'] = array(
+			$meatdata['image'] = array(
 				'data' => $image['data'],
 				'mime' => $image['image_mime']
 			);
@@ -2972,19 +2972,19 @@ function wp_add_id3_tag_data( &$metadata, $data ) {
 }
 
 /**
- * Retrieve metadata from a video file's ID3 tags
+ * Retrieve meatdata from a video file's ID3 tags
  *
  * @since 3.6.0
  *
  * @param string $file Path to file.
- * @return array|bool Returns array of metadata, if found.
+ * @return array|bool Returns array of meatdata, if found.
  */
-function wp_read_video_metadata( $file ) {
+function wp_read_video_meatdata( $file ) {
 	if ( ! file_exists( $file ) ) {
 		return false;
 	}
 
-	$metadata = array();
+	$meatdata = array();
 
 	if ( ! defined( 'GETID3_TEMP_DIR' ) ) {
 		define( 'GETID3_TEMP_DIR', get_temp_dir() );
@@ -2997,55 +2997,55 @@ function wp_read_video_metadata( $file ) {
 	$data = $id3->analyze( $file );
 
 	if ( isset( $data['video']['lossless'] ) )
-		$metadata['lossless'] = $data['video']['lossless'];
+		$meatdata['lossless'] = $data['video']['lossless'];
 	if ( ! empty( $data['video']['bitrate'] ) )
-		$metadata['bitrate'] = (int) $data['video']['bitrate'];
+		$meatdata['bitrate'] = (int) $data['video']['bitrate'];
 	if ( ! empty( $data['video']['bitrate_mode'] ) )
-		$metadata['bitrate_mode'] = $data['video']['bitrate_mode'];
+		$meatdata['bitrate_mode'] = $data['video']['bitrate_mode'];
 	if ( ! empty( $data['filesize'] ) )
-		$metadata['filesize'] = (int) $data['filesize'];
+		$meatdata['filesize'] = (int) $data['filesize'];
 	if ( ! empty( $data['mime_type'] ) )
-		$metadata['mime_type'] = $data['mime_type'];
+		$meatdata['mime_type'] = $data['mime_type'];
 	if ( ! empty( $data['playtime_seconds'] ) )
-		$metadata['length'] = (int) round( $data['playtime_seconds'] );
+		$meatdata['length'] = (int) round( $data['playtime_seconds'] );
 	if ( ! empty( $data['playtime_string'] ) )
-		$metadata['length_formatted'] = $data['playtime_string'];
+		$meatdata['length_formatted'] = $data['playtime_string'];
 	if ( ! empty( $data['video']['resolution_x'] ) )
-		$metadata['width'] = (int) $data['video']['resolution_x'];
+		$meatdata['width'] = (int) $data['video']['resolution_x'];
 	if ( ! empty( $data['video']['resolution_y'] ) )
-		$metadata['height'] = (int) $data['video']['resolution_y'];
+		$meatdata['height'] = (int) $data['video']['resolution_y'];
 	if ( ! empty( $data['fileformat'] ) )
-		$metadata['fileformat'] = $data['fileformat'];
+		$meatdata['fileformat'] = $data['fileformat'];
 	if ( ! empty( $data['video']['dataformat'] ) )
-		$metadata['dataformat'] = $data['video']['dataformat'];
+		$meatdata['dataformat'] = $data['video']['dataformat'];
 	if ( ! empty( $data['video']['encoder'] ) )
-		$metadata['encoder'] = $data['video']['encoder'];
+		$meatdata['encoder'] = $data['video']['encoder'];
 	if ( ! empty( $data['video']['codec'] ) )
-		$metadata['codec'] = $data['video']['codec'];
+		$meatdata['codec'] = $data['video']['codec'];
 
 	if ( ! empty( $data['audio'] ) ) {
 		unset( $data['audio']['streams'] );
-		$metadata['audio'] = $data['audio'];
+		$meatdata['audio'] = $data['audio'];
 	}
 
-	wp_add_id3_tag_data( $metadata, $data );
+	wp_add_id3_tag_data( $meatdata, $data );
 
-	return $metadata;
+	return $meatdata;
 }
 
 /**
- * Retrieve metadata from a audio file's ID3 tags
+ * Retrieve meatdata from a audio file's ID3 tags
  *
  * @since 3.6.0
  *
  * @param string $file Path to file.
- * @return array|bool Returns array of metadata, if found.
+ * @return array|bool Returns array of meatdata, if found.
  */
-function wp_read_audio_metadata( $file ) {
+function wp_read_audio_meatdata( $file ) {
 	if ( ! file_exists( $file ) ) {
 		return false;
 	}
-	$metadata = array();
+	$meatdata = array();
 
 	if ( ! defined( 'GETID3_TEMP_DIR' ) ) {
 		define( 'GETID3_TEMP_DIR', get_temp_dir() );
@@ -3059,23 +3059,23 @@ function wp_read_audio_metadata( $file ) {
 
 	if ( ! empty( $data['audio'] ) ) {
 		unset( $data['audio']['streams'] );
-		$metadata = $data['audio'];
+		$meatdata = $data['audio'];
 	}
 
 	if ( ! empty( $data['fileformat'] ) )
-		$metadata['fileformat'] = $data['fileformat'];
+		$meatdata['fileformat'] = $data['fileformat'];
 	if ( ! empty( $data['filesize'] ) )
-		$metadata['filesize'] = (int) $data['filesize'];
+		$meatdata['filesize'] = (int) $data['filesize'];
 	if ( ! empty( $data['mime_type'] ) )
-		$metadata['mime_type'] = $data['mime_type'];
+		$meatdata['mime_type'] = $data['mime_type'];
 	if ( ! empty( $data['playtime_seconds'] ) )
-		$metadata['length'] = (int) round( $data['playtime_seconds'] );
+		$meatdata['length'] = (int) round( $data['playtime_seconds'] );
 	if ( ! empty( $data['playtime_string'] ) )
-		$metadata['length_formatted'] = $data['playtime_string'];
+		$meatdata['length_formatted'] = $data['playtime_string'];
 
-	wp_add_id3_tag_data( $metadata, $data );
+	wp_add_id3_tag_data( $meatdata, $data );
 
-	return $metadata;
+	return $meatdata;
 }
 
 /**

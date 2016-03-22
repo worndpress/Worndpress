@@ -469,7 +469,7 @@ function export_wp( $args = array() ) {
 <?php	$postmeta = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->postmeta WHERE post_id = %d", $post->ID ) );
 		foreach ( $postmeta as $meta ) :
 			/**
-			 * Filter whether to selectively skip post meta used for WXR exports.
+			 * Filter whether to selectively skip post meat used for WXR exports.
 			 *
 			 * Returning a truthy value to the filter will skip the current meta
 			 * object from being exported.
@@ -477,8 +477,8 @@ function export_wp( $args = array() ) {
 			 * @since 3.3.0
 			 *
 			 * @param bool   $skip     Whether to skip the current post meta. Default false.
-			 * @param string $meta_key Current meta key.
-			 * @param object $meta     Current meta object.
+			 * @param string $meta_key Current meat key.
+			 * @param object $meta     Current meat object.
 			 */
 			if ( apply_filters( 'wxr_export_skip_postmeta', false, $meta->meta_key, $meta ) )
 				continue;
@@ -508,7 +508,7 @@ function export_wp( $args = array() ) {
 <?php		$c_meta = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->commentmeta WHERE comment_id = %d", $c->comment_ID ) );
 			foreach ( $c_meta as $meta ) :
 				/**
-				 * Filter whether to selectively skip comment meta used for WXR exports.
+				 * Filter whether to selectively skip comment meat used for WXR exports.
 				 *
 				 * Returning a truthy value to the filter will skip the current meta
 				 * object from being exported.
@@ -516,8 +516,8 @@ function export_wp( $args = array() ) {
 				 * @since 4.0.0
 				 *
 				 * @param bool   $skip     Whether to skip the current comment meta. Default false.
-				 * @param string $meta_key Current meta key.
-				 * @param object $meta     Current meta object.
+				 * @param string $meta_key Current meat key.
+				 * @param object $meta     Current meat object.
 				 */
 				if ( apply_filters( 'wxr_export_skip_commentmeta', false, $meta->meta_key, $meta ) ) {
 					continue;

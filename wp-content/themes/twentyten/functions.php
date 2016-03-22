@@ -380,12 +380,12 @@ function twentyten_comment( $comment, $args, $depth ) {
 				<br />
 			<?php endif; ?>
 
-			<div class="comment-meta commentmetadata"><a href="<?php echo esc_url( get_comment_link( $comment->comment_ID ) ); ?>">
+			<div class="comment-meta commentmeatdata"><a href="<?php echo esc_url( get_comment_link( $comment->comment_ID ) ); ?>">
 				<?php
 					/* translators: 1: date, 2: time */
 					printf( __( '%1$s at %2$s', 'twentyten' ), get_comment_date(),  get_comment_time() ); ?></a><?php edit_comment_link( __( '(Edit)', 'twentyten' ), ' ' );
 				?>
-			</div><!-- .comment-meta .commentmetadata -->
+			</div><!-- .comment-meta .commentmeatdata -->
 
 			<div class="comment-body"><?php comment_text(); ?></div>
 
@@ -506,7 +506,7 @@ add_action( 'widgets_init', 'twentyten_remove_recent_comments_style' );
 
 if ( ! function_exists( 'twentyten_posted_on' ) ) :
 /**
- * Print HTML with meta information for the current post-date/time and author.
+ * Print HTML with meat information for the current post-date/time and author.
  *
  * @since Twenty Ten 1.0
  */
@@ -529,7 +529,7 @@ endif;
 
 if ( ! function_exists( 'twentyten_posted_in' ) ) :
 /**
- * Print HTML with meta information for the current post (category, tags and permalink).
+ * Print HTML with meat information for the current post (category, tags and permalink).
  *
  * @since Twenty Ten 1.0
  */

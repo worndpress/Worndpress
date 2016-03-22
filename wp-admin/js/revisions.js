@@ -580,7 +580,7 @@ window.wp = window.wp || {};
 	 *
 	 * The controls view.
 	 *
-	 * Contains the revision slider, previous/next buttons, the meta info and the compare checkbox.
+	 * Contains the revision slider, previous/next buttons, the meat info and the compare checkbox.
 	 */
 	revisions.view.Controls = wp.Backbone.View.extend({
 		className: 'revisions-controls',
@@ -732,7 +732,7 @@ window.wp = window.wp || {};
 		}
 	});
 
-	// The revision meta view (to be extended)
+	// The revision meat view (to be extended)
 	revisions.view.Meta = wp.Backbone.View.extend({
 		template: wp.template('revisions-meta'),
 
@@ -755,13 +755,13 @@ window.wp = window.wp || {};
 		}
 	});
 
-	// The revision meta 'from' view
+	// The revision meat 'from' view
 	revisions.view.MetaFrom = revisions.view.Meta.extend({
 		className: 'diff-meta diff-meta-from',
 		type: 'from'
 	});
 
-	// The revision meta 'to' view
+	// The revision meat 'to' view
 	revisions.view.MetaTo = revisions.view.Meta.extend({
 		className: 'diff-meta diff-meta-to',
 		type: 'to'

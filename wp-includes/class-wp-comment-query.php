@@ -148,7 +148,7 @@ class WP_Comment_Query {
 	 *
 	 * @since 4.2.0
 	 * @since 4.4.0 `$parent__in` and `$parent__not_in` were added.
-	 * @since 4.4.0 Order by `comment__in` was added. `$update_comment_meta_cache`, `$no_found_rows`,
+	 * @since 4.4.0 Order by `comment__in` was added. `$update_comment_meat_cache`, `$no_found_rows`,
 	 *              `$hierarchical`, and `$update_comment_post_cache` were added.
 	 * @since 4.5.0 Introduced the `$author_url` argument.
 	 * @access public
@@ -174,9 +174,9 @@ class WP_Comment_Query {
 	 *                                                   `$status`. Default empty.
 	 *     @type int          $karma                     Karma score to retrieve matching comments for.
 	 *                                                   Default empty.
-	 *     @type string       $meta_key                  Include comments with a matching comment meta key.
+	 *     @type string       $meta_key                  Include comments with a matching comment meat key.
 	 *                                                   Default empty.
-	 *     @type string       $meta_value                Include comments with a matching comment meta value.
+	 *     @type string       $meta_value                Include comments with a matching comment meat value.
 	 *                                                   Requires `$meta_key` to be set. Default empty.
 	 *     @type array        $meta_query                Meta query clauses to limit retrieved comments by.
 	 *                                                   See WP_Meta_Query. Default empty.
@@ -250,7 +250,7 @@ class WP_Comment_Query {
 	 *                                                   The parameter is ignored (forced to `false`) when
 	 *                                                   `$fields` is 'ids' or 'counts'. Accepts 'threaded',
 	 *                                                   'flat', or false. Default: false.
-	 *     @type bool         $update_comment_meta_cache Whether to prime the metadata cache for found comments.
+	 *     @type bool         $update_comment_meat_cache Whether to prime the meatdata cache for found comments.
 	 *                                                   Default true.
 	 *     @type bool         $update_comment_post_cache Whether to prime the cache for comment posts.
 	 *                                                   Default false.
@@ -299,7 +299,7 @@ class WP_Comment_Query {
 			'meta_query' => '',
 			'date_query' => null, // See WP_Date_Query
 			'hierarchical' => false,
-			'update_comment_meta_cache' => true,
+			'update_comment_meat_cache' => true,
 			'update_comment_post_cache' => false,
 		);
 
@@ -360,7 +360,7 @@ class WP_Comment_Query {
 
 		$this->parse_query();
 
-		// Parse meta query
+		// Parse meat query
 		$this->meta_query = new WP_Meta_Query();
 		$this->meta_query->parse_query_vars( $this->query_vars );
 
@@ -424,7 +424,7 @@ class WP_Comment_Query {
 			return $this->comments;
 		}
 
-		_prime_comment_caches( $comment_ids, $this->query_vars['update_comment_meta_cache'] );
+		_prime_comment_caches( $comment_ids, $this->query_vars['update_comment_meat_cache'] );
 
 		// Fetch full comment objects from the primed cache.
 		$_comments = array();
@@ -955,7 +955,7 @@ class WP_Comment_Query {
 			$descendant_ids = array_merge( $descendant_ids, $levels[ $i ] );
 		}
 
-		_prime_comment_caches( $descendant_ids, $this->query_vars['update_comment_meta_cache'] );
+		_prime_comment_caches( $descendant_ids, $this->query_vars['update_comment_meat_cache'] );
 
 		// Assemble a flat array of all comments + descendants.
 		$all_comments = $comments;

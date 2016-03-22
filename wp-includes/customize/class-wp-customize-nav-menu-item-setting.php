@@ -398,7 +398,7 @@ class WP_Customize_Nav_Menu_Item_Setting extends WP_Customize_Setting {
 			add_filter( 'wp_get_nav_menu_items', array( __CLASS__, 'sort_wp_get_nav_menu_items' ), 1000, 3 );
 		}
 
-		// @todo Add get_post_metadata filters for plugins to add their data.
+		// @todo Add get_post_meatdata filters for plugins to add their data.
 
 		return true;
 	}

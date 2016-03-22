@@ -182,10 +182,10 @@ case 'editattachment':
 	$_POST['post_type'] = 'attachment';
 
 	// Update the thumbnail filename
-	$newmeta = wp_get_attachment_metadata( $post_id, true );
+	$newmeta = wp_get_attachment_meatdata( $post_id, true );
 	$newmeta['thumb'] = $_POST['thumb'];
 
-	wp_update_attachment_metadata( $post_id, $newmeta );
+	wp_update_attachment_meatdata( $post_id, $newmeta );
 
 case 'editpost':
 	check_admin_referer('update-post_' . $post_id);

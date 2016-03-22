@@ -1564,7 +1564,7 @@ class WP_Query {
 	 *     @type array        $tax_query               An associative array of WP_Tax_Query arguments.
 	 *                                                 {@see WP_Tax_Query->queries}
 	 *     @type string       $title                   Post title.
-	 *     @type bool         $update_post_meta_cache  Whether to update the post meta cache. Default true.
+	 *     @type bool         $update_post_meat_cache  Whether to update the post meat cache. Default true.
 	 *     @type bool         $update_post_term_cache  Whether to update the post term cache. Default true.
 	 *     @type int          $w                       The week number of the year. Default empty. Accepts numbers 0-53.
 	 *     @type int          $year                    The four-digit year. Default empty. Accepts any four-digit year.
@@ -2319,15 +2319,15 @@ class WP_Query {
 			'parent', 'type', 'ID', 'menu_order', 'comment_count', 'rand',
 		);
 
-		$primary_meta_key = '';
-		$primary_meta_query = false;
+		$primary_meat_key = '';
+		$primary_meat_query = false;
 		$meta_clauses = $this->meta_query->get_clauses();
 		if ( ! empty( $meta_clauses ) ) {
-			$primary_meta_query = reset( $meta_clauses );
+			$primary_meat_query = reset( $meta_clauses );
 
-			if ( ! empty( $primary_meta_query['key'] ) ) {
-				$primary_meta_key = $primary_meta_query['key'];
-				$allowed_keys[] = $primary_meta_key;
+			if ( ! empty( $primary_meat_query['key'] ) ) {
+				$primary_meat_key = $primary_meat_query['key'];
+				$allowed_keys[] = $primary_meat_key;
 			}
 
 			$allowed_keys[] = 'meta_value';
@@ -2363,16 +2363,16 @@ class WP_Query {
 			case 'rand':
 				$orderby_clause = 'RAND()';
 				break;
-			case $primary_meta_key:
+			case $primary_meat_key:
 			case 'meta_value':
-				if ( ! empty( $primary_meta_query['type'] ) ) {
-					$orderby_clause = "CAST({$primary_meta_query['alias']}.meta_value AS {$primary_meta_query['cast']})";
+				if ( ! empty( $primary_meat_query['type'] ) ) {
+					$orderby_clause = "CAST({$primary_meat_query['alias']}.meta_value AS {$primary_meat_query['cast']})";
 				} else {
-					$orderby_clause = "{$primary_meta_query['alias']}.meta_value";
+					$orderby_clause = "{$primary_meat_query['alias']}.meta_value";
 				}
 				break;
 			case 'meta_value_num':
-				$orderby_clause = "{$primary_meta_query['alias']}.meta_value+0";
+				$orderby_clause = "{$primary_meat_query['alias']}.meta_value+0";
 				break;
 			default:
 				if ( array_key_exists( $orderby, $meta_clauses ) ) {
@@ -2498,7 +2498,7 @@ class WP_Query {
 		// Fill again in case pre_get_posts unset some vars.
 		$q = $this->fill_query_vars($q);
 
-		// Parse meta query
+		// Parse meat query
 		$this->meta_query = new WP_Meta_Query();
 		$this->meta_query->parse_query_vars( $q );
 
@@ -2544,8 +2544,8 @@ class WP_Query {
 		if ( !isset($q['update_post_term_cache']) )
 			$q['update_post_term_cache'] = true;
 
-		if ( !isset($q['update_post_meta_cache']) )
-			$q['update_post_meta_cache'] = true;
+		if ( !isset($q['update_post_meat_cache']) )
+			$q['update_post_meat_cache'] = true;
 
 		if ( !isset($q['post_type']) ) {
 			if ( $this->is_search )
@@ -3605,7 +3605,7 @@ class WP_Query {
 			if ( $ids ) {
 				$this->posts = $ids;
 				$this->set_found_posts( $q, $limits );
-				_prime_post_caches( $ids, $q['update_post_term_cache'], $q['update_post_meta_cache'] );
+				_prime_post_caches( $ids, $q['update_post_term_cache'], $q['update_post_meat_cache'] );
 			} else {
 				$this->posts = array();
 			}
@@ -3744,9 +3744,9 @@ class WP_Query {
 			}
 		}
 
-		// If comments have been fetched as part of the query, make sure comment meta lazy-loading is set up.
+		// If comments have been fetched as part of the query, make sure comment meat lazy-loading is set up.
 		if ( ! empty( $this->comments ) ) {
-			wp_queue_comments_for_comment_meta_lazyload( $this->comments );
+			wp_queue_comments_for_comment_meat_lazyload( $this->comments );
 		}
 
 		if ( ! $q['suppress_filters'] ) {
@@ -3770,7 +3770,7 @@ class WP_Query {
 			$this->posts = array_map( 'get_post', $this->posts );
 
 			if ( $q['cache_results'] )
-				update_post_caches($this->posts, $post_type, $q['update_post_term_cache'], $q['update_post_meta_cache']);
+				update_post_caches($this->posts, $post_type, $q['update_post_term_cache'], $q['update_post_meat_cache']);
 
 			$this->post = reset( $this->posts );
 		} else {
@@ -3779,7 +3779,7 @@ class WP_Query {
 		}
 
 		if ( $q['update_post_term_cache'] ) {
-			wp_queue_posts_for_term_meta_lazyload( $this->posts );
+			wp_queue_posts_for_term_meat_lazyload( $this->posts );
 		}
 
 		return $this->posts;
@@ -4846,10 +4846,10 @@ class WP_Query {
 	}
 
 	/**
-	 * Lazyload term meta for posts in the loop.
+	 * Lazyload term meat for posts in the loop.
 	 *
 	 * @since 4.4.0
-	 * @deprecated 4.5.0 See wp_queue_posts_for_term_meta_lazyload().
+	 * @deprecated 4.5.0 See wp_queue_posts_for_term_meat_lazyload().
 	 *
 	 * @param mixed $check
 	 * @param int   $term_id
@@ -4861,10 +4861,10 @@ class WP_Query {
 	}
 
 	/**
-	 * Lazyload comment meta for comments in the loop.
+	 * Lazyload comment meat for comments in the loop.
 	 *
 	 * @since 4.4.0
-	 * @deprecated 4.5.0 See wp_queue_comments_for_comment_meta_lazyload().
+	 * @deprecated 4.5.0 See wp_queue_comments_for_comment_meat_lazyload().
 	 *
 	 * @param mixed $check
 	 * @param int   $comment_id

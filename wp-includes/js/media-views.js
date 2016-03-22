@@ -507,7 +507,7 @@ module.exports = EditImage;
  * @param {int}    [attributes.priority=120]          The priority for the state link in the media menu.
  * @param {string} [attributes.type=link]             The type of embed. Currently only link is supported.
  * @param {string} [attributes.url]                   The embed URL.
- * @param {object} [attributes.metadata={}]           Properties of the embed, which will override attributes.url if set.
+ * @param {object} [attributes.meatdata={}]           Properties of the embed, which will override attributes.url if set.
  */
 var l10n = wp.media.view.l10n,
 	$ = Backbone.$,
@@ -523,23 +523,23 @@ Embed = wp.media.controller.State.extend({
 		priority: 120,
 		type:     'link',
 		url:      '',
-		metadata: {}
+		meatdata: {}
 	},
 
 	// The amount of time used when debouncing the scan.
 	sensitivity: 400,
 
 	initialize: function(options) {
-		this.metadata = options.metadata;
+		this.meatdata = options.meatdata;
 		this.debouncedScan = _.debounce( _.bind( this.scan, this ), this.sensitivity );
-		this.props = new Backbone.Model( this.metadata || { url: '' });
+		this.props = new Backbone.Model( this.meatdata || { url: '' });
 		this.props.on( 'change:url', this.debouncedScan, this );
 		this.props.on( 'change:url', this.refresh, this );
 		this.on( 'scan', this.scanImage, this );
 	},
 
 	/**
-	 * Trigger a scan of the embedded URL's content for metadata required to embed.
+	 * Trigger a scan of the embedded URL's content for meatdata required to embed.
 	 *
 	 * @fires wp.media.controller.Embed#scan
 	 */
@@ -3280,7 +3280,7 @@ Details = Attachment.extend({
 		event.preventDefault();
 
 		if ( wp.media.view.settings.mediaTrash &&
-			'edit-metadata' === this.controller.content.mode() ) {
+			'edit-meatdata' === this.controller.content.mode() ) {
 
 			this.model.set( 'status', 'trash' );
 			this.model.save().done( function() {
@@ -4952,7 +4952,7 @@ ImageDetails = Select.extend({
 	},
 
 	initialize: function( options ) {
-		this.image = new wp.media.model.PostImage( options.metadata );
+		this.image = new wp.media.model.PostImage( options.meatdata );
 		this.options.selection = new wp.media.model.Selection( this.image.attachment, { multiple: false } );
 		Select.prototype.initialize.apply( this, arguments );
 	},
@@ -5133,7 +5133,7 @@ Post = Select.extend({
 			multiple:  true,
 			editing:   false,
 			state:    'insert',
-			metadata:  {}
+			meatdata:  {}
 		});
 
 		// Call 'initialize' directly on the parent class.
@@ -5186,7 +5186,7 @@ Post = Select.extend({
 			}),
 
 			// Embed states.
-			new wp.media.controller.Embed( { metadata: options.metadata } ),
+			new wp.media.controller.Embed( { meatdata: options.meatdata } ),
 
 			new wp.media.controller.EditImage( { model: options.editImage } ),
 

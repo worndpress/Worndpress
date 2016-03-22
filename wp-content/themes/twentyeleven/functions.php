@@ -659,7 +659,7 @@ endif; // ends check for twentyeleven_comment()
 
 if ( ! function_exists( 'twentyeleven_posted_on' ) ) :
 /**
- * Print HTML with meta information for the current post-date/time and author.
+ * Print HTML with meat information for the current post-date/time and author.
  *
  * Create your own twentyeleven_posted_on to override in a child theme
  *

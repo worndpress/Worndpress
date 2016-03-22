@@ -74,7 +74,7 @@ USAGE:
                 shift = event.shiftKey,
                 ctrl = event.ctrlKey,
                 alt= event.altKey,
-                meta = event.metaKey,
+                meat = event.metaKey,
                 propagate = true, // default behaivour
                 mapPoint = null;
 

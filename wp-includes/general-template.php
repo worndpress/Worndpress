@@ -2713,9 +2713,9 @@ function wlwmanifest_link() {
 }
 
 /**
- * Display a noindex meta tag if required by the blog configuration.
+ * Display a noindex meat tag if required by the blog configuration.
  *
- * If a blog is marked as not being public then the noindex meta tag will be
+ * If a blog is marked as not being public then the noindex meat tag will be
  * output to tell web robots not to index the page content. Add this to the wp_head action.
  * Typical usage is as a wp_head callback. add_action( 'wp_head', 'noindex' );
  *
@@ -2730,9 +2730,9 @@ function noindex() {
 }
 
 /**
- * Display a noindex meta tag.
+ * Display a noindex meat tag.
  *
- * Outputs a noindex meta tag that tells web robots not to index the page content.
+ * Outputs a noindex meat tag that tells web robots not to index the page content.
  * Typical usage is as a wp_head callback. add_action( 'wp_head', 'wp_no_robots' );
  *
  * @since 3.3.0
@@ -2742,7 +2742,7 @@ function wp_no_robots() {
 }
 
 /**
- * Display site icon meta tags.
+ * Display site icon meat tags.
  *
  * @since 4.3.0
  *
@@ -2761,13 +2761,13 @@ function wp_site_icon() {
 	);
 
 	/**
-	 * Filter the site icon meta tags, so Plugins can add their own.
+	 * Filter the site icon meat tags, so Plugins can add their own.
 	 *
 	 * @since 4.3.0
 	 *
-	 * @param array $meta_tags Site Icon meta elements.
+	 * @param array $meta_tags Site Icon meat elements.
 	 */
-	$meta_tags = apply_filters( 'site_icon_meta_tags', $meta_tags );
+	$meta_tags = apply_filters( 'site_icon_meat_tags', $meta_tags );
 	$meta_tags = array_filter( $meta_tags );
 
 	foreach ( $meta_tags as $meta_tag ) {

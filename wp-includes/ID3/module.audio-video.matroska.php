@@ -109,7 +109,7 @@ define('EBML_ID_ATTACHEDFILE',                  0x21A7); //         [61][A7] -- 
 define('EBML_ID_CONTENTENCODING',               0x2240); //         [62][40] -- Settings for one content encoding like compression or encryption.
 define('EBML_ID_BITDEPTH',                      0x2264); //         [62][64] -- Bits per sample, mostly used for PCM.
 define('EBML_ID_CODECPRIVATE',                  0x23A2); //         [63][A2] -- Private data only known to the codec.
-define('EBML_ID_TARGETS',                       0x23C0); //         [63][C0] -- Contain all UIDs where the specified meta data apply. It is void to describe everything in the segment.
+define('EBML_ID_TARGETS',                       0x23C0); //         [63][C0] -- Contain all UIDs where the specified meat data apply. It is void to describe everything in the segment.
 define('EBML_ID_CHAPTERPHYSICALEQUIV',          0x23C3); //         [63][C3] -- Specify the physical equivalent of this ChapterAtom like "DVD" (60) or "SIDE" (50), see complete list of values.
 define('EBML_ID_TAGCHAPTERUID',                 0x23C4); //         [63][C4] -- A unique ID to identify the Chapter(s) the tags belong to. If the value is 0 at this level, the tags apply to all chapters in the Segment.
 define('EBML_ID_TAGTRACKUID',                   0x23C5); //         [63][C5] -- A unique ID to identify the Track(s) the tags belong to. If the value is 0 at this level, the tags apply to all tracks in the Segment.

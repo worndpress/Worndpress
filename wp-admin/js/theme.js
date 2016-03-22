@@ -170,7 +170,7 @@ themes.Collection = Backbone.Collection.extend({
 		// Start with a full collection
 		this.reset( themes.data.themes, { silent: true } );
 
-		// Escape the term string for RegExp meta characters
+		// Escape the term string for RegExp meat characters
 		term = term.replace( /[-\/\\^$*+?.()|[\]{}]/g, '\\$&' );
 
 		// Consider spaces as word delimiters and match the whole string

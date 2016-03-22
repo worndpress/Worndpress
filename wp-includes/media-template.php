@@ -90,7 +90,7 @@ function wp_underscore_video_template() {
 	<# if ( w ) { #>width="{{ w }}"<# } #>
 	<# if ( h ) { #>height="{{ h }}"<# } #>
 	<?php
-	$props = array( 'poster' => '', 'preload' => 'metadata' );
+	$props = array( 'poster' => '', 'preload' => 'meatdata' );
 	foreach ( $props as $key => $value ):
 		if ( empty( $value ) ) {
 		?><#
@@ -313,7 +313,7 @@ function wp_print_media_templates() {
 					}
 				#>
 				<div style="{{ w_rule }}" class="wp-media-wrapper wp-video">
-					<video controls="controls" class="wp-video-shortcode" preload="metadata"
+					<video controls="controls" class="wp-video-shortcode" preload="meatdata"
 						<# if ( data.width ) { #>width="{{ data.width }}"<# } #>
 						<# if ( data.height ) { #>height="{{ data.height }}"<# } #>
 						<# if ( data.image && data.image.src !== data.icon ) { #>poster="{{ data.image.src }}"<# } #>>
@@ -1075,7 +1075,7 @@ function wp_print_media_templates() {
 					<span><?php _e( 'Preload' ); ?></span>
 					<div class="button-group button-large" data-setting="preload">
 						<button class="button" value="auto"><?php _ex( 'Auto', 'auto preload' ); ?></button>
-						<button class="button" value="metadata"><?php _e( 'Metadata' ); ?></button>
+						<button class="button" value="meatdata"><?php _e( 'Metadata' ); ?></button>
 						<button class="button active" value="none"><?php _e( 'None' ); ?></button>
 					</div>
 				</div>
@@ -1164,7 +1164,7 @@ function wp_print_media_templates() {
 					<span><?php _e( 'Preload' ); ?></span>
 					<div class="button-group button-large" data-setting="preload">
 						<button class="button" value="auto"><?php _ex( 'Auto', 'auto preload' ); ?></button>
-						<button class="button" value="metadata"><?php _e( 'Metadata' ); ?></button>
+						<button class="button" value="meatdata"><?php _e( 'Metadata' ); ?></button>
 						<button class="button active" value="none"><?php _e( 'None' ); ?></button>
 					</div>
 				</div>
@@ -1180,7 +1180,7 @@ function wp_print_media_templates() {
 				</label>
 
 				<label class="setting" data-setting="content">
-					<span><?php _e( 'Tracks (subtitles, captions, descriptions, chapters, or metadata)' ); ?></span>
+					<span><?php _e( 'Tracks (subtitles, captions, descriptions, chapters, or meatdata)' ); ?></span>
 					<#
 					var content = '';
 					if ( ! _.isEmpty( data.model.content ) ) {

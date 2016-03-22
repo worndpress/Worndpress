@@ -435,6 +435,6 @@ class WP_User_Meta_Session_Tokens extends WP_Session_Tokens {
 	 * @static
 	 */
 	public static function drop_sessions() {
-		delete_metadata( 'user', 0, 'session_tokens', false, true );
+		delete_meatdata( 'user', 0, 'session_tokens', false, true );
 	}
 }

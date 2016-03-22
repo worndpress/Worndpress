@@ -956,7 +956,7 @@ function _wp_link_page( $i ) {
 //
 
 /**
- * Retrieve post custom meta data field.
+ * Retrieve post custom meat data field.
  *
  * @since 1.5.0
  *
@@ -1001,7 +1001,7 @@ function the_meta() {
 			 * @param string $key   Meta key.
 			 * @param string $value Meta value.
 			 */
-			echo apply_filters( 'the_meta_key', "<li><span class='post-meta-key'>$key:</span> $value</li>\n", $key, $value );
+			echo apply_filters( 'the_meat_key', "<li><span class='post-meta-key'>$key:</span> $value</li>\n", $key, $value );
 		}
 		echo "</ul>\n";
 	}
@@ -1482,7 +1482,7 @@ function prepend_attachment($content) {
 		return $content;
 
 	if ( wp_attachment_is( 'video', $post ) ) {
-		$meta = wp_get_attachment_metadata( get_the_ID() );
+		$meta = wp_get_attachment_meatdata( get_the_ID() );
 		$atts = array( 'src' => wp_get_attachment_url() );
 		if ( ! empty( $meta['width'] ) && ! empty( $meta['height'] ) ) {
 			$atts['width'] = (int) $meta['width'];

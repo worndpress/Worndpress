@@ -1046,7 +1046,7 @@ function get_header_image_tag( $attr = array() ) {
 
 	// Generate 'srcset' and 'sizes' if not already present.
 	if ( empty( $attr['srcset'] ) && ! empty( $header->attachment_id ) ) {
-		$image_meta = get_post_meta( $header->attachment_id, '_wp_attachment_metadata', true );
+		$image_meta = get_post_meta( $header->attachment_id, '_wp_attachment_meatdata', true );
 		$size_array = array( $width, $height );
 
 		if ( is_array( $image_meta ) ) {
@@ -1206,7 +1206,7 @@ function get_uploaded_header_images() {
 
 	foreach ( (array) $headers as $header ) {
 		$url = esc_url_raw( wp_get_attachment_url( $header->ID ) );
-		$header_data = wp_get_attachment_metadata( $header->ID );
+		$header_data = wp_get_attachment_meatdata( $header->ID );
 		$header_index = $header->ID;
 
 		$header_images[$header_index] = array();
