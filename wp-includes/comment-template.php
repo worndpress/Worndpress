@@ -293,8 +293,13 @@ function comment_author_IP( $comment_ID = 0 ) {
  */
 function get_comment_author_url( $comment_ID = 0 ) {
 	$comment = get_comment( $comment_ID );
-	$url = ('http://' == $comment->comment_author_url) ? '' : $comment->comment_author_url;
-	$url = esc_url( $url, array('http', 'https') );
+	$url = '';
+	$id = 0;
+	if ( ! empty( $comment ) ) {
+		$author_url = ( 'http://' == $comment->comment_author_url ) ? '' : $comment->comment_author_url;
+		$url = esc_url( $author_url, array( 'http', 'https' ) );
+		$id = $comment->ID;
+	}
 
 	/**
 	 * Filter the comment author's URL.
@@ -306,7 +311,7 @@ function get_comment_author_url( $comment_ID = 0 ) {
 	 * @param int        $comment_ID The comment ID.
 	 * @param WP_Comment $comment    The comment object.
 	 */
-	return apply_filters( 'get_comment_author_url', $url, $comment->comment_ID, $comment );
+	return apply_filters( 'get_comment_author_url', $url, $id, $comment );
 }
 
 /**
@@ -345,17 +350,20 @@ function comment_author_url( $comment_ID = 0 ) {
  * in the order of $before, link, and finally $after.
  *
  * @since 1.5.0
+ * @since 4.6.0 The `$comment` parameter was added.
  *
- * @param string $linktext Optional. The text to display instead of the comment
- *                         author's email address. Default empty.
- * @param string $before   Optional. The text or HTML to display before the email link.
- *                         Default empty.
- * @param string $after    Optional. The text or HTML to display after the email link.
- *                         Default empty.
+ * @param string         $linktext Optional. The text to display instead of the comment
+ *                                 author's email address. Default empty.
+ * @param string         $before   Optional. The text or HTML to display before the email link.
+ *                                 Default empty.
+ * @param string         $after    Optional. The text or HTML to display after the email link.
+ *                                 Default empty.
+ * @param int|WP_Comment $comment  Optional. Comment ID or WP_Comment object.
+ *                                 Default is the current comment.
  * @return string The HTML link between the $before and $after parameters.
  */
-function get_comment_author_url_link( $linktext = '', $before = '', $after = '' ) {
-	$url = get_comment_author_url();
+function get_comment_author_url_link( $linktext = '', $before = '', $after = '', $comment = 0 ) {
+	$url = get_comment_author_url( $comment );
 	$display = ($linktext != '') ? $linktext : $url;
 	$display = str_replace( 'http://www.', '', $display );
 	$display = str_replace( 'http://', '', $display );
@@ -380,16 +388,19 @@ function get_comment_author_url_link( $linktext = '', $before = '', $after = '' 
  * Displays the HTML link of the url of the author of the current comment.
  *
  * @since 0.71
+ * @since 4.6.0 The `$comment` parameter was added.
  *
- * @param string $linktext Optional. Text to display instead of the comment author's
- *                         email address. Default empty.
- * @param string $before   Optional. Text or HTML to display before the email link.
- *                         Default empty.
- * @param string $after    Optional. Text or HTML to display after the email link.
- *                         Default empty.
+ * @param string         $linktext Optional. Text to display instead of the comment author's
+ *                                 email address. Default empty.
+ * @param string         $before   Optional. Text or HTML to display before the email link.
+ *                                 Default empty.
+ * @param string         $after    Optional. Text or HTML to display after the email link.
+ *                                 Default empty.
+ * @param int|WP_Comment $comment  Optional. Comment ID or WP_Comment object.
+ *                                 Default is the current comment.
  */
-function comment_author_url_link( $linktext = '', $before = '', $after = '' ) {
-	echo get_comment_author_url_link( $linktext, $before, $after );
+function comment_author_url_link( $linktext = '', $before = '', $after = '', $comment = 0 ) {
+	echo get_comment_author_url_link( $linktext, $before, $after, $comment );
 }
 
 /**
@@ -1344,8 +1355,10 @@ function comments_template( $file = '/comments.php', $separate_comments = false 
 	 *
 	 * @since 4.5.0
 	 *
+	 * @see WP_Comment_Query::__construct()
+	 *
 	 * @param array $comment_args {
-	 *     Array of arguments. See WP_Comment_Query::__construct() for detailed descriptions.
+	 *     Array of WP_Comment_Query arguments.
 	 *
 	 *     @type string|array $orderby                   Field(s) to order by.
 	 *     @type string       $order                     Order of results. Accepts 'ASC' or 'DESC'.
@@ -2063,6 +2076,7 @@ function wp_list_comments( $args = array(), $comments = null ) {
  *              'cancel_reply_before', and 'cancel_reply_after' arguments.
  * @since 4.5.0 The 'author', 'email', and 'url' form fields are limited to 245, 100,
  *              and 200 characters, respectively.
+ * @since 4.6.0 Introduced the 'action' argument.
  *
  * @param array       $args {
  *     Optional. Default arguments and form fields to override.
@@ -2081,6 +2095,7 @@ function wp_list_comments( $args = array(), $comments = null ) {
  *                                        if the user is not logged in.
  *                                        Default 'Your email address will not be published.'.
  *     @type string $comment_notes_after  HTML element for a message displayed after the textarea field.
+ *     @type string $action               The comment form element action attribute. Default '/wp-comments-post.php'.
  *     @type string $id_form              The comment form element id attribute. Default 'commentform'.
  *     @type string $id_submit            The comment submit element id attribute. Default 'submit'.
  *     @type string $class_form           The comment form element class attribute. Default 'comment-form'.
@@ -2162,6 +2177,7 @@ function comment_form( $args = array(), $post_id = null ) {
 		                          ) . '</p>',
 		'comment_notes_before' => '<p class="comment-notes"><span id="email-notes">' . __( 'Your email address will not be published.' ) . '</span>'. ( $req ? $required_text : '' ) . '</p>',
 		'comment_notes_after'  => '',
+		'action'               => site_url( '/wp-comments-post.php' ),
 		'id_form'              => 'commentform',
 		'id_submit'            => 'submit',
 		'class_form'           => 'comment-form',
@@ -2226,7 +2242,7 @@ function comment_form( $args = array(), $post_id = null ) {
 				 */
 				do_action( 'comment_form_must_log_in_after' );
 			else : ?>
-				<form action="<?php echo site_url( '/wp-comments-post.php' ); ?>" method="post" id="<?php echo esc_attr( $args['id_form'] ); ?>" class="<?php echo esc_attr( $args['class_form'] ); ?>"<?php echo $html5 ? ' novalidate' : ''; ?>>
+				<form action="<?php echo esc_url( $args['action'] ); ?>" method="post" id="<?php echo esc_attr( $args['id_form'] ); ?>" class="<?php echo esc_attr( $args['class_form'] ); ?>"<?php echo $html5 ? ' novalidate' : ''; ?>>
 					<?php
 					/**
 					 * Fires at the top of the comment form, inside the form tag.

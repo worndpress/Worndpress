@@ -109,7 +109,7 @@ final class WP_Customize_Manager {
 	 * @access protected
 	 * @var array
 	 */
-	protected $components = array( 'widgets', 'nav_menus', 'selective_refresh' );
+	protected $components = array( 'widgets', 'nav_menus' );
 
 	/**
 	 * Registered instances of WP_Customize_Section.
@@ -258,6 +258,9 @@ final class WP_Customize_Manager {
 		 */
 		$components = apply_filters( 'customize_loaded_components', $this->components, $this );
 
+		require_once( ABSPATH . WPINC . '/customize/class-wp-customize-selective-refresh.php' );
+		$this->selective_refresh = new WP_Customize_Selective_Refresh( $this );
+
 		if ( in_array( 'widgets', $components, true ) ) {
 			require_once( ABSPATH . WPINC . '/class-wp-customize-widgets.php' );
 			$this->widgets = new WP_Customize_Widgets( $this );
@@ -266,11 +269,6 @@ final class WP_Customize_Manager {
 		if ( in_array( 'nav_menus', $components, true ) ) {
 			require_once( ABSPATH . WPINC . '/class-wp-customize-nav-menus.php' );
 			$this->nav_menus = new WP_Customize_Nav_Menus( $this );
-		}
-
-		if ( in_array( 'selective_refresh', $components, true ) ) {
-			require_once( ABSPATH . WPINC . '/customize/class-wp-customize-selective-refresh.php' );
-			$this->selective_refresh = new WP_Customize_Selective_Refresh( $this );
 		}
 
 		add_filter( 'wp_die_handler', array( $this, 'wp_die_handler' ) );
@@ -389,7 +387,7 @@ final class WP_Customize_Manager {
 		show_admin_bar( false );
 
 		if ( ! current_user_can( 'customize' ) ) {
-			$this->wp_die( -1, __( 'You are not allowed to customize the appearance of this site.' ) );
+			$this->wp_die( -1, __( 'You are not allowed to customize this site.' ) );
 		}
 
 		$this->original_stylesheet = get_stylesheet();
@@ -1730,7 +1728,6 @@ final class WP_Customize_Manager {
 			'autofocus' => $this->get_autofocus(),
 			'documentTitleTmpl' => $this->get_document_title_template(),
 			'previewableDevices' => $this->get_previewable_devices(),
-			'selectiveRefreshEnabled' => isset( $this->selective_refresh ),
 		);
 
 		// Prepare Customize Section objects to pass to JavaScript.
@@ -1922,13 +1919,12 @@ final class WP_Customize_Manager {
 			'section'    => 'title_tagline',
 		) );
 
-		// Add a setting to hide header text if the theme isn't supporting the feature itself.
-		// @todo
-		if ( ! current_theme_supports( 'custom-header' ) ) {
+		// Add a setting to hide header text if the theme doesn't support custom headers.
+		if ( ! current_theme_supports( 'custom-header', 'header-text' ) ) {
 			$this->add_setting( 'header_text', array(
+				'theme_supports'    => array( 'custom-logo', 'header-text' ),
 				'default'           => 1,
 				'sanitize_callback' => 'absint',
-				'transport'         => 'postMessage',
 			) );
 
 			$this->add_control( 'header_text', array(
@@ -1963,11 +1959,15 @@ final class WP_Customize_Manager {
 			'transport'      => 'postMessage',
 		) );
 
-		$this->add_control( new WP_Customize_Media_Control( $this, 'custom_logo', array(
-			'label'    => __( 'Logo' ),
-			'section'  => 'title_tagline',
-			'priority' => 0,
-			'mime_type' => 'image',
+		$custom_logo_args = get_theme_support( 'custom-logo' );
+		$this->add_control( new WP_Customize_Cropped_Image_Control( $this, 'custom_logo', array(
+			'label'         => __( 'Logo' ),
+			'section'       => 'title_tagline',
+			'priority'      => 8,
+			'height'        => $custom_logo_args[0]['height'],
+			'width'         => $custom_logo_args[0]['width'],
+			'flex_height'   => $custom_logo_args[0]['flex-height'],
+			'flex_width'    => $custom_logo_args[0]['flex-width'],
 			'button_labels' => array(
 				'select'       => __( 'Select logo' ),
 				'change'       => __( 'Change logo' ),
@@ -1979,14 +1979,12 @@ final class WP_Customize_Manager {
 			),
 		) ) );
 
-		if ( isset( $this->selective_refresh ) ) {
-			$this->selective_refresh->add_partial( 'custom_logo', array(
-				'settings'            => array( 'custom_logo' ),
-				'selector'            => '.custom-logo-link',
-				'render_callback'     => array( $this, '_render_custom_logo_partial' ),
-				'container_inclusive' => true,
-			) );
-		}
+		$this->selective_refresh->add_partial( 'custom_logo', array(
+			'settings'            => array( 'custom_logo' ),
+			'selector'            => '.custom-logo-link',
+			'render_callback'     => array( $this, '_render_custom_logo_partial' ),
+			'container_inclusive' => true,
+		) );
 
 		/* Colors */
 
@@ -2237,65 +2235,4 @@ final class WP_Customize_Manager {
 	public function _render_custom_logo_partial() {
 		return get_custom_logo();
 	}
-}
-
-/**
- * Sanitizes a hex color.
- *
- * Returns either '', a 3 or 6 digit hex color (with #), or nothing.
- * For sanitizing values without a #, see sanitize_hex_color_no_hash().
- *
- * @since 3.4.0
- *
- * @param string $color
- * @return string|void
- */
-function sanitize_hex_color( $color ) {
-	if ( '' === $color )
-		return '';
-
-	// 3 or 6 hex digits, or the empty string.
-	if ( preg_match('|^#([A-Fa-f0-9]{3}){1,2}$|', $color ) )
-		return $color;
-}
-
-/**
- * Sanitizes a hex color without a hash. Use sanitize_hex_color() when possible.
- *
- * Saving hex colors without a hash puts the burden of adding the hash on the
- * UI, which makes it difficult to use or upgrade to other color types such as
- * rgba, hsl, rgb, and html color names.
- *
- * Returns either '', a 3 or 6 digit hex color (without a #), or null.
- *
- * @since 3.4.0
- *
- * @param string $color
- * @return string|null
- */
-function sanitize_hex_color_no_hash( $color ) {
-	$color = ltrim( $color, '#' );
-
-	if ( '' === $color )
-		return '';
-
-	return sanitize_hex_color( '#' . $color ) ? $color : null;
-}
-
-/**
- * Ensures that any hex color is properly hashed.
- * Otherwise, returns value untouched.
- *
- * This method should only be necessary if using sanitize_hex_color_no_hash().
- *
- * @since 3.4.0
- *
- * @param string $color
- * @return string
- */
-function maybe_hash_hex_color( $color ) {
-	if ( $unhashed = sanitize_hex_color_no_hash( $color ) )
-		return '#' . $unhashed;
-
-	return $color;
 }

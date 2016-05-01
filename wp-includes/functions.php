@@ -1687,17 +1687,19 @@ function path_join( $base, $path ) {
  *
  * On windows systems, replaces backslashes with forward slashes
  * and forces upper-case drive letters.
- * Ensures that no duplicate slashes exist.
+ * Allows for two leading slashes for Windows network shares, but
+ * ensures that all other duplicate slashes are reduced to a single.
  *
  * @since 3.9.0
  * @since 4.4.0 Ensures upper-case drive letters on Windows systems.
+ * @since 4.5.0 Allows for Windows network shares.
  *
  * @param string $path Path to normalize.
  * @return string Normalized path.
  */
 function wp_normalize_path( $path ) {
 	$path = str_replace( '\\', '/', $path );
-	$path = preg_replace( '|/+|','/', $path );
+	$path = preg_replace( '|(?<=.)/+|', '/', $path );
 	if ( ':' === substr( $path, 1, 1 ) ) {
 		$path = ucfirst( $path );
 	}
@@ -1800,12 +1802,15 @@ function win_is_writable( $path ) {
 }
 
 /**
- * Get uploads directory information.
+ * Retrieves uploads directory information.
  *
  * Same as wp_upload_dir() but "light weight" as it doesn't attempt to create the uploads directory.
- * Intended for use in themes, when only 'basedir' and 'baseurl' are needed, generally in all cases when not uploading files.
+ * Intended for use in themes, when only 'basedir' and 'baseurl' are needed, generally in all cases
+ * when not uploading files.
  *
  * @since 4.5.0
+ *
+ * @see wp_upload_dir()
  *
  * @return array See wp_upload_dir() for description.
  */
@@ -1849,7 +1854,7 @@ function wp_get_upload_dir() {
  * @return array See above for description.
  */
 function wp_upload_dir( $time = null, $create_dir = true, $refresh_cache = false ) {
-	static $cache = array();
+	static $cache = array(), $tested_paths = array();
 
 	$key = sprintf( '%d-%s', get_current_blog_id(), (string) $time );
 
@@ -1869,13 +1874,10 @@ function wp_upload_dir( $time = null, $create_dir = true, $refresh_cache = false
 
 	if ( $create_dir ) {
 		$path = $uploads['path'];
-		$tested_paths = wp_cache_get( 'upload_dir_tested_paths' );
 
-		if ( ! is_array( $tested_paths ) ) {
-			$tested_paths = array();
-		}
-
-		if ( ! in_array( $path, $tested_paths, true ) ) {
+		if ( array_key_exists( $path, $tested_paths ) ) {
+			$uploads['error'] = $tested_paths[ $path ];
+		} else {
 			if ( ! wp_mkdir_p( $path ) ) {
 				if ( 0 === strpos( $uploads['basedir'], ABSPATH ) ) {
 					$error_path = str_replace( ABSPATH, '', $uploads['basedir'] ) . $uploads['subdir'];
@@ -1884,10 +1886,9 @@ function wp_upload_dir( $time = null, $create_dir = true, $refresh_cache = false
 				}
 
 				$uploads['error'] = sprintf( __( 'Unable to create directory %s. Is its parent directory writable by the server?' ), esc_html( $error_path ) );
-			} else {
-				$tested_paths[] = $path;
-				wp_cache_set( 'upload_dir_tested_paths', $tested_paths );
 			}
+
+			$tested_paths[ $path ] = $uploads['error'];
 		}
 	}
 
@@ -2180,28 +2181,7 @@ function wp_upload_bits( $name, $deprecated, $bits, $time = null ) {
 function wp_ext2type( $ext ) {
 	$ext = strtolower( $ext );
 
-	/**
-	 * Filter file type based on the extension name.
-	 *
-	 * @since 2.5.0
-	 *
-	 * @see wp_ext2type()
-	 *
-	 * @param array $ext2type Multi-dimensional array with extensions for a default set
-	 *                        of file types.
-	 */
-	$ext2type = apply_filters( 'ext2type', array(
-		'image'       => array( 'jpg', 'jpeg', 'jpe',  'gif',  'png',  'bmp',   'tif',  'tiff', 'ico' ),
-		'audio'       => array( 'aac', 'ac3',  'aif',  'aiff', 'm3a',  'm4a',   'm4b',  'mka',  'mp1',  'mp2',  'mp3', 'ogg', 'oga', 'ram', 'wav', 'wma' ),
-		'video'       => array( '3g2',  '3gp', '3gpp', 'asf', 'avi',  'divx', 'dv',   'flv',  'm4v',   'mkv',  'mov',  'mp4',  'mpeg', 'mpg', 'mpv', 'ogm', 'ogv', 'qt',  'rm', 'vob', 'wmv' ),
-		'document'    => array( 'doc', 'docx', 'docm', 'dotm', 'odt',  'pages', 'pdf',  'xps',  'oxps', 'rtf',  'wp', 'wpd', 'psd', 'xcf' ),
-		'spreadsheet' => array( 'numbers',     'ods',  'xls',  'xlsx', 'xlsm',  'xlsb' ),
-		'interactive' => array( 'swf', 'key',  'ppt',  'pptx', 'pptm', 'pps',   'ppsx', 'ppsm', 'sldx', 'sldm', 'odp' ),
-		'text'        => array( 'asc', 'csv',  'tsv',  'txt' ),
-		'archive'     => array( 'bz2', 'cab',  'dmg',  'gz',   'rar',  'sea',   'sit',  'sqx',  'tar',  'tgz',  'zip', '7z' ),
-		'code'        => array( 'css', 'htm',  'html', 'php',  'js' ),
-	) );
-
+	$ext2type = wp_get_ext_types();
 	foreach ( $ext2type as $type => $exts )
 		if ( in_array( $ext, $exts ) )
 			return $type;
@@ -2446,6 +2426,39 @@ function wp_get_mime_types() {
 	'pages' => 'application/vnd.apple.pages',
 	) );
 }
+
+/**
+ * Retrieve list of common file extensions and their types.
+ *
+ * @since 4.6.0
+ *
+ * @return array Array of file extensions types keyed by the type of file.
+ */
+function wp_get_ext_types() {
+
+	/**
+	 * Filter file type based on the extension name.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @see wp_ext2type()
+	 *
+	 * @param array $ext2type Multi-dimensional array with extensions for a default set
+	 *                        of file types.
+	 */
+	return apply_filters( 'ext2type', array(
+		'image'       => array( 'jpg', 'jpeg', 'jpe',  'gif',  'png',  'bmp',   'tif',  'tiff', 'ico' ),
+		'audio'       => array( 'aac', 'ac3',  'aif',  'aiff', 'm3a',  'm4a',   'm4b',  'mka',  'mp1',  'mp2',  'mp3', 'ogg', 'oga', 'ram', 'wav', 'wma' ),
+		'video'       => array( '3g2',  '3gp', '3gpp', 'asf', 'avi',  'divx', 'dv',   'flv',  'm4v',   'mkv',  'mov',  'mp4',  'mpeg', 'mpg', 'mpv', 'ogm', 'ogv', 'qt',  'rm', 'vob', 'wmv' ),
+		'document'    => array( 'doc', 'docx', 'docm', 'dotm', 'odt',  'pages', 'pdf',  'xps',  'oxps', 'rtf',  'wp', 'wpd', 'psd', 'xcf' ),
+		'spreadsheet' => array( 'numbers',     'ods',  'xls',  'xlsx', 'xlsm',  'xlsb' ),
+		'interactive' => array( 'swf', 'key',  'ppt',  'pptx', 'pptm', 'pps',   'ppsx', 'ppsm', 'sldx', 'sldm', 'odp' ),
+		'text'        => array( 'asc', 'csv',  'tsv',  'txt' ),
+		'archive'     => array( 'bz2', 'cab',  'dmg',  'gz',   'rar',  'sea',   'sit',  'sqx',  'tar',  'tgz',  'zip', '7z' ),
+		'code'        => array( 'css', 'htm',  'html', 'php',  'js' ),
+	) );
+}
+
 /**
  * Retrieve list of allowed mime types and file extensions.
  *
@@ -2645,6 +2658,7 @@ function _default_wp_die_handler( $message, $title = '', $args = array() ) {
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width">
+	<?php wp_no_robots(); ?>
 	<title><?php echo $title ?></title>
 	<style type="text/css">
 		html {
@@ -3210,7 +3224,7 @@ function smilies_init() {
 		   ':idea:' => "\xf0\x9f\x92\xa1",
 		   ':oops:' => "\xf0\x9f\x98\xb3",
 		   ':razz:' => "\xf0\x9f\x98\x9b",
-		   ':roll:' => 'rolleyes.png',
+		   ':roll:' => "\xf0\x9f\x99\x84",
 		   ':wink:' => "\xf0\x9f\x98\x89",
 		    ':cry:' => "\xf0\x9f\x98\xa5",
 		    ':eek:' => "\xf0\x9f\x98\xae",

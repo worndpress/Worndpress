@@ -130,7 +130,7 @@ add_filter( 'the_title', 'convert_chars' );
 add_filter( 'the_title', 'trim'          );
 
 add_filter( 'the_content', 'wptexturize'                       );
-add_filter( 'the_content', 'convert_smilies'                   );
+add_filter( 'the_content', 'convert_smilies',               20 );
 add_filter( 'the_content', 'wpautop'                           );
 add_filter( 'the_content', 'shortcode_unautop'                 );
 add_filter( 'the_content', 'prepend_attachment'                );
@@ -371,6 +371,7 @@ add_action( 'parse_request', 'rest_api_loaded' );
  */
 // Theme
 add_action( 'wp_loaded', '_custom_header_background_just_in_time' );
+add_action( 'wp_head', '_custom_logo_header_styles' );
 add_action( 'plugins_loaded', '_wp_customize_include' );
 add_action( 'admin_enqueue_scripts', '_wp_customize_loader_settings' );
 add_action( 'delete_attachment', '_delete_attachment_theme_mod' );

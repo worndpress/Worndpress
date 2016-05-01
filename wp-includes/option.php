@@ -844,13 +844,14 @@ function get_user_setting( $name, $default = false ) {
  * Add or update user interface setting.
  *
  * Both $name and $value can contain only ASCII letters, numbers and underscores.
+ *
  * This function has to be used before any output has started as it calls setcookie().
  *
  * @since 2.8.0
  *
  * @param string $name  The name of the setting.
  * @param string $value The value for the setting.
- * @return bool|void true if set successfully/false if not.
+ * @return bool|null True if set successfully, false if not. Null if the current user can't be established.
  */
 function set_user_setting( $name, $value ) {
 	if ( headers_sent() ) {
@@ -867,12 +868,13 @@ function set_user_setting( $name, $value ) {
  * Delete user interface settings.
  *
  * Deleting settings would reset them to the defaults.
+ *
  * This function has to be used before any output has started as it calls setcookie().
  *
  * @since 2.7.0
  *
  * @param string $names The name or array of names of the setting to be deleted.
- * @return bool|void true if deleted successfully/false if not.
+ * @return bool|null True if deleted successfully, false if not. Null if the current user can't be established.
  */
 function delete_user_setting( $names ) {
 	if ( headers_sent() ) {
@@ -941,11 +943,13 @@ function get_all_user_settings() {
  * Private. Set all user interface settings.
  *
  * @since 2.8.0
+ * @access private
  *
  * @global array $_updated_user_settings
  *
- * @param array $user_settings
- * @return bool|void
+ * @param array $user_settings User settings.
+ * @return bool|null False if the current user can't be found, null if the current
+ *                   user is not a super admin or a member of the site, otherwise true.
  */
 function wp_set_all_user_settings( $user_settings ) {
 	global $_updated_user_settings;
@@ -1223,7 +1227,7 @@ function add_network_option( $network_id, $option, $value ) {
 	$notoptions_key = "$network_id:notoptions";
 
 	if ( ! is_multisite() ) {
-		$result = add_option( $option, $value );
+		$result = add_option( $option, $value, '', 'no' );
 	} else {
 		$cache_key = "$network_id:$option";
 
@@ -1431,7 +1435,7 @@ function update_network_option( $network_id, $option, $value ) {
 	}
 
 	if ( ! is_multisite() ) {
-		$result = update_option( $option, $value );
+		$result = update_option( $option, $value, 'no' );
 	} else {
 		$value = sanitize_option( $option, $value );
 

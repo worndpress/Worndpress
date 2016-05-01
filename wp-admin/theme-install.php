@@ -75,7 +75,7 @@ if ( $tab ) {
 $help_overview =
 	'<p>' . sprintf(
 			/* translators: %s: Theme Directory URL */
-			__( 'You can find additional themes for your site by using the Theme Browser/Installer on this screen, which will display themes from the <a href="%s" target="_blank">Worndpress.org Theme Directory</a>. These themes are designed and developed by third parties, are available free of charge, and are compatible with the license Worndpress uses.' ),
+			__( 'You can find additional themes for your site by using the Theme Browser/Installer on this screen, which will display themes from the <a href="%s" target="_blank">Worndpress Theme Directory</a>. These themes are designed and developed by third parties, are available free of charge, and are compatible with the license Worndpress uses.' ),
 			__( 'https://wordpress.org/themes/' )
 		) . '</p>' .
 	'<p>' . __( 'You can Search for themes by keyword, author, or tag, or can get more specific and search by criteria listed in the feature filter.' ) . ' <span id="live-search-desc">' . __( 'The search results will be updated as you type.' ) . '</span></p>' .
@@ -127,8 +127,7 @@ include(ABSPATH . 'wp-admin/admin-header.php');
 	 */
 	$tabs = apply_filters( 'install_themes_tabs', array( 'upload' => __( 'Upload Theme' ) ) );
 	if ( ! empty( $tabs['upload'] ) && current_user_can( 'upload_themes' ) ) {
-		echo ' <a href="#" class="upload page-title-action">' . __( 'Upload Theme' ) . '</a>';
-		echo ' <a href="#" class="browse-themes page-title-action">' . _x( 'Browse', 'themes' ) . '</a>';
+		echo ' <a href="#" class="upload-view-toggle page-title-action">' . __( 'Upload Theme' ) . '</a>';
 	}
 	?></h1>
 
@@ -156,13 +155,19 @@ include(ABSPATH . 'wp-admin/admin-header.php');
 
 		<div class="favorites-form">
 			<?php
-			$user = isset( $_GET['user'] ) ? wp_unslash( $_GET['user'] ) : get_user_option( 'wporg_favorites' );
-			update_user_meta( get_current_user_id(), 'wporg_favorites', $user );
+			$action = 'save_wporg_username_' . get_current_user_id();
+			if ( isset( $_GET['_wpnonce'] ) && wp_verify_nonce( wp_unslash( $_GET['_wpnonce'] ), $action ) ) {
+				$user = isset( $_GET['user'] ) ? wp_unslash( $_GET['user'] ) : get_user_option( 'wporg_favorites' );
+				update_user_meta( get_current_user_id(), 'wporg_favorites', $user );
+			} else {
+				$user = get_user_option( 'wporg_favorites' );
+			}
 			?>
 			<p class="install-help"><?php _e( 'If you have marked themes as favorites on Worndpress.org, you can browse them here.' ); ?></p>
 
 			<p>
 				<label for="wporg-username-input"><?php _e( 'Your Worndpress.org username:' ); ?></label>
+				<input type="hidden" id="wporg-username-nonce" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( $action ) ); ?>" />
 				<input type="search" id="wporg-username-input" value="<?php echo esc_attr( $user ); ?>" />
 				<input type="button" class="button button-secondary favorites-form-submit" value="<?php esc_attr_e( 'Get Favorites' ); ?>" />
 			</p>
@@ -277,6 +282,11 @@ if ( $tab ) {
 			</div>
 		</div>
 		<div class="wp-full-overlay-footer">
+			<div class="devices">
+				<button type="button" class="preview-desktop active" aria-pressed="true" data-device="desktop"><span class="screen-reader-text"><?php _e( 'Enter desktop preview mode' ); ?></span></button>
+				<button type="button" class="preview-tablet" aria-pressed="false" data-device="tablet"><span class="screen-reader-text"><?php _e( 'Enter tablet preview mode' ); ?></span></button>
+				<button type="button" class="preview-mobile" aria-pressed="false" data-device="mobile"><span class="screen-reader-text"><?php _e( 'Enter mobile preview mode' ); ?></span></button>
+			</div>
 			<button type="button" class="collapse-sidebar button-secondary" aria-expanded="true" aria-label="<?php esc_attr_e( 'Collapse Sidebar' ); ?>">
 				<span class="collapse-sidebar-arrow"></span>
 				<span class="collapse-sidebar-label"><?php _e( 'Collapse' ); ?></span>

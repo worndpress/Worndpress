@@ -272,6 +272,14 @@ jQuery(document).ready( function($) {
 
 			if ( typeof commentReply !== 'undefined' ) {
 				/*
+				 * Warn the user they have an unsaved comment before submitting
+				 * the post data for update.
+				 */
+				if ( ! commentReply.discardCommentChanges() ) {
+					return false;
+				}
+
+				/*
 				 * Close the comment edit/reply form if open to stop the form
 				 * action from interfering with the post's form action.
 				 */
@@ -374,6 +382,10 @@ jQuery(document).ready( function($) {
 		$( '.autosave-message' ).text( postL10n.savingText );
 	}).on( 'after-autosave.edit-post', function( event, data ) {
 		$( '.autosave-message' ).text( data.message );
+
+		if ( $( document.body ).hasClass( 'post-new-php' ) ) {
+			$( '.submitbox .submitdelete' ).show();
+		}
 	});
 
 	$(window).on( 'beforeunload.edit-post', function() {

@@ -130,14 +130,19 @@ function wp_dashboard_setup() {
 }
 
 /**
+ * Adds a new dashboard widget.
  *
- * @global array   $wp_dashboard_control_callbacks
+ * @since 2.7.0
  *
- * @param string   $widget_id
- * @param string   $widget_name
- * @param callable $callback
- * @param callable $control_callback
- * @param array    $callback_args
+ * @global array $wp_dashboard_control_callbacks
+ *
+ * @param string   $widget_id        Widget ID  (used in the 'id' attribute for the widget).
+ * @param string   $widget_name      Title of the widget.
+ * @param callable $callback         Function that fills the widget with the desired content.
+ *                                   The function should echo its output.
+ * @param callable $control_callback Optional. Function that outputs controls for the widget. Default null.
+ * @param array    $callback_args    Optional. Data that should be set as the $args property of the widget array
+ *                                   (which is the second parameter passed to your callback). Default null.
  */
 function wp_add_dashboard_widget( $widget_id, $widget_name, $callback, $control_callback = null, $callback_args = null ) {
 	$screen = get_current_screen();
@@ -258,7 +263,7 @@ function wp_dashboard_right_now() {
 	}
 	// Comments
 	$num_comm = wp_count_comments();
-	if ( $num_comm && $num_comm->approved ) {
+	if ( $num_comm && ( $num_comm->approved || $num_comm->moderated ) ) {
 		$text = sprintf( _n( '%s Comment', '%s Comments', $num_comm->approved ), number_format_i18n( $num_comm->approved ) );
 		?>
 		<li class="comment-count"><a href="edit-comments.php"><?php echo $text; ?></a></li>
@@ -625,9 +630,7 @@ function _wp_dashboard_recent_comments_row( &$comment, $show_date = true ) {
 			$actions['trash'] = "<a href='$trash_url' data-wp-lists='delete:the-comment-list:comment-$comment->comment_ID::trash=1' class='delete vim-d vim-destructive' aria-label='" . esc_attr__( 'Move this comment to the Trash' ) . "'>" . _x( 'Trash', 'verb' ) . '</a>';
 		}
 
-		if ( '1' === $comment->comment_approved ) {
-			$actions['view'] = '<a class="comment-link" href="' . esc_url( get_comment_link( $comment ) ) . '" aria-label="' . esc_attr__( 'View this comment' ) . '">' . __( 'View' ) . '</a>';
-		}
+		$actions['view'] = '<a class="comment-link" href="' . esc_url( get_comment_link( $comment ) ) . '" aria-label="' . esc_attr__( 'View this comment' ) . '">' . __( 'View' ) . '</a>';
 
 		/**
 		 * Filter the action links displayed for each comment in the 'Recent Comments'
@@ -648,9 +651,13 @@ function _wp_dashboard_recent_comments_row( &$comment, $show_date = true ) {
 			( ( ('approve' == $action || 'unapprove' == $action) && 2 === $i ) || 1 === $i ) ? $sep = '' : $sep = ' | ';
 
 			// Reply and quickedit need a hide-if-no-js span
-			if ( 'reply' == $action || 'quickedit' == $action )
+			if ( 'reply' == $action || 'quickedit' == $action ) {
 				$action .= ' hide-if-no-js';
+			}
 
+			if ( 'view' === $action && '1' !== $comment->comment_approved ) {
+				$action .= ' hidden';
+			}
 			$actions_string .= "<span class='$action'>$sep$link</span>";
 		}
 	}
@@ -1240,7 +1247,7 @@ function wp_dashboard_plugins_output( $rss, $args = array() ) {
 
 		$ilink = wp_nonce_url('plugin-install.php?tab=plugin-information&plugin=' . $slug, 'install-plugin_' . $slug) . '&amp;TB_iframe=true&amp;width=600&amp;height=800';
 		echo '<li class="dashboard-news-plugin"><span>' . __( 'Popular Plugin' ) . ':</span> ' . esc_html( $raw_title ) .
-			'&nbsp;<a href="' . $ilink . '" class="thickbox" aria-label="' .
+			'&nbsp;<a href="' . $ilink . '" class="thickbox open-plugin-details-modal" aria-label="' .
 			/* translators: %s: plugin name */
 			esc_attr( sprintf( __( 'Install %s' ), $raw_title ) ) . '">(' . __( 'Install' ) . ')</a></li>';
 

@@ -1486,7 +1486,7 @@ function find_posts_div($found_action = '') {
 	<div id="find-posts" class="find-box" style="display: none;">
 		<div id="find-posts-head" class="find-box-head">
 			<?php _e( 'Attach to existing content' ); ?>
-			<div id="find-posts-close"></div>
+			<button type="button" id="find-posts-close"><span class="screen-reader-text"><?php _e( 'Close media attachment panel' ); ?></button>
 		</div>
 		<div class="find-box-inside">
 			<div class="find-box-search">
@@ -1651,11 +1651,19 @@ function iframe_footer() {
 	 * but run the hooks anyway since they output JavaScript
 	 * or other needed content.
 	 */
-	 ?>
+
+	/**
+	 * @global string $hook_suffix
+	 */
+	global $hook_suffix;
+	?>
 	<div class="hidden">
 <?php
 	/** This action is documented in wp-admin/admin-footer.php */
-	do_action( 'admin_footer', '' );
+	do_action( 'admin_footer', $hook_suffix );
+
+	/** This action is documented in wp-admin/admin-footer.php */
+	do_action( "admin_print_footer_scripts-$hook_suffix" );
 
 	/** This action is documented in wp-admin/admin-footer.php */
 	do_action( 'admin_print_footer_scripts' );
@@ -1789,6 +1797,7 @@ function _media_states( $post ) {
 function compression_test() {
 ?>
 	<script type="text/javascript">
+	var compressionNonce = <?php echo wp_json_encode( wp_create_nonce( 'update_can_compress_scripts' ) ); ?>;
 	var testCompression = {
 		get : function(test) {
 			var x;
@@ -1808,7 +1817,7 @@ function compression_test() {
 					}
 				};
 
-				x.open('GET', ajaxurl + '?action=wp-compression-test&test='+test+'&'+(new Date()).getTime(), true);
+				x.open('GET', ajaxurl + '?action=wp-compression-test&test='+test+'&_ajax_nonce='+compressionNonce+'&'+(new Date()).getTime(), true);
 				x.send('');
 			}
 		},
@@ -2062,9 +2071,9 @@ function wp_star_rating( $args = array() ) {
 
 	$output = '<div class="star-rating">';
 	$output .= '<span class="screen-reader-text">' . $title . '</span>';
-	$output .= str_repeat( '<div class="star star-full"></div>', $full_stars );
-	$output .= str_repeat( '<div class="star star-half"></div>', $half_stars );
-	$output .= str_repeat( '<div class="star star-empty"></div>', $empty_stars );
+	$output .= str_repeat( '<div class="star star-full" aria-hidden="true"></div>', $full_stars );
+	$output .= str_repeat( '<div class="star star-half" aria-hidden="true"></div>', $half_stars );
+	$output .= str_repeat( '<div class="star star-empty" aria-hidden="true"></div>', $empty_stars );
 	$output .= '</div>';
 
 	if ( $r['echo'] ) {

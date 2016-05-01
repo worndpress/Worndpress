@@ -501,6 +501,7 @@ if ( !function_exists('wp_authenticate') ) :
  * Authenticate a user, confirming the login credentials are valid.
  *
  * @since 2.5.0
+ * @since 4.5.0 `$username` now accepts an email address.
  *
  * @param string $username User's username or email address.
  * @param string $password User's password.
@@ -518,10 +519,11 @@ function wp_authenticate($username, $password) {
 	 * WP_Error or null otherwise.
 	 *
 	 * @since 2.8.0
+	 * @since 4.5.0 `$username` now accepts an email address.
 	 *
 	 * @param null|WP_User|WP_Error $user     WP_User if the user is authenticated.
 	 *                                        WP_Error or null otherwise.
-	 * @param string                $username User login.
+	 * @param string                $username Username or email address.
 	 * @param string                $password User password
 	 */
 	$user = apply_filters( 'authenticate', null, $username, $password );
@@ -539,8 +541,9 @@ function wp_authenticate($username, $password) {
 		 * Fires after a user login has failed.
 		 *
 		 * @since 2.5.0
+		 * @since 4.5.0 The value of `$username` can now be an email address.
 		 *
-		 * @param string $username User login.
+		 * @param string $username Username or email address.
 		 */
 		do_action( 'wp_login_failed', $username );
 	}
@@ -690,7 +693,7 @@ if ( !function_exists('wp_generate_auth_cookie') ) :
  * @since 2.5.0
  *
  * @param int    $user_id    User ID
- * @param int    $expiration Cookie expiration in seconds
+ * @param int    $expiration The time the cookie expires as a UNIX timestamp.
  * @param string $scheme     Optional. The cookie scheme to use: auth, secure_auth, or logged_in
  * @param string $token      User's session token to use for this cookie
  * @return string Authentication cookie contents. Empty string if user does not exist.
@@ -723,7 +726,7 @@ function wp_generate_auth_cookie( $user_id, $expiration, $scheme = 'auth', $toke
 	 *
 	 * @param string $cookie     Authentication cookie.
 	 * @param int    $user_id    User ID.
-	 * @param int    $expiration Authentication cookie expiration in seconds.
+	 * @param int    $expiration The time the cookie expires as a UNIX timestamp.
 	 * @param string $scheme     Cookie scheme used. Accepts 'auth', 'secure_auth', or 'logged_in'.
 	 * @param string $token      User's session token used.
 	 */
@@ -870,23 +873,25 @@ function wp_set_auth_cookie( $user_id, $remember = false, $secure = '', $token =
 	 * @since 2.5.0
 	 *
 	 * @param string $auth_cookie Authentication cookie.
-	 * @param int    $expire      Login grace period in seconds. Default 43,200 seconds, or 12 hours.
-	 * @param int    $expiration  Duration in seconds the authentication cookie should be valid.
-	 *                            Default 1,209,600 seconds, or 14 days.
+	 * @param int    $expire      The time the login grace period expires as a UNIX timestamp.
+	 *                            Default is 12 hours past the cookie's expiration time.
+	 * @param int    $expiration  The time when the authentication cookie expires as a UNIX timestamp.
+	 *                            Default is 14 days from now.
 	 * @param int    $user_id     User ID.
 	 * @param string $scheme      Authentication scheme. Values include 'auth', 'secure_auth', or 'logged_in'.
 	 */
 	do_action( 'set_auth_cookie', $auth_cookie, $expire, $expiration, $user_id, $scheme );
 
 	/**
-	 * Fires immediately before the secure authentication cookie is set.
+	 * Fires immediately before the logged-in authentication cookie is set.
 	 *
 	 * @since 2.6.0
 	 *
 	 * @param string $logged_in_cookie The logged-in cookie.
-	 * @param int    $expire           Login grace period in seconds. Default 43,200 seconds, or 12 hours.
-	 * @param int    $expiration       Duration in seconds the authentication cookie should be valid.
-	 *                                 Default 1,209,600 seconds, or 14 days.
+	 * @param int    $expire           The time the login grace period expires as a UNIX timestamp.
+	 *                                 Default is 12 hours past the cookie's expiration time.
+	 * @param int    $expiration       The time when the logged-in authentication cookie expires as a UNIX timestamp.
+	 *                                 Default is 14 days from now.
 	 * @param int    $user_id          User ID.
 	 * @param string $scheme           Authentication scheme. Default 'logged_in'.
 	 */
@@ -1688,6 +1693,7 @@ if ( !function_exists('wp_new_user_notification') ) :
  * @since 2.0.0
  * @since 4.3.0 The `$plaintext_pass` parameter was changed to `$notify`.
  * @since 4.3.1 The `$plaintext_pass` parameter was deprecated. `$notify` added as a third parameter.
+ * @since 4.6.0 The `$notify` parameter accepts 'user' for sending notification only to the user created.
  *
  * @global wpdb         $wpdb      Worndpress database object for queries.
  * @global PasswordHash $wp_hasher Portable PHP password hashing framework instance.
@@ -1695,7 +1701,7 @@ if ( !function_exists('wp_new_user_notification') ) :
  * @param int    $user_id    User ID.
  * @param null   $deprecated Not used (argument deprecated).
  * @param string $notify     Optional. Type of notification that should happen. Accepts 'admin' or an empty
- *                           string (admin only), or 'both' (admin and user). Default empty.
+ *                           string (admin only), 'user', or 'both' (admin and user). Default empty.
  */
 function wp_new_user_notification( $user_id, $deprecated = null, $notify = '' ) {
 	if ( $deprecated !== null ) {
@@ -1709,11 +1715,13 @@ function wp_new_user_notification( $user_id, $deprecated = null, $notify = '' ) 
 	// we want to reverse this for the plain text arena of emails.
 	$blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
 
-	$message  = sprintf(__('New user registration on your site %s:'), $blogname) . "\r\n\r\n";
-	$message .= sprintf(__('Username: %s'), $user->user_login) . "\r\n\r\n";
-	$message .= sprintf(__('Email: %s'), $user->user_email) . "\r\n";
+	if ( 'user' !== $notify ) {
+		$message  = sprintf( __( 'New user registration on your site %s:' ), $blogname ) . "\r\n\r\n";
+		$message .= sprintf( __( 'Username: %s' ), $user->user_login ) . "\r\n\r\n";
+		$message .= sprintf( __( 'Email: %s' ), $user->user_email ) . "\r\n";
 
-	@wp_mail(get_option('admin_email'), sprintf(__('[%s] New User Registration'), $blogname), $message);
+		@wp_mail( get_option( 'admin_email' ), sprintf( __( '[%s] New User Registration' ), $blogname ), $message );
+	}
 
 	// `$deprecated was pre-4.3 `$plaintext_pass`. An empty `$plaintext_pass` didn't sent a user notifcation.
 	if ( 'admin' === $notify || ( empty( $deprecated ) && empty( $notify ) ) ) {

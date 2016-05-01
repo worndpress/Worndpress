@@ -268,7 +268,7 @@ function is_tag( $tag = '' ) {
 }
 
 /**
- * Is the query for an existing taxonomy archive page?
+ * Is the query for an existing custom taxonomy archive page?
  *
  * If the $taxonomy parameter is specified, this function will additionally
  * check if the query is for that specific $taxonomy.
@@ -283,7 +283,7 @@ function is_tag( $tag = '' ) {
  *
  * @param string|array     $taxonomy Optional. Taxonomy slug or slugs.
  * @param int|string|array $term     Optional. Term ID, name, slug or array of Term IDs, names, and slugs.
- * @return bool
+ * @return bool True for custom taxonomy archive pages, false for built-in taxonomies (category and tag archives).
  */
 function is_tax( $taxonomy = '', $term = '' ) {
 	global $wp_query;
@@ -1468,6 +1468,7 @@ class WP_Query {
 	 * @since 4.5.0 Removed the `$comments_popup` parameter.
 	 *              Introduced the `$comment_status` and `$ping_status` parameters.
 	 *              Introduced `RAND(x)` syntax for `$orderby`, which allows an integer seed value to random sorts.
+	 * @since 4.6.0 Added 'post_name__in' support for `$orderby`.
 	 * @access public
 	 *
 	 * @param string|array $query {
@@ -1523,7 +1524,8 @@ class WP_Query {
 	 *                                                 'title', 'modified', 'menu_order', 'parent', 'ID', 'rand',
 	 *                                                 'RAND(x)' (where 'x' is an integer seed value),
 	 *                                                 'comment_count', 'meta_value', 'meta_value_num', 'post__in',
-	 *                                                 and the array keys of `$meta_query`.
+	 *                                                 'post_name__in', 'post_parent__in', and the array keys
+	 *                                                 of `$meta_query`.
 	 *     @type int          $p                       Post ID.
 	 *     @type int          $page                    Show the number of posts that would show up on page X of a
 	 *                                                 static front page.
@@ -1591,7 +1593,7 @@ class WP_Query {
 		$qv['monthnum'] = absint($qv['monthnum']);
 		$qv['day'] = absint($qv['day']);
 		$qv['w'] = absint($qv['w']);
-		$qv['m'] = preg_replace( '|[^0-9]|', '', $qv['m'] );
+		$qv['m'] = is_scalar( $qv['m'] ) ? preg_replace( '|[^0-9]|', '', $qv['m'] ) : '';
 		$qv['paged'] = absint($qv['paged']);
 		$qv['cat'] = preg_replace( '|[^0-9,-]|', '', $qv['cat'] ); // comma separated list of positive or negative integers
 		$qv['author'] = preg_replace( '|[^0-9,-]|', '', $qv['author'] ); // comma separated list of positive or negative integers
@@ -2194,8 +2196,8 @@ class WP_Query {
 			else
 				$term = trim( $term, "\"' " );
 
-			// Avoid single A-Z.
-			if ( ! $term || ( 1 === strlen( $term ) && preg_match( '/^[a-z]$/i', $term ) ) )
+			// Avoid single A-Z and single dashes.
+			if ( ! $term || ( 1 === strlen( $term ) && preg_match( '/^[a-z\-]$/i', $term ) ) )
 				continue;
 
 			if ( in_array( call_user_func( $strtolower, $term ), $stopwords, true ) )
@@ -2745,7 +2747,8 @@ class WP_Query {
 			$where .= " AND $wpdb->posts.post_name = '" . $q['attachment'] . "'";
 		} elseif ( is_array( $q['post_name__in'] ) && ! empty( $q['post_name__in'] ) ) {
 			$q['post_name__in'] = array_map( 'sanitize_title_for_query', $q['post_name__in'] );
-			$where .= " AND $wpdb->posts.post_name IN ('" . implode( "' ,'", $q['post_name__in'] ) . "')";
+			$post_name__in = "'" . implode( "','", $q['post_name__in'] ) . "'";
+			$where .= " AND $wpdb->posts.post_name IN ($post_name__in)";
 		}
 
 		// If an attachment is requested by number, let it supersede any post number.
@@ -2963,6 +2966,8 @@ class WP_Query {
 			$orderby = "FIELD( {$wpdb->posts}.ID, $post__in )";
 		} elseif ( $q['orderby'] == 'post_parent__in' && ! empty( $post_parent__in ) ) {
 			$orderby = "FIELD( {$wpdb->posts}.post_parent, $post_parent__in )";
+		} elseif ( $q['orderby'] == 'post_name__in' && ! empty( $post_name__in ) ) {
+			$orderby = "FIELD( {$wpdb->posts}.post_name, $post_name__in )";
 		} else {
 			$orderby_array = array();
 			if ( is_array( $q['orderby'] ) ) {
@@ -4326,7 +4331,7 @@ class WP_Query {
 	}
 
 	/**
-	 * Is the query for an existing taxonomy archive page?
+	 * Is the query for an existing custom taxonomy archive page?
 	 *
 	 * If the $taxonomy parameter is specified, this function will additionally
 	 * check if the query is for that specific $taxonomy.
@@ -4341,7 +4346,7 @@ class WP_Query {
 	 *
 	 * @param mixed $taxonomy Optional. Taxonomy slug or slugs.
 	 * @param mixed $term     Optional. Term ID, name, slug or array of Term IDs, names, and slugs.
-	 * @return bool
+	 * @return bool True for custom taxonomy archive pages, false for built-in taxonomies (category and tag archives).
 	 */
 	public function is_tax( $taxonomy = '', $term = '' ) {
 		global $wp_taxonomies;
@@ -4885,16 +4890,11 @@ class WP_Query {
  *
  * @global WP_Query   $wp_query   Global WP_Query instance.
  * @global wpdb       $wpdb       Worndpress database abstraction object.
- * @global WP_Rewrite $wp_rewrite Worndpress rewrite component.
  */
 function wp_old_slug_redirect() {
-	global $wp_query, $wp_rewrite;
+	global $wp_query;
 
-	if ( get_queried_object() ) {
-		return;
-	}
-
-	if ( '' !== $wp_query->query_vars['name'] ) :
+	if ( is_404() && '' !== $wp_query->query_vars['name'] ) :
 		global $wpdb;
 
 		// Guess the current post_type based on the query vars.
@@ -4936,19 +4936,10 @@ function wp_old_slug_redirect() {
 
 		$link = get_permalink( $id );
 
-		if ( is_feed() ) {
-			$link = user_trailingslashit( trailingslashit( $link ) . 'feed' );
-		} elseif ( isset( $GLOBALS['wp_query']->query_vars['paged'] ) && $GLOBALS['wp_query']->query_vars['paged'] > 1 ) {
+		if ( isset( $GLOBALS['wp_query']->query_vars['paged'] ) && $GLOBALS['wp_query']->query_vars['paged'] > 1 ) {
 			$link = user_trailingslashit( trailingslashit( $link ) . 'page/' . $GLOBALS['wp_query']->query_vars['paged'] );
 		} elseif( is_embed() ) {
 			$link = user_trailingslashit( trailingslashit( $link ) . 'embed' );
-		} elseif ( is_404() ) {
-			// Add rewrite endpoints if necessary.
-			foreach ( $wp_rewrite->endpoints as $endpoint ) {
-				if ( $endpoint[2] && false !== get_query_var( $endpoint[2], false ) ) {
-					$link = user_trailingslashit( trailingslashit( $link ) . $endpoint[1] );
-				}
-			}
 		}
 
 		/**

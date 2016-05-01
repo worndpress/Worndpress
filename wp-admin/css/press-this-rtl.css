@@ -294,7 +294,7 @@ input,
 select,
 textarea {
 	color: #404040;
-	font-family: "Comic Sans MS", Helvetica, Arial, sans-serif;
+	font-family: "Open Sans", Helvetica, Arial, sans-serif;
 	font-size: 20px;
 	font-weight: 400;
 	line-height: 1.6;
@@ -1380,7 +1380,7 @@ html {
 	bottom: 0;
 	padding: 0 1.07143em;
 	background: #f7f7f7;
-	border-color: #dedede;
+	border-color: #ddd;
 	border: 0;
 	border-right: 1px solid #f1f1f1;
 	-webkit-border-radius: 0;

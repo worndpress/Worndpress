@@ -42,6 +42,12 @@ $wp_file_descriptions = array(
 	'video.php'             => __( 'Video Attachment Template' ),
 	'audio.php'             => __( 'Audio Attachment Template' ),
 	'application.php'       => __( 'Application Attachment Template' ),
+	// Embeds
+	'embed.php'             => __( 'Embed Template' ),
+	'embed-404.php'         => __( 'Embed 404 Template' ),
+	'embed-content.php'     => __( 'Embed Content Template' ),
+	'header-embed.php'      => __( 'Embed Header Template' ),
+	'footer-embed.php'      => __( 'Embed Footer Template' ),
 	// Stylesheets
 	'style.css'             => __( 'Stylesheet' ),
 	'editor-style.css'      => __( 'Visual Editor Stylesheet' ),
@@ -469,7 +475,7 @@ function wp_handle_sideload( &$file, $overrides = false, $time = null ) {
 
 
 /**
- * Downloads a url to a local temporary file using the Worndpress HTTP Class.
+ * Downloads a URL to a local temporary file using the Worndpress HTTP Class.
  * Please note, That the calling function must unlink() the file.
  *
  * @since 2.5.0
