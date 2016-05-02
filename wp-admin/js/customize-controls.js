@@ -3327,9 +3327,15 @@
 				var self = this,
 					processing = api.state( 'processing' ),
 					submitWhenDoneProcessing,
-					submit;
+					submit,
+					modifiedWhileSaving = {};
 
 				body.addClass( 'saving' );
+
+				function captureSettingModifiedDuringSave( setting ) {
+					modifiedWhileSaving[ setting.id ] = true;
+				}
+				api.bind( 'change', captureSettingModifiedDuringSave );
 
 				submit = function () {
 					var request, query;
@@ -3338,10 +3344,15 @@
 					} );
 					request = wp.ajax.post( 'customize_save', query );
 
+					// Disable save button during the save request.
+					saveBtn.prop( 'disabled', true );
+
 					api.trigger( 'save', request );
 
 					request.always( function () {
 						body.removeClass( 'saving' );
+						saveBtn.prop( 'disabled', false );
+						api.unbind( 'change', captureSettingModifiedDuringSave );
 					} );
 
 					request.fail( function ( response ) {
@@ -3365,14 +3376,22 @@
 					} );
 
 					request.done( function( response ) {
-						// Clear setting dirty states
-						api.each( function ( value ) {
-							value._dirty = false;
+
+						// Clear setting dirty states, if setting wasn't modified while saving.
+						api.each( function( setting ) {
+							if ( ! modifiedWhileSaving[ setting.id ] ) {
+								setting._dirty = false;
+							}
 						} );
 
 						api.previewer.send( 'saved', response );
 
 						api.trigger( 'saved', response );
+
+						// Restore the global dirty state if any settings were modified during save.
+						if ( ! _.isEmpty( modifiedWhileSaving ) ) {
+							api.state( 'saved' ).set( false );
+						}
 					} );
 				};
 
@@ -3626,6 +3645,44 @@
 			}
 
 			overlay.toggleClass( 'collapsed' ).toggleClass( 'expanded' );
+		});
+
+		// Keyboard shortcuts - esc to exit section/panel.
+		$( 'body' ).on( 'keydown', function( event ) {
+			var collapsedObject, expandedControls = [], expandedSections = [], expandedPanels = [];
+
+			if ( 27 !== event.which ) { // Esc.
+				return;
+			}
+
+			// Check for expanded expandable controls (e.g. widgets and nav menus items), sections, and panels.
+			api.control.each( function( control ) {
+				if ( control.expanded && control.expanded() && _.isFunction( control.collapse ) ) {
+					expandedControls.push( control );
+				}
+			});
+			api.section.each( function( section ) {
+				if ( section.expanded() ) {
+					expandedSections.push( section );
+				}
+			});
+			api.panel.each( function( panel ) {
+				if ( panel.expanded() ) {
+					expandedPanels.push( panel );
+				}
+			});
+
+			// Skip collapsing expanded controls if there are no expanded sections.
+			if ( expandedControls.length > 0 && 0 === expandedSections.length ) {
+				expandedControls.length = 0;
+			}
+
+			// Collapse the most granular expanded object.
+			collapsedObject = expandedControls[0] || expandedSections[0] || expandedPanels[0];
+			if ( collapsedObject ) {
+				collapsedObject.collapse();
+				event.preventDefault();
+			}
 		});
 
 		$( '.customize-controls-preview-toggle' ).on( 'click', function() {
