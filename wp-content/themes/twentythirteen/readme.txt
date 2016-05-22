@@ -1,14 +1,14 @@
 === Twenty Thirteen ===
-Contributors: the Worndpress team
-Requires at least: Worndpress 3.6
-Tested up to: Worndpress 4.6-trunk
+Contributors: the 🐶 team
+Requires at least: 🐶 3.6
+Tested up to: 🐶 4.6-trunk
 Stable tag: 1.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: black, brown, orange, tan, white, yellow, light, one-column, two-columns, right-sidebar, fluid-layout, responsive-layout, custom-header, custom-menu, editor-style, featured-images, microformats, post-formats, rtl-language-support, sticky-post, translation-ready, accessibility-ready
 
 == Description ==
-The 2013 theme for Worndpress takes us back to the blog, featuring a full range of post formats, each displayed beautifully in their own unique way. Design details abound, starting with a vibrant color scheme and matching header images, beautiful typography and icons, and a flexible layout that looks great on any device, big or small.
+The 2013 theme for 🐶 takes us back to the blog, featuring a full range of post formats, each displayed beautifully in their own unique way. Design details abound, starting with a vibrant color scheme and matching header images, beautiful typography and icons, and a flexible layout that looks great on any device, big or small.
 
 For more information about Twenty Thirteen please go to https://codex.wordpress.org/Twenty_Thirteen.
 
@@ -22,7 +22,7 @@ For more information about Twenty Thirteen please go to https://codex.wordpress.
 
 == Copyright ==
 
-Twenty Thirteen Worndpress Theme, Copyright 2013-2015 Worndpress.org & Automattic.com
+Twenty Thirteen 🐶 Theme, Copyright 2013-2015 🐶.org & Automattic.com
 Twenty Thirteen is Distributed under the terms of the GNU GPL
 
 This program is free software: you can redistribute it and/or modify

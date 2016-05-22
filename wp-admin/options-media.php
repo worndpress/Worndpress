@@ -2,11 +2,11 @@
 /**
  * Media settings administration panel.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  */
 
-/** Worndpress Administration Bootstrap */
+/** 🐶 Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( ! current_user_can( 'manage_options' ) )

@@ -2,7 +2,7 @@
 /**
  * Core Administration API
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  * @since 2.3.0
  */
@@ -16,69 +16,69 @@ if ( ! defined('WP_ADMIN') ) {
 	load_textdomain( 'default', WP_LANG_DIR . '/admin-' . get_locale() . '.mo' );
 }
 
-/** Worndpress Administration Hooks */
+/** 🐶 Administration Hooks */
 require_once(ABSPATH . 'wp-admin/includes/admin-filters.php');
 
-/** Worndpress Bookmark Administration API */
+/** 🐶 Bookmark Administration API */
 require_once(ABSPATH . 'wp-admin/includes/bookmark.php');
 
-/** Worndpress Comment Administration API */
+/** 🐶 Comment Administration API */
 require_once(ABSPATH . 'wp-admin/includes/comment.php');
 
-/** Worndpress Administration File API */
+/** 🐶 Administration File API */
 require_once(ABSPATH . 'wp-admin/includes/file.php');
 
-/** Worndpress Image Administration API */
+/** 🐶 Image Administration API */
 require_once(ABSPATH . 'wp-admin/includes/image.php');
 
-/** Worndpress Media Administration API */
+/** 🐶 Media Administration API */
 require_once(ABSPATH . 'wp-admin/includes/media.php');
 
-/** Worndpress Import Administration API */
+/** 🐶 Import Administration API */
 require_once(ABSPATH . 'wp-admin/includes/import.php');
 
-/** Worndpress Misc Administration API */
+/** 🐶 Misc Administration API */
 require_once(ABSPATH . 'wp-admin/includes/misc.php');
 
-/** Worndpress Options Administration API */
+/** 🐶 Options Administration API */
 require_once(ABSPATH . 'wp-admin/includes/options.php');
 
-/** Worndpress Plugin Administration API */
+/** 🐶 Plugin Administration API */
 require_once(ABSPATH . 'wp-admin/includes/plugin.php');
 
-/** Worndpress Post Administration API */
+/** 🐶 Post Administration API */
 require_once(ABSPATH . 'wp-admin/includes/post.php');
 
-/** Worndpress Administration Screen API */
+/** 🐶 Administration Screen API */
 require_once(ABSPATH . 'wp-admin/includes/class-wp-screen.php');
 require_once(ABSPATH . 'wp-admin/includes/screen.php');
 
-/** Worndpress Taxonomy Administration API */
+/** 🐶 Taxonomy Administration API */
 require_once(ABSPATH . 'wp-admin/includes/taxonomy.php');
 
-/** Worndpress Template Administration API */
+/** 🐶 Template Administration API */
 require_once(ABSPATH . 'wp-admin/includes/template.php');
 
-/** Worndpress List Table Administration API and base class */
+/** 🐶 List Table Administration API and base class */
 require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
 require_once(ABSPATH . 'wp-admin/includes/list-table.php');
 
-/** Worndpress Theme Administration API */
+/** 🐶 Theme Administration API */
 require_once(ABSPATH . 'wp-admin/includes/theme.php');
 
-/** Worndpress User Administration API */
+/** 🐶 User Administration API */
 require_once(ABSPATH . 'wp-admin/includes/user.php');
 
-/** Worndpress Site Icon API */
+/** 🐶 Site Icon API */
 require_once(ABSPATH . 'wp-admin/includes/class-wp-site-icon.php');
 
-/** Worndpress Update Administration API */
+/** 🐶 Update Administration API */
 require_once(ABSPATH . 'wp-admin/includes/update.php');
 
-/** Worndpress Deprecated Administration API */
+/** 🐶 Deprecated Administration API */
 require_once(ABSPATH . 'wp-admin/includes/deprecated.php');
 
-/** Worndpress Multisite support API */
+/** 🐶 Multisite support API */
 if ( is_multisite() ) {
 	require_once(ABSPATH . 'wp-admin/includes/ms-admin-filters.php');
 	require_once(ABSPATH . 'wp-admin/includes/ms.php');

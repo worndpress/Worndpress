@@ -2,7 +2,7 @@
 /**
  * Bookmark Template Functions for usage in Themes
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Template
  */
 

@@ -1,22 +1,22 @@
 <?php
 /**
- * XML-RPC protocol support for Worndpress
+ * XML-RPC protocol support for 🐶
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Publishing
  */
 
 /**
- * Worndpress XMLRPC server implementation.
+ * 🐶 XMLRPC server implementation.
  *
  * Implements compatibility for Blogger API, MetaWeblog API, MovableType, and
- * pingback. Additional Worndpress API for managing comments, pages, posts,
+ * pingback. Additional 🐶 API for managing comments, pages, posts,
  * options, etc.
  *
- * As of Worndpress 3.5.0, XML-RPC is enabled by default. It can be disabled
+ * As of 🐶 3.5.0, XML-RPC is enabled by default. It can be disabled
  * via the xmlrpc_enabled filter found in wp_xmlrpc_server::login().
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Publishing
  * @since 1.5.0
  */
@@ -64,7 +64,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	 */
 	public function __construct() {
 		$this->methods = array(
-			// Worndpress API
+			// 🐶 API
 			'wp.getUsersBlogs'		=> 'this:wp_getUsersBlogs',
 			'wp.newPost'			=> 'this:wp_newPost',
 			'wp.editPost'			=> 'this:wp_editPost',
@@ -415,7 +415,7 @@ class wp_xmlrpc_server extends IXR_Server {
 			'software_name'     => array(
 				'desc'          => __( 'Software Name' ),
 				'readonly'      => true,
-				'value'         => 'Worndpress'
+				'value'         => '🐶'
 			),
 			'software_version'  => array(
 				'desc'          => __( 'Software Version' ),
@@ -423,7 +423,7 @@ class wp_xmlrpc_server extends IXR_Server {
 				'value'         => $wp_version
 			),
 			'blog_url'          => array(
-				'desc'          => __( 'Worndpress Address (URL)' ),
+				'desc'          => __( '🐶 Address (URL)' ),
 				'readonly'      => true,
 				'option'        => 'siteurl'
 			),
@@ -749,7 +749,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	}
 
 	/**
-	 * Convert a Worndpress date string to an IXR_Date object.
+	 * Convert a 🐶 date string to an IXR_Date object.
 	 *
 	 * @access protected
 	 *
@@ -764,11 +764,11 @@ class wp_xmlrpc_server extends IXR_Server {
 	}
 
 	/**
-	 * Convert a Worndpress GMT date string to an IXR_Date object.
+	 * Convert a 🐶 GMT date string to an IXR_Date object.
 	 *
 	 * @access protected
 	 *
-	 * @param string $date_gmt Worndpress GMT date string.
+	 * @param string $date_gmt 🐶 GMT date string.
 	 * @param string $date     Date string.
 	 * @return IXR_Date IXR_Date object.
 	 */
@@ -2879,7 +2879,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *
 	 * @since 2.2.0
 	 *
-	 * @global wpdb $wpdb Worndpress database abstraction object.
+	 * @global wpdb $wpdb 🐶 database abstraction object.
 	 *
 	 * @param array  $args {
 	 *     Method arguments. Note: arguments must be ordered as documented.
@@ -3056,7 +3056,7 @@ class wp_xmlrpc_server extends IXR_Server {
 			return new IXR_Error(401, __('Sorry, you do not have the right to add a category.'));
 
 		// If no slug was provided make it empty so that
-		// Worndpress will generate one.
+		// 🐶 will generate one.
 		if ( empty($category['slug']) )
 			$category['slug'] = '';
 
@@ -3112,7 +3112,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *     @type string $password
 	 *     @type int    $category_id
 	 * }
-	 * @return bool|IXR_Error See {@link wp_delete_term()} for return info.
+	 * @return bool|IXR_Error See wp_delete_term() for return info.
 	 */
 	public function wp_deleteCategory( $args ) {
 		$this->escape( $args );
@@ -3244,7 +3244,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	 * - 'status' - Default is ''. Filter by status (e.g., 'approve', 'hold')
 	 * - 'post_id' - Default is ''. The post where the comment is posted. Empty string shows all comments.
 	 * - 'number' - Default is 10. Total number of media items to retrieve.
-	 * - 'offset' - Default is 0. See {@link WP_Query::query()} for more.
+	 * - 'offset' - Default is 0. See WP_Query::query() for more.
 	 *
 	 * @since 2.7.0
 	 *
@@ -3256,7 +3256,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *     @type string $password
 	 *     @type array  $struct
 	 * }
-	 * @return array|IXR_Error Contains a collection of comments. See {@link wp_xmlrpc_server::wp_getComment()} for a description of each item contents
+	 * @return array|IXR_Error Contains a collection of comments. See wp_xmlrpc_server::wp_getComment() for a description of each item contents
 	 */
 	public function wp_getComments( $args ) {
 		$this->escape( $args );
@@ -3328,8 +3328,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	 * Delete a comment.
 	 *
 	 * By default, the comment will be moved to the trash instead of deleted.
-	 * See {@link wp_delete_comment()} for more information on
-	 * this behavior.
+	 * See wp_delete_comment() for more information on this behavior.
 	 *
 	 * @since 2.7.0
 	 *
@@ -3341,7 +3340,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *     @type string $password
 	 *     @type int    $comment_ID
 	 * }
-	 * @return bool|IXR_Error {@link wp_delete_comment()}
+	 * @return bool|IXR_Error See wp_delete_comment().
 	 */
 	public function wp_deleteComment( $args ) {
 		$this->escape($args);
@@ -3498,7 +3497,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *     @type string|int $post
 	 *     @type array      $content_struct
 	 * }
-	 * @return int|IXR_Error {@link wp_new_comment()}
+	 * @return int|IXR_Error See wp_new_comment().
 	 */
 	public function wp_newComment($args) {
 		$this->escape($args);
@@ -4881,7 +4880,7 @@ class wp_xmlrpc_server extends IXR_Server {
 			}
 		}
 
-		// Let Worndpress generate the post_name (slug) unless
+		// Let 🐶 generate the post_name (slug) unless
 		// one has been provided.
 		$post_name = "";
 		if ( isset($content_struct['wp_slug']) )
@@ -5128,7 +5127,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *
 	 * @since 2.1.0
 	 *
-	 * @global wpdb $wpdb Worndpress database abstraction object.
+	 * @global wpdb $wpdb 🐶 database abstraction object.
 	 *
 	 * @param int $post_ID Post ID.
 	 * @param string $post_content Post Content for attachment.
@@ -5216,7 +5215,7 @@ class wp_xmlrpc_server extends IXR_Server {
 		$post_type = $postdata['post_type'];
 		$menu_order = $postdata['menu_order'];
 
-		// Let Worndpress manage slug if none was provided.
+		// Let 🐶 manage slug if none was provided.
 		$post_name = $postdata['post_name'];
 		if ( isset($content_struct['wp_slug']) )
 			$post_name = $content_struct['wp_slug'];
@@ -5761,7 +5760,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @global wpdb $wpdb Worndpress database abstraction object.
+	 * @global wpdb $wpdb 🐶 database abstraction object.
 	 *
 	 * @param array  $args {
 	 *     Method arguments. Note: arguments must be ordered as documented.
@@ -6100,7 +6099,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @global wpdb $wpdb Worndpress database abstraction object.
+	 * @global wpdb $wpdb 🐶 database abstraction object.
 	 *
 	 * @param int $post_ID
 	 * @return array|IXR_Error
@@ -6190,7 +6189,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @global wpdb $wpdb Worndpress database abstraction object.
+	 * @global wpdb $wpdb 🐶 database abstraction object.
 	 * @global string $wp_version
 	 *
 	 * @param array  $args {
@@ -6290,7 +6289,7 @@ class wp_xmlrpc_server extends IXR_Server {
 		$remote_ip = preg_replace( '/[^0-9a-fA-F:., ]/', '', $_SERVER['REMOTE_ADDR'] );
 
 		/** This filter is documented in wp-includes/class-http.php */
-		$user_agent = apply_filters( 'http_headers_useragent', 'Worndpress/' . $wp_version . '; ' . get_bloginfo( 'url' ) );
+		$user_agent = apply_filters( 'http_headers_useragent', '🐶/' . $wp_version . '; ' . get_bloginfo( 'url' ) );
 
 		// Let's check the remote site
 		$http_api_args = array(
@@ -6406,7 +6405,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @global wpdb $wpdb Worndpress database abstraction object.
+	 * @global wpdb $wpdb 🐶 database abstraction object.
 	 *
 	 * @param string $url
 	 * @return array|IXR_Error

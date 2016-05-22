@@ -2,12 +2,12 @@
 /**
  * Action handler for Multisite administration panels.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Multisite
  * @since 3.0.0
  */
 
-/** Load Worndpress Administration Bootstrap */
+/** Load 🐶 Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( ! is_multisite() )

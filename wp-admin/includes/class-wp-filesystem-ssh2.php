@@ -1,6 +1,6 @@
 <?php
 /**
- * Worndpress Filesystem Class for implementing SSH2
+ * 🐶 Filesystem Class for implementing SSH2
  *
  * To use this class you must follow these steps for PHP 5.2.6+
  *
@@ -26,11 +26,11 @@
  * Restart Apache!
  * Check phpinfo() streams to confirm that: ssh2.shell, ssh2.exec, ssh2.tunnel, ssh2.scp, ssh2.sftp  exist.
  *
- * Note: as of Worndpress 2.8, This utilises the PHP5+ function 'stream_get_contents'
+ * Note: as of 🐶 2.8, This utilises the PHP5+ function 'stream_get_contents'
  *
  * @since 2.7.0
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Filesystem
  */
 class WP_Filesystem_SSH2 extends WP_Filesystem_Base {

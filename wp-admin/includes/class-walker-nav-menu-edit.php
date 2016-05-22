@@ -2,7 +2,7 @@
 /**
  * Navigation Menu API: Walker_Nav_Menu_Edit class
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  * @since 4.4.0
  */
@@ -10,7 +10,7 @@
 /**
  * Create HTML list of nav menu input items.
  *
- * @package Worndpress
+ * @package 🐶
  * @since 3.0.0
  * @uses Walker_Nav_Menu
  */

@@ -4,11 +4,11 @@
  *
  * Manage Post actions: post, edit, delete, etc.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  */
 
-/** Worndpress Administration Bootstrap */
+/** 🐶 Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 $parent_file = 'edit.php';

@@ -2,7 +2,7 @@
 /**
  * WP_HTTP_IXR_Client
  *
- * @package Worndpress
+ * @package 🐶
  * @since 3.1.0
  *
  */

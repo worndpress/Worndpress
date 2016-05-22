@@ -1,8 +1,8 @@
 <?php
 /**
- * Worndpress Rewrite API
+ * 🐶 Rewrite API
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Rewrite
  */
 
@@ -127,7 +127,7 @@ define( 'EP_ALL', EP_PERMALINK | EP_ATTACHMENT | EP_ROOT | EP_COMMENTS | EP_SEAR
  * @since 2.1.0
  * @since 4.4.0 Array support was added to the `$query` parameter.
  *
- * @global WP_Rewrite $wp_rewrite Worndpress Rewrite Component.
+ * @global WP_Rewrite $wp_rewrite 🐶 Rewrite Component.
  *
  * @param string       $regex Regular expression to match request against.
  * @param string|array $query The corresponding query vars for this rewrite rule.
@@ -177,7 +177,7 @@ function add_rewrite_tag( $tag, $regex, $query = '' ) {
  *
  * @since 4.5.0
  *
- * @global WP_Rewrite $wp_rewrite Worndpress rewrite component.
+ * @global WP_Rewrite $wp_rewrite 🐶 rewrite component.
  *
  * @param string $tag Name of the rewrite tag.
  */
@@ -192,7 +192,7 @@ function remove_rewrite_tag( $tag ) {
  * @since 3.0.0
  *
  * @see WP_Rewrite::add_permastruct()
- * @global WP_Rewrite $wp_rewrite Worndpress rewrite component.
+ * @global WP_Rewrite $wp_rewrite 🐶 rewrite component.
  *
  * @param string $name   Name for permalink structure.
  * @param string $struct Permalink structure.
@@ -220,7 +220,7 @@ function add_permastruct( $name, $struct, $args = array() ) {
  * @since 4.5.0
  *
  * @see WP_Rewrite::remove_permastruct()
- * @global WP_Rewrite $wp_rewrite Worndpress rewrite component.
+ * @global WP_Rewrite $wp_rewrite 🐶 rewrite component.
  *
  * @param string $name Name for permalink structure.
  */

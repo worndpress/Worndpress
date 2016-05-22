@@ -2,11 +2,11 @@
 /**
  * New User Administration Screen.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  */
 
-/** Worndpress Administration Bootstrap */
+/** 🐶 Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( is_multisite() ) {

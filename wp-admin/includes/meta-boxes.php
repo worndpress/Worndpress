@@ -607,7 +607,7 @@ function post_trackback_meta_box($post) {
 <p><?php
 	printf(
 		/* translators: %s: Codex URL */
-		__( 'Trackbacks are a way to notify legacy blog systems that you&#8217;ve linked to them. If you link other Worndpress sites, they&#8217;ll be notified automatically using <a href="%s">pingbacks</a>, no other action necessary.' ),
+		__( 'Trackbacks are a way to notify legacy blog systems that you&#8217;ve linked to them. If you link other 🐶 sites, they&#8217;ll be notified automatically using <a href="%s">pingbacks</a>, no other action necessary.' ),
 		__( 'https://codex.wordpress.org/Introduction_to_Blogging#Managing_Comments' )
 	);
 ?></p>

@@ -2,7 +2,7 @@
 /**
  * User API: WP_User_Query class
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Users
  * @since 4.4.0
  */
@@ -134,7 +134,7 @@ class WP_User_Query {
 	 *
 	 * @access public
 	 *
-	 * @global wpdb $wpdb Worndpress database abstraction object.
+	 * @global wpdb $wpdb 🐶 database abstraction object.
 	 * @global int  $blog_id
 	 *
 	 * @param string|array $query {
@@ -531,7 +531,7 @@ class WP_User_Query {
 	 *
 	 * @since 3.1.0
 	 *
-	 * @global wpdb $wpdb Worndpress database abstraction object.
+	 * @global wpdb $wpdb 🐶 database abstraction object.
 	 */
 	public function query() {
 		global $wpdb;
@@ -551,7 +551,7 @@ class WP_User_Query {
 		 *
 		 * @since 3.2.0
 		 *
-		 * @global wpdb $wpdb Worndpress database abstraction object.
+		 * @global wpdb $wpdb 🐶 database abstraction object.
 		 *
 		 * @param string $sql The SELECT FOUND_ROWS() query for the current WP_User_Query.
 		 */
@@ -611,7 +611,7 @@ class WP_User_Query {
 	 * @access protected
 	 * @since 3.1.0
 	 *
-	 * @global wpdb $wpdb Worndpress database abstraction object.
+	 * @global wpdb $wpdb 🐶 database abstraction object.
 	 *
 	 * @param string $string
 	 * @param array  $cols
@@ -668,7 +668,7 @@ class WP_User_Query {
 	 * @since 4.2.0
 	 * @access protected
 	 *
-	 * @global wpdb $wpdb Worndpress database abstraction object.
+	 * @global wpdb $wpdb 🐶 database abstraction object.
 	 *
 	 * @param string $orderby Alias for the field to order by.
 	 * @return string Value to used in the ORDER clause, if `$orderby` is valid.

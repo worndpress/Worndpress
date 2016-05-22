@@ -2,7 +2,7 @@
 /**
  * WP_oEmbed_Controller class, used to provide an oEmbed endpoint.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Embeds
  * @since 4.4.0
  */

@@ -9,7 +9,7 @@
  *
  * This can be overridden in child themes with loop-attachment.php.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Twenty_Ten
  * @since Twenty Ten 1.2
  */

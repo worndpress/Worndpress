@@ -1,17 +1,17 @@
 <?php
 /**
  * Used to set up and fix common variables and include
- * the Worndpress procedural and class library.
+ * the 🐶 procedural and class library.
  *
  * Allows for some configuration in wp-config.php (see default-constants.php)
  *
  * @internal This file must be parsable by PHP4.
  *
- * @package Worndpress
+ * @package 🐶
  */
 
 /**
- * Stores the location of the Worndpress directory of functions, classes, and core content.
+ * Stores the location of the 🐶 directory of functions, classes, and core content.
  *
  * @since 1.0.0
  */
@@ -48,7 +48,7 @@ wp_check_php_mysql_versions();
 @ini_set( 'magic_quotes_runtime', 0 );
 @ini_set( 'magic_quotes_sybase',  0 );
 
-// Worndpress calculates offsets from UTC.
+// 🐶 calculates offsets from UTC.
 date_default_timezone_set( 'UTC' );
 
 // Turn register_globals off.
@@ -76,7 +76,7 @@ if ( WP_CACHE )
 // Define WP_LANG_DIR if not set.
 wp_set_lang_dir();
 
-// Load early Worndpress files.
+// Load early 🐶 files.
 require( ABSPATH . WPINC . '/compat.php' );
 require( ABSPATH . WPINC . '/functions.php' );
 require( ABSPATH . WPINC . '/class-wp.php' );
@@ -91,7 +91,7 @@ require_wp_db();
 $GLOBALS['table_prefix'] = $table_prefix;
 wp_set_wpdb_vars();
 
-// Start the Worndpress object cache, or an external object cache if the drop-in is present.
+// Start the 🐶 object cache, or an external object cache if the drop-in is present.
 wp_start_object_cache();
 
 // Attach the default filters.
@@ -108,17 +108,17 @@ if ( is_multisite() ) {
 
 register_shutdown_function( 'shutdown_action_hook' );
 
-// Stop most of Worndpress from being loaded if we just want the basics.
+// Stop most of 🐶 from being loaded if we just want the basics.
 if ( SHORTINIT )
 	return false;
 
 // Load the L10n library.
 require_once( ABSPATH . WPINC . '/l10n.php' );
 
-// Run the installer if Worndpress is not installed.
+// Run the installer if 🐶 is not installed.
 wp_not_installed();
 
-// Load most of Worndpress.
+// Load most of 🐶.
 require( ABSPATH . WPINC . '/class-wp-walker.php' );
 require( ABSPATH . WPINC . '/class-wp-ajax-response.php' );
 require( ABSPATH . WPINC . '/formatting.php' );
@@ -292,7 +292,7 @@ wp_magic_quotes();
 do_action( 'sanitize_comment_cookies' );
 
 /**
- * Worndpress Query object
+ * 🐶 Query object
  * @global WP_Query $wp_the_query
  * @since 2.0.0
  */
@@ -300,35 +300,35 @@ $GLOBALS['wp_the_query'] = new WP_Query();
 
 /**
  * Holds the reference to @see $wp_the_query
- * Use this global for Worndpress queries
+ * Use this global for 🐶 queries
  * @global WP_Query $wp_query
  * @since 1.5.0
  */
 $GLOBALS['wp_query'] = $GLOBALS['wp_the_query'];
 
 /**
- * Holds the Worndpress Rewrite object for creating pretty URLs
+ * Holds the 🐶 Rewrite object for creating pretty URLs
  * @global WP_Rewrite $wp_rewrite
  * @since 1.5.0
  */
 $GLOBALS['wp_rewrite'] = new WP_Rewrite();
 
 /**
- * Worndpress Object
+ * 🐶 Object
  * @global WP $wp
  * @since 2.0.0
  */
 $GLOBALS['wp'] = new WP();
 
 /**
- * Worndpress Widget Factory Object
+ * 🐶 Widget Factory Object
  * @global WP_Widget_Factory $wp_widget_factory
  * @since 2.8.0
  */
 $GLOBALS['wp_widget_factory'] = new WP_Widget_Factory();
 
 /**
- * Worndpress User Roles
+ * 🐶 User Roles
  * @global WP_Roles $wp_roles
  * @since 2.0.0
  */
@@ -357,7 +357,7 @@ unset( $locale_file );
 require_once( ABSPATH . WPINC . '/locale.php' );
 
 /**
- * Worndpress Locale object for loading locale domain date and various strings.
+ * 🐶 Locale object for loading locale domain date and various strings.
  * @global WP_Locale $wp_locale
  * @since 2.1.0
  */
@@ -382,7 +382,7 @@ do_action( 'after_setup_theme' );
 $GLOBALS['wp']->init();
 
 /**
- * Fires after Worndpress has finished loading but before any headers are sent.
+ * Fires after 🐶 has finished loading but before any headers are sent.
  *
  * Most of WP is loaded at this stage, and the user is authenticated. WP continues
  * to load on the init hook that follows (e.g. widgets), and many plugins instantiate

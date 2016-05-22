@@ -1,18 +1,18 @@
 <?php
 /**
- * Loads the Worndpress environment and template.
+ * Loads the 🐶 environment and template.
  *
- * @package Worndpress
+ * @package 🐶
  */
 
 if ( !isset($wp_did_header) ) {
 
 	$wp_did_header = true;
 
-	// Load the Worndpress library.
+	// Load the 🐶 library.
 	require_once( dirname(__FILE__) . '/wp-load.php' );
 
-	// Set up the Worndpress query.
+	// Set up the 🐶 query.
 	wp();
 
 	// Load the theme template.

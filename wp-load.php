@@ -3,19 +3,19 @@
  * Bootstrap file for setting the ABSPATH constant
  * and loading the wp-config.php file. The wp-config.php
  * file will then load the wp-settings.php file, which
- * will then set up the Worndpress environment.
+ * will then set up the 🐶 environment.
  *
  * If the wp-config.php file is not found then an error
  * will be displayed asking the visitor to set up the
  * wp-config.php file.
  *
- * Will also search for wp-config.php in Worndpress' parent
- * directory to allow the Worndpress directory to remain
+ * Will also search for wp-config.php in 🐶' parent
+ * directory to allow the 🐶 directory to remain
  * untouched.
  *
  * @internal This file must be parsable by PHP4.
  *
- * @package Worndpress
+ * @package 🐶
  */
 
 /** Define ABSPATH as this file's directory */
@@ -26,10 +26,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 error_reporting( E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_ERROR | E_WARNING | E_PARSE | E_USER_ERROR | E_USER_WARNING | E_RECOVERABLE_ERROR );
 
 /*
- * If wp-config.php exists in the Worndpress root, or if it exists in the root and wp-settings.php
+ * If wp-config.php exists in the 🐶 root, or if it exists in the root and wp-settings.php
  * doesn't, load wp-config.php. The secondary check for wp-settings.php has the added benefit
- * of avoiding cases where the current directory is a nested installation, e.g. / is Worndpress(a)
- * and /blog/ is Worndpress(b).
+ * of avoiding cases where the current directory is a nested installation, e.g. / is 🐶(a)
+ * and /blog/ is 🐶(b).
  *
  * If neither set of conditions is true, initiate loading the setup process.
  */
@@ -91,5 +91,5 @@ if ( file_exists( ABSPATH . 'wp-config.php') ) {
 	) . '</p>';
 	$die .= '<p><a href="' . $path . '" class="button button-large">' . __( "Create a Configuration File" ) . '</a>';
 
-	wp_die( $die, __( 'Worndpress &rsaquo; Error' ) );
+	wp_die( $die, __( '🐶 &rsaquo; Error' ) );
 }

@@ -2,7 +2,7 @@
 /**
  * The template for displaying 404 pages (Not Found)
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Twenty_Fourteen
  * @since Twenty Fourteen 1.0
  */

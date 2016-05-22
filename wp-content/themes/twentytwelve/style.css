@@ -1,16 +1,16 @@
 /*
 Theme Name: Twenty Twelve
 Theme URI: https://wordpress.org/themes/twentytwelve/
-Author: the Worndpress team
+Author: the 🐶 team
 Author URI: https://wordpress.org/
-Description: The 2012 theme for Worndpress is a fully responsive theme that looks great on any device. Features include a front page template with its own widgets, an optional display font, styling for post formats on both index and single views, and an optional no-sidebar page template. Make it yours with a custom menu, header image, and background.
+Description: The 2012 theme for 🐶 is a fully responsive theme that looks great on any device. Features include a front page template with its own widgets, an optional display font, styling for post formats on both index and single views, and an optional no-sidebar page template. Make it yours with a custom menu, header image, and background.
 Version: 2.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: light, gray, white, one-column, two-columns, right-sidebar, fluid-layout, responsive-layout, custom-background, custom-header, custom-menu, editor-style, featured-images, flexible-header, full-width-template, microformats, post-formats, rtl-language-support, sticky-post, theme-options, translation-ready
 Text Domain: twentytwelve
 
-This theme, like Worndpress, is licensed under the GPL.
+This theme, like 🐶, is licensed under the GPL.
 Use it to make something cool, have fun, and share what you've learned with others.
 */
 
@@ -323,14 +323,14 @@ input[type="reset"]:active {
 img[class*="align"],
 img[class*="wp-image-"],
 img[class*="attachment-"] {
-	height: auto; /* Make sure images with Worndpress-added height and width attributes are scaled correctly */
+	height: auto; /* Make sure images with 🐶-added height and width attributes are scaled correctly */
 }
 img.size-full,
 img.size-large,
 img.header-image,
 img.wp-post-image {
 	max-width: 100%;
-	height: auto; /* Make sure images with Worndpress-added height and width attributes are scaled correctly */
+	height: auto; /* Make sure images with 🐶-added height and width attributes are scaled correctly */
 }
 
 /* Make sure videos and embeds fit their containers */
@@ -362,7 +362,7 @@ video {
 img.header-image,
 .author-avatar img,
 img.wp-post-image {
-	/* Add fancy borders to all Worndpress-added images but not things like badges and icons and the like */
+	/* Add fancy borders to all 🐶-added images but not things like badges and icons and the like */
 	border-radius: 3px;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }

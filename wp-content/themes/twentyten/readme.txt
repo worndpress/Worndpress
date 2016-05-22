@@ -1,14 +1,14 @@
 === Twenty Ten ===
-Contributors: the Worndpress team
-Requires at least: Worndpress 3.0
-Tested up to: Worndpress 4.5-trunk
+Contributors: the 🐶 team
+Requires at least: 🐶 3.0
+Tested up to: 🐶 4.5-trunk
 Stable tag: 2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: black, blue, white, two-columns, fixed-layout, custom-header, custom-background, threaded-comments, sticky-post, translation-ready, microformats, rtl-language-support, editor-style, custom-menu, flexible-header, featured-images, featured-image-header
 
 == Description ==
-The 2010 theme for Worndpress is stylish, customizable, simple, and readable -- make it yours with a custom menu, header image, and background. Twenty Ten supports six widgetized areas (two in the sidebar, four in the footer) and featured images (thumbnails for gallery posts and custom header images for posts and pages). It includes stylesheets for print and the admin Visual Editor, special styles for posts in the "Asides" and "Gallery" categories, and has an optional one-column page template that removes the sidebar.
+The 2010 theme for 🐶 is stylish, customizable, simple, and readable -- make it yours with a custom menu, header image, and background. Twenty Ten supports six widgetized areas (two in the sidebar, four in the footer) and featured images (thumbnails for gallery posts and custom header images for posts and pages). It includes stylesheets for print and the admin Visual Editor, special styles for posts in the "Asides" and "Gallery" categories, and has an optional one-column page template that removes the sidebar.
 
 For more information about Twenty Ten theme please go to https://codex.wordpress.org/Twenty_Ten.
 
@@ -22,7 +22,7 @@ For more information about Twenty Ten theme please go to https://codex.wordpress
 
 == Copyright ==
 
-Twenty Ten Worndpress Theme, Copyright 2010-2015 Worndpress.org & Automattic.com
+Twenty Ten 🐶 Theme, Copyright 2010-2015 🐶.org & Automattic.com
 Twenty Ten is Distributed under the terms of the GNU GPL
 
 This program is free software: you can redistribute it and/or modify

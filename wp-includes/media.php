@@ -1,8 +1,8 @@
 <?php
 /**
- * Worndpress API for media display.
+ * 🐶 API for media display.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Media
  */
 
@@ -311,7 +311,7 @@ function set_post_thumbnail_size( $width = 0, $height = 0, $crop = false ) {
  *
  * The filter 'get_image_tag_class' allows for changing the class name for the
  * image without having to use regular expressions on the HTML content. The
- * parameters are: what Worndpress will use for the class, the Attachment ID,
+ * parameters are: what 🐶 will use for the class, the Attachment ID,
  * image align value, and the size the image should be.
  *
  * The second filter 'get_image_tag' has the HTML content, which can then be
@@ -1003,7 +1003,7 @@ function wp_calculate_image_srcset( $size_array, $image_src, $image_meta, $attac
 	$image_basename = wp_basename( $image_meta['file'] );
 
 	/*
-	 * Worndpress flattens animated GIFs into one frame when generating intermediate sizes.
+	 * 🐶 flattens animated GIFs into one frame when generating intermediate sizes.
 	 * To avoid hiding animation in user content, if src is a full size GIF, a srcset attribute is not generated.
 	 * If src is an intermediate size GIF, the full size is excluded from srcset to keep a flattened GIF from becoming animated.
 	 */
@@ -1036,7 +1036,7 @@ function wp_calculate_image_srcset( $size_array, $image_src, $image_meta, $attac
 	}
 
 	/*
-	 * Images that have been edited in Worndpress after being uploaded will
+	 * Images that have been edited in 🐶 after being uploaded will
 	 * contain a unique hash. Look for that hash and use it later to filter
 	 * out images that are leftovers from previous versions.
 	 */
@@ -1544,7 +1544,7 @@ add_shortcode('gallery', 'gallery_shortcode');
  * Builds the Gallery shortcode output.
  *
  * This implements the functionality of the Gallery Shortcode for displaying
- * Worndpress images on a post.
+ * 🐶 images on a post.
  *
  * @since 2.5.0
  *
@@ -1826,7 +1826,7 @@ function wp_playlist_scripts( $type ) {
  * Builds the Playlist shortcode output.
  *
  * This implements the functionality of the playlist shortcode for displaying
- * a collection of Worndpress audio or video files in a post.
+ * a collection of 🐶 audio or video files in a post.
  *
  * @since 3.9.0
  *
@@ -2149,7 +2149,7 @@ function wp_get_attachment_id3_keys( $attachment, $context = 'display' ) {
  * Builds the Audio shortcode output.
  *
  * This implements the functionality of the Audio Shortcode for displaying
- * Worndpress mp3s in a post.
+ * 🐶 mp3s in a post.
  *
  * @since 3.6.0
  *
@@ -2347,7 +2347,7 @@ function wp_get_video_extensions() {
  * Builds the Video shortcode output.
  *
  * This implements the functionality of the Video Shortcode for displaying
- * Worndpress mp4s in a post.
+ * 🐶 mp4s in a post.
  *
  * @since 3.6.0
  *
@@ -3729,7 +3729,7 @@ function wp_maybe_generate_attachment_metadata( $attachment ) {
  *
  * @since 4.0.0
  *
- * @global wpdb $wpdb Worndpress database abstraction object.
+ * @global wpdb $wpdb 🐶 database abstraction object.
  *
  * @param string $url The URL to resolve.
  * @return int The found post ID, or 0 on failure.

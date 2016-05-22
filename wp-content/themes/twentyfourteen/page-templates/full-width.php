@@ -2,7 +2,7 @@
 /**
  * Template Name: Full Width Page
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Twenty_Fourteen
  * @since Twenty Fourteen 1.0
  */

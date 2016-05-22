@@ -2,14 +2,14 @@
 /**
  * General settings administration panel.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  */
 
-/** Worndpress Administration Bootstrap */
+/** 🐶 Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
-/** Worndpress Translation Install API */
+/** 🐶 Translation Install API */
 require_once( ABSPATH . 'wp-admin/includes/translation-install.php' );
 
 if ( ! current_user_can( 'manage_options' ) )
@@ -26,7 +26,7 @@ $options_help = '<p>' . __('The fields on this screen determine some of the basi
 	'<p>' . __('Most themes display the site title at the top of every page, in the title bar of the browser, and as the identifying name for syndicated feeds. The tagline is also displayed by many themes.') . '</p>';
 
 if ( ! is_multisite() ) {
-	$options_help .= '<p>' . __('The Worndpress URL and the Site URL can be the same (example.com) or different; for example, having the Worndpress core files (example.com/wordpress) in a subdirectory instead of the root directory.') . '</p>' .
+	$options_help .= '<p>' . __('The 🐶 URL and the Site URL can be the same (example.com) or different; for example, having the 🐶 core files (example.com/wordpress) in a subdirectory instead of the root directory.') . '</p>' .
 		'<p>' . __('If you want site visitors to be able to register themselves, as opposed to by the site administrator, check the membership box. A default user role can be set for all new users, whether self-registered or registered by the site admin.') . '</p>';
 }
 
@@ -67,14 +67,14 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 </tr>
 <?php if ( !is_multisite() ) { ?>
 <tr>
-<th scope="row"><label for="siteurl"><?php _e('Worndpress Address (URL)') ?></label></th>
+<th scope="row"><label for="siteurl"><?php _e('🐶 Address (URL)') ?></label></th>
 <td><input name="siteurl" type="url" id="siteurl" value="<?php form_option( 'siteurl' ); ?>"<?php disabled( defined( 'WP_SITEURL' ) ); ?> class="regular-text code<?php if ( defined( 'WP_SITEURL' ) ) echo ' disabled' ?>" /></td>
 </tr>
 <tr>
 <th scope="row"><label for="home"><?php _e('Site Address (URL)') ?></label></th>
 <td><input name="home" type="url" id="home" aria-describedby="home-description" value="<?php form_option( 'home' ); ?>"<?php disabled( defined( 'WP_HOME' ) ); ?> class="regular-text code<?php if ( defined( 'WP_HOME' ) ) echo ' disabled' ?>" />
 <?php if ( ! defined( 'WP_HOME' ) ) : ?>
-<p class="description" id="home-description"><?php _e( 'Enter the address here if you <a href="https://codex.wordpress.org/Giving_Worndpress_Its_Own_Directory">want your site home page to be different from your Worndpress installation directory.</a>' ); ?></p></td>
+<p class="description" id="home-description"><?php _e( 'Enter the address here if you <a href="https://codex.wordpress.org/Giving_🐶_Its_Own_Directory">want your site home page to be different from your 🐶 installation directory.</a>' ); ?></p></td>
 <?php endif; ?>
 </tr>
 <tr>

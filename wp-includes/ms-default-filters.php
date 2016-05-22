@@ -7,7 +7,7 @@
  *
  * Not all of the Multisite default hooks are found in ms-default-filters.php
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Multisite
  * @see default-filters.php
  * @since 3.0.0

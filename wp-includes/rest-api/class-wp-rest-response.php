@@ -2,7 +2,7 @@
 /**
  * REST API: WP_REST_Response class
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage REST_API
  * @since 4.4.0
  */

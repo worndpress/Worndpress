@@ -2,7 +2,7 @@
 /**
  * The template for displaying posts in the Aside post format
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Twenty_Fourteen
  * @since Twenty Fourteen 1.0
  */

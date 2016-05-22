@@ -2,7 +2,7 @@
 /**
  * Template for displaying content
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Twenty_Eleven
  * @since Twenty Eleven 1.0
  */

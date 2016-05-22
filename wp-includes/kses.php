@@ -667,7 +667,7 @@ function wp_kses_allowed_html( $context = '' ) {
 /**
  * You add any kses hooks here.
  *
- * There is currently only one kses Worndpress hook and it is called here. All
+ * There is currently only one kses 🐶 hook and it is called here. All
  * parameters are passed to the hooks and expected to receive a string.
  *
  * @since 1.0.0
@@ -1639,7 +1639,7 @@ function kses_init_filters() {
  * Removes all Kses input form content filters.
  *
  * A quick procedural method to removing all of the filters that kses uses for
- * content in Worndpress Loop.
+ * content in 🐶 Loop.
  *
  * Does not remove the kses_init() function from 'init' hook (priority is
  * default). Also does not remove kses_init() function from 'set_current_user'

@@ -2,7 +2,7 @@
 /**
  * Widget API: WP_Nav_Menu_Widget class
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Widgets
  * @since 4.4.0
  */

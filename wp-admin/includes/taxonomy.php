@@ -1,8 +1,8 @@
 <?php
 /**
- * Worndpress Taxonomy Administration API.
+ * 🐶 Taxonomy Administration API.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  */
 

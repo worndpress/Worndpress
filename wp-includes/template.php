@@ -2,7 +2,7 @@
 /**
  * Template loading functions.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Template
  */
 
@@ -11,7 +11,7 @@
  *
  * Used to quickly retrieve the path of a template without including the file
  * extension. It will also check the parent theme, if the file exists, with
- * the use of {@link locate_template()}. Allows for more generic template location
+ * the use of locate_template(). Allows for more generic template location
  * without the use of the other get_*_template() functions.
  *
  * @since 1.5.0
@@ -407,7 +407,7 @@ function get_single_template() {
 /**
  * Retrieves an embed template path in the current or parent template.
  *
- * By default the Worndpress-template is returned.
+ * By default the 🐶-template is returned.
  *
  * The template path is filterable via the dynamic {@see '$type_template'} hook,
  * e.g. 'embed_template'.
@@ -534,9 +534,9 @@ function locate_template($template_names, $load = false, $require_once = true ) 
 }
 
 /**
- * Require the template file with Worndpress environment.
+ * Require the template file with 🐶 environment.
  *
- * The globals are set up for the template file to ensure that the Worndpress
+ * The globals are set up for the template file to ensure that the 🐶
  * environment is available from within the function. The query variables are
  * also available.
  *

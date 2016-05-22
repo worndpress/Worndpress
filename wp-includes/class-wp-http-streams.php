@@ -2,7 +2,7 @@
 /**
  * HTTP API: WP_Http_Streams class
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage HTTP
  * @since 4.4.0
  */

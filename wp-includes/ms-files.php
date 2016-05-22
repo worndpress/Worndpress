@@ -4,7 +4,7 @@
  *
  * @since 3.0.0
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Multisite
  */
 

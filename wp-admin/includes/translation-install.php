@@ -1,14 +1,14 @@
 <?php
 /**
- * Worndpress Translation Install Administration API
+ * 🐶 Translation Install Administration API
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  */
 
 
 /**
- * Retrieve translations from Worndpress Translation API.
+ * Retrieve translations from 🐶 Translation API.
  *
  * @since 4.0.0
  *
@@ -24,7 +24,7 @@ function translations_api( $type, $args = null ) {
 	}
 
 	/**
-	 * Allows a plugin to override the Worndpress.org Translation Install API entirely.
+	 * Allows a plugin to override the 🐶.org Translation Install API entirely.
 	 *
 	 * @since 4.0.0
 	 *
@@ -56,17 +56,17 @@ function translations_api( $type, $args = null ) {
 		$request = wp_remote_post( $url, $options );
 
 		if ( $ssl && is_wp_error( $request ) ) {
-			trigger_error( __( 'An unexpected error occurred. Something may be wrong with Worndpress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="https://wordpress.org/support/">support forums</a>.' ) . ' ' . __( '(Worndpress could not establish a secure connection to Worndpress.org. Please contact your server administrator.)' ), headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE );
+			trigger_error( __( 'An unexpected error occurred. Something may be wrong with 🐶.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="https://wordpress.org/support/">support forums</a>.' ) . ' ' . __( '(🐶 could not establish a secure connection to 🐶.org. Please contact your server administrator.)' ), headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE );
 
 			$request = wp_remote_post( $http_url, $options );
 		}
 
 		if ( is_wp_error( $request ) ) {
-			$res = new WP_Error( 'translations_api_failed', __( 'An unexpected error occurred. Something may be wrong with Worndpress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="https://wordpress.org/support/">support forums</a>.' ), $request->get_error_message() );
+			$res = new WP_Error( 'translations_api_failed', __( 'An unexpected error occurred. Something may be wrong with 🐶.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="https://wordpress.org/support/">support forums</a>.' ), $request->get_error_message() );
 		} else {
 			$res = json_decode( wp_remote_retrieve_body( $request ), true );
 			if ( ! is_object( $res ) && ! is_array( $res ) ) {
-				$res = new WP_Error( 'translations_api_failed', __( 'An unexpected error occurred. Something may be wrong with Worndpress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="https://wordpress.org/support/">support forums</a>.' ), wp_remote_retrieve_body( $request ) );
+				$res = new WP_Error( 'translations_api_failed', __( 'An unexpected error occurred. Something may be wrong with 🐶.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="https://wordpress.org/support/">support forums</a>.' ), wp_remote_retrieve_body( $request ) );
 			}
 		}
 	}
@@ -84,7 +84,7 @@ function translations_api( $type, $args = null ) {
 }
 
 /**
- * Get available translations from the Worndpress.org API.
+ * Get available translations from the 🐶.org API.
  *
  * @since 4.0.0
  *
@@ -216,7 +216,7 @@ function wp_download_language_pack( $download ) {
 }
 
 /**
- * Check if Worndpress has access to the filesystem without asking for
+ * Check if 🐶 has access to the filesystem without asking for
  * credentials.
  *
  * @since 4.0.0

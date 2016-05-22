@@ -1,18 +1,18 @@
 <?php
 /**
- * Creates common globals for the rest of Worndpress
+ * Creates common globals for the rest of 🐶
  *
  * Sets $pagenow global which is the current page. Checks
  * for the browser to set which one is currently being used.
  *
- * Detects which user environment Worndpress is being used on.
+ * Detects which user environment 🐶 is being used on.
  * Only attempts to check for Apache, Nginx and IIS -- three web
  * servers with known pretty permalink capability.
  *
- * Note: Though Nginx is detected, Worndpress does not currently
+ * Note: Though Nginx is detected, 🐶 does not currently
  * generate rewrite rules for it. See https://codex.wordpress.org/Nginx
  *
- * @package Worndpress
+ * @package 🐶
  */
 
 global $pagenow,

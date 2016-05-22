@@ -1,8 +1,8 @@
 <?php
 /**
- * Worndpress Customize Panel classes
+ * 🐶 Customize Panel classes
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Customize
  * @since 4.0.0
  */

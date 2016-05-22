@@ -1,16 +1,16 @@
 <?php
 /**
- * Worndpress Direct Filesystem.
+ * 🐶 Direct Filesystem.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Filesystem
  */
 
 /**
- * Worndpress Filesystem Class for direct PHP file and folder manipulation.
+ * 🐶 Filesystem Class for direct PHP file and folder manipulation.
  *
  * @since 2.5.0
- * @package Worndpress
+ * @package 🐶
  * @subpackage Filesystem
  * @uses WP_Filesystem_Base Extends class
  */

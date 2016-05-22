@@ -2,7 +2,7 @@
 /**
  * Helper functions for displaying a list of items in an ajaxified HTML table.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage List_Table
  * @since 3.1.0
  */

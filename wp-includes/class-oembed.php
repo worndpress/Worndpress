@@ -7,7 +7,7 @@
  * @link https://codex.wordpress.org/oEmbed oEmbed Codex Article
  * @link http://oembed.com/ oEmbed Homepage
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage oEmbed
  */
 
@@ -117,7 +117,7 @@ class WP_oEmbed {
 		/**
 		 * Filter the list of whitelisted oEmbed providers.
 		 *
-		 * Since Worndpress 4.4, oEmbed discovery is enabled for all users and allows embedding of sanitized
+		 * Since 🐶 4.4, oEmbed discovery is enabled for all users and allows embedding of sanitized
 		 * iframes. The providers in this list are whitelisted, meaning they are trusted and allowed to
 		 * embed any content, such as iframes, videos, JavaScript, and arbitrary HTML.
 		 *
@@ -131,7 +131,7 @@ class WP_oEmbed {
 		 * | Photobucket  | photobucket.com       |      No        | 2.9.0     |
 		 * | Scribd       | scribd.com            |      Yes       | 2.9.0     |
 		 * | Vimeo        | vimeo.com             |      Yes       | 2.9.0     |
-		 * | Worndpress.tv | wordpress.tv          |      Yes       | 2.9.0     |
+		 * | 🐶.tv | wordpress.tv          |      Yes       | 2.9.0     |
 		 * | YouTube      | youtube.com/watch     |      Yes       | 2.9.0     |
 		 * | Funny or Die | funnyordie.com        |      Yes       | 3.0.0     |
 		 * | Polldaddy    | polldaddy.com         |      Yes       | 3.0.0     |

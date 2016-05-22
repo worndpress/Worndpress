@@ -2,7 +2,7 @@
 /**
  * Post API: WP_Post class
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Post
  * @since 4.4.0
  */
@@ -202,7 +202,7 @@ final class WP_Post {
 	 * @static
 	 * @access public
 	 *
-	 * @global wpdb $wpdb Worndpress database abstraction object.
+	 * @global wpdb $wpdb 🐶 database abstraction object.
 	 *
 	 * @param int $post_id Post ID.
 	 * @return WP_Post|false Post object, false otherwise.

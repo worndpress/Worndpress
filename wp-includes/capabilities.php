@@ -2,7 +2,7 @@
 /**
  * Core User Role & Capabilities API
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Users
  */
 

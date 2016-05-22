@@ -2,7 +2,7 @@
 /**
  * Template for displaying search forms in Twenty Eleven
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Twenty_Eleven
  * @since Twenty Eleven 1.0
  */

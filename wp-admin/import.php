@@ -1,14 +1,14 @@
 <?php
 /**
- * Import Worndpress Administration Screen
+ * Import 🐶 Administration Screen
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  */
 
 define('WP_LOAD_IMPORTERS', true);
 
-/** Load Worndpress Bootstrap */
+/** Load 🐶 Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( !current_user_can('import') )
@@ -20,7 +20,7 @@ get_current_screen()->add_help_tab( array(
 	'id'      => 'overview',
 	'title'   => __('Overview'),
 	'content' => '<p>' . __('This screen lists links to plugins to import data from blogging/content management platforms. Choose the platform you want to import from, and click Install Now when you are prompted in the popup window. If your platform is not listed, click the link to search the plugin directory for other importer plugins to see if there is one for your platform.') . '</p>' .
-		'<p>' . __('In previous versions of Worndpress, all importers were built-in. They have been turned into plugins since most people only use them once or infrequently.') . '</p>',
+		'<p>' . __('In previous versions of 🐶, all importers were built-in. They have been turned into plugins since most people only use them once or infrequently.') . '</p>',
 ) );
 
 get_current_screen()->set_help_sidebar(
@@ -61,7 +61,7 @@ $parent_file = 'tools.php';
 		?></p>
 	</div>
 <?php endif; ?>
-<p><?php _e('If you have posts or comments in another system, Worndpress can import those into this site. To get started, choose a system to import from below:'); ?></p>
+<p><?php _e('If you have posts or comments in another system, 🐶 can import those into this site. To get started, choose a system to import from below:'); ?></p>
 
 <?php
 

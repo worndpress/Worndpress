@@ -2,7 +2,7 @@
 /**
  * The template for displaying Search Results pages
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Twenty_Twelve
  * @since Twenty Twelve 1.0
  */

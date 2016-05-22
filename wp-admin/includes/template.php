@@ -1,10 +1,10 @@
 <?php
 /**
- * Template Worndpress Administration API.
+ * Template 🐶 Administration API.
  *
  * A Big Mess. Also some neat functions that are nicely written.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  */
 
@@ -573,7 +573,7 @@ function _list_meta_row( $entry, &$count ) {
  *
  * @since 1.2.0
  *
- * @global wpdb $wpdb Worndpress database abstraction object.
+ * @global wpdb $wpdb 🐶 database abstraction object.
  *
  * @param WP_Post $post Optional. The post being edited.
  */
@@ -779,7 +779,7 @@ function page_template_dropdown( $default = '' ) {
  * @since 1.5.0
  * @since 4.4.0 `$post` argument was added.
  *
- * @global wpdb $wpdb Worndpress database abstraction object.
+ * @global wpdb $wpdb 🐶 database abstraction object.
  *
  * @param int         $default Optional. The default page ID to be pre-selected. Default 0.
  * @param int         $parent  Optional. The parent page ID. Default 0.
@@ -1100,7 +1100,7 @@ function remove_meta_box( $id, $screen, $context ) {
 /**
  * Meta Box Accordion Template Function
  *
- * Largely made up of abstracted code from {@link do_meta_boxes()}, this
+ * Largely made up of abstracted code from do_meta_boxes(), this
  * function serves to build meta boxes as list items for display as
  * a collapsible accordion.
  *
@@ -1513,10 +1513,9 @@ function find_posts_div($found_action = '') {
 }
 
 /**
- * Display the post password.
+ * Displays the post password.
  *
- * The password is passed through {@link esc_attr()} to ensure that it
- * is safe for placing in an html attribute.
+ * The password is passed through esc_attr() to ensure that it is safe for placing in an html attribute.
  *
  * @since 2.7.0
  */
@@ -1545,10 +1544,10 @@ function _draft_or_post_title( $post = 0 ) {
 }
 
 /**
- * Display the search query.
+ * Displays the search query.
  *
- * A simple wrapper to display the "s" parameter in a GET URI. This function
- * should only be used when {@link the_search_query()} cannot.
+ * A simple wrapper to display the "s" parameter in a `GET` URI. This function
+ * should only be used when the_search_query() cannot.
  *
  * @since 2.7.0
  */
@@ -1578,7 +1577,7 @@ function iframe_header( $title = '', $deprecated = false ) {
 	@header( 'Content-Type: ' . get_option( 'html_type' ) . '; charset=' . get_option( 'blog_charset' ) );
 	_wp_admin_html_begin();
 ?>
-<title><?php bloginfo('name') ?> &rsaquo; <?php echo $title ?> &#8212; <?php _e('Worndpress'); ?></title>
+<title><?php bloginfo('name') ?> &rsaquo; <?php echo $title ?> &#8212; <?php _e('🐶'); ?></title>
 <?php
 wp_enqueue_style( 'colors' );
 ?>

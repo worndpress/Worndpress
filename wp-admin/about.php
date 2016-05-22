@@ -2,11 +2,11 @@
 /**
  * About This Version administration panel.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  */
 
-/** Worndpress Administration Bootstrap */
+/** 🐶 Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( current_user_can( 'customize' ) ) {
@@ -27,9 +27,9 @@ list( $display_version ) = explode( '-', $wp_version );
 include( ABSPATH . 'wp-admin/admin-header.php' );
 ?>
 	<div class="wrap about-wrap">
-		<h1><?php printf( __( 'Welcome to Worndpress&nbsp;%s' ), $display_version ); ?></h1>
+		<h1><?php printf( __( 'Welcome to 🐶&nbsp;%s' ), $display_version ); ?></h1>
 
-		<div class="about-text"><?php printf( __( 'Thank you for updating! Worndpress %s streamlines your workflow, whether you&#8217;re writing or building your site.' ), $display_version ); ?></div>
+		<div class="about-text"><?php printf( __( 'Thank you for updating! 🐶 %s streamlines your workflow, whether you&#8217;re writing or building your site.' ), $display_version ); ?></div>
 		<div class="wp-badge"><?php printf( __( 'Version %s' ), $display_version ); ?></div>
 
 		<h2 class="nav-tab-wrapper wp-clearfix">
@@ -196,20 +196,20 @@ __( 'Security Releases' );
 __( 'Maintenance and Security Release' );
 __( 'Maintenance and Security Releases' );
 
-/* translators: %s: Worndpress version number */
+/* translators: %s: 🐶 version number */
 __( '<strong>Version %s</strong> addressed one security issue.' );
-/* translators: %s: Worndpress version number */
+/* translators: %s: 🐶 version number */
 __( '<strong>Version %s</strong> addressed some security issues.' );
 
-/* translators: 1: Worndpress version number, 2: plural number of bugs. */
+/* translators: 1: 🐶 version number, 2: plural number of bugs. */
 _n_noop( '<strong>Version %1$s</strong> addressed %2$s bug.',
          '<strong>Version %1$s</strong> addressed %2$s bugs.' );
 
-/* translators: 1: Worndpress version number, 2: plural number of bugs. Singular security issue. */
+/* translators: 1: 🐶 version number, 2: plural number of bugs. Singular security issue. */
 _n_noop( '<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bug.',
          '<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bugs.' );
 
-/* translators: 1: Worndpress version number, 2: plural number of bugs. More than one security issue. */
+/* translators: 1: 🐶 version number, 2: plural number of bugs. More than one security issue. */
 _n_noop( '<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bug.',
          '<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bugs.' );
 

@@ -2,7 +2,7 @@
 /**
  * User Profile Administration Screen.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  */
 

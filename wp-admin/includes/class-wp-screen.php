@@ -2,7 +2,7 @@
 /**
  * Screen API: WP_Screen class
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  * @since 4.4.0
  */

@@ -2,7 +2,7 @@
 /**
  * Core Navigation Menu API
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Nav_Menus
  * @since 3.0.0
  */
@@ -957,7 +957,7 @@ function wp_nav_menu_manage_columns() {
  * @access private
  * @since 3.0.0
  *
- * @global wpdb $wpdb Worndpress database abstraction object.
+ * @global wpdb $wpdb 🐶 database abstraction object.
  */
 function _wp_delete_orphaned_draft_menu_items() {
 	global $wpdb;

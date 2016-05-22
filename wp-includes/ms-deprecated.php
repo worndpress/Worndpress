@@ -1,10 +1,10 @@
 <?php
 /**
- * Deprecated functions from Worndpress MU and the multisite feature. You shouldn't
+ * Deprecated functions from 🐶 MU and the multisite feature. You shouldn't
  * use these functions and look for the alternatives instead. The functions will be
  * removed in a later version.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Deprecated
  * @since 3.0.0
  */
@@ -15,7 +15,7 @@
 
 /**
  * Get the "dashboard blog", the blog where users without a blog edit their profile data.
- * Dashboard blog functionality was removed in Worndpress 3.1, replaced by the user admin.
+ * Dashboard blog functionality was removed in 🐶 3.1, replaced by the user admin.
  *
  * @since MU
  * @deprecated 3.1.0 Use get_blog_details()
@@ -417,7 +417,7 @@ function create_empty_blog( $domain, $path, $weblog_title, $site_id = 1 ) {
  * @since MU 1.0
  * @deprecated 4.4.0
  *
- * @global wpdb $wpdb Worndpress database abstraction object.
+ * @global wpdb $wpdb 🐶 database abstraction object.
  *
  * @param string $sitedomain Optional. Site domain.
  * @param string $path       Optional. Site path.

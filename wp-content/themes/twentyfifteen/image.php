@@ -2,7 +2,7 @@
 /**
  * The template for displaying image attachments
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Twenty_Fifteen
  * @since Twenty Fifteen 1.0
  */

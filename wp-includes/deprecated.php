@@ -1,10 +1,10 @@
 <?php
 /**
- * Deprecated functions from past Worndpress versions. You shouldn't use these
+ * Deprecated functions from past 🐶 versions. You shouldn't use these
  * functions and look for the alternatives instead. The functions will be
  * removed in a later version.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Deprecated
  */
 
@@ -49,7 +49,7 @@ function get_postdata($postid) {
 }
 
 /**
- * Sets up the Worndpress Loop.
+ * Sets up the 🐶 Loop.
  *
  * Use The Loop instead.
  *
@@ -61,7 +61,7 @@ function get_postdata($postid) {
 function start_wp() {
 	global $wp_query;
 
-	_deprecated_function( __FUNCTION__, '1.5', __('new Worndpress Loop') );
+	_deprecated_function( __FUNCTION__, '1.5', __('new 🐶 Loop') );
 
 	// Since the old style loop is being used, advance the query iterator here.
 	$wp_query->next_post();
@@ -2126,7 +2126,7 @@ function register_sidebar_widget($name, $output_callback, $classname = '') {
 }
 
 /**
- * Alias of {@link wp_unregister_sidebar_widget()}.
+ * Serves as an alias of wp_unregister_sidebar_widget().
  *
  * @since 2.2.0
  * @deprecated 2.8.0 Use wp_unregister_sidebar_widget()
@@ -2356,7 +2356,7 @@ function update_usermeta( $user_id, $meta_key, $meta_value ) {
  * @deprecated 3.1.0 Use get_users()
  * @see get_users()
  *
- * @global wpdb $wpdb    Worndpress database abstraction object.
+ * @global wpdb $wpdb    🐶 database abstraction object.
  * @global int  $blog_id The site ID of the site for those that use more than one site.
  *
  * @param int $id Site ID.
@@ -3193,7 +3193,7 @@ function wp_load_image( $file ) {
  * be PNG. The only supported image types are PNG, GIF, and JPEG.
  *
  * Some functionality requires API to exist, so some PHP version may lose out
- * support. This is not the fault of Worndpress (where functionality is
+ * support. This is not the fault of 🐶 (where functionality is
  * downgraded, not actual defects), but of your PHP version.
  *
  * @since 2.5.0
@@ -3359,7 +3359,7 @@ function _search_terms_tidy( $t ) {
  * Determine if TinyMCE is available.
  *
  * Checks to see if the user has deleted the tinymce files to slim down
- * their Worndpress install.
+ * their 🐶 install.
  *
  * @since 2.1.0
  * @deprecated 3.9.0
@@ -3424,7 +3424,7 @@ function like_escape($text) {
 /**
  * Determines if the URL can be accessed over SSL.
  *
- * Determines if the URL can be accessed over SSL by using the Worndpress HTTP API to access
+ * Determines if the URL can be accessed over SSL by using the 🐶 HTTP API to access
  * the URL using https as the scheme.
  *
  * @since 2.5.0

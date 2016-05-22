@@ -1,13 +1,13 @@
 <?php
 /**
- * Worndpress Administration Bootstrap
+ * 🐶 Administration Bootstrap
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  */
 
 /**
- * In Worndpress Administration Screens
+ * In 🐶 Administration Screens
  *
  * @since 2.3.2
  */
@@ -150,7 +150,7 @@ if ( current_user_can( 'manage_options' ) ) {
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param string 'WP_MAX_MEMORY_LIMIT' The maximum Worndpress memory limit. Default 256M.
+	 * @param string 'WP_MAX_MEMORY_LIMIT' The maximum 🐶 memory limit. Default 256M.
 	 */
 	@ini_set( 'memory_limit', apply_filters( 'admin_memory_limit', WP_MAX_MEMORY_LIMIT ) );
 }

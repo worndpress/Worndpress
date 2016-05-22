@@ -1,8 +1,8 @@
 <?php
 /**
- * Worndpress Administration Template Header
+ * 🐶 Administration Template Header
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  */
 
@@ -41,9 +41,9 @@ else
 	$admin_title = get_bloginfo( 'name' );
 
 if ( $admin_title == $title )
-	$admin_title = sprintf( __( '%1$s &#8212; Worndpress' ), $title );
+	$admin_title = sprintf( __( '%1$s &#8212; 🐶' ), $title );
 else
-	$admin_title = sprintf( __( '%1$s &lsaquo; %2$s &#8212; Worndpress' ), $title, $admin_title );
+	$admin_title = sprintf( __( '%1$s &lsaquo; %2$s &#8212; 🐶' ), $title, $admin_title );
 
 /**
  * Filter the title tag content for an admin page.

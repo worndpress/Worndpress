@@ -1,8 +1,8 @@
 <?php
 /**
- * Base Worndpress Image Editor
+ * Base 🐶 Image Editor
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Image_Editor
  */
 

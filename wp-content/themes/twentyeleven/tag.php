@@ -2,7 +2,7 @@
 /**
  * Template used to display Tag Archive pages
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Twenty_Eleven
  * @since Twenty Eleven 1.0
  */

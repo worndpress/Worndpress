@@ -4,13 +4,13 @@
  *
  * See https://codex.wordpress.org/Custom_Headers
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Twenty_Twelve
  * @since Twenty Twelve 1.0
  */
 
 /**
- * Set up the Worndpress core custom header arguments and settings.
+ * Set up the 🐶 core custom header arguments and settings.
  *
  * @uses add_theme_support() to register support for 3.4 and up.
  * @uses twentytwelve_header_style() to style front end.

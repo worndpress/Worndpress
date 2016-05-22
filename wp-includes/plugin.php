@@ -14,7 +14,7 @@
  * Also see the {@link https://codex.wordpress.org/Plugin_API Plugin API} for
  * more information and examples on how to use a lot of these functions.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Plugin
  * @since 1.5.0
  */
@@ -37,7 +37,7 @@ if ( ! isset( $wp_current_filter ) )
 /**
  * Hook a function or method to a specific filter action.
  *
- * Worndpress offers filter hooks to allow plugins to modify
+ * 🐶 offers filter hooks to allow plugins to modify
  * various types of internal data at runtime.
  *
  * A plugin can modify data by binding a callback to a filter hook. When the filter
@@ -437,7 +437,7 @@ function doing_action( $action = null ) {
 /**
  * Hooks a function on to a specific action.
  *
- * Actions are the hooks that the Worndpress core launches at specific points
+ * Actions are the hooks that the 🐶 core launches at specific points
  * during execution, or when specific events occur. Plugins can specify that
  * one or more of its PHP functions are executed at these points, using the
  * Action API.

@@ -2,11 +2,11 @@
 /**
  * Add Link Administration Screen.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  */
 
-/** Load Worndpress Administration Bootstrap */
+/** Load 🐶 Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( ! current_user_can('manage_links') )

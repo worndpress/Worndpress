@@ -2,7 +2,7 @@
 /**
  * Core Translation API
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage i18n
  * @since 1.2.0
  */
@@ -32,7 +32,7 @@ function get_locale() {
 
 	if ( isset( $locale ) ) {
 		/**
-		 * Filter Worndpress install's locale ID.
+		 * Filter 🐶 install's locale ID.
 		 *
 		 * @since 1.5.0
 		 *
@@ -612,7 +612,7 @@ function unload_textdomain( $domain ) {
 /**
  * Load default translated strings based on locale.
  *
- * Loads the .mo file in WP_LANG_DIR constant path from Worndpress root.
+ * Loads the .mo file in WP_LANG_DIR constant path from 🐶 root.
  * The translated (.mo) file is named based on the locale.
  *
  * @see load_textdomain()

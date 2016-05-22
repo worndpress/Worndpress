@@ -1,10 +1,10 @@
 <?php
 /**
- * Worndpress Options Header.
+ * 🐶 Options Header.
  *
  * Displays updated message, if updated variable is part of the URL query.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  */
 

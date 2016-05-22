@@ -2,11 +2,11 @@
 /**
  * Comment Management Screen
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  */
 
-/** Load Worndpress Bootstrap */
+/** Load 🐶 Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 $parent_file = 'edit-comments.php';

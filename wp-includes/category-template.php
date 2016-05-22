@@ -2,7 +2,7 @@
 /**
  * Taxonomy API: Core category-specific template tags
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Template
  * @since 1.2.0
  */
@@ -260,10 +260,10 @@ function get_the_category_list( $separator = '', $parents='', $post_id = false )
  * The given categories are checked against the post's categories' term_ids, names and slugs.
  * Categories given as integers will only be checked against the post's categories' term_ids.
  *
- * Prior to v2.5 of Worndpress, category names were not supported.
+ * Prior to v2.5 of 🐶, category names were not supported.
  * Prior to v2.7, category slugs were not supported.
  * Prior to v2.7, only one category could be compared: in_category( $single_category ).
- * Prior to v2.7, this function could only be used in the Worndpress Loop.
+ * Prior to v2.7, this function could only be used in the 🐶 Loop.
  * As of 2.7, the function can be used anywhere if it is provided a post ID or post object.
  *
  * @since 1.2.0
@@ -513,21 +513,21 @@ function wp_dropdown_categories( $args = '' ) {
  *                                               Default 1.
  *     @type string       $feed                  Text to use for the feed link. Default 'Feed for all posts filed
  *                                               under [cat name]'.
- *     @type string       $feed_type             Feed type. Used to build feed link. See {@link get_term_feed_link()}.
+ *     @type string       $feed_type             Feed type. Used to build feed link. See get_term_feed_link().
  *                                               Default empty string (default feed).
  *     @type string       $feed_image            URL of an image to use for the feed link. Default empty string.
- *     @type int          $child_of              Term ID to retrieve child terms of. See {@link get_terms()}. Default 0.
+ *     @type int          $child_of              Term ID to retrieve child terms of. See get_terms(). Default 0.
  *     @type array|string $exclude               Array or comma/space-separated string of term IDs to exclude.
  *                                               If `$hierarchical` is true, descendants of `$exclude` terms will also
- *                                               be excluded; see `$exclude_tree`. See {@link get_terms()}.
+ *                                               be excluded; see `$exclude_tree`. See get_terms().
  *                                               Default empty string.
  *     @type array|string $exclude_tree          Array or comma/space-separated string of term IDs to exclude, along
- *                                               with their descendants. See {@link get_terms()}. Default empty string.
+ *                                               with their descendants. See get_terms(). Default empty string.
  *     @type bool|int     $echo                  True to echo markup, false to return it. Default 1.
  *     @type int|array    $current_category      ID of category, or array of IDs of categories, that should get the
  *                                               'current-cat' class. Default 0.
  *     @type bool         $hierarchical          Whether to include terms that have non-empty descendants.
- *                                               See {@link get_terms()}. Default true.
+ *                                               See get_terms(). Default true.
  *     @type string       $title_li              Text to use for the list title `<li>` element. Pass an empty string
  *                                               to disable. Default 'Categories'.
  *     @type bool         $hide_title_if_empty   Whether to hide the `$title_li` element if there are no terms in
@@ -705,9 +705,8 @@ function wp_list_categories( $args = '' ) {
  * The 'post_type' argument is used only when 'link' is set to 'edit'. It determines the post_type
  * passed to edit.php for the popular tags edit links.
  *
- * The 'exclude' and 'include' arguments are used for the {@link get_tags()}
- * function. Only one should be used, because only one will be used and the
- * other ignored, if they are both set.
+ * The 'exclude' and 'include' arguments are used for the get_tags() function. Only one
+ * should be used, because only one will be used and the other ignored, if they are both set.
  *
  * @since 2.3.0
  *
@@ -1270,7 +1269,7 @@ function get_the_term_list( $id, $taxonomy, $before = '', $sep = '', $after = ''
  * @param string $before Optional. Before list.
  * @param string $sep Optional. Separate items using this.
  * @param string $after Optional. After list.
- * @return false|void False on Worndpress error.
+ * @return false|void False on 🐶 error.
  */
 function the_terms( $id, $taxonomy, $before = '', $sep = ', ', $after = '' ) {
 	$term_list = get_the_term_list( $id, $taxonomy, $before, $sep, $after );
@@ -1312,8 +1311,8 @@ function has_category( $category = '', $post = null ) {
  * Tags given as integers will only be checked against the post's tags' term_ids.
  * If no tags are given, determines if post has any tags.
  *
- * Prior to v2.7 of Worndpress, tags given as integers would also be checked against the post's tags' names and slugs (in addition to term_ids)
- * Prior to v2.7, this function could only be used in the Worndpress Loop.
+ * Prior to v2.7 of 🐶, tags given as integers would also be checked against the post's tags' names and slugs (in addition to term_ids)
+ * Prior to v2.7, this function could only be used in the 🐶 Loop.
  * As of 2.7, the function can be used anywhere if it is provided a post ID or post object.
  *
  * @since 2.6.0

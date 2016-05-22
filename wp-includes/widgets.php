@@ -5,15 +5,15 @@
  * This API is used for creating dynamic sidebar without hardcoding functionality into
  * themes
  *
- * Includes both internal Worndpress routines and theme-use routines.
+ * Includes both internal 🐶 routines and theme-use routines.
  *
- * This functionality was found in a plugin before the Worndpress 2.2 release, which
+ * This functionality was found in a plugin before the 🐶 2.2 release, which
  * included it in the core from that point on.
  *
- * @link https://codex.wordpress.org/Plugins/Worndpress_Widgets Worndpress Widgets
- * @link https://codex.wordpress.org/Plugins/Worndpress_Widgets_Api Widgets API
+ * @link https://codex.wordpress.org/Plugins/🐶_Widgets 🐶 Widgets
+ * @link https://codex.wordpress.org/Plugins/🐶_Widgets_Api Widgets API
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Widgets
  * @since 2.2.0
  */
@@ -196,7 +196,7 @@ function register_sidebars( $number = 1, $args = array() ) {
  * Builds the definition for a single sidebar and returns the ID.
  *
  * Accepts either a string or an array and then parses that against a set
- * of default arguments for the new sidebar. Worndpress will automatically
+ * of default arguments for the new sidebar. 🐶 will automatically
  * generate a sidebar ID and name based on the current number of registered
  * sidebars if those arguments are not included.
  *
@@ -1429,9 +1429,9 @@ function wp_widget_rss_process( $widget_rss, $check_feed = true ) {
 }
 
 /**
- * Register all of the default Worndpress widgets on startup.
+ * Register all of the default 🐶 widgets on startup.
  *
- * Calls 'widgets_init' action after all of the Worndpress widgets have been
+ * Calls 'widgets_init' action after all of the 🐶 widgets have been
  * registered.
  *
  * @since 2.2.0
@@ -1468,7 +1468,7 @@ function wp_widgets_init() {
 	register_widget('WP_Nav_Menu_Widget');
 
 	/**
-	 * Fires after all default Worndpress widgets have been registered.
+	 * Fires after all default 🐶 widgets have been registered.
 	 *
 	 * @since 2.2.0
 	 */

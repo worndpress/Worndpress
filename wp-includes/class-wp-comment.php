@@ -2,7 +2,7 @@
 /**
  * Comment API: WP_Comment class
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Comments
  * @since 4.4.0
  */
@@ -183,7 +183,7 @@ final class WP_Comment {
 	 * @access public
 	 * @static
 	 *
-	 * @global wpdb $wpdb Worndpress database abstraction object.
+	 * @global wpdb $wpdb 🐶 database abstraction object.
 	 *
 	 * @param int $id Comment ID.
 	 * @return WP_Comment|false Comment object, otherwise false.

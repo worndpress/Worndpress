@@ -4,14 +4,14 @@
  *
  * @since 2.6.0
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Dependencies
  */
 
 /**
  * Core class used to register scripts.
  *
- * @package Worndpress
+ * @package 🐶
  * @uses WP_Dependencies
  * @since 2.1.0
  */

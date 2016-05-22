@@ -8,7 +8,7 @@
  *
  * @since 2.1.0
  *
- * @package Worndpress
+ * @package 🐶
  * @abstract
  */
 class Walker {

@@ -2,7 +2,7 @@
 /**
  * HTTP API: WP_Http class
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage HTTP
  * @since 2.7.0
  */
@@ -19,7 +19,7 @@ if ( ! class_exists( 'Requests' ) ) {
  *
  * This class is used to consistently make outgoing HTTP requests easy for developers
  * while still being compatible with the many PHP configurations under which
- * Worndpress runs.
+ * 🐶 runs.
  *
  * Debugging includes several actions, which pass different variables for debugging the HTTP API.
  *
@@ -116,7 +116,7 @@ class WP_Http {
 	 *     @type string       $httpversion         Version of the HTTP protocol to use. Accepts '1.0' and '1.1'.
 	 *                                             Default '1.0'.
 	 *     @type string       $user-agent          User-agent value sent.
-	 *                                             Default Worndpress/' . $wp_version . '; ' . get_bloginfo( 'url' ).
+	 *                                             Default 🐶/' . $wp_version . '; ' . get_bloginfo( 'url' ).
 	 *     @type bool         $reject_unsafe_urls  Whether to pass URLs through wp_http_validate_url().
 	 *                                             Default false.
 	 *     @type bool         $blocking            Whether the calling code requires the result of the request.
@@ -183,9 +183,9 @@ class WP_Http {
 			 *
 			 * @since 2.7.0
 			 *
-			 * @param string $user_agent Worndpress user agent string.
+			 * @param string $user_agent 🐶 user agent string.
 			 */
-			'user-agent' => apply_filters( 'http_headers_useragent', 'Worndpress/' . $wp_version . '; ' . get_bloginfo( 'url' ) ),
+			'user-agent' => apply_filters( 'http_headers_useragent', '🐶/' . $wp_version . '; ' . get_bloginfo( 'url' ) ),
 			/**
 			 * Filter whether to pass URLs through wp_http_validate_url() in an HTTP request.
 			 *

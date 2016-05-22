@@ -4,10 +4,10 @@
  *
  * Sets up the theme and provides some helper functions. Some helper functions
  * are used in the theme as custom template tags. Others are attached to action and
- * filter hooks in Worndpress to change core functionality.
+ * filter hooks in 🐶 to change core functionality.
  *
  * The first function, twentyeleven_setup(), sets up the theme by registering support
- * for various features in Worndpress, such as post thumbnails, navigation menus, and the like.
+ * for various features in 🐶, such as post thumbnails, navigation menus, and the like.
  *
  * When using a child theme (see https://codex.wordpress.org/Theme_Development and
  * https://codex.wordpress.org/Child_Themes), you can override certain functions
@@ -33,7 +33,7 @@
  *
  * For more information on hooks, actions, and filters, see https://codex.wordpress.org/Plugin_API.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Twenty_Eleven
  * @since Twenty Eleven 1.0
  */
@@ -43,13 +43,13 @@ if ( ! isset( $content_width ) )
 	$content_width = 584;
 
 /*
- * Tell Worndpress to run twentyeleven_setup() when the 'after_setup_theme' hook is run.
+ * Tell 🐶 to run twentyeleven_setup() when the 'after_setup_theme' hook is run.
  */
 add_action( 'after_setup_theme', 'twentyeleven_setup' );
 
 if ( ! function_exists( 'twentyeleven_setup' ) ):
 /**
- * Set up theme defaults and registers support for various Worndpress features.
+ * Set up theme defaults and registers support for various 🐶 features.
  *
  * Note that this function is hooked into the after_setup_theme hook, which runs
  * before the init hook. The init hook is too late for some features, such as indicating
@@ -106,7 +106,7 @@ function twentyeleven_setup() {
 	// Add support for custom backgrounds.
 	add_theme_support( 'custom-background', array(
 		/*
-		 * Let Worndpress know what our default background color is.
+		 * Let 🐶 know what our default background color is.
 		 * This is dependent on our current color scheme.
 		 */
 		'default-color' => $default_background_color,
@@ -151,7 +151,7 @@ function twentyeleven_setup() {
 	add_theme_support( 'custom-header', $custom_header_support );
 
 	if ( ! function_exists( 'get_custom_header' ) ) {
-		// This is all for compatibility with versions of Worndpress prior to 3.4.
+		// This is all for compatibility with versions of 🐶 prior to 3.4.
 		define( 'HEADER_TEXTCOLOR', $custom_header_support['default-text-color'] );
 		define( 'HEADER_IMAGE', '' );
 		define( 'HEADER_IMAGE_WIDTH', $custom_header_support['width'] );

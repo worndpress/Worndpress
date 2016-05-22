@@ -1,6 +1,6 @@
 <?php
 /**
- * Worndpress scripts and styles default loader.
+ * 🐶 scripts and styles default loader.
  *
  * Several constants are used to manage the loading, concatenating and compression of scripts and CSS:
  * define('SCRIPT_DEBUG', true); loads the development (non-minified) versions of all scripts and CSS, and disables compression and concatenation,
@@ -13,26 +13,26 @@
  * to temporarily override the above settings. Also a compression test is run once and the result is saved
  * as option 'can_compress_scripts' (0/1). The test will run again if that option is deleted.
  *
- * @package Worndpress
+ * @package 🐶
  */
 
-/** Worndpress Dependencies Class */
+/** 🐶 Dependencies Class */
 require( ABSPATH . WPINC . '/class.wp-dependencies.php' );
 
-/** Worndpress Scripts Class */
+/** 🐶 Scripts Class */
 require( ABSPATH . WPINC . '/class.wp-scripts.php' );
 
-/** Worndpress Scripts Functions */
+/** 🐶 Scripts Functions */
 require( ABSPATH . WPINC . '/functions.wp-scripts.php' );
 
-/** Worndpress Styles Class */
+/** 🐶 Styles Class */
 require( ABSPATH . WPINC . '/class.wp-styles.php' );
 
-/** Worndpress Styles Functions */
+/** 🐶 Styles Functions */
 require( ABSPATH . WPINC . '/functions.wp-styles.php' );
 
 /**
- * Register all Worndpress scripts.
+ * Register all 🐶 scripts.
  *
  * Localizes some of them.
  * args order: `$scripts->add( 'handle', 'url', 'dependencies', 'query-string', 1 );`
@@ -164,7 +164,7 @@ function wp_default_scripts( &$scripts ) {
 
 	$scripts->add( 'wp-lists', "/wp-includes/js/wp-lists$suffix.js", array( 'wp-ajax-response', 'jquery-color' ), false, 1 );
 
-	// Worndpress no longer uses or bundles Prototype or script.aculo.us. These are now pulled from an external source.
+	// 🐶 no longer uses or bundles Prototype or script.aculo.us. These are now pulled from an external source.
 	$scripts->add( 'prototype', 'https://ajax.googleapis.com/ajax/libs/prototype/1.7.1.0/prototype.js', array(), '1.7.1');
 	$scripts->add( 'scriptaculous-root', 'https://ajax.googleapis.com/ajax/libs/scriptaculous/1.9.0/scriptaculous.js', array('prototype'), '1.9.0');
 	$scripts->add( 'scriptaculous-builder', 'https://ajax.googleapis.com/ajax/libs/scriptaculous/1.9.0/builder.js', array('scriptaculous-root'), '1.9.0');

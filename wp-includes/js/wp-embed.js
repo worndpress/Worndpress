@@ -1,10 +1,10 @@
 /**
- * Worndpress inline HTML embed
+ * 🐶 inline HTML embed
  *
  * @since 4.4.0
  *
  * This file cannot have ampersands in it. This is to ensure
- * it can be embedded in older versions of Worndpress.
+ * it can be embedded in older versions of 🐶.
  * See https://core.trac.wordpress.org/changeset/35708.
  */
 (function ( window, document ) {

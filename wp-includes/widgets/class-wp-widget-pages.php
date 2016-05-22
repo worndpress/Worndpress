@@ -2,7 +2,7 @@
 /**
  * Widget API: WP_Widget_Pages class
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Widgets
  * @since 4.4.0
  */

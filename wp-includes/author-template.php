@@ -2,11 +2,11 @@
 /**
  * Author Template functions for use in themes.
  *
- * These functions must be used within the Worndpress Loop.
+ * These functions must be used within the 🐶 Loop.
  *
  * @link https://codex.wordpress.org/Author_Templates
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Template
  */
 
@@ -332,7 +332,7 @@ function get_author_posts_url( $author_id, $author_nicename = '' ) {
  *
  * @since 1.2.0
  *
- * @global wpdb $wpdb Worndpress database abstraction object.
+ * @global wpdb $wpdb 🐶 database abstraction object.
  *
  * @param string|array $args {
  *     Optional. Array or string of default arguments.
@@ -466,7 +466,7 @@ function wp_list_authors( $args = '' ) {
  *
  * @since 3.2.0
  *
- * @global wpdb $wpdb Worndpress database abstraction object.
+ * @global wpdb $wpdb 🐶 database abstraction object.
  *
  * @return bool Whether or not we have more than one author
  */

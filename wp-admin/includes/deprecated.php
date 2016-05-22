@@ -1,10 +1,10 @@
 <?php
 /**
- * Deprecated admin functions from past Worndpress versions. You shouldn't use these
+ * Deprecated admin functions from past 🐶 versions. You shouldn't use these
  * functions and look for the alternatives instead. The functions will be removed
  * in a later version.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Deprecated
  */
 
@@ -318,7 +318,7 @@ function get_nonauthor_user_ids() {
 
 if ( ! class_exists( 'WP_User_Search', false ) ) :
 /**
- * Worndpress User Search class.
+ * 🐶 User Search class.
  *
  * @since 2.1.0
  * @deprecated 3.1.0 Use WP_User_Query
@@ -1210,7 +1210,7 @@ function the_attachment_links( $id = false ) {
  * Displays a screen icon.
  *
  * @since 2.7.0
- * @since 3.8.0 Screen icons are no longer used in Worndpress. This function no longer produces output.
+ * @since 3.8.0 Screen icons are no longer used in 🐶. This function no longer produces output.
  * @deprecated 3.8.0 Use get_screen_icon()
  * @see get_screen_icon()
  */
@@ -1226,7 +1226,7 @@ function screen_icon() {
  * @return string
  */
 function get_screen_icon() {
-	return '<!-- Screen icons are no longer used as of Worndpress 3.8. -->';
+	return '<!-- Screen icons are no longer used as of 🐶 3.8. -->';
 }
 
 /**

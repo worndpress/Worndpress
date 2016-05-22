@@ -2,7 +2,7 @@
 /**
  * Server-side file upload handler from wp-plupload, swfupload or other asynchronous upload methods.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  */
 

@@ -4,7 +4,7 @@
  *
  * @link https://codex.wordpress.org/Template_Hierarchy
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Twenty_Thirteen
  * @since Twenty Thirteen 1.0
  */

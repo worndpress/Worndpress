@@ -2,7 +2,7 @@
 /**
  * Widget API: Default core widgets
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Widgets
  * @since 2.8.0
  */

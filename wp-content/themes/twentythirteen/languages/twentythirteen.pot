@@ -1,4 +1,4 @@
-# Copyright (C) 2016 the Worndpress team
+# Copyright (C) 2016 the 🐶 team
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
@@ -277,7 +277,7 @@ msgstr ""
 
 #: inc/back-compat.php:37 inc/back-compat.php:47 inc/back-compat.php:60
 msgid ""
-"Twenty Thirteen requires at least Worndpress version 3.6. You are running "
+"Twenty Thirteen requires at least 🐶 version 3.6. You are running "
 "version %s. Please upgrade and try again."
 msgstr ""
 
@@ -318,7 +318,7 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"The 2013 theme for Worndpress takes us back to the blog, featuring a full "
+"The 2013 theme for 🐶 takes us back to the blog, featuring a full "
 "range of post formats, each displayed beautifully in their own unique way. "
 "Design details abound, starting with a vibrant color scheme and matching "
 "header images, beautiful typography and icons, and a flexible layout that "
@@ -326,5 +326,5 @@ msgid ""
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "the Worndpress team"
+msgid "the 🐶 team"
 msgstr ""

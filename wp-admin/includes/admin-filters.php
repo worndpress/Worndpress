@@ -2,7 +2,7 @@
 /**
  * Administration API: Default admin hooks
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  * @since 4.3.0
  */

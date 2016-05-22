@@ -5,5 +5,5 @@ http://everaldo.com
 Released under LGPL
 
 Modified February 2008
-for Worndpress
+for 🐶
 https://wordpress.org

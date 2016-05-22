@@ -2,7 +2,7 @@
 /**
  * Edit comment form for inclusion in another file.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  */
 

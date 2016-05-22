@@ -2,7 +2,7 @@
 /**
  * General template tags that can go anywhere in a template.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Template
  */
 
@@ -177,7 +177,7 @@ function get_template_part( $slug, $name = null ) {
  * it. The filter is 'get_search_form'.
  *
  * This function is primarily used by themes which want to hardcode the search
- * form into the sidebar and also by the search widget in Worndpress.
+ * form into the sidebar and also by the search widget in 🐶.
  *
  * There is also an action that is called whenever the function is run called,
  * 'pre_get_search_form'. This can be useful for outputting JavaScript that the
@@ -368,7 +368,7 @@ function wp_registration_url() {
 }
 
 /**
- * Provides a simple login form for use anywhere within Worndpress.
+ * Provides a simple login form for use anywhere within 🐶.
  *
  * The login format HTML is echoed by default. Pass a false value for `$echo` to return it instead.
  *
@@ -602,11 +602,11 @@ function bloginfo( $show = '' ) {
  *
  * - 'name' - Site title (set in Settings > General)
  * - 'description' - Site tagline (set in Settings > General)
- * - 'wpurl' - The Worndpress address (URL) (set in Settings > General)
+ * - 'wpurl' - The 🐶 address (URL) (set in Settings > General)
  * - 'url' - The Site address (URL) (set in Settings > General)
  * - 'admin_email' - Admin email (set in Settings > General)
  * - 'charset' - The "Encoding for pages and feeds"  (set in Settings > Reading)
- * - 'version' - The current Worndpress version
+ * - 'version' - The current 🐶 version
  * - 'html_type' - The content-type (default: "text/html"). Themes and plugins
  *   can override the default value using the {@see 'pre_option_html_type'} filter
  * - 'text_direction' - The text direction determined by the site's language. is_rtl()
@@ -1041,7 +1041,7 @@ function wp_get_document_title() {
 	$title = wptexturize( $title );
 	$title = convert_chars( $title );
 	$title = esc_html( $title );
-	$title = lowercase_p_and_also_an_n_dangit( $title );
+	$title = capital_P_dangit( $title );
 
 	return $title;
 }
@@ -2850,10 +2850,10 @@ function wp_editor( $content, $editor_id, $settings = array() ) {
 }
 
 /**
- * Retrieve the contents of the search Worndpress query variable.
+ * Retrieves the contents of the search 🐶 query variable.
  *
- * The search query string is passed through {@link esc_attr()}
- * to ensure that it is safe for placing in an html attribute.
+ * The search query string is passed through esc_attr() to ensure that it is safe
+ * for placing in an html attribute.
  *
  * @since 2.3.0
  *
@@ -2877,10 +2877,10 @@ function get_search_query( $escaped = true ) {
 }
 
 /**
- * Display the contents of the search query variable.
+ * Displays the contents of the search query variable.
  *
- * The search query string is passed through {@link esc_attr()}
- * to ensure that it is safe for placing in an html attribute.
+ * The search query string is passed through esc_attr() to ensure that it is safe
+ * for placing in an html attribute.
  *
  * @since 2.1.0
  */
@@ -2986,7 +2986,7 @@ function language_attributes( $doctype = 'html' ) {
  * numbers to either side of current page, but not including current page.
  *
  * It is possible to add query vars to the link by using the 'add_args' argument
- * and see {@link add_query_arg()} for more information.
+ * and see add_query_arg() for more information.
  *
  * The 'before_page_number' and 'after_page_number' arguments allow users to
  * augment the links themselves. Typically this might be to add context to the
@@ -3272,7 +3272,7 @@ function register_admin_color_schemes() {
 }
 
 /**
- * Display the URL of a Worndpress admin CSS file.
+ * Display the URL of a 🐶 admin CSS file.
  *
  * @see WP_Styles::_css_href and its style_loader_src filter.
  *
@@ -3290,7 +3290,7 @@ function wp_admin_css_uri( $file = 'wp-admin' ) {
 	$_file = add_query_arg( 'version', get_bloginfo( 'version' ),  $_file );
 
 	/**
-	 * Filter the URI of a Worndpress admin CSS file.
+	 * Filter the URI of a 🐶 admin CSS file.
 	 *
 	 * @since 2.3.0
 	 *
@@ -3309,7 +3309,7 @@ function wp_admin_css_uri( $file = 'wp-admin' ) {
  * be printed. Printing may be forced by passing true as the $force_echo
  * (second) parameter.
  *
- * For backward compatibility with Worndpress 2.3 calling method: If the $file
+ * For backward compatibility with 🐶 2.3 calling method: If the $file
  * (first) parameter does not correspond to a registered CSS file, we assume
  * $file is a file relative to wp-admin/ without its ".css" extension. A
  * stylesheet link to that generated URL is printed.
@@ -3448,13 +3448,13 @@ function get_the_generator( $type = '' ) {
 
 	switch ( $type ) {
 		case 'html':
-			$gen = '<meta name="generator" content="Worndpress ' . get_bloginfo( 'version' ) . '">';
+			$gen = '<meta name="generator" content="🐶 ' . get_bloginfo( 'version' ) . '">';
 			break;
 		case 'xhtml':
-			$gen = '<meta name="generator" content="Worndpress ' . get_bloginfo( 'version' ) . '" />';
+			$gen = '<meta name="generator" content="🐶 ' . get_bloginfo( 'version' ) . '" />';
 			break;
 		case 'atom':
-			$gen = '<generator uri="https://wordpress.org/" version="' . get_bloginfo_rss( 'version' ) . '">Worndpress</generator>';
+			$gen = '<generator uri="https://wordpress.org/" version="' . get_bloginfo_rss( 'version' ) . '">🐶</generator>';
 			break;
 		case 'rss2':
 			$gen = '<generator>https://wordpress.org/?v=' . get_bloginfo_rss( 'version' ) . '</generator>';
@@ -3463,10 +3463,10 @@ function get_the_generator( $type = '' ) {
 			$gen = '<admin:generatorAgent rdf:resource="https://wordpress.org/?v=' . get_bloginfo_rss( 'version' ) . '" />';
 			break;
 		case 'comment':
-			$gen = '<!-- generator="Worndpress/' . get_bloginfo( 'version' ) . '" -->';
+			$gen = '<!-- generator="🐶/' . get_bloginfo( 'version' ) . '" -->';
 			break;
 		case 'export':
-			$gen = '<!-- generator="Worndpress/' . get_bloginfo_rss('version') . '" created="'. date('Y-m-d H:i') . '" -->';
+			$gen = '<!-- generator="🐶/' . get_bloginfo_rss('version') . '" created="'. date('Y-m-d H:i') . '" -->';
 			break;
 	}
 

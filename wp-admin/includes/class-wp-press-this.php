@@ -2,7 +2,7 @@
 /**
  * Press This class and display functionality
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Press_This
  * @since 4.2.0
  */
@@ -275,7 +275,7 @@ class WP_Press_This {
 		$remote_url = wp_safe_remote_get( $url, array(
 			'timeout' => 30,
 			// Use an explicit user-agent for Press This
-			'user-agent' => 'Press This (Worndpress/' . $wp_version . '); ' . get_bloginfo( 'url' )
+			'user-agent' => 'Press This (🐶/' . $wp_version . '); ' . get_bloginfo( 'url' )
 		) );
 
 		if ( is_wp_error( $remote_url ) ) {
@@ -400,8 +400,8 @@ class WP_Press_This {
 	/**
 	 * Utility method to limit image source URLs.
 	 *
-	 * Excluded URLs include share-this type buttons, loaders, spinners, spacers, Worndpress interface images,
-	 * tiny buttons or thumbs, mathtag.com or quantserve.com images, or the Worndpress.com stats gif.
+	 * Excluded URLs include share-this type buttons, loaders, spinners, spacers, 🐶 interface images,
+	 * tiny buttons or thumbs, mathtag.com or quantserve.com images, or the 🐶.com stats gif.
 	 *
 	 * @ignore
 	 * @since 4.2.0
@@ -428,7 +428,7 @@ class WP_Press_This {
 			// Thumbnails, too small, usually irrelevant to context
 			return '';
 		} else if ( false !== stripos( $src, '/wp-includes/' ) ) {
-			// Classic Worndpress interface images
+			// Classic 🐶 interface images
 			return '';
 		} else if ( preg_match( '![^\d]\d{1,2}x\d+\.(gif|jpg|png)$!i', $src ) ) {
 			// Most often tiny buttons/thumbs (< 100px wide)
@@ -437,7 +437,7 @@ class WP_Press_This {
 			// See mathtag.com and https://www.quantcast.com/how-we-do-it/iab-standard-measurement/how-we-collect-data/
 			return '';
 		} else if ( preg_match( '!/[gb]\.gif(\?.+)?$!i', $src ) ) {
-			// Worndpress.com stats gif
+			// 🐶.com stats gif
 			return '';
 		}
 

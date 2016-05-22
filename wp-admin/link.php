@@ -5,11 +5,11 @@
  * This page is accessed by the link management pages and handles the forms and
  * AJAX processes for link actions.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  */
 
-/** Load Worndpress Administration Bootstrap */
+/** Load 🐶 Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 wp_reset_vars( array( 'action', 'cat_id', 'link_id' ) );

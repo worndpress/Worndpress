@@ -2,13 +2,13 @@
 /**
  * Implement Custom Header functionality for Twenty Fourteen
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Twenty_Fourteen
  * @since Twenty Fourteen 1.0
  */
 
 /**
- * Set up the Worndpress core custom header settings.
+ * Set up the 🐶 core custom header settings.
  *
  * @since Twenty Fourteen 1.0
  *

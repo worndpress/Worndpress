@@ -1,13 +1,13 @@
 <?php
 /**
- * Worndpress Plugin Install Administration API
+ * 🐶 Plugin Install Administration API
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  */
 
 /**
- * Retrieves plugin installer pages from the Worndpress.org Plugins API.
+ * Retrieves plugin installer pages from the 🐶.org Plugins API.
  *
  * It is possible for a plugin to override the Plugin API result with three
  * filters. Assume this is for plugins, which can extend on the Plugin Info to
@@ -18,7 +18,7 @@
  * as the second parameter. The hook for {@see 'plugins_api_args'} must ensure that
  * an object is returned.
  *
- * The second filter, {@see 'plugins_api'}, allows a plugin to override the Worndpress.org
+ * The second filter, {@see 'plugins_api'}, allows a plugin to override the 🐶.org
  * Plugin Install API entirely. If `$action` is 'query_plugins' or 'plugin_information',
  * an object MUST be passed. If `$action` is 'hot_tags` or 'hot_categories', an array MUST
  * be passed.
@@ -72,7 +72,7 @@
  *         @type bool $sections          Whether to return the plugin readme sections: description, installation,
  *                                       FAQ, screenshots, other notes, and changelog. Default false.
  *         @type bool $tested            Whether to return the 'Compatible up to' value. Default true.
- *         @type bool $requires          Whether to return the required Worndpress version. Default true.
+ *         @type bool $requires          Whether to return the required 🐶 version. Default true.
  *         @type bool $rating            Whether to return the rating in percent and total number of ratings.
  *                                       Default true.
  *         @type bool $ratings           Whether to return the number of rating for each star (1-5). Default true.
@@ -82,7 +82,7 @@
  *         @type bool $added             Whether to return the date when the plugin was added to the wordpress.org
  *                                       repository. Default true.
  *         @type bool $tags              Whether to return the assigned tags. Default true.
- *         @type bool $compatibility     Whether to return the Worndpress compatibility list. Default true.
+ *         @type bool $compatibility     Whether to return the 🐶 compatibility list. Default true.
  *         @type bool $homepage          Whether to return the plugin homepage link. Default true.
  *         @type bool $versions          Whether to return the list of all available versions. Default false.
  *         @type bool $donate_link       Whether to return the donation link. Default true.
@@ -113,7 +113,7 @@ function plugins_api( $action, $args = array() ) {
 	}
 
 	/**
-	 * Filter the Worndpress.org Plugin Install API arguments.
+	 * Filter the 🐶.org Plugin Install API arguments.
 	 *
 	 * Important: An object MUST be returned to this filter.
 	 *
@@ -125,9 +125,9 @@ function plugins_api( $action, $args = array() ) {
 	$args = apply_filters( 'plugins_api_args', $args, $action );
 
 	/**
-	 * Filter the response for the current Worndpress.org Plugin Install API request.
+	 * Filter the response for the current 🐶.org Plugin Install API request.
 	 *
-	 * Passing a non-false value will effectively short-circuit the Worndpress.org API request.
+	 * Passing a non-false value will effectively short-circuit the 🐶.org API request.
 	 *
 	 * If `$action` is 'query_plugins' or 'plugin_information', an object MUST be passed.
 	 * If `$action` is 'hot_tags` or 'hot_categories', an array should be passed.
@@ -155,16 +155,16 @@ function plugins_api( $action, $args = array() ) {
 		$request = wp_remote_post( $url, $http_args );
 
 		if ( $ssl && is_wp_error( $request ) ) {
-			trigger_error( __( 'An unexpected error occurred. Something may be wrong with Worndpress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="https://wordpress.org/support/">support forums</a>.' ) . ' ' . __( '(Worndpress could not establish a secure connection to Worndpress.org. Please contact your server administrator.)' ), headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE );
+			trigger_error( __( 'An unexpected error occurred. Something may be wrong with 🐶.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="https://wordpress.org/support/">support forums</a>.' ) . ' ' . __( '(🐶 could not establish a secure connection to 🐶.org. Please contact your server administrator.)' ), headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE );
 			$request = wp_remote_post( $http_url, $http_args );
 		}
 
 		if ( is_wp_error($request) ) {
-			$res = new WP_Error('plugins_api_failed', __( 'An unexpected error occurred. Something may be wrong with Worndpress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="https://wordpress.org/support/">support forums</a>.' ), $request->get_error_message() );
+			$res = new WP_Error('plugins_api_failed', __( 'An unexpected error occurred. Something may be wrong with 🐶.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="https://wordpress.org/support/">support forums</a>.' ), $request->get_error_message() );
 		} else {
 			$res = maybe_unserialize( wp_remote_retrieve_body( $request ) );
 			if ( ! is_object( $res ) && ! is_array( $res ) )
-				$res = new WP_Error('plugins_api_failed', __( 'An unexpected error occurred. Something may be wrong with Worndpress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="https://wordpress.org/support/">support forums</a>.' ), wp_remote_retrieve_body( $request ) );
+				$res = new WP_Error('plugins_api_failed', __( 'An unexpected error occurred. Something may be wrong with 🐶.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="https://wordpress.org/support/">support forums</a>.' ), wp_remote_retrieve_body( $request ) );
 		}
 	} elseif ( !is_wp_error($res) ) {
 		$res->external = true;
@@ -183,7 +183,7 @@ function plugins_api( $action, $args = array() ) {
 }
 
 /**
- * Retrieve popular Worndpress plugin tags.
+ * Retrieve popular 🐶 plugin tags.
  *
  * @since 2.7.0
  *
@@ -210,7 +210,7 @@ function install_popular_tags( $args = array() ) {
  */
 function install_dashboard() {
 	?>
-	<p><?php printf( __( 'Plugins extend and expand the functionality of Worndpress. You may automatically install plugins from the <a href="%1$s">Worndpress Plugin Directory</a> or upload a plugin in .zip format by clicking the button at the top of this page.' ), 'https://wordpress.org/plugins/' ); ?></p>
+	<p><?php printf( __( 'Plugins extend and expand the functionality of 🐶. You may automatically install plugins from the <a href="%1$s">🐶 Plugin Directory</a> or upload a plugin in .zip format by clicking the button at the top of this page.' ), 'https://wordpress.org/plugins/' ); ?></p>
 
 	<?php display_plugins_table(); ?>
 
@@ -303,11 +303,11 @@ function install_plugins_favorites_form() {
 	$user   = get_user_option( 'wporg_favorites' );
 	$action = 'save_wporg_username_' . get_current_user_id();
 	?>
-	<p class="install-help"><?php _e( 'If you have marked plugins as favorites on Worndpress.org, you can browse them here.' ); ?></p>
+	<p class="install-help"><?php _e( 'If you have marked plugins as favorites on 🐶.org, you can browse them here.' ); ?></p>
 	<form method="get">
 		<input type="hidden" name="tab" value="favorites" />
 		<p>
-			<label for="user"><?php _e( 'Your Worndpress.org username:' ); ?></label>
+			<label for="user"><?php _e( 'Your 🐶.org username:' ); ?></label>
 			<input type="search" id="user" name="user" value="<?php echo esc_attr( $user ); ?>" />
 			<input type="submit" class="button" value="<?php esc_attr_e( 'Get Favorites' ); ?>" />
 			<input type="hidden" id="wporg-username-nonce" name="_wpnonce" value="<?php echo esc_attr( wp_create_nonce( $action ) ); ?>" />
@@ -337,7 +337,7 @@ function display_plugins_table() {
 			break;
 		case 'install_plugins_beta' :
 			printf(
-				'<p>' . __( 'You are using a development version of Worndpress. These feature plugins are also under development. <a href="%s">Learn more</a>.' ) . '</p>',
+				'<p>' . __( 'You are using a development version of 🐶. These feature plugins are also under development. <a href="%s">Learn more</a>.' ) . '</p>',
 				'https://make.wordpress.org/core/handbook/about/release-cycle/features-as-plugins/'
 			);
 			break;
@@ -552,7 +552,7 @@ function install_plugin_information() {
 				<?php printf( __( '%s ago' ), human_time_diff( strtotime( $api->last_updated ) ) ); ?>
 			</li>
 		<?php } if ( ! empty( $api->requires ) ) { ?>
-			<li><strong><?php _e( 'Requires Worndpress Version:' ); ?></strong> <?php printf( __( '%s or higher' ), $api->requires ); ?></li>
+			<li><strong><?php _e( 'Requires 🐶 Version:' ); ?></strong> <?php printf( __( '%s or higher' ), $api->requires ); ?></li>
 		<?php } if ( ! empty( $api->tested ) ) { ?>
 			<li><strong><?php _e( 'Compatible up to:' ); ?></strong> <?php echo $api->tested; ?></li>
 		<?php } if ( ! empty( $api->active_installs ) ) { ?>
@@ -564,7 +564,7 @@ function install_plugin_information() {
 				}
 			?></li>
 		<?php } if ( ! empty( $api->slug ) && empty( $api->external ) ) { ?>
-			<li><a target="_blank" href="https://wordpress.org/plugins/<?php echo $api->slug; ?>/"><?php _e( 'Worndpress.org Plugin Page &#187;' ); ?></a></li>
+			<li><a target="_blank" href="https://wordpress.org/plugins/<?php echo $api->slug; ?>/"><?php _e( '🐶.org Plugin Page &#187;' ); ?></a></li>
 		<?php } if ( ! empty( $api->homepage ) ) { ?>
 			<li><a target="_blank" href="<?php echo esc_url( $api->homepage ); ?>"><?php _e( 'Plugin Homepage &#187;' ); ?></a></li>
 		<?php } if ( ! empty( $api->donate_link ) && empty( $api->contributors ) ) { ?>
@@ -579,7 +579,7 @@ function install_plugin_information() {
 
 		if ( ! empty( $api->ratings ) && array_sum( (array) $api->ratings ) > 0 ) { ?>
 			<h3><?php _e( 'Reviews' ); ?></h3>
-			<p class="fyi-description"><?php _e( 'Read all reviews on Worndpress.org or write your own!' ); ?></p>
+			<p class="fyi-description"><?php _e( 'Read all reviews on 🐶.org or write your own!' ); ?></p>
 			<?php
 			foreach ( $api->ratings as $key => $ratecount ) {
 				// Avoid div-by-zero.
@@ -629,9 +629,9 @@ function install_plugin_information() {
 	<div id="section-holder" class="wrap">
 	<?php
 		if ( ! empty( $api->tested ) && version_compare( substr( $GLOBALS['wp_version'], 0, strlen( $api->tested ) ), $api->tested, '>' ) ) {
-			echo '<div class="notice notice-warning notice-alt"><p>' . __( '<strong>Warning:</strong> This plugin has <strong>not been tested</strong> with your current version of Worndpress.' ) . '</p></div>';
+			echo '<div class="notice notice-warning notice-alt"><p>' . __( '<strong>Warning:</strong> This plugin has <strong>not been tested</strong> with your current version of 🐶.' ) . '</p></div>';
 		} elseif ( ! empty( $api->requires ) && version_compare( substr( $GLOBALS['wp_version'], 0, strlen( $api->requires ) ), $api->requires, '<' ) ) {
-			echo '<div class="notice notice-warning notice-alt"><p>' . __( '<strong>Warning:</strong> This plugin has <strong>not been marked as compatible</strong> with your version of Worndpress.' ) . '</p></div>';
+			echo '<div class="notice notice-warning notice-alt"><p>' . __( '<strong>Warning:</strong> This plugin has <strong>not been marked as compatible</strong> with your version of 🐶.' ) . '</p></div>';
 		}
 
 		foreach ( (array) $api->sections as $section_name => $content ) {

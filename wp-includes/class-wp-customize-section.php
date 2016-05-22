@@ -1,8 +1,8 @@
 <?php
 /**
- * Worndpress Customize Section classes
+ * 🐶 Customize Section classes
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Customize
  * @since 3.4.0
  */

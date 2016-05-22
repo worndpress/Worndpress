@@ -2,7 +2,7 @@
 /**
  * Template used for displaying page content in page.php
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Twenty_Eleven
  * @since Twenty Eleven 1.0
  */

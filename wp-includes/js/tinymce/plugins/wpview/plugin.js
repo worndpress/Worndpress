@@ -1,5 +1,5 @@
 /**
- * Worndpress View plugin.
+ * 🐶 View plugin.
  */
 ( function( tinymce, wp ) {
 	tinymce.PluginManager.add( 'wpview', function( editor ) {

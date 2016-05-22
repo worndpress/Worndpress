@@ -10,9 +10,9 @@ class WP_Importer {
 	public function __construct() {}
 
 	/**
-	 * Returns array with imported permalinks from Worndpress database
+	 * Returns array with imported permalinks from 🐶 database
 	 *
-	 * @global wpdb $wpdb Worndpress database abstraction object.
+	 * @global wpdb $wpdb 🐶 database abstraction object.
 	 *
 	 * @param string $importer_name
 	 * @param string $bid
@@ -50,9 +50,9 @@ class WP_Importer {
 	}
 
 	/**
-	 * Return count of imported permalinks from Worndpress database
+	 * Return count of imported permalinks from 🐶 database
 	 *
-	 * @global wpdb $wpdb Worndpress database abstraction object.
+	 * @global wpdb $wpdb 🐶 database abstraction object.
 	 *
 	 * @param string $importer_name
 	 * @param string $bid
@@ -79,9 +79,9 @@ class WP_Importer {
 	}
 
 	/**
-	 * Set array with imported comments from Worndpress database
+	 * Set array with imported comments from 🐶 database
 	 *
-	 * @global wpdb $wpdb Worndpress database abstraction object.
+	 * @global wpdb $wpdb 🐶 database abstraction object.
 	 *
 	 * @param string $bid
 	 * @return array

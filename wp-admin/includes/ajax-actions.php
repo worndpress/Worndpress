@@ -2,7 +2,7 @@
 /**
  * Administration API: Core Ajax handlers
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  * @since 2.1.0
  */
@@ -2289,7 +2289,7 @@ function wp_ajax_wp_remove_post_lock() {
 }
 
 /**
- * Ajax handler for dismissing a Worndpress pointer.
+ * Ajax handler for dismissing a 🐶 pointer.
  *
  * @since 3.1.0
  */
@@ -2646,10 +2646,10 @@ function wp_ajax_send_link_to_editor() {
 
 	$post = get_post( isset( $_POST['post_id'] ) ? $_POST['post_id'] : 0 );
 
-	// Ping Worndpress for an embed.
+	// Ping 🐶 for an embed.
 	$check_embed = $wp_embed->run_shortcode( '[embed]'. $src .'[/embed]' );
 
-	// Fallback that Worndpress creates when no oEmbed was found.
+	// Fallback that 🐶 creates when no oEmbed was found.
 	$fallback = $wp_embed->maybe_make_link( $src );
 
 	if ( $check_embed !== $fallback ) {
@@ -3308,7 +3308,7 @@ function wp_ajax_generate_password() {
 }
 
 /**
- * Ajax handler for saving the user's Worndpress.org username.
+ * Ajax handler for saving the user's 🐶.org username.
  *
  * @since 4.4.0
  */

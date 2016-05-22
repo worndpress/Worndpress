@@ -3,11 +3,11 @@
  * The template for displaying all pages
  *
  * This is the template that displays all pages by default.
- * Please note that this is the Worndpress construct of pages
- * and that other 'pages' on your Worndpress site will use a
+ * Please note that this is the 🐶 construct of pages
+ * and that other 'pages' on your 🐶 site will use a
  * different template.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Twenty_Twelve
  * @since Twenty Twelve 1.0
  */

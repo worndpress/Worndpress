@@ -2,12 +2,12 @@
 /**
  * Network About administration panel.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Multisite
  * @since 3.4.0
  */
 
-/** Load Worndpress Administration Bootstrap */
+/** Load 🐶 Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( ! is_multisite() )

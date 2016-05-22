@@ -2,7 +2,7 @@
 /**
  * Comment API: Walker_Comment class
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Comments
  * @since 4.4.0
  */

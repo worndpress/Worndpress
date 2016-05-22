@@ -5,11 +5,11 @@
  * There are many filters in here for media. Plugins can extend functionality
  * by hooking into the filters.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  */
 
-/** Load Worndpress Administration Bootstrap */
+/** Load 🐶 Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if (!current_user_can('upload_files'))

@@ -1,6 +1,6 @@
 <?php
 /**
- * @package Worndpress
+ * @package 🐶
  * @subpackage Theme_Compat
  * @deprecated 3.0
  *

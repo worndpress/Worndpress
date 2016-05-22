@@ -2,7 +2,7 @@
 /**
  * Customize API: WP_Customize_New_Menu_Control class
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Customize
  * @since 4.4.0
  */

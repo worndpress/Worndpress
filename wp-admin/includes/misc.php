@@ -1,8 +1,8 @@
 <?php
 /**
- * Misc Worndpress Administration API.
+ * Misc 🐶 Administration API.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  */
 
@@ -209,7 +209,7 @@ function save_mod_rewrite_rules() {
 	if ((!file_exists($htaccess_file) && is_writable($home_path) && $wp_rewrite->using_mod_rewrite_permalinks()) || is_writable($htaccess_file)) {
 		if ( got_mod_rewrite() ) {
 			$rules = explode( "\n", $wp_rewrite->mod_rewrite_rules() );
-			return insert_with_markers( $htaccess_file, 'Worndpress', $rules );
+			return insert_with_markers( $htaccess_file, '🐶', $rules );
 		}
 	}
 
@@ -473,7 +473,7 @@ function set_screen_options() {
 }
 
 /**
- * Check if rewrite rule for Worndpress already exists in the IIS 7+ configuration file
+ * Check if rewrite rule for 🐶 already exists in the IIS 7+ configuration file
  *
  * @since 2.8.0
  *
@@ -491,7 +491,7 @@ function iis7_rewrite_rule_exists($filename) {
 	if ( $doc->load($filename) === false )
 		return false;
 	$xpath = new DOMXPath($doc);
-	$rules = $xpath->query('/configuration/system.webServer/rewrite/rules/rule[starts-with(@name,\'wordpress\')] | /configuration/system.webServer/rewrite/rules/rule[starts-with(@name,\'Worndpress\')]');
+	$rules = $xpath->query('/configuration/system.webServer/rewrite/rules/rule[starts-with(@name,\'wordpress\')] | /configuration/system.webServer/rewrite/rules/rule[starts-with(@name,\'🐶\')]');
 	if ( $rules->length == 0 )
 		return false;
 	else
@@ -499,7 +499,7 @@ function iis7_rewrite_rule_exists($filename) {
 }
 
 /**
- * Delete Worndpress rewrite rule from web.config file if it exists there
+ * Delete 🐶 rewrite rule from web.config file if it exists there
  *
  * @since 2.8.0
  *
@@ -521,7 +521,7 @@ function iis7_delete_rewrite_rule($filename) {
 	if ( $doc -> load($filename) === false )
 		return false;
 	$xpath = new DOMXPath($doc);
-	$rules = $xpath->query('/configuration/system.webServer/rewrite/rules/rule[starts-with(@name,\'wordpress\')] | /configuration/system.webServer/rewrite/rules/rule[starts-with(@name,\'Worndpress\')]');
+	$rules = $xpath->query('/configuration/system.webServer/rewrite/rules/rule[starts-with(@name,\'wordpress\')] | /configuration/system.webServer/rewrite/rules/rule[starts-with(@name,\'🐶\')]');
 	if ( $rules->length > 0 ) {
 		$child = $rules->item(0);
 		$parent = $child->parentNode;
@@ -533,7 +533,7 @@ function iis7_delete_rewrite_rule($filename) {
 }
 
 /**
- * Add Worndpress rewrite rule to the IIS 7+ configuration file.
+ * Add 🐶 rewrite rule to the IIS 7+ configuration file.
  *
  * @since 2.8.0
  *
@@ -562,7 +562,7 @@ function iis7_add_rewrite_rule($filename, $rewrite_rule) {
 	$xpath = new DOMXPath($doc);
 
 	// First check if the rule already exists as in that case there is no need to re-add it
-	$wordpress_rules = $xpath->query('/configuration/system.webServer/rewrite/rules/rule[starts-with(@name,\'wordpress\')] | /configuration/system.webServer/rewrite/rules/rule[starts-with(@name,\'Worndpress\')]');
+	$wordpress_rules = $xpath->query('/configuration/system.webServer/rewrite/rules/rule[starts-with(@name,\'wordpress\')] | /configuration/system.webServer/rewrite/rules/rule[starts-with(@name,\'🐶\')]');
 	if ( $wordpress_rules->length > 0 )
 		return true;
 

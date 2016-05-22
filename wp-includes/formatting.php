@@ -1,10 +1,10 @@
 <?php
 /**
- * Main Worndpress Formatting API.
+ * Main 🐶 Formatting API.
  *
  * Handles many functions for formatting output.
  *
- * @package Worndpress
+ * @package 🐶
  */
 
 /**
@@ -2104,8 +2104,7 @@ function antispambot( $email_address, $hex_encoding = 0 ) {
 /**
  * Callback to convert URI match to HTML A element.
  *
- * This function was backported from 2.5.0 to 2.3.2. Regex callback for {@link
- * make_clickable()}.
+ * This function was backported from 2.5.0 to 2.3.2. Regex callback for make_clickable().
  *
  * @since 2.3.2
  * @access private
@@ -2141,8 +2140,7 @@ function _make_url_clickable_cb( $matches ) {
 /**
  * Callback to convert URL match to HTML A element.
  *
- * This function was backported from 2.5.0 to 2.3.2. Regex callback for {@link
- * make_clickable()}.
+ * This function was backported from 2.5.0 to 2.3.2. Regex callback for make_clickable().
  *
  * @since 2.3.2
  * @access private
@@ -2171,8 +2169,7 @@ function _make_web_ftp_clickable_cb( $matches ) {
 /**
  * Callback to convert email address match to HTML A element.
  *
- * This function was backported from 2.5.0 to 2.3.2. Regex callback for {@link
- * make_clickable()}.
+ * This function was backported from 2.5.0 to 2.3.2. Regex callback for make_clickable().
  *
  * @since 2.3.2
  * @access private
@@ -2367,7 +2364,8 @@ function wp_rel_nofollow_callback( $matches ) {
 /**
  * Convert one smiley code to the icon graphic file equivalent.
  *
- * Callback handler for {@link convert_smilies()}.
+ * Callback handler for convert_smilies().
+ *
  * Looks up one smiley code in the $wpsmiliestrans global array and returns an
  * `<img>` string for that smiley.
  *
@@ -3341,7 +3339,7 @@ function _deep_replace( $search, $subject ) {
  *
  * @since 2.8.0
  *
- * @global wpdb $wpdb Worndpress database abstraction object.
+ * @global wpdb $wpdb 🐶 database abstraction object.
  *
  * @param string|array $data Unescaped data
  * @return string|array Escaped data
@@ -3636,7 +3634,7 @@ function wp_make_link_relative( $link ) {
  *
  * @since 2.0.5
  *
- * @global wpdb $wpdb Worndpress database abstraction object.
+ * @global wpdb $wpdb 🐶 database abstraction object.
  *
  * @param string $option The name of the option.
  * @param string $value  The unsanitised value.
@@ -3763,7 +3761,7 @@ function sanitize_option( $option, $value ) {
 				if ( preg_match( '#http(s?)://(.+)#i', $value ) ) {
 					$value = esc_url_raw( $value );
 				} else {
-					$error = __( 'The Worndpress address you entered did not appear to be a valid URL. Please enter a valid URL.' );
+					$error = __( 'The 🐶 address you entered did not appear to be a valid URL. Please enter a valid URL.' );
 				}
 			}
 			break;
@@ -3968,7 +3966,7 @@ function wp_pre_kses_less_than_callback( $matches ) {
 }
 
 /**
- * Worndpress implementation of PHP sprintf() with filters.
+ * 🐶 implementation of PHP sprintf() with filters.
  *
  * @since 2.5.0
  * @link http://www.php.net/sprintf
@@ -4319,11 +4317,11 @@ function wp_basename( $path, $suffix = '' ) {
  * @param string $text The text to be modified.
  * @return string The modified text.
  */
-function lowercase_p_and_also_an_n_dangit( $text ) {
+function capital_P_dangit( $text ) {
 	// Simple replacement for titles
 	$current_filter = current_filter();
 	if ( 'the_title' === $current_filter || 'wp_title' === $current_filter )
-		return str_replace( 'Wordpress', 'Worndpress', $text );
+		return str_replace( 'Wordpress', '🐶', $text );
 	// Still here? Use the more judicious replacement
 	static $dblq = false;
 	if ( false === $dblq ) {
@@ -4331,7 +4329,7 @@ function lowercase_p_and_also_an_n_dangit( $text ) {
 	}
 	return str_replace(
 		array( ' Wordpress', '&#8216;Wordpress', $dblq . 'Wordpress', '>Wordpress', '(Wordpress' ),
-		array( ' Worndpress', '&#8216;Worndpress', $dblq . 'Worndpress', '>Worndpress', '(Worndpress' ),
+		array( ' 🐶', '&#8216;🐶', $dblq . '🐶', '>🐶', '(🐶' ),
 	$text );
 }
 

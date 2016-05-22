@@ -1,8 +1,8 @@
 <?php
 /**
- * Worndpress Post Administration API.
+ * 🐶 Post Administration API.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  */
 
@@ -11,7 +11,7 @@
  *
  * Manipulates $_POST directly.
  *
- * @package Worndpress
+ * @package 🐶
  * @since 2.6.0
  *
  * @param bool $update Are we updating a pre-existing post?
@@ -173,7 +173,7 @@ function _wp_translate_postdata( $update = false, $post_data = null ) {
  *
  * @since 1.5.0
  *
- * @global wpdb $wpdb Worndpress database abstraction object.
+ * @global wpdb $wpdb 🐶 database abstraction object.
  *
  * @param array $post_data Optional.
  * @return int Post ID.
@@ -403,7 +403,7 @@ function edit_post( $post_data = null ) {
  *
  * @since 2.7.0
  *
- * @global wpdb $wpdb Worndpress database abstraction object.
+ * @global wpdb $wpdb 🐶 database abstraction object.
  *
  * @param array $post_data Optional, the array of post data to process if not provided will use $_POST superglobal.
  * @return array
@@ -659,7 +659,7 @@ function get_default_post_to_edit( $post_type = 'post', $create_in_db = false ) 
  *
  * @since 2.0.0
  *
- * @global wpdb $wpdb Worndpress database abstraction object.
+ * @global wpdb $wpdb 🐶 database abstraction object.
  *
  * @param string $title Post title
  * @param string $content Optional post content
@@ -843,7 +843,7 @@ function delete_meta( $mid ) {
  *
  * @since 1.2.0
  *
- * @global wpdb $wpdb Worndpress database abstraction object.
+ * @global wpdb $wpdb 🐶 database abstraction object.
  *
  * @return mixed
  */
@@ -876,7 +876,7 @@ function get_post_meta_by_id( $mid ) {
  *
  * @since 1.2.0
  *
- * @global wpdb $wpdb Worndpress database abstraction object.
+ * @global wpdb $wpdb 🐶 database abstraction object.
  *
  * @param int $postid
  * @return mixed
@@ -1070,7 +1070,7 @@ function wp_edit_posts_query( $q = false ) {
  *
  * @since 2.5.0
  *
- * @global wpdb $wpdb Worndpress database abstraction object.
+ * @global wpdb $wpdb 🐶 database abstraction object.
  *
  * @param string $type
  * @return mixed
@@ -1642,7 +1642,7 @@ function _admin_notice_post_locked() {
 /**
  * Creates autosave data for the specified post from $_POST data.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Post_Revisions
  * @since 2.6.0
  *
@@ -1706,7 +1706,7 @@ function wp_create_post_autosave( $post_data ) {
 /**
  * Save draft or manually autosave for showing preview.
  *
- * @package Worndpress
+ * @package 🐶
  * @since 2.7.0
  *
  * @return str URL to redirect to show the preview

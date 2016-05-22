@@ -1,13 +1,13 @@
 <?php
 /**
  * Gets the email message from the user's mailbox to add as
- * a Worndpress post. Mailbox connection information must be
+ * a 🐶 post. Mailbox connection information must be
  * configured under Settings > Writing
  *
- * @package Worndpress
+ * @package 🐶
  */
 
-/** Make sure that the Worndpress bootstrap has run before continuing. */
+/** Make sure that the 🐶 bootstrap has run before continuing. */
 require(dirname(__FILE__) . '/wp-load.php');
 
 /** This filter is documented in wp-admin/options.php */

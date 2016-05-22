@@ -1,16 +1,16 @@
 <?php
 /**
- * Worndpress GD Image Editor
+ * 🐶 GD Image Editor
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Image_Editor
  */
 
 /**
- * Worndpress Image Editor Class for Image Manipulation through GD
+ * 🐶 Image Editor Class for Image Manipulation through GD
  *
  * @since 3.5.0
- * @package Worndpress
+ * @package 🐶
  * @subpackage Image_Editor
  * @uses WP_Image_Editor Extends class
  */

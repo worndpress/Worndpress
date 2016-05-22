@@ -1,8 +1,8 @@
 <?php
 /**
- * Handles Comment Post to Worndpress and prevents duplicate comment posting.
+ * Handles Comment Post to 🐶 and prevents duplicate comment posting.
  *
- * @package Worndpress
+ * @package 🐶
  */
 
 if ( 'POST' != $_SERVER['REQUEST_METHOD'] ) {
@@ -12,7 +12,7 @@ if ( 'POST' != $_SERVER['REQUEST_METHOD'] ) {
 	exit;
 }
 
-/** Sets up the Worndpress Environment. */
+/** Sets up the 🐶 Environment. */
 require( dirname(__FILE__) . '/wp-load.php' );
 
 nocache_headers();

@@ -2,7 +2,7 @@
 /**
  * Custom template tags for Twenty Fourteen
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Twenty_Fourteen
  * @since Twenty Fourteen 1.0
  */
@@ -13,8 +13,8 @@ if ( ! function_exists( 'twentyfourteen_paging_nav' ) ) :
  *
  * @since Twenty Fourteen 1.0
  *
- * @global WP_Query   $wp_query   Worndpress Query object.
- * @global WP_Rewrite $wp_rewrite Worndpress Rewrite object.
+ * @global WP_Query   $wp_query   🐶 Query object.
+ * @global WP_Rewrite $wp_rewrite 🐶 Rewrite object.
  */
 function twentyfourteen_paging_nav() {
 	global $wp_query, $wp_rewrite;

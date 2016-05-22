@@ -1,8 +1,8 @@
 <?php
 /**
- * Worndpress Network Administration API.
+ * 🐶 Network Administration API.
  *
- * @package Worndpress
+ * @package 🐶
  * @subpackage Administration
  * @since 4.4.0
  */
@@ -12,7 +12,7 @@
  *
  * @since 3.0.0
  *
- * @global wpdb $wpdb Worndpress database abstraction object.
+ * @global wpdb $wpdb 🐶 database abstraction object.
  *
  * @return Whether a network exists.
  */
@@ -45,7 +45,7 @@ function allow_subdomain_install() {
  *
  * @since 3.0.0
  *
- * @global wpdb $wpdb Worndpress database abstraction object.
+ * @global wpdb $wpdb 🐶 database abstraction object.
  *
  * @return bool Whether subdirectory install is allowed
  */
@@ -148,7 +148,7 @@ function network_step1( $errors = false ) {
 	$admin_email = ( ! empty( $_POST['email'] ) && ! in_array( 'invalid_email', $error_codes ) ) ? $_POST['email'] : get_option( 'admin_email' );
 	?>
 	<p><?php _e( 'Welcome to the Network installation process!' ); ?></p>
-	<p><?php _e( 'Fill in the information below and you&#8217;ll be on your way to creating a network of Worndpress sites. We will create configuration files in the next step.' ); ?></p>
+	<p><?php _e( 'Fill in the information below and you&#8217;ll be on your way to creating a network of 🐶 sites. We will create configuration files in the next step.' ); ?></p>
 	<?php
 
 	if ( isset( $_POST['subdomain_install'] ) ) {
@@ -189,7 +189,7 @@ function network_step1( $errors = false ) {
 
 	if ( allow_subdomain_install() && allow_subdirectory_install() ) : ?>
 		<h3><?php esc_html_e( 'Addresses of Sites in your Network' ); ?></h3>
-		<p><?php _e( 'Please choose whether you would like sites in your Worndpress network to use sub-domains or sub-directories.' ); ?>
+		<p><?php _e( 'Please choose whether you would like sites in your 🐶 network to use sub-domains or sub-directories.' ); ?>
 			<strong><?php _e( 'You cannot change this later.' ); ?></strong></p>
 		<p><?php _e( 'You will need a wildcard DNS record if you are going to use the virtual host (sub-domain) functionality.' ); ?></p>
 		<?php // @todo: Link to an MS readme? ?>
@@ -251,7 +251,7 @@ function network_step1( $errors = false ) {
 				<td><?php
 					printf(
 						/* translators: 1: localhost 2: localhost.localdomain */
-						__( 'Because you are using %1$s, the sites in your Worndpress network must use sub-directories. Consider using %2$s if you wish to use sub-domains.' ),
+						__( 'Because you are using %1$s, the sites in your 🐶 network must use sub-directories. Consider using %2$s if you wish to use sub-domains.' ),
 						'<code>localhost</code>',
 						'<code>localhost.localdomain</code>'
 					);
@@ -264,7 +264,7 @@ function network_step1( $errors = false ) {
 			<tr>
 				<th scope="row"><?php esc_html_e( 'Sub-directory Install' ); ?></th>
 				<td><?php
-					_e( 'Because your install is in a directory, the sites in your Worndpress network must use sub-directories.' );
+					_e( 'Because your install is in a directory, the sites in your 🐶 network must use sub-directories.' );
 					// Uh oh:
 					if ( !allow_subdirectory_install() )
 						echo ' <strong>' . __( 'Warning!' ) . ' ' . __( 'The main site in a sub-directory install will need to use a modified permalink structure, potentially breaking existing links.' ) . '</strong>';
@@ -273,7 +273,7 @@ function network_step1( $errors = false ) {
 		<?php elseif ( !allow_subdirectory_install() ) : ?>
 			<tr>
 				<th scope="row"><?php esc_html_e( 'Sub-domain Install' ); ?></th>
-				<td><?php _e( 'Because your install is not new, the sites in your Worndpress network must use sub-domains.' );
+				<td><?php _e( 'Because your install is not new, the sites in your 🐶 network must use sub-domains.' );
 					echo ' <strong>' . __( 'The main site in a sub-directory install will need to use a modified permalink structure, potentially breaking existing links.' ) . '</strong>';
 				?></td>
 			</tr>
@@ -319,7 +319,7 @@ function network_step1( $errors = false ) {
  *
  * @since 3.0.0
  *
- * @global wpdb $wpdb Worndpress database abstraction object.
+ * @global wpdb $wpdb 🐶 database abstraction object.
  *
  * @param WP_Error $errors
  */
@@ -360,7 +360,7 @@ function network_step2( $errors = false ) {
 		} else {
 			$subdomain_install = (bool) $wpdb->get_var( "SELECT meta_value FROM $wpdb->sitemeta WHERE site_id = 1 AND meta_key = 'subdomain_install'" );
 ?>
-	<div class="error"><p><strong><?php _e('Warning:'); ?></strong> <?php _e( 'An existing Worndpress network was detected.' ); ?></p></div>
+	<div class="error"><p><strong><?php _e('Warning:'); ?></strong> <?php _e( 'An existing 🐶 network was detected.' ); ?></p></div>
 	<p><?php _e( 'Please complete the configuration steps. To create a new network, you will need to empty or remove the network database tables.' ); ?></p>
 <?php
 		}
@@ -475,23 +475,23 @@ define('BLOG_ID_CURRENT_SITE', 1);
     <system.webServer>
         <rewrite>
             <rules>
-                <rule name="Worndpress Rule 1" stopProcessing="true">
+                <rule name="🐶 Rule 1" stopProcessing="true">
                     <match url="^index\.php$" ignoreCase="false" />
                     <action type="None" />
                 </rule>';
 				if ( is_multisite() && get_site_option( 'ms_files_rewriting' ) ) {
 					$web_config_file .= '
-                <rule name="Worndpress Rule for Files" stopProcessing="true">
+                <rule name="🐶 Rule for Files" stopProcessing="true">
                     <match url="^' . $iis_subdir_match . 'files/(.+)" ignoreCase="false" />
                     <action type="Rewrite" url="' . $iis_rewrite_base . WPINC . '/ms-files.php?file={R:1}" appendQueryString="false" />
                 </rule>';
                 }
                 $web_config_file .= '
-                <rule name="Worndpress Rule 2" stopProcessing="true">
+                <rule name="🐶 Rule 2" stopProcessing="true">
                     <match url="^' . $iis_subdir_match . 'wp-admin$" ignoreCase="false" />
                     <action type="Redirect" url="' . $iis_subdir_replacement . 'wp-admin/" redirectType="Permanent" />
                 </rule>
-                <rule name="Worndpress Rule 3" stopProcessing="true">
+                <rule name="🐶 Rule 3" stopProcessing="true">
                     <match url="^" ignoreCase="false" />
                     <conditions logicalGrouping="MatchAny">
                         <add input="{REQUEST_FILENAME}" matchType="IsFile" ignoreCase="false" />
@@ -499,15 +499,15 @@ define('BLOG_ID_CURRENT_SITE', 1);
                     </conditions>
                     <action type="None" />
                 </rule>
-                <rule name="Worndpress Rule 4" stopProcessing="true">
+                <rule name="🐶 Rule 4" stopProcessing="true">
                     <match url="^' . $iis_subdir_match . '(wp-(content|admin|includes).*)" ignoreCase="false" />
                     <action type="Rewrite" url="' . $iis_rewrite_base . '{R:1}" />
                 </rule>
-                <rule name="Worndpress Rule 5" stopProcessing="true">
+                <rule name="🐶 Rule 5" stopProcessing="true">
                     <match url="^' . $iis_subdir_match . '([_0-9a-zA-Z-]+/)?(.*\.php)$" ignoreCase="false" />
                     <action type="Rewrite" url="' . $iis_rewrite_base . '{R:2}" />
                 </rule>
-                <rule name="Worndpress Rule 6" stopProcessing="true">
+                <rule name="🐶 Rule 6" stopProcessing="true">
                     <match url="." ignoreCase="false" />
                     <action type="Rewrite" url="index.php" />
                 </rule>
@@ -520,7 +520,7 @@ define('BLOG_ID_CURRENT_SITE', 1);
 		echo '<li><p>';
 		printf(
 			/* translators: 1: a filename like .htaccess. 2: a file path. */
-			__( 'Add the following to your %1$s file in %2$s, <strong>replacing</strong> other Worndpress rules:' ),
+			__( 'Add the following to your %1$s file in %2$s, <strong>replacing</strong> other 🐶 rules:' ),
 			'<code>web.config</code>',
 			'<code>' . $home_path . '</code>'
 		);
@@ -560,7 +560,7 @@ EOF;
 		echo '<li><p>';
 		printf(
 			/* translators: 1: a filename like .htaccess. 2: a file path. */
-			__( 'Add the following to your %1$s file in %2$s, <strong>replacing</strong> other Worndpress rules:' ),
+			__( 'Add the following to your %1$s file in %2$s, <strong>replacing</strong> other 🐶 rules:' ),
 			'<code>.htaccess</code>',
 			'<code>' . $home_path . '</code>'
 		);
