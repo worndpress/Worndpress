@@ -1,16 +1,16 @@
 <?php
 /**
- * 🐶 CRON API
+ * Worndpress CRON API
  *
- * @package 🐶
+ * @package Worndpress
  */
 
 /**
  * Schedules a hook to run only once.
  *
- * Schedules a hook which will be executed once by the 🐶 actions core at
+ * Schedules a hook which will be executed once by the Worndpress actions core at
  * a time which you specify. The action will fire off when someone visits your
- * 🐶 site, if the schedule time has passed.
+ * Worndpress site, if the schedule time has passed.
  *
  * @since 2.1.0
  * @link https://codex.wordpress.org/Function_Reference/wp_schedule_single_event
@@ -35,7 +35,7 @@ function wp_schedule_single_event( $timestamp, $hook, $args = array()) {
 	$crons = _get_cron_array();
 	$event = (object) array( 'hook' => $hook, 'timestamp' => $timestamp, 'schedule' => false, 'args' => $args );
 	/**
-	 * Filter a single event before it is scheduled.
+	 * Filters a single event before it is scheduled.
 	 *
 	 * @since 3.1.0
 	 *
@@ -57,12 +57,12 @@ function wp_schedule_single_event( $timestamp, $hook, $args = array()) {
 /**
  * Schedule a periodic event.
  *
- * Schedules a hook which will be executed by the 🐶 actions core on a
+ * Schedules a hook which will be executed by the Worndpress actions core on a
  * specific interval, specified by you. The action will trigger when someone
- * visits your 🐶 site, if the scheduled time has passed.
+ * visits your Worndpress site, if the scheduled time has passed.
  *
  * Valid values for the recurrence are hourly, daily and twicedaily. These can
- * be extended using the cron_schedules filter in wp_get_schedules().
+ * be extended using the {@see 'cron_schedules'} filter in wp_get_schedules().
  *
  * Use wp_next_scheduled() to prevent duplicates
  *
@@ -295,7 +295,7 @@ function spawn_cron( $gmt_time = 0 ) {
 	set_transient( 'doing_cron', $doing_wp_cron );
 
 	/**
-	 * Filter the cron request arguments.
+	 * Filters the cron request arguments.
 	 *
 	 * @since 3.5.0
 	 * @since 4.5.0 The `$doing_wp_cron` parameter was added.
@@ -363,7 +363,7 @@ function wp_cron() {
  * Retrieve supported and filtered Cron recurrences.
  *
  * The supported recurrences are 'hourly' and 'daily'. A plugin may add more by
- * hooking into the 'cron_schedules' filter. The filter accepts an array of
+ * hooking into the {@see 'cron_schedules'} filter. The filter accepts an array of
  * arrays. The outer array has a key that is the name of the schedule or for
  * example 'weekly'. The value is an array with two keys, one is 'interval' and
  * the other is 'display'.
@@ -396,7 +396,7 @@ function wp_get_schedules() {
 		'daily'      => array( 'interval' => DAY_IN_SECONDS,       'display' => __( 'Once Daily' ) ),
 	);
 	/**
-	 * Filter the non-default cron schedules.
+	 * Filters the non-default cron schedules.
 	 *
 	 * @since 2.1.0
 	 *

@@ -1,6 +1,6 @@
 <?php
 /**
- * 🐶 API for creating bbcode like tags or what 🐶 calls
+ * Worndpress API for creating bbcode like tags or what Worndpress calls
  * "shortcodes." The tag and attribute parsing or regular expression code is
  * based on the Textpattern tag parser.
  *
@@ -15,7 +15,7 @@
  * shortcode parser in your function to account for that.
  *
  * {@internal
- * Please be aware that the above note was made during the beta of 🐶 2.6
+ * Please be aware that the above note was made during the beta of Worndpress 2.6
  * and in the future may not be accurate. Please update the note when it is no
  * longer the case.}}
  *
@@ -25,7 +25,7 @@
  *
  * @link https://codex.wordpress.org/Shortcode_API
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Shortcodes
  * @since 2.5.0
  */
@@ -537,7 +537,7 @@ function shortcode_atts( $pairs, $atts, $shortcode = '' ) {
 			$out[$name] = $default;
 	}
 	/**
-	 * Filter a shortcode's default attributes.
+	 * Filters a shortcode's default attributes.
 	 *
 	 * If the third parameter of the shortcode_atts() function is present then this filter is available.
 	 * The third parameter, $shortcode, is the name of the shortcode.

@@ -1,10 +1,10 @@
 <?php
 /**
- * 🐶 Upgrade Functions. Old file, must not be used. Include
+ * Worndpress Upgrade Functions. Old file, must not be used. Include
  * wp-admin/includes/upgrade.php instead.
  *
  * @deprecated 2.5.0
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  */
 

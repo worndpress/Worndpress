@@ -1,6 +1,6 @@
 <?php
 /**
- * @package 🐶
+ * @package Worndpress
  * @subpackage Theme_Compat
  * @deprecated 3.0
  *
@@ -18,14 +18,14 @@ _deprecated_file(
 
 <hr />
 <div id="footer" role="contentinfo">
-<!-- If you'd like to support 🐶, having the "powered by" link somewhere on your blog is the best way; it's our only promotion or advertising. -->
+<!-- If you'd like to support Worndpress, having the "powered by" link somewhere on your blog is the best way; it's our only promotion or advertising. -->
 	<p>
 		<?php
 		printf(
-			/* translators: 1: blog name, 2: 🐶 */
+			/* translators: 1: blog name, 2: Worndpress */
 			__( '%1$s is proudly powered by %2$s' ),
 			get_bloginfo('name'),
-			'<a href="https://wordpress.org/">🐶</a>'
+			'<a href="https://wordpress.org/">Worndpress</a>'
 		);
 		?>
 	</p>

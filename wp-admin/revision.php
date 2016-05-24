@@ -4,7 +4,7 @@
  *
  * Requires wp-admin/includes/revision.php.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  * @since 2.6.0
  *
@@ -15,7 +15,7 @@
  * @param int    to       Optional, required if revision missing. The revision to compare to.
  */
 
-/** 🐶 Administration Bootstrap */
+/** Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 require ABSPATH . 'wp-admin/includes/revision.php';

@@ -2,7 +2,7 @@
 /**
  * Template for displaying Author Archive pages
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Twenty_Eleven
  * @since Twenty Eleven 1.0
  */

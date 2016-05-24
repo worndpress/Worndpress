@@ -2,11 +2,11 @@
 /**
  * Comment Management Screen
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  */
 
-/** Load 🐶 Bootstrap */
+/** Load Worndpress Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 $parent_file = 'edit-comments.php';
@@ -313,7 +313,7 @@ case 'editedcomment' :
 	$location = ( empty( $_POST['referredby'] ) ? "edit-comments.php?p=$comment_post_id" : $_POST['referredby'] ) . '#comment-' . $comment_id;
 
 	/**
-	 * Filter the URI the user is redirected to after editing a comment in the admin.
+	 * Filters the URI the user is redirected to after editing a comment in the admin.
 	 *
 	 * @since 2.1.0
 	 *

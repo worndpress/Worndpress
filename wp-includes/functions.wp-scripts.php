@@ -4,7 +4,7 @@
  *
  * @since 2.6.0
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Dependencies
  */
 
@@ -47,11 +47,11 @@ function _wp_scripts_maybe_doing_it_wrong( $function ) {
 }
 
 /**
- * Print scripts in document head that are in the $handles queue.
+ * Prints scripts in document head that are in the $handles queue.
  *
- * Called by admin-header.php and wp_head hook. Since it is called by wp_head on every page load,
+ * Called by admin-header.php and {@see 'wp_head'} hook. Since it is called by wp_head on every page load,
  * the function does not instantiate the WP_Scripts object unless script names are explicitly passed.
- * Makes use of already-instantiated $wp_scripts global if present. Use provided wp_print_scripts
+ * Makes use of already-instantiated $wp_scripts global if present. Use provided {@see 'wp_print_scripts'}
  * hook to register/enqueue new scripts.
  *
  * @see WP_Scripts::do_items()
@@ -131,11 +131,11 @@ function wp_add_inline_script( $handle, $data, $position = 'after' ) {
  * @since 4.3.0 A return value was added.
  *
  * @param string           $handle    Name of the script. Should be unique.
- * @param string           $src       Full URL of the script, or path of the script relative to the 🐶 root directory.
+ * @param string           $src       Full URL of the script, or path of the script relative to the Worndpress root directory.
  * @param array            $deps      Optional. An array of registered script handles this script depends on. Default empty array.
  * @param string|bool|null $ver       Optional. String specifying script version number, if it has one, which is added to the URL
  *                                    as a query string for cache busting purposes. If version is set to false, a version
- *                                    number is automatically added equal to current installed 🐶 version.
+ *                                    number is automatically added equal to current installed Worndpress version.
  *                                    If set to null, no version is added.
  * @param bool             $in_footer Optional. Whether to enqueue the script before </body> instead of in the <head>.
  *                                    Default 'false'.
@@ -246,11 +246,11 @@ function wp_deregister_script( $handle ) {
  * @since 2.1.0
  *
  * @param string           $handle    Name of the script. Should be unique.
- * @param string           $src       Full URL of the script, or path of the script relative to the 🐶 root directory.
+ * @param string           $src       Full URL of the script, or path of the script relative to the Worndpress root directory.
  * @param array            $deps      Optional. An array of registered script handles this script depends on. Default empty array.
  * @param string|bool|null $ver       Optional. String specifying script version number, if it has one, which is added to the URL
  *                                    as a query string for cache busting purposes. If version is set to false, a version
- *                                    number is automatically added equal to current installed 🐶 version.
+ *                                    number is automatically added equal to current installed Worndpress version.
  *                                    If set to null, no version is added.
  * @param bool             $in_footer Optional. Whether to enqueue the script before </body> instead of in the <head>.
  *                                    Default 'false'.

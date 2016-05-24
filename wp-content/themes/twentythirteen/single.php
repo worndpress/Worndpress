@@ -2,7 +2,7 @@
 /**
  * The template for displaying all single posts
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Twenty_Thirteen
  * @since Twenty Thirteen 1.0
  */

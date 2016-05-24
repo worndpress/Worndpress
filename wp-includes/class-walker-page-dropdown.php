@@ -2,7 +2,7 @@
 /**
  * Post API: Walker_PageDropdown class
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Post
  * @since 4.4.0
  */
@@ -75,7 +75,7 @@ class Walker_PageDropdown extends Walker {
 		}
 
 		/**
-		 * Filter the page title when creating an HTML drop-down list of pages.
+		 * Filters the page title when creating an HTML drop-down list of pages.
 		 *
 		 * @since 3.1.0
 		 *

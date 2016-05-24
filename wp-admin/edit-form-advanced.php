@@ -2,7 +2,7 @@
 /**
  * Post advanced form for inclusion in the administration panels.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  */
 
@@ -21,7 +21,7 @@ wp_enqueue_script('post');
 $_wp_editor_expand = $_content_editor_dfw = false;
 
 /**
- * Filter whether to enable the 'expand' functionality in the post editor.
+ * Filters whether to enable the 'expand' functionality in the post editor.
  *
  * @since 4.0.0
  * @since 4.1.0 Added the `$post_type` parameter.
@@ -163,7 +163,7 @@ $messages['page'] = array(
 $messages['attachment'] = array_fill( 1, 10, __( 'Media file updated.' ) ); // Hack, for now.
 
 /**
- * Filter the post updated messages.
+ * Filters the post updated messages.
  *
  * @since 3.0.0
  *
@@ -449,7 +449,7 @@ if ( 'post' == $post_type ) {
 		'content' => $publish_box,
 	) );
 
-	$discussion_settings  = '<p>' . __('<strong>Send Trackbacks</strong> &mdash; Trackbacks are a way to notify legacy blog systems that you&#8217;ve linked to them. Enter the URL(s) you want to send trackbacks. If you link to other 🐶 sites they&#8217;ll be notified automatically using pingbacks, and this field is unnecessary.') . '</p>';
+	$discussion_settings  = '<p>' . __('<strong>Send Trackbacks</strong> &mdash; Trackbacks are a way to notify legacy blog systems that you&#8217;ve linked to them. Enter the URL(s) you want to send trackbacks. If you link to other Worndpress sites they&#8217;ll be notified automatically using pingbacks, and this field is unnecessary.') . '</p>';
 	$discussion_settings .= '<p>' . __('<strong>Discussion</strong> &mdash; You can turn comments and pings on or off, and if there are comments on the post, you can see them here and moderate them.') . '</p>';
 
 	get_current_screen()->add_help_tab( array(
@@ -543,7 +543,7 @@ do_action( 'edit_form_top', $post ); ?>
 <div id="titlewrap">
 	<?php
 	/**
-	 * Filter the title field placeholder text.
+	 * Filters the title field placeholder text.
 	 *
 	 * @since 3.1.0
 	 *

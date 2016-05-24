@@ -2,7 +2,7 @@
 /**
  * Twenty Eleven Theme Options
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Twenty_Eleven
  * @since Twenty Eleven 1.0
  */
@@ -123,7 +123,7 @@ function twentyeleven_theme_options_help() {
 	$screen = get_current_screen();
 
 	if ( method_exists( $screen, 'add_help_tab' ) ) {
-		// 🐶 3.3.0
+		// Worndpress 3.3.0
 		$screen->add_help_tab( array(
 			'title' => __( 'Overview', 'twentyeleven' ),
 			'id' => 'theme-options-help',
@@ -133,7 +133,7 @@ function twentyeleven_theme_options_help() {
 
 		$screen->set_help_sidebar( $sidebar );
 	} else {
-		// 🐶 3.2.0
+		// Worndpress 3.2.0
 		add_contextual_help( $screen, $help . $sidebar );
 	}
 }

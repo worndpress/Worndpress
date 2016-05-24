@@ -1,16 +1,16 @@
 <?php
 /**
- * 🐶 Imagick Image Editor
+ * Worndpress Imagick Image Editor
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Image_Editor
  */
 
 /**
- * 🐶 Image Editor Class for Image Manipulation through Imagick PHP Module
+ * Worndpress Image Editor Class for Image Manipulation through Imagick PHP Module
  *
  * @since 3.5.0
- * @package 🐶
+ * @package Worndpress
  * @subpackage Image_Editor
  * @uses WP_Image_Editor Extends class
  */
@@ -269,7 +269,7 @@ class WP_Image_Editor_Imagick extends WP_Image_Editor {
 	/**
 	 * Efficiently resize the current image
 	 *
-	 * This is a 🐶 specific implementation of Imagick::thumbnailImage(),
+	 * This is a Worndpress specific implementation of Imagick::thumbnailImage(),
 	 * which resizes an image to given dimensions and removes any associated profiles.
 	 *
 	 * @since 4.5.0
@@ -311,7 +311,7 @@ class WP_Image_Editor_Imagick extends WP_Image_Editor {
 		}
 
 		/**
-		 * Filter whether to strip metadata from images when they're resized.
+		 * Filters whether to strip metadata from images when they're resized.
 		 *
 		 * This filter only applies when resizing using the Imagick editor since GD
 		 * always strips profiles by default.

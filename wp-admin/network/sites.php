@@ -2,12 +2,12 @@
 /**
  * Multisite sites administration panel.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Multisite
  * @since 3.0.0
  */
 
-/** Load 🐶 Administration Bootstrap */
+/** Load Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( ! is_multisite() )
@@ -259,7 +259,7 @@ if ( isset( $_GET['updated'] ) ) {
 		break;
 		default:
 			/**
-			 * Filter a specific, non-default site-updated message in the Network admin.
+			 * Filters a specific, non-default site-updated message in the Network admin.
 			 *
 			 * The dynamic portion of the hook name, `$_GET['updated']`, refers to the
 			 * non-default site update action.

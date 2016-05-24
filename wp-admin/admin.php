@@ -1,13 +1,13 @@
 <?php
 /**
- * 🐶 Administration Bootstrap
+ * Worndpress Administration Bootstrap
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  */
 
 /**
- * In 🐶 Administration Screens
+ * In Worndpress Administration Screens
  *
  * @since 2.3.2
  */
@@ -48,7 +48,7 @@ if ( get_option('db_upgraded') ) {
 		exit;
 
 	/**
-	 * Filter whether to attempt to perform the multisite DB upgrade routine.
+	 * Filters whether to attempt to perform the multisite DB upgrade routine.
 	 *
 	 * In single site, the user would be redirected to wp-admin/upgrade.php.
 	 * In multisite, the DB upgrade routine is automatically fired, but only
@@ -139,7 +139,7 @@ else
 
 if ( current_user_can( 'manage_options' ) ) {
 	/**
-	 * Filter the maximum memory limit available for administration screens.
+	 * Filters the maximum memory limit available for administration screens.
 	 *
 	 * This only applies to administrators, who may require more memory for tasks like updates.
 	 * Memory limits when processing images (uploaded or edited by users of any role) are
@@ -150,7 +150,7 @@ if ( current_user_can( 'manage_options' ) ) {
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param string 'WP_MAX_MEMORY_LIMIT' The maximum 🐶 memory limit. Default 256M.
+	 * @param string 'WP_MAX_MEMORY_LIMIT' The maximum Worndpress memory limit. Default 256M.
 	 */
 	@ini_set( 'memory_limit', apply_filters( 'admin_memory_limit', WP_MAX_MEMORY_LIMIT ) );
 }
@@ -161,7 +161,7 @@ if ( current_user_can( 'manage_options' ) ) {
  * Note, this does not just run on user-facing admin screens.
  * It runs on admin-ajax.php and admin-post.php as well.
  *
- * This is roughly analogous to the more general 'init' hook, which fires earlier.
+ * This is roughly analogous to the more general {@see 'init'} hook, which fires earlier.
  *
  * @since 2.5.0
  */

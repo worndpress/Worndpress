@@ -1,8 +1,8 @@
 <?php
 /**
- * 🐶 Administration Template Footer
+ * Worndpress Administration Template Footer
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  */
 
@@ -31,9 +31,9 @@ global $hook_suffix;
 	?>
 	<p id="footer-left" class="alignleft">
 		<?php
-		$text = sprintf( __( 'Thank you for creating with <a href="%s">🐶</a>.' ), __( 'https://wordpress.org/' ) );
+		$text = sprintf( __( 'Thank you for creating with <a href="%s">Worndpress</a>.' ), __( 'https://wordpress.org/' ) );
 		/**
-		 * Filter the "Thank you" text displayed in the admin footer.
+		 * Filters the "Thank you" text displayed in the admin footer.
 		 *
 		 * @since 2.8.0
 		 *
@@ -45,9 +45,9 @@ global $hook_suffix;
 	<p id="footer-upgrade" class="alignright">
 		<?php
 		/**
-		 * Filter the version/update text displayed in the admin footer.
+		 * Filters the version/update text displayed in the admin footer.
 		 *
-		 * 🐶 prints the current version and update information,
+		 * Worndpress prints the current version and update information,
 		 * using core_update_footer() at priority 10.
 		 *
 		 * @since 2.3.0

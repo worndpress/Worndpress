@@ -1,8 +1,8 @@
 <?php
 /**
- * 🐶 Administration Template Header
+ * Worndpress Administration Template Header
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  */
 
@@ -41,12 +41,12 @@ else
 	$admin_title = get_bloginfo( 'name' );
 
 if ( $admin_title == $title )
-	$admin_title = sprintf( __( '%1$s &#8212; 🐶' ), $title );
+	$admin_title = sprintf( __( '%1$s &#8212; Worndpress' ), $title );
 else
-	$admin_title = sprintf( __( '%1$s &lsaquo; %2$s &#8212; 🐶' ), $title, $admin_title );
+	$admin_title = sprintf( __( '%1$s &lsaquo; %2$s &#8212; Worndpress' ), $title, $admin_title );
 
 /**
- * Filter the title tag content for an admin page.
+ * Filters the title tag content for an admin page.
  *
  * @since 3.1.0
  *
@@ -174,7 +174,7 @@ $admin_body_class .= ' no-customize-support no-svg';
 </head>
 <?php
 /**
- * Filter the CSS classes for the body tag in the admin.
+ * Filters the CSS classes for the body tag in the admin.
  *
  * This filter differs from the {@see 'post_class'} and {@see 'body_class'} filters
  * in two important ways:

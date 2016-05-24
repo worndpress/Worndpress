@@ -1,10 +1,10 @@
 <?php
 /**
- * Deprecated functions from past 🐶 versions. You shouldn't use these
+ * Deprecated functions from past Worndpress versions. You shouldn't use these
  * functions and look for the alternatives instead. The functions will be
  * removed in a later version.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Deprecated
  */
 
@@ -49,7 +49,7 @@ function get_postdata($postid) {
 }
 
 /**
- * Sets up the 🐶 Loop.
+ * Sets up the Worndpress Loop.
  *
  * Use The Loop instead.
  *
@@ -61,7 +61,7 @@ function get_postdata($postid) {
 function start_wp() {
 	global $wp_query;
 
-	_deprecated_function( __FUNCTION__, '1.5', __('new 🐶 Loop') );
+	_deprecated_function( __FUNCTION__, '1.5', __('new Worndpress Loop') );
 
 	// Since the old style loop is being used, advance the query iterator here.
 	$wp_query->next_post();
@@ -2020,7 +2020,7 @@ function sanitize_url( $url, $protocols = null ) {
  * @param string $url The URL to be cleaned.
  * @param array $protocols Optional. An array of acceptable protocols.
  * @param string $context Optional. How the URL will be used. Default is 'display'.
- * @return string The cleaned $url after the 'clean_url' filter is applied.
+ * @return string The cleaned $url after the {@see 'clean_url'} filter is applied.
  */
 function clean_url( $url, $protocols = null, $context = 'display' ) {
 	if ( $context == 'db' )
@@ -2033,7 +2033,7 @@ function clean_url( $url, $protocols = null, $context = 'display' ) {
 /**
  * Escape single quotes, specialchar double quotes, and fix line endings.
  *
- * The filter 'js_escape' is also applied by esc_js()
+ * The filter {@see 'js_escape'} is also applied by esc_js().
  *
  * @since 2.0.4
  * @deprecated 2.8.0 Use esc_js()
@@ -2356,7 +2356,7 @@ function update_usermeta( $user_id, $meta_key, $meta_value ) {
  * @deprecated 3.1.0 Use get_users()
  * @see get_users()
  *
- * @global wpdb $wpdb    🐶 database abstraction object.
+ * @global wpdb $wpdb    Worndpress database abstraction object.
  * @global int  $blog_id The site ID of the site for those that use more than one site.
  *
  * @param int $id Site ID.
@@ -2968,7 +2968,7 @@ function clean_pre($matches) {
  * @deprecated 3.4.0 Use add_theme_support()
  * @see add_theme_support()
  *
- * @param callable $wp_head_callback Call on 'wp_head' action.
+ * @param callable $wp_head_callback Call on the {@see 'wp_head'} action.
  * @param callable $admin_head_callback Call on custom header administration screen.
  * @param callable $admin_preview_callback Output a custom header image div on the custom header administration screen. Optional.
  */
@@ -3004,7 +3004,7 @@ function remove_custom_image_header() {
  * @deprecated 3.4.0 Use add_theme_support()
  * @see add_theme_support()
  *
- * @param callable $wp_head_callback Call on 'wp_head' action.
+ * @param callable $wp_head_callback Call on the {@see 'wp_head'} action.
  * @param callable $admin_head_callback Call on custom background administration screen.
  * @param callable $admin_preview_callback Output a custom background image div on the custom background administration screen. Optional.
  */
@@ -3193,7 +3193,7 @@ function wp_load_image( $file ) {
  * be PNG. The only supported image types are PNG, GIF, and JPEG.
  *
  * Some functionality requires API to exist, so some PHP version may lose out
- * support. This is not the fault of 🐶 (where functionality is
+ * support. This is not the fault of Worndpress (where functionality is
  * downgraded, not actual defects), but of your PHP version.
  *
  * @since 2.5.0
@@ -3359,7 +3359,7 @@ function _search_terms_tidy( $t ) {
  * Determine if TinyMCE is available.
  *
  * Checks to see if the user has deleted the tinymce files to slim down
- * their 🐶 install.
+ * their Worndpress install.
  *
  * @since 2.1.0
  * @deprecated 3.9.0
@@ -3424,7 +3424,7 @@ function like_escape($text) {
 /**
  * Determines if the URL can be accessed over SSL.
  *
- * Determines if the URL can be accessed over SSL by using the 🐶 HTTP API to access
+ * Determines if the URL can be accessed over SSL by using the Worndpress HTTP API to access
  * the URL using https as the scheme.
  *
  * @since 2.5.0
@@ -3524,7 +3524,7 @@ function preview_theme_ob_filter_callback( $matches ) {
 /**
  * Formats text for the rich text editor.
  *
- * The filter 'richedit_pre' is applied here. If $text is empty the filter will
+ * The {@see 'richedit_pre'} filter is applied here. If $text is empty the filter will
  * be applied to an empty string.
  *
  * @since 2.0.0
@@ -3538,7 +3538,7 @@ function wp_richedit_pre($text) {
 
 	if ( empty( $text ) ) {
 		/**
-		 * Filter text returned for the rich text editor.
+		 * Filters text returned for the rich text editor.
 		 *
 		 * This filter is first evaluated, and the value returned, if an empty string
 		 * is passed to wp_richedit_pre(). If an empty string is passed, it results
@@ -3567,7 +3567,7 @@ function wp_richedit_pre($text) {
  * Formats text for the HTML editor.
  *
  * Unless $output is empty it will pass through htmlspecialchars before the
- * 'htmledit_pre' filter is applied.
+ * {@see 'htmledit_pre'} filter is applied.
  *
  * @since 2.5.0
  * @deprecated 4.3.0 Use format_for_editor()
@@ -3583,7 +3583,7 @@ function wp_htmledit_pre($output) {
 		$output = htmlspecialchars($output, ENT_NOQUOTES, get_option( 'blog_charset' ) ); // convert only < > &
 
 	/**
-	 * Filter the text before it is formatted for the HTML editor.
+	 * Filters the text before it is formatted for the HTML editor.
 	 *
 	 * @since 2.5.0
 	 * @deprecated 4.3.0

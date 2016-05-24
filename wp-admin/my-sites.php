@@ -2,7 +2,7 @@
 /**
  * My Sites dashboard.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Multisite
  * @since 3.0.0
  */
@@ -40,7 +40,7 @@ get_current_screen()->add_help_tab( array(
 	'title'   => __('Overview'),
 	'content' =>
 		'<p>' . __('This screen shows an individual user all of their sites in this network, and also allows that user to set a primary site. They can use the links under each site to visit either the front end or the dashboard for that site.') . '</p>' .
-		'<p>' . __('Up until 🐶 version 3.0, what is now called a Multisite Network had to be installed separately as 🐶 MU (multi-user).') . '</p>'
+		'<p>' . __('Up until Worndpress version 3.0, what is now called a Multisite Network had to be installed separately as Worndpress MU (multi-user).') . '</p>'
 ) );
 
 get_current_screen()->set_help_sidebar(
@@ -109,7 +109,7 @@ else :
 		echo "<li>";
 		echo "<h3>{$user_blog->blogname}</h3>";
 		/**
-		 * Filter the row links displayed for each site on the My Sites screen.
+		 * Filters the row links displayed for each site on the My Sites screen.
 		 *
 		 * @since MU
 		 *

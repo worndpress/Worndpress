@@ -1,8 +1,8 @@
 <?php
 /**
- * 🐶 Customize Panel classes
+ * Worndpress Customize Panel classes
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Customize
  * @since 4.0.0
  */
@@ -179,7 +179,7 @@ class WP_Customize_Panel {
 		$active = call_user_func( $this->active_callback, $this );
 
 		/**
-		 * Filter response of WP_Customize_Panel::active().
+		 * Filters response of WP_Customize_Panel::active().
 		 *
 		 * @since 4.1.0
 		 *

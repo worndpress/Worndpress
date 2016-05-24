@@ -2,11 +2,11 @@
 /**
  * Tools Administration Screen.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  */
 
-/** 🐶 Administration Bootstrap */
+/** Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 $title = __('Tools');

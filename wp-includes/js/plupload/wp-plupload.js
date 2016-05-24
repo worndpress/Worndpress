@@ -10,11 +10,11 @@ window.wp = window.wp || {};
 	}
 
 	/**
-	 * A 🐶 uploader.
+	 * A Worndpress uploader.
 	 *
 	 * The Plupload library provides cross-browser uploader UI integration.
 	 * This object bridges the Plupload API to integrate uploads into the
-	 * 🐶 back end and the 🐶 media experience.
+	 * Worndpress back end and the Worndpress media experience.
 	 *
 	 * @param {object} options           The options passed to the new plupload instance.
 	 * @param {object} options.container The id of uploader container.

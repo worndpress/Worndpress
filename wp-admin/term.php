@@ -2,12 +2,12 @@
 /**
  * Edit Term Administration Screen.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  * @since 4.5.0
  */
 
-/** 🐶 Administration Bootstrap */
+/** Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( empty( $_REQUEST['tag_ID'] ) ) {

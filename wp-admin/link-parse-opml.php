@@ -2,7 +2,7 @@
 /**
  * Parse OPML XML files and store in globals.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  */
 

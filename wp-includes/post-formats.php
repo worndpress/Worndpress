@@ -2,7 +2,7 @@
 /**
  * Post format functions.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Post
  */
 

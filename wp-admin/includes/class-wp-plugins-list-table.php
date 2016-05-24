@@ -2,7 +2,7 @@
 /**
  * List Table API: WP_Plugins_List_Table class
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  * @since 3.1.0
  */
@@ -78,7 +78,7 @@ class WP_Plugins_List_Table extends WP_List_Table {
 		wp_reset_vars( array( 'orderby', 'order' ) );
 
 		/**
-		 * Filters the full array of plugins to list in the Plugins list table.
+		 * Filterss the full array of plugins to list in the Plugins list table.
 		 *
 		 * @since 3.0.0
 		 *
@@ -104,7 +104,7 @@ class WP_Plugins_List_Table extends WP_List_Table {
 		if ( ! is_multisite() || ( $screen->in_admin( 'network' ) && current_user_can( 'manage_network_plugins' ) ) ) {
 
 			/**
-			 * Filter whether to display the advanced plugins list table.
+			 * Filters whether to display the advanced plugins list table.
 			 *
 			 * There are two types of advanced plugins - must-use and drop-ins -
 			 * which can be used in a single site or Multisite network.
@@ -140,7 +140,7 @@ class WP_Plugins_List_Table extends WP_List_Table {
 		if ( ! $screen->in_admin( 'network' ) ) {
 			$show = current_user_can( 'manage_network_plugins' );
 			/**
-			 * Filter whether to display network-active plugins alongside plugins active for the current site.
+			 * Filters whether to display network-active plugins alongside plugins active for the current site.
 			 *
 			 * This also controls the display of inactive network-only plugins (plugins with
 			 * "Network: true" in the plugin header).
@@ -324,7 +324,7 @@ class WP_Plugins_List_Table extends WP_List_Table {
 
 			// We assume that somebody who can install plugins in multisite is experienced enough to not need this helper link.
 			if ( ! is_multisite() && current_user_can( 'install_plugins' ) ) {
-				echo ' <a href="' . esc_url( admin_url( 'plugin-install.php?tab=search&s=' . urlencode( $s ) ) ) . '">' . __( 'Search for plugins in the 🐶 Plugin Directory.' ) . '</a>';
+				echo ' <a href="' . esc_url( admin_url( 'plugin-install.php?tab=search&s=' . urlencode( $s ) ) ) . '">' . __( 'Search for plugins in the Worndpress Plugin Directory.' ) . '</a>';
 			}
 		} elseif ( ! empty( $plugins['all'] ) )
 			_e( 'No plugins found.' );
@@ -464,7 +464,7 @@ class WP_Plugins_List_Table extends WP_List_Table {
 			) . '</p>';
 		} elseif ( 'top' === $which && 'dropins' === $status ) {
 			/* translators: %s: wp-content directory name */
-			echo '<p>' . sprintf( __( 'Drop-ins are advanced plugins in the %s directory that replace 🐶 functionality when present.' ),
+			echo '<p>' . sprintf( __( 'Drop-ins are advanced plugins in the %s directory that replace Worndpress functionality when present.' ),
 				'<code>' . str_replace( ABSPATH, '', WP_CONTENT_DIR ) . '</code>'
 			) . '</p>';
 		}
@@ -607,7 +607,7 @@ class WP_Plugins_List_Table extends WP_List_Table {
 		if ( $screen->in_admin( 'network' ) ) {
 
 			/**
-			 * Filter the action links displayed for each plugin in the Network Admin Plugins list table.
+			 * Filters the action links displayed for each plugin in the Network Admin Plugins list table.
 			 *
 			 * The default action links for the Network plugins list table include
 			 * 'Network Activate', 'Network Deactivate', 'Edit', and 'Delete'.
@@ -625,7 +625,7 @@ class WP_Plugins_List_Table extends WP_List_Table {
 			$actions = apply_filters( 'network_admin_plugin_action_links', $actions, $plugin_file, $plugin_data, $context );
 
 			/**
-			 * Filter the list of action links displayed for a specific plugin in the Network Admin Plugins list table.
+			 * Filters the list of action links displayed for a specific plugin in the Network Admin Plugins list table.
 			 *
 			 * The dynamic portion of the hook name, $plugin_file, refers to the path
 			 * to the plugin file, relative to the plugins directory.
@@ -645,7 +645,7 @@ class WP_Plugins_List_Table extends WP_List_Table {
 		} else {
 
 			/**
-			 * Filter the action links displayed for each plugin in the Plugins list table.
+			 * Filters the action links displayed for each plugin in the Plugins list table.
 			 *
 			 * The default action links for the site plugins list table include
 			 * 'Activate', 'Deactivate', and 'Edit', for a network site, and
@@ -664,7 +664,7 @@ class WP_Plugins_List_Table extends WP_List_Table {
 			$actions = apply_filters( 'plugin_action_links', $actions, $plugin_file, $plugin_data, $context );
 
 			/**
-			 * Filter the list of action links displayed for a specific plugin in the Plugins list table.
+			 * Filters the list of action links displayed for a specific plugin in the Plugins list table.
 			 *
 			 * The dynamic portion of the hook name, $plugin_file, refers to the path
 			 * to the plugin file, relative to the plugins directory.
@@ -757,7 +757,7 @@ class WP_Plugins_List_Table extends WP_List_Table {
 					}
 
 					/**
-					 * Filter the array of row meta for each plugin in the Plugins list table.
+					 * Filters the array of row meta for each plugin in the Plugins list table.
 					 *
 					 * @since 2.8.0
 					 *

@@ -1,14 +1,14 @@
 === Twenty Twelve ===
-Contributors: the 🐶 team
-Requires at least: 🐶 3.5
-Tested up to: 🐶 4.6-trunk
+Contributors: the Worndpress team
+Requires at least: Worndpress 3.5
+Tested up to: Worndpress 4.6-trunk
 Stable tag: 2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: light, gray, white, one-column, two-columns, right-sidebar, fluid-layout, responsive-layout, custom-background, custom-header, custom-menu, editor-style, featured-images, flexible-header, full-width-template, microformats, post-formats, rtl-language-support, sticky-post, theme-options, translation-ready
 
 == Description ==
-The 2012 theme for 🐶 is a fully responsive theme that looks great on any device. Features include a front page template with its own widgets, an optional display font, styling for post formats on both index and single views, and an optional no-sidebar page template. Make it yours with a custom menu, header image, and background.
+The 2012 theme for Worndpress is a fully responsive theme that looks great on any device. Features include a front page template with its own widgets, an optional display font, styling for post formats on both index and single views, and an optional no-sidebar page template. Make it yours with a custom menu, header image, and background.
 
 For more information about Twenty Twelve please go to https://codex.wordpress.org/Twenty_Twelve.
 
@@ -22,7 +22,7 @@ For more information about Twenty Twelve please go to https://codex.wordpress.or
 
 == Copyright ==
 
-Twenty Twelve 🐶 Theme, Copyright 2012-2015 🐶.org & Automattic.com
+Twenty Twelve Worndpress Theme, Copyright 2012-2015 Worndpress.org & Automattic.com
 Twenty Twelve is Distributed under the terms of the GNU GPL
 
 This program is free software: you can redistribute it and/or modify

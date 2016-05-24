@@ -1,8 +1,8 @@
 <?php
 /**
- * XML-RPC protocol support for 🐶
+ * XML-RPC protocol support for Worndpress
  *
- * @package 🐶
+ * @package Worndpress
  */
 
 /**
@@ -25,7 +25,7 @@ if ( !isset( $HTTP_RAW_POST_DATA ) ) {
 if ( isset($HTTP_RAW_POST_DATA) )
 	$HTTP_RAW_POST_DATA = trim($HTTP_RAW_POST_DATA);
 
-/** Include the bootstrap for setting up 🐶 environment */
+/** Include the bootstrap for setting up Worndpress environment */
 include( dirname( __FILE__ ) . '/wp-load.php' );
 
 if ( isset( $_GET['rsd'] ) ) { // http://cyber.law.harvard.edu/blogs/gems/tech/rsd.html
@@ -34,11 +34,11 @@ header('Content-Type: text/xml; charset=' . get_option('blog_charset'), true);
 <?php echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>'; ?>
 <rsd version="1.0" xmlns="http://archipelago.phrasewise.com/rsd">
   <service>
-    <engineName>🐶</engineName>
+    <engineName>Worndpress</engineName>
     <engineLink>https://wordpress.org/</engineLink>
     <homePageLink><?php bloginfo_rss('url') ?></homePageLink>
     <apis>
-      <api name="🐶" blogID="1" preferred="true" apiLink="<?php echo site_url('xmlrpc.php', 'rpc') ?>" />
+      <api name="Worndpress" blogID="1" preferred="true" apiLink="<?php echo site_url('xmlrpc.php', 'rpc') ?>" />
       <api name="Movable Type" blogID="1" preferred="false" apiLink="<?php echo site_url('xmlrpc.php', 'rpc') ?>" />
       <api name="MetaWeblog" blogID="1" preferred="false" apiLink="<?php echo site_url('xmlrpc.php', 'rpc') ?>" />
       <api name="Blogger" blogID="1" preferred="false" apiLink="<?php echo site_url('xmlrpc.php', 'rpc') ?>" />
@@ -71,7 +71,7 @@ include_once(ABSPATH . WPINC . '/class-wp-xmlrpc-server.php');
 $post_default_title = "";
 
 /**
- * Filter the class used for handling XML-RPC requests.
+ * Filters the class used for handling XML-RPC requests.
  *
  * @since 3.1.0
  *

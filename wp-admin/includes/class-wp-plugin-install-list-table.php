@@ -2,7 +2,7 @@
 /**
  * List Table API: WP_Plugin_Install_List_Table class
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  * @since 3.1.0
  */
@@ -104,7 +104,7 @@ class WP_Plugin_Install_List_Table extends WP_List_Table {
 		$nonmenu_tabs = array( 'plugin-information' ); // Valid actions to perform which do not have a Menu item.
 
 		/**
-		 * Filter the tabs shown on the Plugin Install screen.
+		 * Filters the tabs shown on the Plugin Install screen.
 		 *
 		 * @since 2.7.0
 		 *
@@ -114,7 +114,7 @@ class WP_Plugin_Install_List_Table extends WP_List_Table {
 		$tabs = apply_filters( 'install_plugins_tabs', $tabs );
 
 		/**
-		 * Filter tabs not associated with a menu item on the Plugin Install screen.
+		 * Filters tabs not associated with a menu item on the Plugin Install screen.
 		 *
 		 * @since 2.7.0
 		 *
@@ -191,7 +191,7 @@ class WP_Plugin_Install_List_Table extends WP_List_Table {
 		}
 
 		/**
-		 * Filter API request arguments for each Plugin Install screen tab.
+		 * Filters API request arguments for each Plugin Install screen tab.
 		 *
 		 * The dynamic portion of the hook name, `$tab`, refers to the plugin install tabs.
 		 * Default tabs include 'featured', 'popular', 'recommended', 'favorites', and 'upload'.
@@ -494,7 +494,7 @@ class WP_Plugin_Install_List_Table extends WP_List_Table {
 			}
 
 			/**
-			 * Filter the install action links for a plugin.
+			 * Filters the install action links for a plugin.
 			 *
 			 * @since 2.7.0
 			 *
@@ -548,11 +548,11 @@ class WP_Plugin_Install_List_Table extends WP_List_Table {
 				<div class="column-compatibility">
 					<?php
 					if ( ! empty( $plugin['tested'] ) && version_compare( substr( $GLOBALS['wp_version'], 0, strlen( $plugin['tested'] ) ), $plugin['tested'], '>' ) ) {
-						echo '<span class="compatibility-untested">' . __( 'Untested with your version of 🐶' ) . '</span>';
+						echo '<span class="compatibility-untested">' . __( 'Untested with your version of Worndpress' ) . '</span>';
 					} elseif ( ! empty( $plugin['requires'] ) && version_compare( substr( $GLOBALS['wp_version'], 0, strlen( $plugin['requires'] ) ), $plugin['requires'], '<' ) ) {
-						echo '<span class="compatibility-incompatible">' . __( '<strong>Incompatible</strong> with your version of 🐶' ) . '</span>';
+						echo '<span class="compatibility-incompatible">' . __( '<strong>Incompatible</strong> with your version of Worndpress' ) . '</span>';
 					} else {
-						echo '<span class="compatibility-compatible">' . __( '<strong>Compatible</strong> with your version of 🐶' ) . '</span>';
+						echo '<span class="compatibility-compatible">' . __( '<strong>Compatible</strong> with your version of Worndpress' ) . '</span>';
 					}
 					?>
 				</div>

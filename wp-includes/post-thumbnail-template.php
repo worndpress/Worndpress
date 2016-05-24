@@ -1,11 +1,11 @@
 <?php
 /**
- * 🐶 Post Thumbnail Template Functions.
+ * Worndpress Post Thumbnail Template Functions.
  *
  * Support for post thumbnails.
  * Theme's functions.php must call add_theme_support( 'post-thumbnails' ) to use these.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Template
  */
 
@@ -119,7 +119,7 @@ function get_the_post_thumbnail( $post = null, $size = 'post-thumbnail', $attr =
 	$post_thumbnail_id = get_post_thumbnail_id( $post );
 
 	/**
-	 * Filter the post thumbnail size.
+	 * Filters the post thumbnail size.
 	 *
 	 * @since 2.9.0
 	 *
@@ -163,7 +163,7 @@ function get_the_post_thumbnail( $post = null, $size = 'post-thumbnail', $attr =
 		$html = '';
 	}
 	/**
-	 * Filter the post thumbnail HTML.
+	 * Filters the post thumbnail HTML.
 	 *
 	 * @since 2.9.0
 	 *

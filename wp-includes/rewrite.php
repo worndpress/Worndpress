@@ -1,8 +1,8 @@
 <?php
 /**
- * 🐶 Rewrite API
+ * Worndpress Rewrite API
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Rewrite
  */
 
@@ -127,7 +127,7 @@ define( 'EP_ALL', EP_PERMALINK | EP_ATTACHMENT | EP_ROOT | EP_COMMENTS | EP_SEAR
  * @since 2.1.0
  * @since 4.4.0 Array support was added to the `$query` parameter.
  *
- * @global WP_Rewrite $wp_rewrite 🐶 Rewrite Component.
+ * @global WP_Rewrite $wp_rewrite Worndpress Rewrite Component.
  *
  * @param string       $regex Regular expression to match request against.
  * @param string|array $query The corresponding query vars for this rewrite rule.
@@ -144,7 +144,7 @@ function add_rewrite_rule( $regex, $query, $after = 'bottom' ) {
  * Add a new rewrite tag (like %postname%).
  *
  * The $query parameter is optional. If it is omitted you must ensure that
- * you call this on, or before, the 'init' hook. This is because $query defaults
+ * you call this on, or before, the {@see 'init'} hook. This is because $query defaults
  * to "$tag=", and for this to work a new query var has to be added.
  *
  * @since 2.1.0
@@ -177,7 +177,7 @@ function add_rewrite_tag( $tag, $regex, $query = '' ) {
  *
  * @since 4.5.0
  *
- * @global WP_Rewrite $wp_rewrite 🐶 rewrite component.
+ * @global WP_Rewrite $wp_rewrite Worndpress rewrite component.
  *
  * @param string $tag Name of the rewrite tag.
  */
@@ -192,7 +192,7 @@ function remove_rewrite_tag( $tag ) {
  * @since 3.0.0
  *
  * @see WP_Rewrite::add_permastruct()
- * @global WP_Rewrite $wp_rewrite 🐶 rewrite component.
+ * @global WP_Rewrite $wp_rewrite Worndpress rewrite component.
  *
  * @param string $name   Name for permalink structure.
  * @param string $struct Permalink structure.
@@ -220,7 +220,7 @@ function add_permastruct( $name, $struct, $args = array() ) {
  * @since 4.5.0
  *
  * @see WP_Rewrite::remove_permastruct()
- * @global WP_Rewrite $wp_rewrite 🐶 rewrite component.
+ * @global WP_Rewrite $wp_rewrite Worndpress rewrite component.
  *
  * @param string $name Name for permalink structure.
  */
@@ -311,7 +311,7 @@ function add_rewrite_endpoint( $name, $places, $query_var = true ) {
 }
 
 /**
- * Filter the URL base for taxonomies.
+ * Filters the URL base for taxonomies.
  *
  * To remove any manually prepended /index.php/.
  *
@@ -463,7 +463,7 @@ function url_to_postid( $url ) {
 	global $wp_rewrite;
 
 	/**
-	 * Filter the URL to derive the post ID from.
+	 * Filters the URL to derive the post ID from.
 	 *
 	 * @since 2.2.0
 	 *

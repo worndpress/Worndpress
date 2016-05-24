@@ -2,7 +2,7 @@
 /**
  * HTTP API: WP_Http_Curl class
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage HTTP
  * @since 4.4.0
  */
@@ -373,7 +373,7 @@ class WP_Http_Curl {
 		}
 
 		/**
-		 * Filter whether cURL can be used as a transport for retrieving a URL.
+		 * Filters whether cURL can be used as a transport for retrieving a URL.
 		 *
 		 * @since 2.7.0
 		 *

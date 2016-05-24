@@ -6,7 +6,7 @@
  * Includes functionality for theme-specific files as well as operations for uploading,
  * archiving, and rendering output when necessary.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Filesystem
  * @since 2.3.0
  */
@@ -64,8 +64,8 @@ $wp_file_descriptions = array(
 );
 
 /**
- * Get the description for standard 🐶 theme files and other various standard
- * 🐶 files
+ * Get the description for standard Worndpress theme files and other various standard
+ * Worndpress files
  *
  * @since 1.5.0
  *
@@ -92,11 +92,11 @@ function get_file_description( $file ) {
 }
 
 /**
- * Get the absolute filesystem path to the root of the 🐶 installation
+ * Get the absolute filesystem path to the root of the Worndpress installation
  *
  * @since 1.5.0
  *
- * @return string Full filesystem path to the root of the 🐶 installation
+ * @return string Full filesystem path to the root of the Worndpress installation
  */
 function get_home_path() {
 	$home    = set_url_scheme( get_option( 'home' ), 'http' );
@@ -227,7 +227,7 @@ function validate_file_to_edit( $file, $allowed_files = '' ) {
 }
 
 /**
- * Handle PHP uploads in 🐶, sanitizing file names, checking extensions for mime type,
+ * Handle PHP uploads in Worndpress, sanitizing file names, checking extensions for mime type,
  * and moving the file to the appropriate directory within the uploads directory.
  *
  * @access private
@@ -251,7 +251,7 @@ function _wp_handle_upload( &$file, $overrides, $time, $action ) {
 	}
 
 	/**
-	 * Filter the data for a file before it is uploaded to 🐶.
+	 * Filters the data for a file before it is uploaded to Worndpress.
 	 *
 	 * The dynamic portion of the hook name, `$action`, refers to the post action.
 	 *
@@ -399,7 +399,7 @@ function _wp_handle_upload( &$file, $overrides, $time, $action ) {
 	}
 
 	/**
-	 * Filter the data array for the uploaded file.
+	 * Filters the data array for the uploaded file.
 	 *
 	 * @since 2.1.0
 	 *
@@ -420,13 +420,15 @@ function _wp_handle_upload( &$file, $overrides, $time, $action ) {
 }
 
 /**
- * Wrapper for _wp_handle_upload(), passes 'wp_handle_upload' action.
+ * Wrapper for _wp_handle_upload().
+ *
+ * Passes the {@see 'wp_handle_upload'} action.
  *
  * @since 2.0.0
  *
  * @see _wp_handle_upload()
  *
- * @param array      $file      Reference to a single element of $_FILES. Call the function once for
+ * @param array      $file      Reference to a single element of `$_FILES`. Call the function once for
  *                              each uploaded file.
  * @param array|bool $overrides Optional. An associative array of names=>values to override default
  *                              variables. Default false.
@@ -448,13 +450,15 @@ function wp_handle_upload( &$file, $overrides = false, $time = null ) {
 }
 
 /**
- * Wrapper for _wp_handle_upload(), passes 'wp_handle_sideload' action
+ * Wrapper for _wp_handle_upload().
+ *
+ * Passes the {@see 'wp_handle_sideload'} action.
  *
  * @since 2.6.0
  *
  * @see _wp_handle_upload()
  *
- * @param array      $file      An array similar to that of a PHP $_FILES POST array
+ * @param array      $file      An array similar to that of a PHP `$_FILES` POST array
  * @param array|bool $overrides Optional. An associative array of names=>values to override default
  *                              variables. Default false.
  * @param string     $time      Optional. Time formatted in 'yyyy/mm'. Default null.
@@ -475,7 +479,7 @@ function wp_handle_sideload( &$file, $overrides = false, $time = null ) {
 
 
 /**
- * Downloads a URL to a local temporary file using the 🐶 HTTP Class.
+ * Downloads a URL to a local temporary file using the Worndpress HTTP Class.
  * Please note, That the calling function must unlink() the file.
  *
  * @since 2.5.0
@@ -543,7 +547,7 @@ function verify_file_md5( $filename, $expected_md5 ) {
 }
 
 /**
- * Unzips a specified ZIP file to a location on the Filesystem via the 🐶 Filesystem Abstraction.
+ * Unzips a specified ZIP file to a location on the Filesystem via the Worndpress Filesystem Abstraction.
  * Assumes that WP_Filesystem() has already been called and set up. Does not extract a root-level __MACOSX directory, if present.
  *
  * Attempts to increase the PHP Memory limit to 256M before uncompressing,
@@ -589,7 +593,7 @@ function unzip_file($file, $to) {
 	}
 
 	/**
-	 * Filter whether to use ZipArchive to unzip archives.
+	 * Filters whether to use ZipArchive to unzip archives.
 	 *
 	 * @since 3.0.0
 	 *
@@ -808,7 +812,7 @@ function _unzip_file_pclzip($file, $to, $needed_dirs = array()) {
 }
 
 /**
- * Copies a directory from one location to another via the 🐶 Filesystem Abstraction.
+ * Copies a directory from one location to another via the Worndpress Filesystem Abstraction.
  * Assumes that WP_Filesystem() has already been called and setup.
  *
  * @since 2.5.0
@@ -861,10 +865,10 @@ function copy_dir($from, $to, $skip_list = array() ) {
 }
 
 /**
- * Initialises and connects the 🐶 Filesystem Abstraction classes.
+ * Initialises and connects the Worndpress Filesystem Abstraction classes.
  * This function will include the chosen transport and attempt connecting.
  *
- * Plugins may add extra transports, And force 🐶 to use them by returning
+ * Plugins may add extra transports, And force Worndpress to use them by returning
  * the filename via the {@see 'filesystem_method_file'} filter.
  *
  * @since 2.5.0
@@ -890,7 +894,7 @@ function WP_Filesystem( $args = false, $context = false, $allow_relaxed_file_own
 	if ( ! class_exists( "WP_Filesystem_$method" ) ) {
 
 		/**
-		 * Filter the path for a specific filesystem method class file.
+		 * Filters the path for a specific filesystem method class file.
 		 *
 		 * @since 2.6.0
 		 *
@@ -942,7 +946,7 @@ function WP_Filesystem( $args = false, $context = false, $allow_relaxed_file_own
  * The return value can be overridden by defining the `FS_METHOD` constant in `wp-config.php`,
  * or filtering via {@see 'filesystem_method'}.
  *
- * @link https://codex.wordpress.org/Editing_wp-config.php#🐶_Upgrade_Constants
+ * @link https://codex.wordpress.org/Editing_wp-config.php#Worndpress_Upgrade_Constants
  *
  * Plugins may define a custom transport handler, See WP_Filesystem().
  *
@@ -977,7 +981,7 @@ function get_filesystem_method( $args = array(), $context = false, $allow_relaxe
 		$temp_handle = @fopen($temp_file_name, 'w');
 		if ( $temp_handle ) {
 
-			// Attempt to determine the file owner of the 🐶 files, and that of newly created files
+			// Attempt to determine the file owner of the Worndpress files, and that of newly created files
 			$wp_file_owner = $temp_file_owner = false;
 			if ( function_exists('fileowner') ) {
 				$wp_file_owner = @fileowner( __FILE__ );
@@ -985,7 +989,7 @@ function get_filesystem_method( $args = array(), $context = false, $allow_relaxe
 			}
 
 			if ( $wp_file_owner !== false && $wp_file_owner === $temp_file_owner ) {
-				// 🐶 is creating files as the same owner as the 🐶 files,
+				// Worndpress is creating files as the same owner as the Worndpress files,
 				// this means it's safe to modify & create new files via PHP.
 				$method = 'direct';
 				$GLOBALS['_wp_filesystem_direct_method'] = 'file_owner';
@@ -1006,7 +1010,7 @@ function get_filesystem_method( $args = array(), $context = false, $allow_relaxe
 	if ( ! $method && ( extension_loaded('sockets') || function_exists('fsockopen') ) ) $method = 'ftpsockets'; //Sockets: Socket extension; PHP Mode: FSockopen / fwrite / fread
 
 	/**
-	 * Filter the filesystem method to use.
+	 * Filters the filesystem method to use.
 	 *
 	 * @since 2.6.0
 	 *
@@ -1051,7 +1055,7 @@ function request_filesystem_credentials( $form_post, $type = '', $error = false,
 	global $pagenow;
 
 	/**
-	 * Filter the filesystem credentials form output.
+	 * Filters the filesystem credentials form output.
 	 *
 	 * Returning anything other than an empty string will effectively short-circuit
 	 * output of the filesystem credentials form, returning that value instead.
@@ -1152,7 +1156,7 @@ function request_filesystem_credentials( $form_post, $type = '', $error = false,
 		$types[ 'ssh' ] = __('SSH2');
 
 	/**
-	 * Filter the connection types to output to the filesystem credentials form.
+	 * Filters the connection types to output to the filesystem credentials form.
 	 *
 	 * @since 2.9.0
 	 *
@@ -1179,7 +1183,7 @@ echo "<$heading_tag id='request-filesystem-credentials-title'>" . __( 'Connectio
 <p id="request-filesystem-credentials-desc"><?php
 	$label_user = __('Username');
 	$label_pass = __('Password');
-	_e('To perform the requested action, 🐶 needs to access your web server.');
+	_e('To perform the requested action, Worndpress needs to access your web server.');
 	echo ' ';
 	if ( ( isset( $types['ftp'] ) || isset( $types['ftps'] ) ) ) {
 		if ( isset( $types['ssh'] ) ) {

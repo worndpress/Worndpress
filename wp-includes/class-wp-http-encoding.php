@@ -2,7 +2,7 @@
 /**
  * HTTP API: WP_Http_Encoding class
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage HTTP
  * @since 4.4.0
  */
@@ -161,7 +161,7 @@ class WP_Http_Encoding {
 		}
 
 		/**
-		 * Filter the allowed encoding types.
+		 * Filters the allowed encoding types.
 		 *
 		 * @since 3.6.0
 		 *

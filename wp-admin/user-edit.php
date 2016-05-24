@@ -2,11 +2,11 @@
 /**
  * Edit user administration panel.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  */
 
-/** 🐶 Administration Bootstrap */
+/** Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 wp_reset_vars( array( 'action', 'user_id', 'wp_http_referer' ) );
@@ -36,8 +36,8 @@ if ( current_user_can('edit_users') && !is_user_admin() )
 else
 	$parent_file = 'profile.php';
 
-$profile_help = '<p>' . __('Your profile contains information about you (your &#8220;account&#8221;) as well as some personal options related to using 🐶.') . '</p>' .
-	'<p>' . __('You can change your password, turn on keyboard shortcuts, change the color scheme of your 🐶 administration screens, and turn off the WYSIWYG (Visual) editor, among other things. You can hide the Toolbar (formerly called the Admin Bar) from the front end of your site, however it cannot be disabled on the admin screens.') . '</p>' .
+$profile_help = '<p>' . __('Your profile contains information about you (your &#8220;account&#8221;) as well as some personal options related to using Worndpress.') . '</p>' .
+	'<p>' . __('You can change your password, turn on keyboard shortcuts, change the color scheme of your Worndpress administration screens, and turn off the WYSIWYG (Visual) editor, among other things. You can hide the Toolbar (formerly called the Admin Bar) from the front end of your site, however it cannot be disabled on the admin screens.') . '</p>' .
 	'<p>' . __('Your username cannot be changed, but you can use other fields to enter your real name or a nickname, and change which name to display on your posts.') . '</p>' .
 	'<p>' . __( 'You can log out of other devices, such as your phone or a public computer, by clicking the Log Out Everywhere Else button.' ) . '</p>' .
 	'<p>' . __('Required fields are indicated; the rest are optional. Profile information will only be displayed if your theme is set up to do so.') . '</p>' .
@@ -60,7 +60,7 @@ $wp_http_referer = remove_query_arg( array( 'update', 'delete_count', 'user_id' 
 $user_can_edit = current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages' );
 
 /**
- * Filter whether to allow administrators on Multisite to edit every user.
+ * Filters whether to allow administrators on Multisite to edit every user.
  *
  * Enabling the user editing form via this filter also hinges on the user holding
  * the 'manage_network_users' cap, and the logged-in user not matching the user
@@ -426,7 +426,7 @@ if ( is_multisite() && is_network_admin() && ! IS_PROFILE_PAGE && current_user_c
 	<th><label for="<?php echo $name; ?>">
 		<?php
 		/**
-		 * Filter a user contactmethod label.
+		 * Filters a user contactmethod label.
 		 *
 		 * The dynamic portion of the filter hook, `$name`, refers to
 		 * each of the keys in the contactmethods array.
@@ -470,7 +470,7 @@ if ( is_multisite() && is_network_admin() && ! IS_PROFILE_PAGE && current_user_c
 			}
 
 			/**
-			 * Filter the user profile picture description displayed under the Gravatar.
+			 * Filters the user profile picture description displayed under the Gravatar.
 			 *
 			 * @since 4.4.0
 			 *
@@ -484,7 +484,7 @@ if ( is_multisite() && is_network_admin() && ! IS_PROFILE_PAGE && current_user_c
 
 <?php
 /**
- * Filter the display of the password fields.
+ * Filters the display of the password fields.
  *
  * @since 1.5.1
  * @since 2.8.0 Added the `$profileuser` parameter.
@@ -601,7 +601,7 @@ if ( IS_PROFILE_PAGE && count( $sessions->get_all() ) === 1 ) : ?>
 
 <?php
 /**
- * Filter whether to display additional capabilities for the user.
+ * Filters whether to display additional capabilities for the user.
  *
  * The 'Additional Capabilities' section will only be enabled if
  * the number of the user's capabilities exceeds their number of

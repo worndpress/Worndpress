@@ -2,14 +2,14 @@
 /**
  * Widget administration panel
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  */
 
-/** 🐶 Administration Bootstrap */
+/** Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
-/** 🐶 Administration Widgets API */
+/** Worndpress Administration Widgets API */
 require_once(ABSPATH . 'wp-admin/includes/widgets.php');
 
 if ( ! current_user_can( 'edit_theme_options' ) ) {

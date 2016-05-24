@@ -6,7 +6,7 @@
  *
  * @link https://codex.wordpress.org/Widgets_API#Developing_Widgets
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Twenty_Eleven
  * @since Twenty Eleven 1.0
  */

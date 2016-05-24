@@ -2,7 +2,7 @@
 /**
  * Multisite delete site panel.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Multisite
  * @since 3.0.0
  */
@@ -60,7 +60,7 @@ Thanks for using the site,
 Webmaster
 ###SITE_NAME###" );
 	/**
-	 * Filter the email content sent when a site in a Multisite network is deleted.
+	 * Filters the email content sent when a site in a Multisite network is deleted.
 	 *
 	 * @since 3.0.0
 	 *

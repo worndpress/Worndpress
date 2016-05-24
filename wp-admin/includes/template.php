@@ -1,10 +1,10 @@
 <?php
 /**
- * Template 🐶 Administration API.
+ * Template Worndpress Administration API.
  *
  * A Big Mess. Also some neat functions that are nicely written.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  */
 
@@ -86,7 +86,7 @@ function wp_terms_checklist( $post_id = 0, $args = array() ) {
 	);
 
 	/**
-	 * Filter the taxonomy terms checklist arguments.
+	 * Filters the taxonomy terms checklist arguments.
 	 *
 	 * @since 3.4.0
 	 *
@@ -354,7 +354,7 @@ function get_inline_data($post) {
 function wp_comment_reply( $position = 1, $checkbox = false, $mode = 'single', $table_row = true ) {
 	global $wp_list_table;
 	/**
-	 * Filter the in-line comment reply-to form output in the Comments
+	 * Filters the in-line comment reply-to form output in the Comments
 	 * list table.
 	 *
 	 * Returning a non-empty value here will short-circuit display
@@ -573,7 +573,7 @@ function _list_meta_row( $entry, &$count ) {
  *
  * @since 1.2.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param WP_Post $post Optional. The post being edited.
  */
@@ -582,7 +582,7 @@ function meta_form( $post = null ) {
 	$post = get_post( $post );
 
 	/**
-	 * Filter values for the meta key dropdown in the Custom Fields meta box.
+	 * Filters values for the meta key dropdown in the Custom Fields meta box.
 	 *
 	 * Returning a non-null value will effectively short-circuit and avoid a
 	 * potentially expensive query against postmeta.
@@ -596,7 +596,7 @@ function meta_form( $post = null ) {
 
 	if ( null === $keys ) {
 		/**
-		 * Filter the number of custom fields to retrieve for the drop-down
+		 * Filters the number of custom fields to retrieve for the drop-down
 		 * in the Custom Fields meta box.
 		 *
 		 * @since 2.1.0
@@ -779,7 +779,7 @@ function page_template_dropdown( $default = '' ) {
  * @since 1.5.0
  * @since 4.4.0 `$post` argument was added.
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param int         $default Optional. The default page ID to be pre-selected. Default 0.
  * @param int         $parent  Optional. The parent page ID. Default 0.
@@ -843,7 +843,7 @@ function wp_dropdown_roles( $selected = '' ) {
 function wp_import_upload_form( $action ) {
 
 	/**
-	 * Filter the maximum allowed upload size for import files.
+	 * Filters the maximum allowed upload size for import files.
 	 *
 	 * @since 2.3.0
 	 *
@@ -1060,12 +1060,11 @@ function do_meta_boxes( $screen, $context, $object ) {
  * @param string|array|WP_Screen $screen  The screen or screens on which the meta box is shown (such as a
  *                                        post type, 'link', or 'comment'). Accepts a single screen ID,
  *                                        WP_Screen object, or array of screen IDs.
- * @param string                 $context Optional. The context within the screen where the boxes
- *                                        should display. Available contexts vary from screen to
- *                                        screen. Post edit screen contexts include 'normal', 'side',
- *                                        and 'advanced'. Comments screen contexts include 'normal'
- *                                        and 'side'. Menus meta boxes (accordion sections) all use
- *                                        the 'side' context. Global default is 'advanced'.
+ * @param string                 $context The context within the screen where the box is set to display.
+ *                                        Contexts vary from screen to screen. Post edit screen contexts
+ *                                        include 'normal', 'side', and 'advanced'. Comments screen contexts
+ *                                        include 'normal' and 'side'. Menus meta boxes (accordion sections)
+ *                                        all use the 'side' context.
  */
 function remove_meta_box( $id, $screen, $context ) {
 	global $wp_meta_boxes;
@@ -1383,7 +1382,8 @@ function add_settings_error( $setting, $code, $message, $type = 'error' ) {
  *
  * Use the $sanitize argument to manually re-sanitize the option before returning errors.
  * This is useful if you have errors or notices you want to show even when the user
- * hasn't submitted data (i.e. when they first load an options page, or in admin_notices action hook)
+ * hasn't submitted data (i.e. when they first load an options page, or in the {@see 'admin_notices'}
+ * action hook).
  *
  * @since 3.0.0
  *
@@ -1577,7 +1577,7 @@ function iframe_header( $title = '', $deprecated = false ) {
 	@header( 'Content-Type: ' . get_option( 'html_type' ) . '; charset=' . get_option( 'blog_charset' ) );
 	_wp_admin_html_begin();
 ?>
-<title><?php bloginfo('name') ?> &rsaquo; <?php echo $title ?> &#8212; <?php _e('🐶'); ?></title>
+<title><?php bloginfo('name') ?> &rsaquo; <?php echo $title ?> &#8212; <?php _e('Worndpress'); ?></title>
 <?php
 wp_enqueue_style( 'colors' );
 ?>
@@ -1712,7 +1712,7 @@ function _post_states($post) {
 	}
 
 	/**
-	 * Filter the default post display states used in the posts list table.
+	 * Filters the default post display states used in the posts list table.
 	 *
 	 * @since 2.8.0
 	 *
@@ -1763,7 +1763,7 @@ function _media_states( $post ) {
 	}
 
 	/**
-	 * Filter the default media display states for items in the Media list table.
+	 * Filters the default media display states for items in the Media list table.
 	 *
 	 * @since 3.2.0
 	 *

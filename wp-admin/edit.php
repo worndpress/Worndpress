@@ -2,11 +2,11 @@
 /**
  * Edit Posts Administration Screen.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  */
 
-/** 🐶 Administration Bootstrap */
+/** Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( ! $typenow )
@@ -283,7 +283,7 @@ $bulk_messages['page'] = array(
 );
 
 /**
- * Filter the bulk action updated messages.
+ * Filters the bulk action updated messages.
  *
  * By default, custom post types use the messages for the 'post' post type.
  *

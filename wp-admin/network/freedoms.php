@@ -2,12 +2,12 @@
 /**
  * Network Freedoms administration panel.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Multisite
  * @since 3.4.0
  */
 
-/** Load 🐶 Administration Bootstrap */
+/** Load Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( ! is_multisite() )

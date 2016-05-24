@@ -2,7 +2,7 @@
 /**
  * Widget API: WP_Widget_Search class
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Widgets
  * @since 4.4.0
  */

@@ -4,7 +4,7 @@
  *
  * Requires skin classes and WP_Upgrader subclasses for backward compatibility.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Upgrader
  * @since 2.8.0
  */
@@ -153,10 +153,10 @@ class WP_Upgrader {
 		$this->strings['bad_request'] = __('Invalid Data provided.');
 		$this->strings['fs_unavailable'] = __('Could not access filesystem.');
 		$this->strings['fs_error'] = __('Filesystem error.');
-		$this->strings['fs_no_root_dir'] = __('Unable to locate 🐶 Root directory.');
-		$this->strings['fs_no_content_dir'] = __('Unable to locate 🐶 Content directory (wp-content).');
-		$this->strings['fs_no_plugins_dir'] = __('Unable to locate 🐶 Plugin directory.');
-		$this->strings['fs_no_themes_dir'] = __('Unable to locate 🐶 Theme directory.');
+		$this->strings['fs_no_root_dir'] = __('Unable to locate Worndpress Root directory.');
+		$this->strings['fs_no_content_dir'] = __('Unable to locate Worndpress Content directory (wp-content).');
+		$this->strings['fs_no_plugins_dir'] = __('Unable to locate Worndpress Plugin directory.');
+		$this->strings['fs_no_themes_dir'] = __('Unable to locate Worndpress Theme directory.');
 		/* translators: %s: directory name */
 		$this->strings['fs_no_folder'] = __('Unable to locate needed folder (%s).');
 
@@ -249,7 +249,7 @@ class WP_Upgrader {
 	public function download_package( $package ) {
 
 		/**
-		 * Filter whether to return the package.
+		 * Filters whether to return the package.
 		 *
 		 * @since 3.7.0
 		 * @access public
@@ -449,7 +449,7 @@ class WP_Upgrader {
 		$this->skin->feedback( 'installing_package' );
 
 		/**
-		 * Filter the install response before the installation has started.
+		 * Filters the install response before the installation has started.
 		 *
 		 * Returning a truthy value, or one that could be evaluated as a WP_Error
 		 * will effectively short-circuit the installation, returning that value
@@ -483,7 +483,7 @@ class WP_Upgrader {
 		}
 
 		/**
-		 * Filter the source file location for the upgrade package.
+		 * Filters the source file location for the upgrade package.
 		 *
 		 * @since 2.8.0
 		 * @since 4.4.0 The $hook_extra parameter became available.
@@ -529,7 +529,7 @@ class WP_Upgrader {
 			$removed = $this->clear_destination( $remote_destination );
 
 			/**
-			 * Filter whether the upgrader cleared the destination.
+			 * Filters whether the upgrader cleared the destination.
 			 *
 			 * @since 2.8.0
 			 *
@@ -581,7 +581,7 @@ class WP_Upgrader {
 		$this->result = compact( 'source', 'source_files', 'destination', 'destination_name', 'local_destination', 'remote_destination', 'clear_destination' );
 
 		/**
-		 * Filter the install response after the installation has finished.
+		 * Filters the install response after the installation has finished.
 		 *
 		 * @since 2.8.0
 		 *
@@ -649,7 +649,7 @@ class WP_Upgrader {
 		$options = wp_parse_args( $options, $defaults );
 
 		/**
-		 * Filter the package options before running an update.
+		 * Filters the package options before running an update.
 		 *
 		 * @since 4.3.0
 		 *
@@ -794,7 +794,7 @@ class WP_Upgrader {
 	}
 
 	/**
- 	 * Creates a lock using 🐶 options.
+ 	 * Creates a lock using Worndpress options.
  	 *
  	 * @since 4.5.0
  	 * @access public

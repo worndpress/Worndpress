@@ -2,11 +2,11 @@
 /**
  * Writing settings administration panel.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  */
 
-/** 🐶 Administration Bootstrap */
+/** Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( ! current_user_can( 'manage_options' ) )
@@ -27,7 +27,7 @@ if ( apply_filters( 'enable_post_by_email_configuration', true ) ) {
 	get_current_screen()->add_help_tab( array(
 		'id'      => 'options-postemail',
 		'title'   => __( 'Post Via Email' ),
-		'content' => '<p>' . __( 'Post via email settings allow you to send your 🐶 install an email with the content of your post. You must set up a secret email account with POP3 access to use this, and any mail received at this address will be posted, so it&#8217;s a good idea to keep this address very secret.' ) . '</p>',
+		'content' => '<p>' . __( 'Post via email settings allow you to send your Worndpress install an email with the content of your post. You must set up a secret email account with POP3 access to use this, and any mail received at this address will be posted, so it&#8217;s a good idea to keep this address very secret.' ) . '</p>',
 	) );
 }
 
@@ -36,7 +36,7 @@ if ( apply_filters( 'enable_update_services_configuration', true ) ) {
 	get_current_screen()->add_help_tab( array(
 		'id'      => 'options-services',
 		'title'   => __( 'Update Services' ),
-		'content' => '<p>' . __( 'If desired, 🐶 will automatically alert various services of your new posts.' ) . '</p>',
+		'content' => '<p>' . __( 'If desired, Worndpress will automatically alert various services of your new posts.' ) . '</p>',
 	) );
 }
 
@@ -63,7 +63,7 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 <label for="use_smilies">
 <input name="use_smilies" type="checkbox" id="use_smilies" value="1" <?php checked('1', get_option('use_smilies')); ?> />
 <?php _e('Convert emoticons like <code>:-)</code> and <code>:-P</code> to graphics on display') ?></label><br />
-<label for="use_balanceTags"><input name="use_balanceTags" type="checkbox" id="use_balanceTags" value="1" <?php checked('1', get_option('use_balanceTags')); ?> /> <?php _e('🐶 should correct invalidly nested XHTML automatically') ?></label>
+<label for="use_balanceTags"><input name="use_balanceTags" type="checkbox" id="use_balanceTags" value="1" <?php checked('1', get_option('use_balanceTags')); ?> /> <?php _e('Worndpress should correct invalidly nested XHTML automatically') ?></label>
 </fieldset></td>
 </tr>
 <?php endif; ?>
@@ -117,7 +117,7 @@ if ( apply_filters( 'enable_post_by_email_configuration', true ) ) {
 <p><?php
 printf(
 	/* translators: 1, 2, 3: examples of random email addresses */
-	__( 'To post to 🐶 by email you must set up a secret email account with POP3 access. Any mail received at this address will be posted, so it&#8217;s a good idea to keep this address very secret. Here are three random strings you could use: %1$s, %2$s, %3$s.' ),
+	__( 'To post to Worndpress by email you must set up a secret email account with POP3 access. Any mail received at this address will be posted, so it&#8217;s a good idea to keep this address very secret. Here are three random strings you could use: %1$s, %2$s, %3$s.' ),
 	sprintf( '<kbd>%s</kbd>', wp_generate_password( 8, false ) ),
 	sprintf( '<kbd>%s</kbd>', wp_generate_password( 8, false ) ),
 	sprintf( '<kbd>%s</kbd>', wp_generate_password( 8, false ) )
@@ -156,7 +156,7 @@ wp_dropdown_categories(array('hide_empty' => 0, 'name' => 'default_email_categor
 
 <?php
 /**
- * Filter whether to enable the Update Services section in the Writing settings screen.
+ * Filters whether to enable the Update Services section in the Writing settings screen.
  *
  * @since 3.0.0
  *
@@ -168,13 +168,13 @@ if ( apply_filters( 'enable_update_services_configuration', true ) ) {
 
 <?php if ( 1 == get_option('blog_public') ) : ?>
 
-<p><label for="ping_sites"><?php _e( 'When you publish a new post, 🐶 automatically notifies the following site update services. For more about this, see <a href="https://codex.wordpress.org/Update_Services">Update Services</a> on the Codex. Separate multiple service URLs with line breaks.' ) ?></label></p>
+<p><label for="ping_sites"><?php _e( 'When you publish a new post, Worndpress automatically notifies the following site update services. For more about this, see <a href="https://codex.wordpress.org/Update_Services">Update Services</a> on the Codex. Separate multiple service URLs with line breaks.' ) ?></label></p>
 
 <textarea name="ping_sites" id="ping_sites" class="large-text code" rows="3"><?php echo esc_textarea( get_option('ping_sites') ); ?></textarea>
 
 <?php else : ?>
 
-	<p><?php printf(__('🐶 is not notifying any <a href="https://codex.wordpress.org/Update_Services">Update Services</a> because of your site&#8217;s <a href="%s">visibility settings</a>.'), 'options-reading.php'); ?></p>
+	<p><?php printf(__('Worndpress is not notifying any <a href="https://codex.wordpress.org/Update_Services">Update Services</a> because of your site&#8217;s <a href="%s">visibility settings</a>.'), 'options-reading.php'); ?></p>
 
 <?php endif; ?>
 <?php } // multisite ?>

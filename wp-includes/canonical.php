@@ -1,11 +1,11 @@
 <?php
 /**
- * Canonical API to handle 🐶 Redirecting
+ * Canonical API to handle Worndpress Redirecting
  *
  * Based on "Permalink Redirect" from Scott Yang and "Enforce www. Preference"
  * by Mark Jaquith
  *
- * @package 🐶
+ * @package Worndpress
  * @since 2.3.0
  */
 
@@ -23,7 +23,7 @@
  * requests.
  *
  * Will also attempt to find the correct link when a user enters a URL that does
- * not exist based on exact 🐶 query. Will instead try to parse the URL
+ * not exist based on exact Worndpress query. Will instead try to parse the URL
  * or query in an attempt to figure the correct page to go to.
  *
  * @since 2.3.0
@@ -31,7 +31,7 @@
  * @global WP_Rewrite $wp_rewrite
  * @global bool $is_IIS
  * @global WP_Query $wp_query
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param string $requested_url Optional. The URL that was requested, used to
  *		figure if redirect is needed.
@@ -486,7 +486,7 @@ function redirect_canonical( $requested_url = null, $do_redirect = true ) {
 	}
 
 	/**
-	 * Filter the canonical redirect URL.
+	 * Filters the canonical redirect URL.
 	 *
 	 * Returning false to this filter will cancel the redirect.
 	 *
@@ -573,7 +573,7 @@ function strip_fragment_from_url( $url ) {
  *
  * @since 2.3.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @return false|string The correct URL if one is found. False on failure.
  */

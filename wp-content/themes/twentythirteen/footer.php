@@ -4,7 +4,7 @@
  *
  * Contains footer content and the closing of the #main and #page div elements.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Twenty_Thirteen
  * @since Twenty Thirteen 1.0
  */
@@ -16,7 +16,7 @@
 
 			<div class="site-info">
 				<?php do_action( 'twentythirteen_credits' ); ?>
-				<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'twentythirteen' ) ); ?>"><?php printf( __( 'Proudly powered by %s', 'twentythirteen' ), '🐶' ); ?></a>
+				<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'twentythirteen' ) ); ?>"><?php printf( __( 'Proudly powered by %s', 'twentythirteen' ), 'Worndpress' ); ?></a>
 			</div><!-- .site-info -->
 		</footer><!-- #colophon -->
 	</div><!-- #page -->

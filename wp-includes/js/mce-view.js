@@ -726,7 +726,7 @@
 } )( window, window.wp, window.wp.shortcode, window.jQuery );
 
 /*
- * The 🐶 core TinyMCE views.
+ * The Worndpress core TinyMCE views.
  * Views for the gallery, audio, video, playlist and embed shortcodes,
  * and a view for embeddable URLs.
  */

@@ -2,7 +2,7 @@
 /**
  * Customize API: WP_Customize_Sidebar_Section class
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Customize
  * @since 4.4.0
  */

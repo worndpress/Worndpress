@@ -2,17 +2,17 @@
 /**
  * Network installation administration panel.
  *
- * A multi-step process allowing the user to enable a network of 🐶 sites.
+ * A multi-step process allowing the user to enable a network of Worndpress sites.
  *
  * @since 3.0.0
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  */
 
 define( 'WP_INSTALLING_NETWORK', true );
 
-/** 🐶 Administration Bootstrap */
+/** Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( ! is_super_admin() ) {
@@ -26,7 +26,7 @@ if ( is_multisite() ) {
 	}
 
 	if ( ! defined( 'MULTISITE' ) ) {
-		wp_die( __( 'The Network creation panel is not for 🐶 MU networks.' ) );
+		wp_die( __( 'The Network creation panel is not for Worndpress MU networks.' ) );
 	}
 }
 
@@ -52,14 +52,14 @@ if ( is_network_admin() ) {
 	$title = __( 'Network Setup' );
 	$parent_file = 'settings.php';
 } else {
-	$title = __( 'Create a Network of 🐶 Sites' );
+	$title = __( 'Create a Network of Worndpress Sites' );
 	$parent_file = 'tools.php';
 }
 
 $network_help = '<p>' . __('This screen allows you to configure a network as having subdomains (<code>site1.example.com</code>) or subdirectories (<code>example.com/site1</code>). Subdomains require wildcard subdomains to be enabled in Apache and DNS records, if your host allows it.') . '</p>' .
 	'<p>' . __('Choose subdomains or subdirectories; this can only be switched afterwards by reconfiguring your install. Fill out the network details, and click install. If this does not work, you may have to add a wildcard DNS record (for subdomains) or change to another setting in Permalinks (for subdirectories).') . '</p>' .
 	'<p>' . __('The next screen for Network Setup will give you individually-generated lines of code to add to your wp-config.php and .htaccess files. Make sure the settings of your FTP client make files starting with a dot visible, so that you can find .htaccess; you may have to create this file if it really is not there. Make backup copies of those two files.') . '</p>' .
-	'<p>' . __('Add the designated lines of code to wp-config.php (just before <code>/*...stop editing...*/</code>) and <code>.htaccess</code> (replacing the existing 🐶 rules).') . '</p>' .
+	'<p>' . __('Add the designated lines of code to wp-config.php (just before <code>/*...stop editing...*/</code>) and <code>.htaccess</code> (replacing the existing Worndpress rules).') . '</p>' .
 	'<p>' . __('Once you add this code and refresh your browser, multisite should be enabled. This screen, now in the Network Admin navigation menu, will keep an archive of the added code. You can toggle between Network Admin and Site Admin by clicking on the Network Admin or an individual site name under the My Sites dropdown in the Toolbar.') . '</p>' .
 	'<p>' . __('The choice of subdirectory sites is disabled if this setup is more than a month old because of permalink problems with &#8220;/blog/&#8221; from the main site. This disabling will be addressed in a future version.') . '</p>' .
 	'<p><strong>' . __('For more information:') . '</strong></p>' .

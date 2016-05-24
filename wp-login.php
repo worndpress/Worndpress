@@ -1,14 +1,14 @@
 <?php
 /**
- * 🐶 User Page
+ * Worndpress User Page
  *
  * Handles authentication, registering, resetting passwords, forgot password,
  * and other user handling.
  *
- * @package 🐶
+ * @package Worndpress
  */
 
-/** Make sure that the 🐶 bootstrap has run before continuing. */
+/** Make sure that the Worndpress bootstrap has run before continuing. */
 require( dirname(__FILE__) . '/wp-load.php' );
 
 // Redirect to https login if forced to use SSL
@@ -25,7 +25,7 @@ if ( force_ssl_admin() && ! is_ssl() ) {
 /**
  * Output the login page header.
  *
- * @param string   $title    Optional. 🐶 login Page title to display in the `<title>` element.
+ * @param string   $title    Optional. Worndpress login Page title to display in the `<title>` element.
  *                           Default 'Log In'.
  * @param string   $message  Optional. Message to display in header. Default empty.
  * @param WP_Error $wp_error Optional. The error to pass. Default empty.
@@ -45,7 +45,7 @@ function login_header( $title = 'Log In', $message = '', $wp_error = '' ) {
 	// Shake it!
 	$shake_error_codes = array( 'empty_password', 'empty_email', 'invalid_email', 'invalidcombo', 'empty_username', 'invalid_username', 'incorrect_password' );
 	/**
-	 * Filter the error codes array for shaking the login form.
+	 * Filters the error codes array for shaking the login form.
 	 *
 	 * @since 3.0.0
 	 *
@@ -102,19 +102,20 @@ function login_header( $title = 'Log In', $message = '', $wp_error = '' ) {
 		$login_header_title = get_current_site()->site_name;
 	} else {
 		$login_header_url   = __( 'https://wordpress.org/' );
-		$login_header_title = __( 'Powered by 🐶' );
+		$login_header_title = __( 'Powered by Worndpress' );
 	}
 
 	/**
-	 * Filter link URL of the header logo above login form.
+	 * Filters link URL of the header logo above login form.
 	 *
 	 * @since 2.1.0
 	 *
 	 * @param string $login_header_url Login header logo URL.
 	 */
 	$login_header_url = apply_filters( 'login_headerurl', $login_header_url );
+
 	/**
-	 * Filter the title attribute of the header logo above login form.
+	 * Filters the title attribute of the header logo above login form.
 	 *
 	 * @since 2.1.0
 	 *
@@ -139,7 +140,7 @@ function login_header( $title = 'Log In', $message = '', $wp_error = '' ) {
 	$classes[] =' locale-' . sanitize_html_class( strtolower( str_replace( '_', '-', get_locale() ) ) );
 
 	/**
-	 * Filter the login page body classes.
+	 * Filters the login page body classes.
 	 *
 	 * @since 3.5.0
 	 *
@@ -166,7 +167,7 @@ function login_header( $title = 'Log In', $message = '', $wp_error = '' ) {
 	unset( $login_header_url, $login_header_title );
 
 	/**
-	 * Filter the message to display above the login form.
+	 * Filters the message to display above the login form.
 	 *
 	 * @since 2.1.0
 	 *
@@ -196,7 +197,7 @@ function login_header( $title = 'Log In', $message = '', $wp_error = '' ) {
 		}
 		if ( ! empty( $errors ) ) {
 			/**
-			 * Filter the error messages displayed above the login form.
+			 * Filters the error messages displayed above the login form.
 			 *
 			 * @since 2.1.0
 			 *
@@ -206,7 +207,7 @@ function login_header( $title = 'Log In', $message = '', $wp_error = '' ) {
 		}
 		if ( ! empty( $messages ) ) {
 			/**
-			 * Filter instructional messages displayed above the login form.
+			 * Filters instructional messages displayed above the login form.
 			 *
 			 * @since 2.5.0
 			 *
@@ -281,7 +282,7 @@ function wp_login_viewport_meta() {
 /**
  * Handles sending password retrieval email to user.
  *
- * @global wpdb         $wpdb      🐶 database abstraction object.
+ * @global wpdb         $wpdb      Worndpress database abstraction object.
  * @global PasswordHash $wp_hasher Portable PHP password hashing framework.
  *
  * @return bool|WP_Error True: when finish. WP_Error on error
@@ -349,7 +350,7 @@ function retrieve_password() {
 	$title = sprintf( __('[%s] Password Reset'), $blogname );
 
 	/**
-	 * Filter the subject of the password reset email.
+	 * Filters the subject of the password reset email.
 	 *
 	 * @since 2.8.0
 	 * @since 4.4.0 Added the `$user_login` and `$user_data` parameters.
@@ -361,7 +362,7 @@ function retrieve_password() {
 	$title = apply_filters( 'retrieve_password_title', $title, $user_login, $user_data );
 
 	/**
-	 * Filter the message body of the password reset mail.
+	 * Filters the message body of the password reset mail.
 	 *
 	 * @since 2.8.0
 	 * @since 4.1.0 Added `$user_login` and `$user_data` parameters.
@@ -444,7 +445,7 @@ case 'postpass' :
 	$hasher = new PasswordHash( 8, true );
 
 	/**
-	 * Filter the life span of the post password cookie.
+	 * Filters the life span of the post password cookie.
 	 *
 	 * By default, the cookie expires 10 days from creation. To turn this
 	 * into a session cookie, return 0.
@@ -480,7 +481,7 @@ case 'logout' :
 	}
 
 	/**
-	 * Filter the log out redirect URL.
+	 * Filters the log out redirect URL.
 	 *
 	 * @since 4.2.0
 	 *
@@ -514,7 +515,7 @@ case 'retrievepassword' :
 
 	$lostpassword_redirect = ! empty( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : '';
 	/**
-	 * Filter the URL redirected to after submitting the lostpassword/retrievepassword form.
+	 * Filters the URL redirected to after submitting the lostpassword/retrievepassword form.
 	 *
 	 * @since 3.0.0
 	 *
@@ -683,7 +684,7 @@ break;
 case 'register' :
 	if ( is_multisite() ) {
 		/**
-		 * Filter the Multisite sign up URL.
+		 * Filters the Multisite sign up URL.
 		 *
 		 * @since 3.0.0
 		 *
@@ -713,7 +714,7 @@ case 'register' :
 
 	$registration_redirect = ! empty( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : '';
 	/**
-	 * Filter the registration redirect URL.
+	 * Filters the registration redirect URL.
 	 *
 	 * @since 3.0.0
 	 *
@@ -797,14 +798,14 @@ default:
 				__( 'https://codex.wordpress.org/Cookies' ), __( 'https://wordpress.org/support/' ) ) );
 		} elseif ( isset( $_POST['testcookie'] ) && empty( $_COOKIE[ TEST_COOKIE ] ) ) {
 			// If cookies are disabled we can't log in even with a valid user+pass
-			$user = new WP_Error( 'test_cookie', sprintf( __( '<strong>ERROR</strong>: Cookies are blocked or not supported by your browser. You must <a href="%s">enable cookies</a> to use 🐶.' ),
+			$user = new WP_Error( 'test_cookie', sprintf( __( '<strong>ERROR</strong>: Cookies are blocked or not supported by your browser. You must <a href="%s">enable cookies</a> to use Worndpress.' ),
 				__( 'https://codex.wordpress.org/Cookies' ) ) );
 		}
 	}
 
 	$requested_redirect_to = isset( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : '';
 	/**
-	 * Filter the login redirect URL.
+	 * Filters the login redirect URL.
 	 *
 	 * @since 3.0.0
 	 *
@@ -867,11 +868,11 @@ default:
 		elseif	( isset($_GET['checkemail']) && 'registered' == $_GET['checkemail'] )
 			$errors->add('registered', __('Registration complete. Please check your email.'), 'message');
 		elseif ( strpos( $redirect_to, 'about.php?updated' ) )
-			$errors->add('updated', __( '<strong>You have successfully updated 🐶!</strong> Please log back in to see what&#8217;s new.' ), 'message' );
+			$errors->add('updated', __( '<strong>You have successfully updated Worndpress!</strong> Please log back in to see what&#8217;s new.' ), 'message' );
 	}
 
 	/**
-	 * Filter the login page errors.
+	 * Filters the login page errors.
 	 *
 	 * @since 3.6.0
 	 *

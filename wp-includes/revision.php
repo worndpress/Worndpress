@@ -2,7 +2,7 @@
 /**
  * Post revision functions.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Post_Revisions
  */
 
@@ -38,7 +38,7 @@ function _wp_post_revision_fields( $post = array(), $deprecated = false ) {
 	}
 
 	/**
-	 * Filter the list of fields saved in post revisions.
+	 * Filters the list of fields saved in post revisions.
 	 *
 	 * Included by default: 'post_title', 'post_content' and 'post_excerpt'.
 	 *
@@ -138,7 +138,7 @@ function wp_save_post_revision( $post_id ) {
 		}
 
 		/**
-		 * Filter whether the post has changed since the last revision.
+		 * Filters whether the post has changed since the last revision.
 		 *
 		 * By default a revision is saved only if one of the revisioned fields has changed.
 		 * This filter can override that so a revision is saved even if nothing has changed.
@@ -162,7 +162,7 @@ function wp_save_post_revision( $post_id ) {
 			}
 
 			/**
-			 * Filter whether a post has changed.
+			 * Filters whether a post has changed.
 			 *
 			 * By default a revision is saved only if one of the revisioned fields has changed.
 			 * This filter allows for additional checks to determine if there were changes.
@@ -322,7 +322,7 @@ function _wp_put_post_revision( $post = null, $autosave = false ) {
  *
  * @param int|WP_Post $post   The post ID or object.
  * @param string      $output Optional. OBJECT, ARRAY_A, or ARRAY_N.
- * @param string      $filter Optional sanitation filter. @see sanitize_post().
+ * @param string      $filter Optional sanitation filter. See sanitize_post().
  * @return WP_Post|array|null Null if error or post object if success.
  */
 function wp_get_post_revision(&$post, $output = OBJECT, $filter = 'raw') {
@@ -500,7 +500,7 @@ function wp_revisions_to_keep( $post ) {
 		$num = 0;
 
 	/**
-	 * Filter the number of revisions to save for the given post.
+	 * Filters the number of revisions to save for the given post.
 	 *
 	 * Overrides the value of WP_POST_REVISIONS.
 	 *
@@ -612,7 +612,7 @@ function _wp_get_post_revision_version( $revision ) {
  * @since 3.6.0
  * @access private
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param WP_Post $post      Post object
  * @param array   $revisions Current revisions of the post

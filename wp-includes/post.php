@@ -2,7 +2,7 @@
 /**
  * Core Post API
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Post
  */
 
@@ -12,6 +12,8 @@
 
 /**
  * Creates the initial post types when 'init' action is fired.
+ *
+ * See {@see 'init'}.
  *
  * @since 2.9.0
  */
@@ -197,7 +199,7 @@ function get_attached_file( $attachment_id, $unfiltered = false ) {
 	}
 
 	/**
-	 * Filter the attached file based on the given ID.
+	 * Filters the attached file based on the given ID.
 	 *
 	 * @since 2.1.0
 	 *
@@ -224,7 +226,7 @@ function update_attached_file( $attachment_id, $file ) {
 		return false;
 
 	/**
-	 * Filter the path to the attached file to update.
+	 * Filters the path to the attached file to update.
 	 *
 	 * @since 2.1.0
 	 *
@@ -259,7 +261,7 @@ function _wp_relative_upload_path( $path ) {
 	}
 
 	/**
-	 * Filter the relative path to an uploaded file.
+	 * Filters the relative path to an uploaded file.
 	 *
 	 * @since 2.9.0
 	 *
@@ -273,7 +275,7 @@ function _wp_relative_upload_path( $path ) {
  * Retrieve all children of the post parent ID.
  *
  * Normally, without any enhancements, the children would apply to pages. In the
- * context of the inner workings of 🐶, pages, posts, and attachments
+ * context of the inner workings of Worndpress, pages, posts, and attachments
  * share the same table, so therefore the functionality could apply to any one
  * of them. It is then noted that while this function does not work on posts, it
  * does not mean that it won't work on posts. It is recommended that you know
@@ -303,7 +305,7 @@ function _wp_relative_upload_path( $path ) {
  * retrieve that amount of posts.
  *
  * The 'post_type' and 'post_status' arguments can be used to choose what
- * criteria of posts to retrieve. The 'post_type' can be anything, but 🐶
+ * criteria of posts to retrieve. The 'post_type' can be anything, but Worndpress
  * post types are 'post', 'pages', and 'attachments'. The 'post_status'
  * argument will accept any post status within the write administration panels.
  *
@@ -577,7 +579,7 @@ function get_post_status( $ID = '' ) {
 	}
 
 	/**
-	 * Filter the post status.
+	 * Filters the post status.
 	 *
 	 * @since 4.4.0
 	 *
@@ -588,7 +590,7 @@ function get_post_status( $ID = '' ) {
 }
 
 /**
- * Retrieve all of the 🐶 supported post statuses.
+ * Retrieve all of the Worndpress supported post statuses.
  *
  * Posts have a limited set of valid status values, this provides the
  * post_status values and descriptions.
@@ -609,7 +611,7 @@ function get_post_statuses() {
 }
 
 /**
- * Retrieve all of the 🐶 support page statuses.
+ * Retrieve all of the Worndpress support page statuses.
  *
  * Pages have a limited set of valid status values, this provides the
  * post_status values and descriptions.
@@ -1006,7 +1008,7 @@ function register_post_type( $post_type, $args = array() ) {
 	$args      = wp_parse_args( $args );
 
 	/**
-	 * Filter the arguments for registering a post type.
+	 * Filters the arguments for registering a post type.
 	 *
 	 * @since 4.4.0
 	 *
@@ -1197,8 +1199,8 @@ function register_post_type( $post_type, $args = array() ) {
  *
  * @since 4.5.0
  *
- * @global WP_Rewrite $wp_rewrite             🐶 rewrite component.
- * @global WP         $wp                     Current 🐶 environment instance.
+ * @global WP_Rewrite $wp_rewrite             Worndpress rewrite component.
+ * @global WP         $wp                     Current Worndpress environment instance.
  * @global array      $_wp_post_type_features Used to remove post type features.
  * @global array      $post_type_meta_caps    Used to remove meta capabilities.
  * @global array      $wp_post_types          List of post types.
@@ -1403,7 +1405,7 @@ function _post_type_meta_capabilities( $capabilities = null ) {
  * - singular_name - name for one object of this post type. Default is Post/Page
  * - add_new - Default is Add New for both hierarchical and non-hierarchical types.
  *             When internationalizing this string, please use a gettext context
- *             {@link https://codex.wordpress.org/I18n_for_🐶_Developers#Disambiguation_by_context}
+ *             {@link https://codex.wordpress.org/I18n_for_Worndpress_Developers#Disambiguation_by_context}
  *             matching your post type. Example: `_x( 'Add New', 'product' );`.
  * - add_new_item - Default is Add New Post/Add New Page.
  * - edit_item - Default is Edit Post/Edit Page.
@@ -1475,7 +1477,7 @@ function get_post_type_labels( $post_type_object ) {
 	$default_labels = clone $labels;
 
 	/**
-	 * Filter the labels of a specific post type.
+	 * Filters the labels of a specific post type.
 	 *
 	 * The dynamic portion of the hook name, `$post_type`, refers to
 	 * the post type slug.
@@ -1666,7 +1668,7 @@ function get_post_types_by_support( $feature, $operator = 'and' ) {
  *
  * @since 2.5.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param int    $post_id   Optional. Post ID to change post type. Default 0.
  * @param string $post_type Optional. Post type. Accepts 'post' or 'page' to
@@ -2038,7 +2040,7 @@ function sanitize_post_field( $field, $value, $post_id, $context = 'display' ) {
 		if ( $prefixed ) {
 
 			/**
-			 * Filter the value of a specific post field to edit.
+			 * Filters the value of a specific post field to edit.
 			 *
 			 * The dynamic portion of the hook name, `$field`, refers to the post
 			 * field name.
@@ -2051,7 +2053,7 @@ function sanitize_post_field( $field, $value, $post_id, $context = 'display' ) {
 			$value = apply_filters( "edit_{$field}", $value, $post_id );
 
 			/**
-			 * Filter the value of a specific post field to edit.
+			 * Filters the value of a specific post field to edit.
 			 *
 			 * The dynamic portion of the hook name, `$field_no_prefix`, refers to
 			 * the post field name.
@@ -2078,7 +2080,7 @@ function sanitize_post_field( $field, $value, $post_id, $context = 'display' ) {
 		if ( $prefixed ) {
 
 			/**
-			 * Filter the value of a specific post field before saving.
+			 * Filters the value of a specific post field before saving.
 			 *
 			 * The dynamic portion of the hook name, `$field`, refers to the post
 			 * field name.
@@ -2090,7 +2092,7 @@ function sanitize_post_field( $field, $value, $post_id, $context = 'display' ) {
 			$value = apply_filters( "pre_{$field}", $value );
 
 			/**
-			 * Filter the value of a specific field before saving.
+			 * Filters the value of a specific field before saving.
 			 *
 			 * The dynamic portion of the hook name, `$field_no_prefix`, refers
 			 * to the post field name.
@@ -2104,7 +2106,7 @@ function sanitize_post_field( $field, $value, $post_id, $context = 'display' ) {
 			$value = apply_filters( "pre_post_{$field}", $value );
 
 			/**
-			 * Filter the value of a specific post field before saving.
+			 * Filters the value of a specific post field before saving.
 			 *
 			 * The dynamic portion of the hook name, `$field`, refers to the post
 			 * field name.
@@ -2121,7 +2123,7 @@ function sanitize_post_field( $field, $value, $post_id, $context = 'display' ) {
 		if ( $prefixed ) {
 
 			/**
-			 * Filter the value of a specific post field for display.
+			 * Filters the value of a specific post field for display.
 			 *
 			 * The dynamic portion of the hook name, `$field`, refers to the post
 			 * field name.
@@ -2230,7 +2232,7 @@ function _count_posts_cache_key( $type = 'post', $perm = '' ) {
  *
  * @since 2.5.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param string $type Optional. Post type to retrieve count. Default 'post'.
  * @param string $perm Optional. 'readable' or empty. Default empty.
@@ -2295,7 +2297,7 @@ function wp_count_posts( $type = 'post', $perm = '' ) {
  *
  * @since 2.5.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param string|array $mime_type Optional. Array or comma-separated list of
  *                                MIME patterns. Default empty.
@@ -2341,7 +2343,7 @@ function get_post_mime_types() {
 	);
 
 	/**
-	 * Filter the default list of post mime types.
+	 * Filters the default list of post mime types.
 	 *
 	 * @since 2.5.0
 	 *
@@ -2464,7 +2466,7 @@ function wp_post_mime_type_where( $post_mime_types, $table_alias = '' ) {
  *
  * @since 1.0.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  * @see wp_delete_attachment()
  * @see wp_trash_post()
  *
@@ -2486,7 +2488,7 @@ function wp_delete_post( $postid = 0, $force_delete = false ) {
 		return wp_delete_attachment( $postid, $force_delete );
 
 	/**
-	 * Filter whether a post deletion should take place.
+	 * Filters whether a post deletion should take place.
 	 *
 	 * @since 4.4.0
 	 *
@@ -2727,7 +2729,7 @@ function wp_untrash_post( $post_id = 0 ) {
  *
  * @since 2.9.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param int|WP_Post|null $post Optional. Post ID or post object. Defaults to global $post.
  * @return mixed|void False on failure.
@@ -2783,7 +2785,7 @@ function wp_trash_post_comments( $post = null ) {
  *
  * @since 2.9.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param int|WP_Post|null $post Optional. Post ID or post object. Defaults to global $post.
  * @return true|void
@@ -2967,7 +2969,7 @@ function wp_get_recent_posts( $args = array(), $output = ARRAY_A ) {
  * @since 4.4.0 A 'meta_input' array can now be passed to `$postarr` to add post meta data.
  *
  * @see sanitize_post()
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param array $postarr {
  *     An array of elements that make up a post to update or insert.
@@ -3086,7 +3088,7 @@ function wp_insert_post( $postarr, $wp_error = false ) {
 		&& post_type_supports( $post_type, 'excerpt' );
 
 	/**
-	 * Filter whether the post should be considered "empty".
+	 * Filters whether the post should be considered "empty".
 	 *
 	 * The post is considered "empty" if both:
 	 * 1. The post type supports the title, editor, and excerpt fields
@@ -3254,7 +3256,7 @@ function wp_insert_post( $postarr, $wp_error = false ) {
 	}
 
 	/**
-	 * Filter the post parent -- used to check for and prevent hierarchy loops.
+	 * Filters the post parent -- used to check for and prevent hierarchy loops.
 	 *
 	 * @since 3.1.0
 	 *
@@ -3308,7 +3310,7 @@ function wp_insert_post( $postarr, $wp_error = false ) {
 
 	if ( 'attachment' === $post_type ) {
 		/**
-		 * Filter attachment post data before it is updated in or added to the database.
+		 * Filters attachment post data before it is updated in or added to the database.
 		 *
 		 * @since 3.9.0
 		 *
@@ -3318,7 +3320,7 @@ function wp_insert_post( $postarr, $wp_error = false ) {
 		$data = apply_filters( 'wp_insert_attachment_data', $data, $postarr );
 	} else {
 		/**
-		 * Filter slashed post data just before it is inserted into the database.
+		 * Filters slashed post data just before it is inserted into the database.
 		 *
 		 * @since 2.7.0
 		 *
@@ -3609,7 +3611,7 @@ function wp_update_post( $postarr = array(), $wp_error = false ) {
  *
  * @since 2.1.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param int|WP_Post $post Post ID or post object.
  */
@@ -3680,7 +3682,7 @@ function check_and_publish_future_post( $post_id ) {
  *
  * @since 2.8.0
  *
- * @global wpdb       $wpdb 🐶 database abstraction object.
+ * @global wpdb       $wpdb Worndpress database abstraction object.
  * @global WP_Rewrite $wp_rewrite
  *
  * @param string $slug        The desired slug (post_name).
@@ -3708,7 +3710,7 @@ function wp_unique_post_slug( $slug, $post_ID, $post_status, $post_type, $post_p
 		$post_name_check = $wpdb->get_var( $wpdb->prepare( $check_sql, $slug, $post_ID ) );
 
 		/**
-		 * Filter whether the post slug would make a bad attachment slug.
+		 * Filters whether the post slug would make a bad attachment slug.
 		 *
 		 * @since 3.1.0
 		 *
@@ -3736,7 +3738,7 @@ function wp_unique_post_slug( $slug, $post_ID, $post_status, $post_type, $post_p
 		$post_name_check = $wpdb->get_var( $wpdb->prepare( $check_sql, $slug, $post_type, $post_ID, $post_parent ) );
 
 		/**
-		 * Filter whether the post slug would make a bad hierarchical post slug.
+		 * Filters whether the post slug would make a bad hierarchical post slug.
 		 *
 		 * @since 3.1.0
 		 *
@@ -3782,7 +3784,7 @@ function wp_unique_post_slug( $slug, $post_ID, $post_status, $post_type, $post_p
 		}
 
 		/**
-		 * Filter whether the post slug would be bad as a flat slug.
+		 * Filters whether the post slug would be bad as a flat slug.
 		 *
 		 * @since 3.1.0
 		 *
@@ -3802,7 +3804,7 @@ function wp_unique_post_slug( $slug, $post_ID, $post_status, $post_type, $post_p
 	}
 
 	/**
-	 * Filter the unique post slug.
+	 * Filters the unique post slug.
 	 *
 	 * @since 3.3.0
 	 *
@@ -3958,8 +3960,8 @@ function wp_set_post_categories( $post_ID = 0, $post_categories = array(), $appe
  * When a post is saved, the post status is "transitioned" from one status to another,
  * though this does not always mean the status has actually changed before and after
  * the save. This function fires a number of action hooks related to that transition:
- * the generic 'transition_post_status' action, as well as the dynamic hooks
- * `"{$old_status}_to_{$new_status}"` and `"{$new_status}_{$post->post_type}"`. Note
+ * the generic {@see 'transition_post_status'} action, as well as the dynamic hooks
+ * {@see '$old_status_to_$new_status'} and {@see '$new_status_$post->post_type'}. Note
  * that the function does not transition the post object in the database.
  *
  * For instance: When publishing a post for the first time, the post status may transition
@@ -4028,7 +4030,7 @@ function wp_transition_post_status( $new_status, $old_status, $post ) {
  *
  * @since 1.5.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param int    $post_id Post ID.
  * @param string $uri     Ping URI.
@@ -4043,7 +4045,7 @@ function add_ping( $post_id, $uri ) {
 	$new = implode("\n", $pung);
 
 	/**
-	 * Filter the new ping URL to add for the given post.
+	 * Filters the new ping URL to add for the given post.
 	 *
 	 * @since 2.0.0
 	 *
@@ -4080,7 +4082,7 @@ function get_enclosed( $post_id ) {
 	}
 
 	/**
-	 * Filter the list of enclosures already enclosed for the given post.
+	 * Filters the list of enclosures already enclosed for the given post.
 	 *
 	 * @since 2.0.0
 	 *
@@ -4095,7 +4097,7 @@ function get_enclosed( $post_id ) {
  *
  * @since 1.5.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param int $post_id Post ID.
  * @return array
@@ -4107,7 +4109,7 @@ function get_pung( $post_id ) {
 	$pung = preg_split('/\s/', $pung);
 
 	/**
-	 * Filter the list of already-pinged URLs for the given post.
+	 * Filters the list of already-pinged URLs for the given post.
 	 *
 	 * @since 2.0.0
 	 *
@@ -4121,7 +4123,7 @@ function get_pung( $post_id ) {
  *
  * @since 1.5.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param int $post_id Post ID
  * @return array
@@ -4133,7 +4135,7 @@ function get_to_ping( $post_id ) {
 	$to_ping = preg_split('/\s/', $to_ping, -1, PREG_SPLIT_NO_EMPTY);
 
 	/**
-	 * Filter the list of URLs yet to ping for the given post.
+	 * Filters the list of URLs yet to ping for the given post.
 	 *
 	 * @since 2.0.0
 	 *
@@ -4179,7 +4181,7 @@ function trackback_url_list( $tb_list, $post_id ) {
  *
  * @since 2.0.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @return array List of page IDs.
  */
@@ -4219,7 +4221,7 @@ function get_page( $page, $output = OBJECT, $filter = 'raw') {
  *
  * @since 2.1.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param string       $page_path Page path.
  * @param string       $output    Optional. Output type. Accepts OBJECT, ARRAY_N, or ARRAY_A.
@@ -4315,7 +4317,7 @@ function get_page_by_path( $page_path, $output = OBJECT, $post_type = 'page' ) {
  *
  * @since 2.1.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param string       $page_title Page title
  * @param string       $output     Optional. Output type. OBJECT, ARRAY_N, or ARRAY_A.
@@ -4471,7 +4473,7 @@ function get_page_uri( $page = 0 ) {
 	}
 
 	/**
-	 * Filter the URI for a page.
+	 * Filters the URI for a page.
 	 *
 	 * @since 4.4.0
 	 *
@@ -4484,7 +4486,7 @@ function get_page_uri( $page = 0 ) {
 /**
  * Retrieve a list of pages.
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @since 1.5.0
  *
@@ -4766,7 +4768,7 @@ function get_pages( $args = array() ) {
 	$pages = array_map( 'get_post', $pages );
 
 	/**
-	 * Filter the retrieved list of pages.
+	 * Filters the retrieved list of pages.
 	 *
 	 * @since 2.1.0
 	 *
@@ -4853,7 +4855,7 @@ function wp_insert_attachment( $args, $file = false, $parent = 0 ) {
  *
  * @since 2.0.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param int  $post_id      Attachment ID.
  * @param bool $force_delete Optional. Whether to bypass trash and force deletion.
@@ -4977,7 +4979,7 @@ function wp_get_attachment_metadata( $post_id = 0, $unfiltered = false ) {
 		return $data;
 
 	/**
-	 * Filter the attachment meta data.
+	 * Filters the attachment meta data.
 	 *
 	 * @since 2.1.0
 	 *
@@ -5003,7 +5005,7 @@ function wp_update_attachment_metadata( $post_id, $data ) {
 		return false;
 
 	/**
-	 * Filter the updated attachment meta data.
+	 * Filters the updated attachment meta data.
 	 *
 	 * @since 2.1.0
 	 *
@@ -5067,7 +5069,7 @@ function wp_get_attachment_url( $post_id = 0 ) {
 	}
 
 	/**
-	 * Filter the attachment URL.
+	 * Filters the attachment URL.
 	 *
 	 * @since 2.1.0
 	 *
@@ -5101,7 +5103,7 @@ function wp_get_attachment_thumb_file( $post_id = 0 ) {
 
 	if ( !empty($imagedata['thumb']) && ($thumbfile = str_replace(basename($file), $imagedata['thumb'], $file)) && file_exists($thumbfile) ) {
 		/**
-		 * Filter the attachment thumbnail file path.
+		 * Filters the attachment thumbnail file path.
 		 *
 		 * @since 2.1.0
 		 *
@@ -5138,7 +5140,7 @@ function wp_get_attachment_thumb_url( $post_id = 0 ) {
 	$url = str_replace(basename($url), basename($thumb), $url);
 
 	/**
-	 * Filter the attachment thumbnail URL.
+	 * Filters the attachment thumbnail URL.
 	 *
 	 * @since 2.1.0
 	 *
@@ -5249,7 +5251,7 @@ function wp_mime_type_icon( $mime = 0 ) {
 
 		if ( !is_array($icon_files) ) {
 			/**
-			 * Filter the icon directory path.
+			 * Filters the icon directory path.
 			 *
 			 * @since 2.0.0
 			 *
@@ -5258,7 +5260,7 @@ function wp_mime_type_icon( $mime = 0 ) {
 			$icon_dir = apply_filters( 'icon_dir', ABSPATH . WPINC . '/images/media' );
 
 			/**
-			 * Filter the icon directory URI.
+			 * Filters the icon directory URI.
 			 *
 			 * @since 2.0.0
 			 *
@@ -5267,7 +5269,7 @@ function wp_mime_type_icon( $mime = 0 ) {
 			$icon_dir_uri = apply_filters( 'icon_dir_uri', includes_url( 'images/media' ) );
 
 			/**
-			 * Filter the list of icon directory URIs.
+			 * Filters the list of icon directory URIs.
 			 *
 			 * @since 2.5.0
 			 *
@@ -5327,7 +5329,7 @@ function wp_mime_type_icon( $mime = 0 ) {
 	}
 
 	/**
-	 * Filter the mime type icon.
+	 * Filters the mime type icon.
 	 *
 	 * @since 2.1.0
 	 *
@@ -5407,7 +5409,7 @@ function get_private_posts_cap_sql( $post_type ) {
  * @since 4.3.0 Introduced the ability to pass an array of post types to `$post_type`.
  *
  * @see get_private_posts_cap_sql()
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param array|string   $post_type   Single post type or an array of post types.
  * @param bool           $full        Optional. Returns a full WHERE statement instead of just
@@ -5434,7 +5436,7 @@ function get_posts_by_author_sql( $post_type, $full = true, $post_author = null,
 		}
 
 		/**
-		 * Filter the capability to read private posts for a custom post type
+		 * Filters the capability to read private posts for a custom post type
 		 * when generating SQL for getting posts by author.
 		 *
 		 * @since 2.2.0
@@ -5503,7 +5505,7 @@ function get_posts_by_author_sql( $post_type, $full = true, $post_author = null,
  */
 function get_lastpostdate( $timezone = 'server', $post_type = 'any' ) {
 	/**
-	 * Filter the date the last post was published.
+	 * Filters the date the last post was published.
 	 *
 	 * @since 2.3.0
 	 *
@@ -5555,7 +5557,7 @@ function get_lastpostmodified( $timezone = 'server', $post_type = 'any' ) {
 	}
 
 	/**
-	 * Filter the date the last post was modified.
+	 * Filters the date the last post was modified.
 	 *
 	 * @since 2.3.0
 	 *
@@ -5573,7 +5575,7 @@ function get_lastpostmodified( $timezone = 'server', $post_type = 'any' ) {
  * @since 4.4.0 The `$post_type` argument was added.
  * @access private
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param string $timezone  The timezone for the timestamp. See get_lastpostdate().
  *                          for information on accepted values.
@@ -5813,7 +5815,7 @@ function clean_attachment_cache( $id, $clean_terms = false ) {
  * @access private
  *
  * @see wp_clear_scheduled_hook()
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param string  $new_status New post status.
  * @param string  $old_status Previous post status.
@@ -5926,7 +5928,7 @@ function wp_get_post_parent_id( $post_ID ) {
  * Check the given subset of the post hierarchy for hierarchy loops.
  *
  * Prevents loops from forming and breaks those that it finds. Attached
- * to the 'wp_insert_post_parent' filter.
+ * to the {@see 'wp_insert_post_parent'} filter.
  *
  * @since 3.1.0
  *
@@ -6005,7 +6007,7 @@ function delete_post_thumbnail( $post ) {
  *
  * @since 3.4.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function wp_delete_auto_drafts() {
 	global $wpdb;
@@ -6084,7 +6086,7 @@ function _update_term_count_on_transition_post_status( $new_status, $old_status,
  *
  * @see update_post_caches()
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param array $ids               ID list.
  * @param bool  $update_term_cache Optional. Whether to update the term cache. Default true.

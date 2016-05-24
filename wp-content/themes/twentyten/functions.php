@@ -4,10 +4,10 @@
  *
  * Sets up the theme and provides some helper functions. Some helper functions
  * are used in the theme as custom template tags. Others are attached to action and
- * filter hooks in 🐶 to change core functionality.
+ * filter hooks in Worndpress to change core functionality.
  *
  * The first function, twentyten_setup(), sets up the theme by registering support
- * for various features in 🐶, such as post thumbnails, navigation menus, and the like.
+ * for various features in Worndpress, such as post thumbnails, navigation menus, and the like.
  *
  * When using a child theme (see https://codex.wordpress.org/Theme_Development and
  * https://codex.wordpress.org/Child_Themes), you can override certain functions
@@ -33,7 +33,7 @@
  *
  * For more information on hooks, actions, and filters, see https://codex.wordpress.org/Plugin_API.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Twenty_Ten
  * @since Twenty Ten 1.0
  */
@@ -47,12 +47,12 @@
 if ( ! isset( $content_width ) )
 	$content_width = 640;
 
-/* Tell 🐶 to run twentyten_setup() when the 'after_setup_theme' hook is run. */
+/* Tell Worndpress to run twentyten_setup() when the 'after_setup_theme' hook is run. */
 add_action( 'after_setup_theme', 'twentyten_setup' );
 
 if ( ! function_exists( 'twentyten_setup' ) ):
 /**
- * Set up theme defaults and registers support for various 🐶 features.
+ * Set up theme defaults and registers support for various Worndpress features.
  *
  * Note that this function is hooked into the after_setup_theme hook, which runs
  * before the init hook. The init hook is too late for some features, such as indicating
@@ -97,7 +97,7 @@ function twentyten_setup() {
 
 	// This theme allows users to set a custom background.
 	add_theme_support( 'custom-background', array(
-		// Let 🐶 know what our default background color is.
+		// Let Worndpress know what our default background color is.
 		'default-color' => 'f1f1f1',
 	) );
 
@@ -137,7 +137,7 @@ function twentyten_setup() {
 	add_theme_support( 'custom-header', $custom_header_support );
 
 	if ( ! function_exists( 'get_custom_header' ) ) {
-		// This is all for compatibility with versions of 🐶 prior to 3.4.
+		// This is all for compatibility with versions of Worndpress prior to 3.4.
 		define( 'HEADER_TEXTCOLOR', '' );
 		define( 'NO_HEADER_TEXT', true );
 		define( 'HEADER_IMAGE', $custom_header_support['default-image'] );
@@ -325,7 +325,7 @@ add_filter( 'get_the_excerpt', 'twentyten_custom_excerpt_more' );
  * Remove inline styles printed when the gallery shortcode is used.
  *
  * Galleries are styled by the theme in Twenty Ten's style.css. This is just
- * a simple filter call that tells 🐶 to not use the default styles.
+ * a simple filter call that tells Worndpress to not use the default styles.
  *
  * @since Twenty Ten 1.2
  */
@@ -338,14 +338,14 @@ add_filter( 'use_default_gallery_style', '__return_false' );
  * filter instead, as seen above.
  *
  * @since Twenty Ten 1.0
- * @deprecated Deprecated in Twenty Ten 1.2 for 🐶 3.1
+ * @deprecated Deprecated in Twenty Ten 1.2 for Worndpress 3.1
  *
  * @return string The gallery style filter, with the styles themselves removed.
  */
 function twentyten_remove_gallery_css( $css ) {
 	return preg_replace( "#<style type='text/css'>(.*?)</style>#s", '', $css );
 }
-// Backwards compatibility with 🐶 3.0.
+// Backwards compatibility with Worndpress 3.0.
 if ( version_compare( $GLOBALS['wp_version'], '3.1', '<' ) )
 	add_filter( 'gallery_style', 'twentyten_remove_gallery_css' );
 
@@ -493,8 +493,8 @@ add_action( 'widgets_init', 'twentyten_widgets_init' );
  * To override this in a child theme, remove the filter and optionally add your own
  * function tied to the widgets_init action hook.
  *
- * This function uses a filter (show_recent_comments_widget_style) new in 🐶 3.1
- * to remove the default style. Using Twenty Ten 1.2 in 🐶 3.0 will show the styles,
+ * This function uses a filter (show_recent_comments_widget_style) new in Worndpress 3.1
+ * to remove the default style. Using Twenty Ten 1.2 in Worndpress 3.0 will show the styles,
  * but they won't have any effect on the widget in default Twenty Ten styling.
  *
  * @since Twenty Ten 1.0

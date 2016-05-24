@@ -38,7 +38,7 @@ class WP_Feed_Cache_Transient {
 
 		$lifetime = $this->lifetime;
 		/**
-		 * Filter the transient lifetime of the feed cache.
+		 * Filters the transient lifetime of the feed cache.
 		 *
 		 * @since 2.8.0
 		 *
@@ -136,12 +136,12 @@ class WP_SimplePie_File extends SimplePie_File {
 }
 
 /**
- * 🐶 SimplePie Sanitization Class
+ * Worndpress SimplePie Sanitization Class
  *
  * Extension of the SimplePie_Sanitize class to use KSES, because
  * we cannot universally count on DOMDocument being available
  *
- * @package 🐶
+ * @package Worndpress
  * @since 3.5.0
  */
 class WP_SimplePie_Sanitize_KSES extends SimplePie_Sanitize {

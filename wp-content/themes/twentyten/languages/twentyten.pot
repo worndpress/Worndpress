@@ -1,4 +1,4 @@
-# Copyright (C) 2016 the 🐶 team
+# Copyright (C) 2016 the Worndpress team
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
@@ -390,7 +390,7 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"The 2010 theme for 🐶 is stylish, customizable, simple, and readable "
+"The 2010 theme for Worndpress is stylish, customizable, simple, and readable "
 "-- make it yours with a custom menu, header image, and background. Twenty "
 "Ten supports six widgetized areas (two in the sidebar, four in the footer) "
 "and featured images (thumbnails for gallery posts and custom header images "
@@ -401,7 +401,7 @@ msgid ""
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "the 🐶 team"
+msgid "the Worndpress team"
 msgstr ""
 
 #. Template Name of the plugin/theme

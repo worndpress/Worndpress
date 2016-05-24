@@ -2,7 +2,7 @@
 /**
  * oEmbed API: Top-level oEmbed functionality
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage oEmbed
  * @since 4.4.0
  */
@@ -50,7 +50,7 @@ function wp_embed_unregister_handler( $id, $priority = 10 ) {
  *
  * The default height is 1.5 times the width, or 1000px, whichever is smaller.
  *
- * The 'embed_defaults' filter can be used to adjust either of these values.
+ * The {@see 'embed_defaults'} filter can be used to adjust either of these values.
  *
  * @since 2.9.0
  *
@@ -70,7 +70,7 @@ function wp_embed_defaults( $url = '' ) {
 	$height = min( ceil( $width * 1.5 ), 1000 );
 
 	/**
-	 * Filter the default array of embed dimensions.
+	 * Filters the default array of embed dimensions.
 	 *
 	 * @since 2.9.0
 	 *
@@ -161,7 +161,7 @@ function wp_oembed_remove_provider( $format ) {
  */
 function wp_maybe_load_embeds() {
 	/**
-	 * Filter whether to load the default embed handlers.
+	 * Filters whether to load the default embed handlers.
 	 *
 	 * Returning a falsey value will prevent loading the default embed handlers.
 	 *
@@ -178,7 +178,7 @@ function wp_maybe_load_embeds() {
 	wp_embed_register_handler( 'googlevideo', '#http://video\.google\.([A-Za-z.]{2,5})/videoplay\?docid=([\d-]+)(.*?)#i', 'wp_embed_handler_googlevideo' );
 
 	/**
-	 * Filter the audio embed handler callback.
+	 * Filters the audio embed handler callback.
 	 *
 	 * @since 3.6.0
 	 *
@@ -187,7 +187,7 @@ function wp_maybe_load_embeds() {
 	wp_embed_register_handler( 'audio', '#^https?://.+?\.(' . join( '|', wp_get_audio_extensions() ) . ')$#i', apply_filters( 'wp_audio_embed_handler', 'wp_embed_handler_audio' ), 9999 );
 
 	/**
-	 * Filter the video embed handler callback.
+	 * Filters the video embed handler callback.
 	 *
 	 * @since 3.6.0
 	 *
@@ -220,7 +220,7 @@ function wp_embed_handler_googlevideo( $matches, $attr, $url, $rawattr ) {
 	}
 
 	/**
-	 * Filter the Google Video embed output.
+	 * Filters the Google Video embed output.
 	 *
 	 * @since 2.9.0
 	 *
@@ -254,7 +254,7 @@ function wp_embed_handler_youtube( $matches, $attr, $url, $rawattr ) {
 	$embed = $wp_embed->autoembed( "https://youtube.com/watch?v={$matches[2]}" );
 
 	/**
-	 * Filter the YoutTube embed output.
+	 * Filters the YoutTube embed output.
 	 *
 	 * @since 4.0.0
 	 *
@@ -283,7 +283,7 @@ function wp_embed_handler_audio( $matches, $attr, $url, $rawattr ) {
 	$audio = sprintf( '[audio src="%s" /]', esc_url( $url ) );
 
 	/**
-	 * Filter the audio embed output.
+	 * Filters the audio embed output.
 	 *
 	 * @since 3.6.0
 	 *
@@ -315,7 +315,7 @@ function wp_embed_handler_video( $matches, $attr, $url, $rawattr ) {
 	$video = sprintf( '[video %s src="%s" /]', $dimensions, esc_url( $url ) );
 
 	/**
-	 * Filter the video embed output.
+	 * Filters the video embed output.
 	 *
 	 * @since 3.6.0
 	 *
@@ -354,7 +354,7 @@ function wp_oembed_add_discovery_links() {
 	}
 
 	/**
-	 * Filter the oEmbed discovery links HTML.
+	 * Filters the oEmbed discovery links HTML.
 	 *
 	 * @since 4.4.0
 	 *
@@ -395,7 +395,7 @@ function get_post_embed_url( $post = null ) {
 	}
 
 	/**
-	 * Filter the URL to embed a specific post.
+	 * Filters the URL to embed a specific post.
 	 *
 	 * @since 4.4.0
 	 *
@@ -431,7 +431,7 @@ function get_oembed_endpoint_url( $permalink = '', $format = 'json' ) {
 	}
 
 	/**
-	 * Filter the oEmbed endpoint URL.
+	 * Filters the oEmbed endpoint URL.
 	 *
 	 * @since 4.4.0
 	 *
@@ -501,7 +501,7 @@ JS;
 	);
 
 	/**
-	 * Filter the embed HTML output for a given post.
+	 * Filters the embed HTML output for a given post.
 	 *
 	 * @since 4.4.0
 	 *
@@ -523,7 +523,8 @@ JS;
  * @return array|false Response data on success, false if post doesn't exist.
  */
 function get_oembed_response_data( $post, $width ) {
-	$post = get_post( $post );
+	$post  = get_post( $post );
+	$width = absint( $width );
 
 	if ( ! $post ) {
 		return false;
@@ -534,7 +535,7 @@ function get_oembed_response_data( $post, $width ) {
 	}
 
 	/**
-	 * Filter the allowed minimum and maximum widths for the oEmbed response.
+	 * Filters the allowed minimum and maximum widths for the oEmbed response.
 	 *
 	 * @since 4.4.0
 	 *
@@ -571,7 +572,7 @@ function get_oembed_response_data( $post, $width ) {
 	}
 
 	/**
-	 * Filter the oEmbed response data.
+	 * Filters the oEmbed response data.
 	 *
 	 * @since 4.4.0
 	 *
@@ -839,7 +840,7 @@ function the_excerpt_embed() {
 	$output = get_the_excerpt();
 
 	/**
-	 * Filter the post excerpt for the embed template.
+	 * Filters the post excerpt for the embed template.
 	 *
 	 * @since 4.4.0
 	 *
@@ -1023,7 +1024,7 @@ function print_embed_sharing_dialog() {
 			<div class="wp-embed-share-dialog-text">
 				<ul class="wp-embed-share-tabs" role="tablist">
 					<li class="wp-embed-share-tab-button wp-embed-share-tab-button-wordpress" role="presentation">
-						<button type="button" role="tab" aria-controls="wp-embed-share-tab-wordpress" aria-selected="true" tabindex="0"><?php esc_html_e( '🐶 Embed' ); ?></button>
+						<button type="button" role="tab" aria-controls="wp-embed-share-tab-wordpress" aria-selected="true" tabindex="0"><?php esc_html_e( 'Worndpress Embed' ); ?></button>
 					</li>
 					<li class="wp-embed-share-tab-button wp-embed-share-tab-button-html" role="presentation">
 						<button type="button" role="tab" aria-controls="wp-embed-share-tab-html" aria-selected="false" tabindex="-1"><?php esc_html_e( 'HTML Embed' ); ?></button>
@@ -1033,7 +1034,7 @@ function print_embed_sharing_dialog() {
 					<input type="text" value="<?php the_permalink(); ?>" class="wp-embed-share-input" aria-describedby="wp-embed-share-description-wordpress" tabindex="0" readonly/>
 
 					<p class="wp-embed-share-description" id="wp-embed-share-description-wordpress">
-						<?php _e( 'Copy and paste this URL into your 🐶 site to embed' ); ?>
+						<?php _e( 'Copy and paste this URL into your Worndpress site to embed' ); ?>
 					</p>
 				</div>
 				<div id="wp-embed-share-tab-html" class="wp-embed-share-tab" role="tabpanel" aria-hidden="true">
@@ -1070,7 +1071,7 @@ function the_embed_site_title() {
 	$site_title = '<div class="wp-embed-site-title">' . $site_title . '</div>';
 
 	/**
-	 * Filter the site title HTML in the embed footer.
+	 * Filters the site title HTML in the embed footer.
 	 *
 	 * @since 4.4.0
 	 *

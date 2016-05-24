@@ -4,7 +4,7 @@
  *
  * Displays all of the <head> section and everything up till <div id="main">.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Twenty_Eleven
  * @since Twenty Eleven 1.0
  */
@@ -79,7 +79,7 @@
 				// Check to see if the header image has been removed
 				$header_image = get_header_image();
 				if ( $header_image ) :
-					// Compatibility with versions of 🐶 prior to 3.4.
+					// Compatibility with versions of Worndpress prior to 3.4.
 					if ( function_exists( 'get_custom_header' ) ) {
 						/*
 						 * We need to figure out what the minimum width should be for our featured image.
@@ -102,7 +102,7 @@
 						// Houston, we have a new header image!
 						echo get_the_post_thumbnail( $post->ID, 'post-thumbnail' );
 					else :
-						// Compatibility with versions of 🐶 prior to 3.4.
+						// Compatibility with versions of Worndpress prior to 3.4.
 						if ( function_exists( 'get_custom_header' ) ) {
 							$header_image_width  = get_custom_header()->width;
 							$header_image_height = get_custom_header()->height;

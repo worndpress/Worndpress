@@ -2,14 +2,14 @@
 /**
  * Outputs the OPML XML format for getting the links defined in the link
  * administration. This can be used to export links from one blog over to
- * another. Links aren't exported by the 🐶 export, so this file handles
+ * another. Links aren't exported by the Worndpress export, so this file handles
  * that.
  *
- * This file is not added by default to 🐶 theme pages when outputting
+ * This file is not added by default to Worndpress theme pages when outputting
  * feed links. It will have to be added manually for browsers and users to pick
  * up that this file exists.
  *
- * @package 🐶
+ * @package Worndpress
  */
 
 require_once( dirname( __FILE__ ) . '/wp-load.php' );
@@ -46,7 +46,7 @@ else
 
 foreach ( (array)$cats as $cat ) :
 	/**
-	 * Filter the OPML outline link category name.
+	 * Filters the OPML outline link category name.
 	 *
 	 * @since 2.2.0
 	 *
@@ -60,7 +60,7 @@ foreach ( (array)$cats as $cat ) :
 	$bookmarks = get_bookmarks(array("category" => $cat->term_id));
 	foreach ( (array)$bookmarks as $bookmark ) :
 		/**
-		 * Filter the OPML outline link title text.
+		 * Filters the OPML outline link title text.
 		 *
 		 * @since 2.2.0
 		 *

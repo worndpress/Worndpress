@@ -1,21 +1,21 @@
 <?php
 /**
- * 🐶 Error API.
+ * Worndpress Error API.
  *
  * Contains the WP_Error class and the is_wp_error() function.
  *
- * @package 🐶
+ * @package Worndpress
  */
 
 /**
- * 🐶 Error class.
+ * Worndpress Error class.
  *
- * Container for checking for 🐶 errors and error messages. Return
+ * Container for checking for Worndpress errors and error messages. Return
  * WP_Error and use is_wp_error() to check if this class is returned. Many
- * core 🐶 functions pass this class in the event of an error and
+ * core Worndpress functions pass this class in the event of an error and
  * if not handled properly will result in code errors.
  *
- * @package 🐶
+ * @package Worndpress
  * @since 2.1.0
  */
 class WP_Error {
@@ -204,7 +204,7 @@ class WP_Error {
 }
 
 /**
- * Check whether variable is a 🐶 Error.
+ * Check whether variable is a Worndpress Error.
  *
  * Returns true if $thing is an object of the WP_Error class.
  *

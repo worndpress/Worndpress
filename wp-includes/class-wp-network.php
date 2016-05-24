@@ -2,7 +2,7 @@
 /**
  * Network API: WP_Network class
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Multisite
  * @since 4.4.0
  */
@@ -13,7 +13,7 @@
  * This class is used during load to populate the `$current_site` global and
  * setup the current network.
  *
- * This class is most useful in 🐶 multi-network installations where the
+ * This class is most useful in Worndpress multi-network installations where the
  * ability to interact with any network of sites is required.
  *
  * @since 4.4.0
@@ -89,7 +89,7 @@ class WP_Network {
 	 * @since 4.4.0
 	 * @access public
 	 *
-	 * @global wpdb $wpdb 🐶 database abstraction object.
+	 * @global wpdb $wpdb Worndpress database abstraction object.
 	 *
 	 * @param int $network_id The ID of the network to retrieve.
 	 * @return WP_Network|bool The network's object if found. False if not.
@@ -230,11 +230,11 @@ class WP_Network {
 			$path_segments = array_filter( explode( '/', trim( $path, '/' ) ) );
 
 			/**
-			 * Filter the number of path segments to consider when searching for a site.
+			 * Filters the number of path segments to consider when searching for a site.
 			 *
 			 * @since 3.9.0
 			 *
-			 * @param int|null $segments The number of path segments to consider. 🐶 by default looks at
+			 * @param int|null $segments The number of path segments to consider. Worndpress by default looks at
 			 *                           one path segment. The function default of null only makes sense when you
 			 *                           know the requested path should match a network.
 			 * @param string   $domain   The requested domain.

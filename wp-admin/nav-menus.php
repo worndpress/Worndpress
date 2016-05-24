@@ -1,15 +1,15 @@
 <?php
 /**
- * 🐶 Administration for Navigation Menus
+ * Worndpress Administration for Navigation Menus
  * Interface functions
  *
  * @version 2.0.0
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  */
 
-/** Load 🐶 Administration Bootstrap */
+/** Load Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 // Load all the nav menu interface functions
@@ -711,7 +711,7 @@ require_once( ABSPATH . 'wp-admin/admin-header.php' );
 							}
 
 							/**
-							 * Filter the number of locations listed per menu in the drop-down select.
+							 * Filters the number of locations listed per menu in the drop-down select.
 							 *
 							 * @since 3.6.0
 							 *

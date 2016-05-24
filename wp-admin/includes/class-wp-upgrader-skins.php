@@ -1,8 +1,8 @@
 <?php
 /**
- * The User Interface "Skins" for the 🐶 File Upgrader
+ * The User Interface "Skins" for the Worndpress File Upgrader
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Upgrader
  * @since 2.8.0
  */

@@ -2,7 +2,7 @@
 /**
  * The template for displaying a "No posts found" message
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Twenty_Fourteen
  * @since Twenty Fourteen 1.0
  */

@@ -1,10 +1,10 @@
 /**
- * 🐶 Administration Navigation Menu
+ * Worndpress Administration Navigation Menu
  * Interface JS functions
  *
  * @version 2.0.0
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  */
 

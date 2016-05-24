@@ -1,8 +1,8 @@
 <?php
 /**
- * 🐶 Theme Install Administration API
+ * Worndpress Theme Install Administration API
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  */
 
@@ -20,7 +20,7 @@ $theme_field_defaults = array( 'description' => true, 'sections' => false, 'test
 );
 
 /**
- * Retrieve list of 🐶 theme features (aka theme tags)
+ * Retrieve list of Worndpress theme features (aka theme tags)
  *
  * @since 2.8.0
  *

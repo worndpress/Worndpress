@@ -2,7 +2,7 @@
 /**
  * Option API
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Option
  */
 
@@ -16,12 +16,12 @@
  *
  * If the option was serialized then it will be unserialized when it is returned.
  *
- * Any scalar values will be returned as strings. You may coerce the return type of a given option by registering a
- * 'option_{$option}' filter callback.
+ * Any scalar values will be returned as strings. You may coerce the return type of
+ * a given option by registering an {@see 'option_$option'} filter callback.
  *
  * @since 1.5.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param string $option  Name of option to retrieve. Expected to not be SQL-escaped.
  * @param mixed  $default Optional. Default value to return if the option does not exist.
@@ -35,7 +35,7 @@ function get_option( $option, $default = false ) {
 		return false;
 
 	/**
-	 * Filter the value of an existing option before it is retrieved.
+	 * Filters the value of an existing option before it is retrieved.
 	 *
 	 * The dynamic portion of the hook name, `$option`, refers to the option name.
 	 *
@@ -61,7 +61,7 @@ function get_option( $option, $default = false ) {
 		$notoptions = wp_cache_get( 'notoptions', 'options' );
 		if ( isset( $notoptions[ $option ] ) ) {
 			/**
-			 * Filter the default value for an option.
+			 * Filters the default value for an option.
 			 *
 			 * The dynamic portion of the hook name, `$option`, refers to the option name.
 			 *
@@ -121,7 +121,7 @@ function get_option( $option, $default = false ) {
 		$value = untrailingslashit( $value );
 
 	/**
-	 * Filter the value of an existing option.
+	 * Filters the value of an existing option.
 	 *
 	 * The dynamic portion of the hook name, `$option`, refers to the option name.
 	 *
@@ -137,7 +137,7 @@ function get_option( $option, $default = false ) {
 }
 
 /**
- * Protect 🐶 special option from being modified.
+ * Protect Worndpress special option from being modified.
  *
  * Will die if $option is in protected list. Protected options are 'alloptions'
  * and 'notoptions' options.
@@ -167,7 +167,7 @@ function form_option( $option ) {
  *
  * @since 2.2.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @return array List of all options.
  */
@@ -200,7 +200,7 @@ function wp_load_alloptions() {
  *
  * @since 3.0.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param int $site_id Optional site ID for which to query the options. Defaults to the current site.
  */
@@ -240,11 +240,11 @@ function wp_load_core_site_options( $site_id = null ) {
  * @since 1.0.0
  * @since 4.2.0 The `$autoload` parameter was added.
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param string      $option   Option name. Expected to not be SQL-escaped.
  * @param mixed       $value    Option value. Must be serializable if non-scalar. Expected to not be SQL-escaped.
- * @param string|bool $autoload Optional. Whether to load the option when 🐶 starts up. For existing options,
+ * @param string|bool $autoload Optional. Whether to load the option when Worndpress starts up. For existing options,
  *                              `$autoload` can only be updated using `update_option()` if `$value` is also changed.
  *                              Accepts 'yes'|true to enable or 'no'|false to disable. For non-existent options,
  *                              the default value is 'yes'. Default null.
@@ -266,7 +266,7 @@ function update_option( $option, $value, $autoload = null ) {
 	$old_value = get_option( $option );
 
 	/**
-	 * Filter a specific option before its value is (maybe) serialized and updated.
+	 * Filters a specific option before its value is (maybe) serialized and updated.
 	 *
 	 * The dynamic portion of the hook name, `$option`, refers to the option name.
 	 *
@@ -280,7 +280,7 @@ function update_option( $option, $value, $autoload = null ) {
 	$value = apply_filters( 'pre_update_option_' . $option, $value, $old_value, $option );
 
 	/**
-	 * Filter an option before its value is (maybe) serialized and updated.
+	 * Filters an option before its value is (maybe) serialized and updated.
 	 *
 	 * @since 3.9.0
 	 *
@@ -381,17 +381,17 @@ function update_option( $option, $value, $autoload = null ) {
  *
  * You can create options without values and then update the values later.
  * Existing options will not be updated and checks are performed to ensure that you
- * aren't adding a protected 🐶 option. Care should be taken to not name
+ * aren't adding a protected Worndpress option. Care should be taken to not name
  * options the same as the ones which are protected.
  *
  * @since 1.0.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param string         $option      Name of option to add. Expected to not be SQL-escaped.
  * @param mixed          $value       Optional. Option value. Must be serializable if non-scalar. Expected to not be SQL-escaped.
  * @param string         $deprecated  Optional. Description. Not used anymore.
- * @param string|bool    $autoload    Optional. Whether to load the option when 🐶 starts up.
+ * @param string|bool    $autoload    Optional. Whether to load the option when Worndpress starts up.
  *                                    Default is enabled. Accepts 'no' to disable for legacy reasons.
  * @return bool False if option was not added and true if option was added.
  */
@@ -479,11 +479,11 @@ function add_option( $option, $value = '', $deprecated = '', $autoload = 'yes' )
 }
 
 /**
- * Removes option by name. Prevents removal of protected 🐶 options.
+ * Removes option by name. Prevents removal of protected Worndpress options.
  *
  * @since 1.2.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param string $option Name of option to remove. Expected to not be SQL-escaped.
  * @return bool True, if option is successfully deleted. False on failure.
@@ -609,7 +609,7 @@ function delete_transient( $transient ) {
 function get_transient( $transient ) {
 
 	/**
-	 * Filter the value of an existing transient.
+	 * Filters the value of an existing transient.
 	 *
 	 * The dynamic portion of the hook name, `$transient`, refers to the transient name.
 	 *
@@ -651,7 +651,7 @@ function get_transient( $transient ) {
 	}
 
 	/**
-	 * Filter an existing transient's value.
+	 * Filters an existing transient's value.
 	 *
 	 * The dynamic portion of the hook name, `$transient`, refers to the transient name.
 	 *
@@ -684,7 +684,7 @@ function set_transient( $transient, $value, $expiration = 0 ) {
 	$expiration = (int) $expiration;
 
 	/**
-	 * Filter a specific transient before its value is set.
+	 * Filters a specific transient before its value is set.
 	 *
 	 * The dynamic portion of the hook name, `$transient`, refers to the transient name.
 	 *
@@ -699,7 +699,7 @@ function set_transient( $transient, $value, $expiration = 0 ) {
 	$value = apply_filters( 'pre_set_transient_' . $transient, $value, $expiration, $transient );
 
 	/**
-	 * Filter the expiration for a transient before its value is set.
+	 * Filters the expiration for a transient before its value is set.
 	 *
 	 * The dynamic portion of the hook name, `$transient`, refers to the transient name.
 	 *
@@ -1092,7 +1092,7 @@ function get_network_option( $network_id, $option, $default = false ) {
 	}
 
 	/**
-	 * Filter an existing network option before it is retrieved.
+	 * Filters an existing network option before it is retrieved.
 	 *
 	 * The dynamic portion of the hook name, `$option`, refers to the option name.
 	 *
@@ -1119,7 +1119,7 @@ function get_network_option( $network_id, $option, $default = false ) {
 	if ( isset( $notoptions[ $option ] ) ) {
 
 		/**
-		 * Filter a specific default network option.
+		 * Filters a specific default network option.
 		 *
 		 * The dynamic portion of the hook name, `$option`, refers to the option name.
 		 *
@@ -1163,7 +1163,7 @@ function get_network_option( $network_id, $option, $default = false ) {
 	}
 
 	/**
-	 * Filter the value of an existing network option.
+	 * Filters the value of an existing network option.
 	 *
 	 * The dynamic portion of the hook name, `$option`, refers to the option name.
 	 *
@@ -1211,7 +1211,7 @@ function add_network_option( $network_id, $option, $value ) {
 	wp_protect_special_option( $option );
 
 	/**
-	 * Filter the value of a specific network option before it is added.
+	 * Filters the value of a specific network option before it is added.
 	 *
 	 * The dynamic portion of the hook name, `$option`, refers to the option name.
 	 *
@@ -1405,7 +1405,7 @@ function update_network_option( $network_id, $option, $value ) {
 	$old_value = get_network_option( $network_id, $option, false );
 
 	/**
-	 * Filter a specific network option before its value is updated.
+	 * Filters a specific network option before its value is updated.
 	 *
 	 * The dynamic portion of the hook name, `$option`, refers to the option name.
 	 *
@@ -1542,7 +1542,7 @@ function delete_site_transient( $transient ) {
 function get_site_transient( $transient ) {
 
 	/**
-	 * Filter the value of an existing site transient.
+	 * Filters the value of an existing site transient.
 	 *
 	 * The dynamic portion of the hook name, `$transient`, refers to the transient name.
 	 *
@@ -1583,7 +1583,7 @@ function get_site_transient( $transient ) {
 	}
 
 	/**
-	 * Filter the value of an existing site transient.
+	 * Filters the value of an existing site transient.
 	 *
 	 * The dynamic portion of the hook name, `$transient`, refers to the transient name.
 	 *
@@ -1615,7 +1615,7 @@ function get_site_transient( $transient ) {
 function set_site_transient( $transient, $value, $expiration = 0 ) {
 
 	/**
-	 * Filter the value of a specific site transient before it is set.
+	 * Filters the value of a specific site transient before it is set.
 	 *
 	 * The dynamic portion of the hook name, `$transient`, refers to the transient name.
 	 *
@@ -1630,7 +1630,7 @@ function set_site_transient( $transient, $value, $expiration = 0 ) {
 	$expiration = (int) $expiration;
 
 	/**
-	 * Filter the expiration for a site transient before its value is set.
+	 * Filters the expiration for a site transient before its value is set.
 	 *
 	 * The dynamic portion of the hook name, `$transient`, refers to the transient name.
 	 *

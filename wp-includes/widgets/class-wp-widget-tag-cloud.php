@@ -2,7 +2,7 @@
 /**
  * Widget API: WP_Widget_Tag_Cloud class
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Widgets
  * @since 4.4.0
  */
@@ -54,7 +54,7 @@ class WP_Widget_Tag_Cloud extends WP_Widget {
 		}
 
 		/**
-		 * Filter the taxonomy used in the Tag Cloud widget.
+		 * Filters the taxonomy used in the Tag Cloud widget.
 		 *
 		 * @since 2.8.0
 		 * @since 3.0.0 Added taxonomy drop-down.

@@ -2,7 +2,7 @@
 /**
  * Widget API: WP_Widget_Categories class
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Widgets
  * @since 4.4.0
  */
@@ -72,7 +72,7 @@ class WP_Widget_Categories extends WP_Widget {
 			$cat_args['id'] = $dropdown_id;
 
 			/**
-			 * Filter the arguments for the Categories widget drop-down.
+			 * Filters the arguments for the Categories widget drop-down.
 			 *
 			 * @since 2.8.0
 			 *
@@ -105,7 +105,7 @@ class WP_Widget_Categories extends WP_Widget {
 		$cat_args['title_li'] = '';
 
 		/**
-		 * Filter the arguments for the Categories widget.
+		 * Filters the arguments for the Categories widget.
 		 *
 		 * @since 2.8.0
 		 *

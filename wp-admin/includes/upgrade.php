@@ -1,10 +1,10 @@
 <?php
 /**
- * 🐶 Upgrade API
+ * Worndpress Upgrade API
  *
  * Most of the functions are pluggable and can be overwritten.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  */
 
@@ -12,10 +12,10 @@
 if ( file_exists(WP_CONTENT_DIR . '/install.php') )
 	require (WP_CONTENT_DIR . '/install.php');
 
-/** 🐶 Administration API */
+/** Worndpress Administration API */
 require_once(ABSPATH . 'wp-admin/includes/admin.php');
 
-/** 🐶 Schema API */
+/** Worndpress Schema API */
 require_once(ABSPATH . 'wp-admin/includes/schema.php');
 
 if ( !function_exists('wp_install') ) :
@@ -168,7 +168,7 @@ function wp_install_defaults( $user_id ) {
 		$first_post = str_replace( 'SITE_URL', esc_url( network_home_url() ), $first_post );
 		$first_post = str_replace( 'SITE_NAME', get_current_site()->site_name, $first_post );
 	} else {
-		$first_post = __( 'Welcome to 🐶. This is your first post. Edit or delete it, then start writing!' );
+		$first_post = __( 'Welcome to Worndpress. This is your first post. Edit or delete it, then start writing!' );
 	}
 
 	$wpdb->insert( $wpdb->posts, array(
@@ -191,7 +191,7 @@ function wp_install_defaults( $user_id ) {
 	$wpdb->insert( $wpdb->term_relationships, array('term_taxonomy_id' => $cat_tt_id, 'object_id' => 1) );
 
 	// Default comment
-	$first_comment_author = __('Mr 🐶');
+	$first_comment_author = __('Mr Worndpress');
 	$first_comment_url = 'https://wordpress.org/';
 	$first_comment = __('Hi, this is a comment.
 To delete a comment, just log in and view the post&#039;s comments. There you will have the option to edit or delete them.');
@@ -219,7 +219,7 @@ To delete a comment, just log in and view the post&#039;s comments. There you wi
 
 <blockquote>The XYZ Doohickey Company was founded in 1971, and has been providing quality doohickeys to the public ever since. Located in Gotham City, XYZ employs over 2,000 people and does all kinds of awesome things for the Gotham community.</blockquote>
 
-As a new 🐶 user, you should go to <a href=\"%s\">your dashboard</a> to delete this page and create new pages for your content. Have fun!" ), admin_url() );
+As a new Worndpress user, you should go to <a href=\"%s\">your dashboard</a> to delete this page and create new pages for your content. Have fun!" ), admin_url() );
 	if ( is_multisite() )
 		$first_page = get_site_option( 'first_page', $first_page );
 	$first_post_guid = get_option('home') . '/?page_id=2';
@@ -283,7 +283,7 @@ endif;
  *
  * @since 4.2.0
  *
- * @global WP_Rewrite $wp_rewrite 🐶 rewrite component.
+ * @global WP_Rewrite $wp_rewrite Worndpress rewrite component.
  *
  * @return bool Whether pretty permalinks are enabled. False otherwise.
  */
@@ -317,7 +317,7 @@ function wp_install_maybe_enable_pretty_permalinks() {
 	 	 */
 		$wp_rewrite->flush_rules( true );
 
-		// Test against a real 🐶 Post, or if none were created, a random 404 page.
+		// Test against a real Worndpress Post, or if none were created, a random 404 page.
 		$test_url = get_permalink( 1 );
 
 		if ( ! $test_url ) {
@@ -369,7 +369,7 @@ function wp_new_blog_notification($blog_title, $blog_url, $user_id, $password) {
 	$email = $user->user_email;
 	$name = $user->user_login;
 	$login_url = wp_login_url();
-	$message = sprintf( __( "Your new 🐶 site has been successfully set up at:
+	$message = sprintf( __( "Your new Worndpress site has been successfully set up at:
 
 %1\$s
 
@@ -381,17 +381,17 @@ Log in here: %4\$s
 
 We hope you enjoy your new site. Thanks!
 
---The 🐶 Team
+--The Worndpress Team
 https://wordpress.org/
 "), $blog_url, $name, $password, $login_url );
 
-	@wp_mail($email, __('New 🐶 Site'), $message);
+	@wp_mail($email, __('New Worndpress Site'), $message);
 }
 endif;
 
 if ( !function_exists('wp_upgrade') ) :
 /**
- * Runs 🐶 Upgrade functions.
+ * Runs Worndpress Upgrade functions.
  *
  * Upgrades the database if needed during a site update.
  *
@@ -399,7 +399,7 @@ if ( !function_exists('wp_upgrade') ) :
  *
  * @global int  $wp_current_db_version
  * @global int  $wp_db_version
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function wp_upgrade() {
 	global $wp_current_db_version, $wp_db_version, $wpdb;
@@ -561,12 +561,12 @@ function upgrade_all() {
 }
 
 /**
- * Execute changes made in 🐶 1.0.
+ * Execute changes made in Worndpress 1.0.
  *
  * @ignore
  * @since 1.0.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function upgrade_100() {
 	global $wpdb;
@@ -620,12 +620,12 @@ function upgrade_100() {
 }
 
 /**
- * Execute changes made in 🐶 1.0.1.
+ * Execute changes made in Worndpress 1.0.1.
  *
  * @ignore
  * @since 1.0.1
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function upgrade_101() {
 	global $wpdb;
@@ -641,12 +641,12 @@ function upgrade_101() {
 }
 
 /**
- * Execute changes made in 🐶 1.2.
+ * Execute changes made in Worndpress 1.2.
  *
  * @ignore
  * @since 1.2.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function upgrade_110() {
 	global $wpdb;
@@ -704,12 +704,12 @@ function upgrade_110() {
 }
 
 /**
- * Execute changes made in 🐶 1.5.
+ * Execute changes made in Worndpress 1.5.
  *
  * @ignore
  * @since 1.5.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function upgrade_130() {
 	global $wpdb;
@@ -791,12 +791,12 @@ function upgrade_130() {
 }
 
 /**
- * Execute changes made in 🐶 2.0.
+ * Execute changes made in Worndpress 2.0.
  *
  * @ignore
  * @since 2.0.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  * @global int  $wp_current_db_version
  */
 function upgrade_160() {
@@ -878,12 +878,12 @@ function upgrade_160() {
 }
 
 /**
- * Execute changes made in 🐶 2.1.
+ * Execute changes made in Worndpress 2.1.
  *
  * @ignore
  * @since 2.1.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  * @global int  $wp_current_db_version
  */
 function upgrade_210() {
@@ -926,12 +926,12 @@ function upgrade_210() {
 }
 
 /**
- * Execute changes made in 🐶 2.3.
+ * Execute changes made in Worndpress 2.3.
  *
  * @ignore
  * @since 2.3.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  * @global int  $wp_current_db_version
  */
 function upgrade_230() {
@@ -1111,7 +1111,7 @@ function upgrade_230() {
  * @ignore
  * @since 2.3.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function upgrade_230_options_table() {
 	global $wpdb;
@@ -1128,7 +1128,7 @@ function upgrade_230_options_table() {
  * @ignore
  * @since 2.3.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function upgrade_230_old_tables() {
 	global $wpdb;
@@ -1143,7 +1143,7 @@ function upgrade_230_old_tables() {
  * @ignore
  * @since 2.2.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function upgrade_old_slugs() {
 	// Upgrade people who were using the Redirect Old Slugs plugin.
@@ -1152,7 +1152,7 @@ function upgrade_old_slugs() {
 }
 
 /**
- * Execute changes made in 🐶 2.5.0.
+ * Execute changes made in Worndpress 2.5.0.
  *
  * @ignore
  * @since 2.5.0
@@ -1169,12 +1169,12 @@ function upgrade_250() {
 }
 
 /**
- * Execute changes made in 🐶 2.5.2.
+ * Execute changes made in Worndpress 2.5.2.
  *
  * @ignore
  * @since 2.5.2
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function upgrade_252() {
 	global $wpdb;
@@ -1183,7 +1183,7 @@ function upgrade_252() {
 }
 
 /**
- * Execute changes made in 🐶 2.6.
+ * Execute changes made in Worndpress 2.6.
  *
  * @ignore
  * @since 2.6.0
@@ -1198,12 +1198,12 @@ function upgrade_260() {
 }
 
 /**
- * Execute changes made in 🐶 2.7.
+ * Execute changes made in Worndpress 2.7.
  *
  * @ignore
  * @since 2.7.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  * @global int  $wp_current_db_version
  */
 function upgrade_270() {
@@ -1218,13 +1218,13 @@ function upgrade_270() {
 }
 
 /**
- * Execute changes made in 🐶 2.8.
+ * Execute changes made in Worndpress 2.8.
  *
  * @ignore
  * @since 2.8.0
  *
  * @global int  $wp_current_db_version
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function upgrade_280() {
 	global $wp_current_db_version, $wpdb;
@@ -1249,7 +1249,7 @@ function upgrade_280() {
 }
 
 /**
- * Execute changes made in 🐶 2.9.
+ * Execute changes made in Worndpress 2.9.
  *
  * @ignore
  * @since 2.9.0
@@ -1269,13 +1269,13 @@ function upgrade_290() {
 }
 
 /**
- * Execute changes made in 🐶 3.0.
+ * Execute changes made in Worndpress 3.0.
  *
  * @ignore
  * @since 3.0.0
  *
  * @global int  $wp_current_db_version
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function upgrade_300() {
 	global $wp_current_db_version, $wpdb;
@@ -1315,7 +1315,7 @@ function upgrade_300() {
 }
 
 /**
- * Execute changes made in 🐶 3.3.
+ * Execute changes made in Worndpress 3.3.
  *
  * @ignore
  * @since 3.3.0
@@ -1390,7 +1390,7 @@ function upgrade_330() {
 }
 
 /**
- * Execute changes made in 🐶 3.4.
+ * Execute changes made in Worndpress 3.4.
  *
  * @ignore
  * @since 3.4.0
@@ -1427,7 +1427,7 @@ function upgrade_340() {
 }
 
 /**
- * Execute changes made in 🐶 3.5.
+ * Execute changes made in Worndpress 3.5.
  *
  * @ignore
  * @since 3.5.0
@@ -1458,7 +1458,7 @@ function upgrade_350() {
 }
 
 /**
- * Execute changes made in 🐶 3.7.
+ * Execute changes made in Worndpress 3.7.
  *
  * @ignore
  * @since 3.7.0
@@ -1472,7 +1472,7 @@ function upgrade_370() {
 }
 
 /**
- * Execute changes made in 🐶 3.7.2.
+ * Execute changes made in Worndpress 3.7.2.
  *
  * @ignore
  * @since 3.7.2
@@ -1487,7 +1487,7 @@ function upgrade_372() {
 }
 
 /**
- * Execute changes made in 🐶 3.8.0.
+ * Execute changes made in Worndpress 3.8.0.
  *
  * @ignore
  * @since 3.8.0
@@ -1502,7 +1502,7 @@ function upgrade_380() {
 }
 
 /**
- * Execute changes made in 🐶 4.0.0.
+ * Execute changes made in Worndpress 4.0.0.
  *
  * @ignore
  * @since 4.0.0
@@ -1523,7 +1523,7 @@ function upgrade_400() {
 }
 
 /**
- * Execute changes made in 🐶 4.2.0.
+ * Execute changes made in Worndpress 4.2.0.
  *
  * @ignore
  * @since 4.2.0
@@ -1534,13 +1534,13 @@ function upgrade_400() {
 function upgrade_420() {}
 
 /**
- * Executes changes made in 🐶 4.3.0.
+ * Executes changes made in Worndpress 4.3.0.
  *
  * @ignore
  * @since 4.3.0
  *
  * @global int  $wp_current_db_version Current version.
- * @global wpdb $wpdb                  🐶 database abstraction object.
+ * @global wpdb $wpdb                  Worndpress database abstraction object.
  */
 function upgrade_430() {
 	global $wp_current_db_version, $wpdb;
@@ -1573,13 +1573,13 @@ function upgrade_430() {
 }
 
 /**
- * Executes comments changes made in 🐶 4.3.0.
+ * Executes comments changes made in Worndpress 4.3.0.
  *
  * @ignore
  * @since 4.3.0
  *
  * @global int  $wp_current_db_version Current version.
- * @global wpdb $wpdb                  🐶 database abstraction object.
+ * @global wpdb $wpdb                  Worndpress database abstraction object.
  */
 function upgrade_430_fix_comments() {
 	global $wp_current_db_version, $wpdb;
@@ -1623,7 +1623,7 @@ function upgrade_430_fix_comments() {
 }
 
 /**
- * Executes changes made in 🐶 4.3.1.
+ * Executes changes made in Worndpress 4.3.1.
  *
  * @ignore
  * @since 4.3.1
@@ -1638,13 +1638,13 @@ function upgrade_431() {
 }
 
 /**
- * Executes changes made in 🐶 4.4.0.
+ * Executes changes made in Worndpress 4.4.0.
  *
  * @ignore
  * @since 4.4.0
  *
  * @global int  $wp_current_db_version Current version.
- * @global wpdb $wpdb                  🐶 database abstraction object.
+ * @global wpdb $wpdb                  Worndpress database abstraction object.
  */
 function upgrade_440() {
 	global $wp_current_db_version, $wpdb;
@@ -1663,13 +1663,13 @@ function upgrade_440() {
 }
 
 /**
- * Executes changes made in 🐶 4.5.0.
+ * Executes changes made in Worndpress 4.5.0.
  *
  * @ignore
  * @since 4.5.0
  *
  * @global int  $wp_current_db_version Current database version.
- * @global wpdb $wpdb                  🐶 database abstraction object.
+ * @global wpdb $wpdb                  Worndpress database abstraction object.
  */
 function upgrade_450() {
 	global $wp_current_db_version, $wpdb;
@@ -2047,7 +2047,7 @@ function __get_option($setting) {
 }
 
 /**
- * Filters for content to remove unnecessary slashes.
+ * Filterss for content to remove unnecessary slashes.
  *
  * @since 1.5.0
  *
@@ -2104,7 +2104,7 @@ function dbDelta( $queries = '', $execute = true ) {
 	}
 
 	/**
-	 * Filter the dbDelta SQL queries.
+	 * Filters the dbDelta SQL queries.
 	 *
 	 * @since 3.3.0
 	 *
@@ -2133,7 +2133,7 @@ function dbDelta( $queries = '', $execute = true ) {
 	}
 
 	/**
-	 * Filter the dbDelta SQL queries for creating tables and/or databases.
+	 * Filters the dbDelta SQL queries for creating tables and/or databases.
 	 *
 	 * Queries filterable via this hook contain "CREATE TABLE" or "CREATE DATABASE".
 	 *
@@ -2144,7 +2144,7 @@ function dbDelta( $queries = '', $execute = true ) {
 	$cqueries = apply_filters( 'dbdelta_create_queries', $cqueries );
 
 	/**
-	 * Filter the dbDelta SQL queries for inserting or updating.
+	 * Filters the dbDelta SQL queries for inserting or updating.
 	 *
 	 * Queries filterable via this hook contain "INSERT INTO" or "UPDATE".
 	 *
@@ -2153,6 +2153,9 @@ function dbDelta( $queries = '', $execute = true ) {
 	 * @param array $iqueries An array of dbDelta insert or update SQL queries.
 	 */
 	$iqueries = apply_filters( 'dbdelta_insert_queries', $iqueries );
+
+	$text_fields = array( 'tinytext', 'text', 'mediumtext', 'longtext' );
+	$blob_fields = array( 'tinyblob', 'blob', 'mediumblob', 'longblob' );
 
 	$global_tables = $wpdb->tables( 'global' );
 	foreach ( $cqueries as $table => $qry ) {
@@ -2180,58 +2183,72 @@ function dbDelta( $queries = '', $execute = true ) {
 		// Separate field lines into an array.
 		$flds = explode("\n", $qryline);
 
-		// todo: Remove this?
-		//echo "<hr/><pre>\n".print_r(strtolower($table), true).":\n".print_r($cqueries, true)."</pre><hr/>";
-
 		// For every field line specified in the query.
 		foreach ($flds as $fld) {
 
 			// Extract the field name.
 			preg_match("|^([^ ]*)|", trim($fld), $fvals);
 			$fieldname = trim( $fvals[1], '`' );
+			$fieldname_lowercased = strtolower( $fieldname );
 
 			// Verify the found field name.
 			$validfield = true;
-			switch (strtolower($fieldname)) {
-			case '':
-			case 'primary':
-			case 'index':
-			case 'fulltext':
-			case 'unique':
-			case 'key':
-				$validfield = false;
-				$indices[] = trim(trim($fld), ", \n");
-				break;
+			switch ( $fieldname_lowercased ) {
+				case '':
+				case 'primary':
+				case 'index':
+				case 'fulltext':
+				case 'unique':
+				case 'key':
+					$validfield = false;
+					$indices[] = trim(trim($fld), ", \n");
+					break;
 			}
-			$fld = trim($fld);
+			$fld = trim( $fld );
 
 			// If it's a valid field, add it to the field array.
-			if ($validfield) {
-				$cfields[strtolower($fieldname)] = trim($fld, ", \n");
+			if ( $validfield ) {
+				$cfields[ $fieldname_lowercased ] = trim( $fld, ", \n" );
 			}
 		}
 
 		// For every field in the table.
-		foreach ($tablefields as $tablefield) {
+		foreach ( $tablefields as $tablefield ) {
+			$tablefield_field_lowercased = strtolower( $tablefield->Field );
+			$tablefield_type_lowercased = strtolower( $tablefield->Type );
 
 			// If the table field exists in the field array ...
-			if (array_key_exists(strtolower($tablefield->Field), $cfields)) {
+			if ( array_key_exists( $tablefield_field_lowercased, $cfields ) ) {
 
 				// Get the field type from the query.
-				preg_match("|".$tablefield->Field." ([^ ]*( unsigned)?)|i", $cfields[strtolower($tablefield->Field)], $matches);
+				preg_match( '|`?' . $tablefield->Field . '`? ([^ ]*( unsigned)?)|i', $cfields[ $tablefield_field_lowercased ], $matches );
 				$fieldtype = $matches[1];
+				$fieldtype_lowercased = strtolower( $fieldtype );
 
 				// Is actual field type different from the field type in query?
 				if ($tablefield->Type != $fieldtype) {
-					// Add a query to change the column type
-					$cqueries[] = "ALTER TABLE {$table} CHANGE COLUMN {$tablefield->Field} " . $cfields[strtolower($tablefield->Field)];
-					$for_update[$table.'.'.$tablefield->Field] = "Changed type of {$table}.{$tablefield->Field} from {$tablefield->Type} to {$fieldtype}";
+					$do_change = true;
+					if ( in_array( $fieldtype_lowercased, $text_fields ) && in_array( $tablefield_type_lowercased, $text_fields ) ) {
+						if ( array_search( $fieldtype_lowercased, $text_fields ) < array_search( $tablefield_type_lowercased, $text_fields ) ) {
+							$do_change = false;
+						}
+					}
+
+					if ( in_array( $fieldtype_lowercased, $blob_fields ) && in_array( $tablefield_type_lowercased, $blob_fields ) ) {
+						if ( array_search( $fieldtype_lowercased, $blob_fields ) < array_search( $tablefield_type_lowercased, $blob_fields ) ) {
+							$do_change = false;
+						}
+					}
+
+					if ( $do_change ) {
+						// Add a query to change the column type.
+						$cqueries[] = "ALTER TABLE {$table} CHANGE COLUMN {$tablefield->Field} " . $cfields[ $tablefield_field_lowercased ];
+						$for_update[$table.'.'.$tablefield->Field] = "Changed type of {$table}.{$tablefield->Field} from {$tablefield->Type} to {$fieldtype}";
+					}
 				}
 
-				// Get the default value from the array
-					// todo: Remove this?
-					//echo "{$cfields[strtolower($tablefield->Field)]}<br>";
-				if (preg_match("| DEFAULT '(.*?)'|i", $cfields[strtolower($tablefield->Field)], $matches)) {
+				// Get the default value from the array.
+				if ( preg_match( "| DEFAULT '(.*?)'|i", $cfields[ $tablefield_field_lowercased ], $matches ) ) {
 					$default_value = $matches[1];
 					if ($tablefield->Default != $default_value) {
 						// Add a query to change the column's default value
@@ -2241,7 +2258,7 @@ function dbDelta( $queries = '', $execute = true ) {
 				}
 
 				// Remove the field from the array (so it's not added).
-				unset($cfields[strtolower($tablefield->Field)]);
+				unset( $cfields[ $tablefield_field_lowercased ] );
 			} else {
 				// This field exists in the table, but not in the creation queries?
 			}
@@ -2314,12 +2331,8 @@ function dbDelta( $queries = '', $execute = true ) {
 					if ( ! ( ( $aindex = array_search( $index_string, $indices ) ) === false ) ) {
 						unset( $indices[ $aindex ] );
 						break;
-						// todo: Remove this?
-						//echo "<pre style=\"border:1px solid #ccc;margin-top:5px;\">{$table}:<br />Found index:".$index_string."</pre>\n";
 					}
 				}
-				// todo: Remove this?
-				//else echo "<pre style=\"border:1px solid #ccc;margin-top:5px;\">{$table}:<br /><b>Did not find index:</b>".$index_string."<br />".print_r($indices, true)."</pre>\n";
 			}
 		}
 
@@ -2337,8 +2350,6 @@ function dbDelta( $queries = '', $execute = true ) {
 	$allqueries = array_merge($cqueries, $iqueries);
 	if ($execute) {
 		foreach ($allqueries as $query) {
-			// todo: Remove this?
-			//echo "<pre style=\"border:1px solid #ccc;margin-top:5px;\">".print_r($query, true)."</pre>\n";
 			$wpdb->query($query);
 		}
 	}
@@ -2645,7 +2656,7 @@ function maybe_disable_automattic_widgets() {
  * @since 3.5.0
  *
  * @global int  $wp_current_db_version
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function maybe_disable_link_manager() {
 	global $wp_current_db_version, $wpdb;
@@ -2660,7 +2671,7 @@ function maybe_disable_link_manager() {
  * @since 2.9.0
  *
  * @global int  $wp_current_db_version
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function pre_schema_upgrade() {
 	global $wp_current_db_version, $wpdb;
@@ -2747,14 +2758,14 @@ endif;
  * Determine if global tables should be upgraded.
  *
  * This function performs a series of checks to ensure the environment allows
- * for the safe upgrading of global 🐶 database tables. It is necessary
+ * for the safe upgrading of global Worndpress database tables. It is necessary
  * because global tables will commonly grow to millions of rows on large
  * installations, and the ability to control their upgrade routines can be
  * critical to the operation of large networks.
  *
  * In a future iteration, this function may use `wp_is_large_network()` to more-
  * intelligently prevent global table upgrades. Until then, we make sure
- * 🐶 is on the main site of the main network, to avoid running queries
+ * Worndpress is on the main site of the main network, to avoid running queries
  * more than once in multi-site or multi-network environments.
  *
  * @since 4.3.0
@@ -2782,7 +2793,7 @@ function wp_should_upgrade_global_tables() {
 	}
 
 	/**
-	 * Filter if upgrade routines should be run on global tables.
+	 * Filters if upgrade routines should be run on global tables.
 	 *
 	 * @param bool $should_upgrade Whether to run the upgrade routines on global tables.
 	 */

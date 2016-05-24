@@ -11,11 +11,11 @@
  * that use the Settings API. In this case it saves the new option values
  * and returns the user to their page of origin.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  */
 
-/** 🐶 Administration Bootstrap */
+/** Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 $title = __('Settings');
@@ -32,7 +32,7 @@ if ( empty($option_page) ) {
 } else {
 
 	/**
-	 * Filter the capability required when using the Settings API.
+	 * Filters the capability required when using the Settings API.
 	 *
 	 * By default, the options groups for all registered settings require the manage_options capability.
 	 * This filter is required to change the capability required for a certain options page.
@@ -124,7 +124,7 @@ if ( !is_multisite() ) {
 	$whitelist_options['general'][] = 'new_admin_email';
 
 	/**
-	 * Filter whether the post-by-email functionality is enabled.
+	 * Filters whether the post-by-email functionality is enabled.
 	 *
 	 * @since 3.0.0
 	 *
@@ -135,7 +135,7 @@ if ( !is_multisite() ) {
 }
 
 /**
- * Filter the options white list.
+ * Filters the options white list.
  *
  * @since 2.7.0
  *

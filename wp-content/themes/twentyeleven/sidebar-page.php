@@ -4,7 +4,7 @@
  *
  * Description: A Page Template that adds a sidebar to pages.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Twenty_Eleven
  * @since Twenty Eleven 1.0
  */

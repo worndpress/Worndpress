@@ -1,8 +1,8 @@
 <?php
 /**
- * 🐶 Link Template Functions
+ * Worndpress Link Template Functions
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Template
  */
 
@@ -32,7 +32,7 @@ function the_permalink( $post = 0 ) {
  *
  * Conditionally adds a trailing slash if the permalink structure has a trailing
  * slash, strips the trailing slash if not. The string is passed through the
- * 'user_trailingslashit' filter. Will remove trailing slash from string, if
+ * {@see 'user_trailingslashit'} filter. Will remove trailing slash from string, if
  * site is not set to have them.
  *
  * @since 2.2.0
@@ -172,7 +172,7 @@ function get_permalink( $post = 0, $leavename = false ) {
 				usort($cats, '_usort_terms_by_ID'); // order by ID
 
 				/**
-				 * Filter the category that gets used in the %category% permalink token.
+				 * Filters the category that gets used in the %category% permalink token.
 				 *
 				 * @since 3.5.0
 				 *
@@ -316,7 +316,7 @@ function get_page_link( $post = false, $leavename = false, $sample = false ) {
 		$link = _get_page_link( $post, $leavename, $sample );
 
 	/**
-	 * Filter the permalink for a page.
+	 * Filters the permalink for a page.
 	 *
 	 * @since 1.5.0
 	 *
@@ -364,7 +364,7 @@ function _get_page_link( $post = false, $leavename = false, $sample = false ) {
 	}
 
 	/**
-	 * Filter the permalink for a non-page_on_front page.
+	 * Filters the permalink for a non-page_on_front page.
 	 *
 	 * @since 2.1.0
 	 *
@@ -377,7 +377,7 @@ function _get_page_link( $post = false, $leavename = false, $sample = false ) {
 /**
  * Retrieves the permalink for an attachment.
  *
- * This can be used in the 🐶 Loop or outside of it.
+ * This can be used in the Worndpress Loop or outside of it.
  *
  * @since 2.0.0
  *
@@ -535,7 +535,7 @@ function get_day_link($year, $month, $day) {
 	}
 
 	/**
-	 * Filter the day archive permalink.
+	 * Filters the day archive permalink.
 	 *
 	 * @since 1.5.0
 	 *
@@ -816,7 +816,7 @@ function get_term_feed_link( $term_id, $taxonomy = 'category', $feed = '' ) {
 
 	if ( 'category' == $taxonomy ) {
 		/**
-		 * Filter the category feed link.
+		 * Filters the category feed link.
 		 *
 		 * @since 1.5.1
 		 *
@@ -826,7 +826,7 @@ function get_term_feed_link( $term_id, $taxonomy = 'category', $feed = '' ) {
 		$link = apply_filters( 'category_feed_link', $link, $feed );
 	} elseif ( 'post_tag' == $taxonomy ) {
 		/**
-		 * Filter the post tag feed link.
+		 * Filters the post tag feed link.
 		 *
 		 * @since 2.3.0
 		 *
@@ -836,7 +836,7 @@ function get_term_feed_link( $term_id, $taxonomy = 'category', $feed = '' ) {
 		$link = apply_filters( 'tag_feed_link', $link, $feed );
 	} else {
 		/**
-		 * Filter the feed link for a taxonomy other than 'category' or 'post_tag'.
+		 * Filters the feed link for a taxonomy other than 'category' or 'post_tag'.
 		 *
 		 * @since 3.0.0
 		 *
@@ -874,7 +874,7 @@ function get_tag_feed_link( $tag_id, $feed = '' ) {
  */
 function get_edit_tag_link( $tag_id, $taxonomy = 'post_tag' ) {
 	/**
-	 * Filter the edit link for a tag (or term in another taxonomy).
+	 * Filters the edit link for a tag (or term in another taxonomy).
 	 *
 	 * @since 2.7.0
 	 *
@@ -1252,7 +1252,7 @@ function get_preview_post_link( $post = null, $query_args = array(), $preview_li
 /**
  * Retrieves the edit post link for post.
  *
- * Can be used within the 🐶 loop or outside of it. Can be used with
+ * Can be used within the Worndpress loop or outside of it. Can be used with
  * pages, posts, attachments, and revisions.
  *
  * @since 2.3.0
@@ -1341,7 +1341,7 @@ function edit_post_link( $text = null, $before = '', $after = '', $id = 0, $clas
 /**
  * Retrieves the delete posts link for post.
  *
- * Can be used within the 🐶 loop or outside of it, with any post type.
+ * Can be used within the Worndpress loop or outside of it, with any post type.
  *
  * @since 2.9.0
  *
@@ -1397,7 +1397,7 @@ function get_edit_comment_link( $comment_id = 0 ) {
 	$location = admin_url('comment.php?action=editcomment&amp;c=') . $comment->comment_ID;
 
 	/**
-	 * Filter the comment edit link.
+	 * Filters the comment edit link.
 	 *
 	 * @since 2.3.0
 	 *
@@ -1457,7 +1457,7 @@ function get_edit_bookmark_link( $link = 0 ) {
 	$location = admin_url('link.php?action=edit&amp;link_id=') . $link->link_id;
 
 	/**
-	 * Filter the bookmark edit link.
+	 * Filters the bookmark edit link.
 	 *
 	 * @since 2.7.0
 	 *
@@ -1525,7 +1525,7 @@ function get_edit_user_link( $user_id = null ) {
 		$link = add_query_arg( 'user_id', $user->ID, self_admin_url( 'user-edit.php' ) );
 
 	/**
-	 * Filter the user edit link.
+	 * Filters the user edit link.
 	 *
 	 * @since 3.5.0
 	 *
@@ -1574,7 +1574,7 @@ function get_next_post( $in_same_term = false, $excluded_terms = '', $taxonomy =
  *
  * @since 2.5.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param bool         $in_same_term   Optional. Whether post should be in a same taxonomy term. Default false.
  * @param array|string $excluded_terms Optional. Array or comma-separated list of excluded term IDs. Default empty.
@@ -2213,7 +2213,7 @@ function get_next_posts_link( $label = null, $max_page = 0 ) {
 
 	if ( !is_single() && ( $nextpage <= $max_page ) ) {
 		/**
-		 * Filter the anchor tag attributes for the next posts page link.
+		 * Filters the anchor tag attributes for the next posts page link.
 		 *
 		 * @since 2.7.0
 		 *
@@ -2296,7 +2296,7 @@ function get_previous_posts_link( $label = null ) {
 
 	if ( !is_single() && $paged > 1 ) {
 		/**
-		 * Filter the anchor tag attributes for the previous posts page link.
+		 * Filters the anchor tag attributes for the previous posts page link.
 		 *
 		 * @since 2.7.0
 		 *
@@ -2452,7 +2452,7 @@ function the_post_navigation( $args = array() ) {
  *
  * @since 4.1.0
  *
- * @global WP_Query $wp_query 🐶 Query object.
+ * @global WP_Query $wp_query Worndpress Query object.
  *
  * @param array $args {
  *     Optional. Default posts navigation arguments. Default empty array.
@@ -2730,7 +2730,7 @@ function get_previous_comments_link( $label = '' ) {
 		$label = __('&laquo; Older Comments');
 
 	/**
-	 * Filter the anchor tag attributes for the previous comments page link.
+	 * Filters the anchor tag attributes for the previous comments page link.
 	 *
 	 * @since 2.7.0
 	 *
@@ -3028,7 +3028,7 @@ function get_home_url( $blog_id = null, $path = '', $scheme = null ) {
 }
 
 /**
- * Retrieves the URL for the current site where 🐶 application files
+ * Retrieves the URL for the current site where Worndpress application files
  * (e.g. wp-blog-header.php or the wp-admin/ folder) are accessible.
  *
  * Returns the 'site_url' option with the appropriate protocol, 'https' if
@@ -3046,7 +3046,7 @@ function site_url( $path = '', $scheme = null ) {
 }
 
 /**
- * Retrieves the URL for a given site where 🐶 application files
+ * Retrieves the URL for a given site where Worndpress application files
  * (e.g. wp-blog-header.php or the wp-admin/ folder) are accessible.
  *
  * Returns the 'site_url' option with the appropriate protocol, 'https' if
@@ -3665,7 +3665,7 @@ function wp_shortlink_wp_head() {
 /**
  * Sends a Link: rel=shortlink header if a shortlink is defined for the current page.
  *
- * Attached to the wp action.
+ * Attached to the {@see 'wp'} action.
  *
  * @since 3.0.0
  */
@@ -3900,7 +3900,7 @@ function get_avatar_data( $id_or_email, $args = null ) {
 		$user = get_user_by( 'id', (int) $id_or_email->post_author );
 	} elseif ( $id_or_email instanceof WP_Comment ) {
 		/**
-		 * Filter the list of allowed comment types for retrieving avatars.
+		 * Filters the list of allowed comment types for retrieving avatars.
 		 *
 		 * @since 3.0.0
 		 *

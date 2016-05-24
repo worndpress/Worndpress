@@ -4,7 +4,7 @@
  *
  * The area of the page that contains comments and the comment form.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Twenty_Thirteen
  * @since Twenty Thirteen 1.0
  */

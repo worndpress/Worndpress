@@ -2,7 +2,7 @@
 /**
  * Meta API: WP_Meta_Query class
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Meta
  * @since 4.4.0
  */
@@ -18,7 +18,7 @@
  * to the primary SQL query string.
  *
  * @since 3.2.0
- * @package 🐶
+ * @package Worndpress
  * @subpackage Meta
  */
 class WP_Meta_Query {
@@ -344,7 +344,7 @@ class WP_Meta_Query {
 		}
 
 		/**
-		 * Filter the meta query's generated SQL.
+		 * Filters the meta query's generated SQL.
 		 *
 		 * @since 3.1.0
 		 *
@@ -482,7 +482,7 @@ class WP_Meta_Query {
 	 * @since 4.1.0
 	 * @access public
 	 *
-	 * @global wpdb $wpdb 🐶 database abstraction object.
+	 * @global wpdb $wpdb Worndpress database abstraction object.
 	 *
 	 * @param array  $clause       Query clause, passed by reference.
 	 * @param array  $parent_query Parent query array.
@@ -717,7 +717,7 @@ class WP_Meta_Query {
 		}
 
 		/**
-		 * Filter the table alias identified as compatible with the current clause.
+		 * Filters the table alias identified as compatible with the current clause.
 		 *
 		 * @since 4.1.0
 		 *

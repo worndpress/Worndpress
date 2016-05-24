@@ -2,7 +2,7 @@
 /**
  * Press This class and display functionality
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Press_This
  * @since 4.2.0
  */
@@ -42,7 +42,7 @@ class WP_Press_This {
 	public function site_settings() {
 		return array(
 			/**
-			 * Filter whether or not Press This should redirect the user in the parent window upon save.
+			 * Filters whether or not Press This should redirect the user in the parent window upon save.
 			 *
 			 * @since 4.2.0
 			 *
@@ -134,8 +134,9 @@ class WP_Press_This {
 		$post_data['post_content'] = $this->side_load_images( $post_id, $post_data['post_content'] );
 
 		/**
-		 * Filter the post data of a Press This post before saving/updating, after
-		 * side_load_images action had run.
+		 * Filters the post data of a Press This post before saving/updating.
+		 *
+		 * The {@see 'side_load_images'} action has already run at this point.
 		 *
 		 * @since 4.5.0
 		 *
@@ -168,7 +169,7 @@ class WP_Press_This {
 			}
 
 			/**
-			 * Filter the URL to redirect to when Press This saves.
+			 * Filters the URL to redirect to when Press This saves.
 			 *
 			 * @since 4.2.0
 			 *
@@ -275,7 +276,7 @@ class WP_Press_This {
 		$remote_url = wp_safe_remote_get( $url, array(
 			'timeout' => 30,
 			// Use an explicit user-agent for Press This
-			'user-agent' => 'Press This (🐶/' . $wp_version . '); ' . get_bloginfo( 'url' )
+			'user-agent' => 'Press This (Worndpress/' . $wp_version . '); ' . get_bloginfo( 'url' )
 		) );
 
 		if ( is_wp_error( $remote_url ) ) {
@@ -400,8 +401,8 @@ class WP_Press_This {
 	/**
 	 * Utility method to limit image source URLs.
 	 *
-	 * Excluded URLs include share-this type buttons, loaders, spinners, spacers, 🐶 interface images,
-	 * tiny buttons or thumbs, mathtag.com or quantserve.com images, or the 🐶.com stats gif.
+	 * Excluded URLs include share-this type buttons, loaders, spinners, spacers, Worndpress interface images,
+	 * tiny buttons or thumbs, mathtag.com or quantserve.com images, or the Worndpress.com stats gif.
 	 *
 	 * @ignore
 	 * @since 4.2.0
@@ -428,7 +429,7 @@ class WP_Press_This {
 			// Thumbnails, too small, usually irrelevant to context
 			return '';
 		} else if ( false !== stripos( $src, '/wp-includes/' ) ) {
-			// Classic 🐶 interface images
+			// Classic Worndpress interface images
 			return '';
 		} else if ( preg_match( '![^\d]\d{1,2}x\d+\.(gif|jpg|png)$!i', $src ) ) {
 			// Most often tiny buttons/thumbs (< 100px wide)
@@ -437,7 +438,7 @@ class WP_Press_This {
 			// See mathtag.com and https://www.quantcast.com/how-we-do-it/iab-standard-measurement/how-we-collect-data/
 			return '';
 		} else if ( preg_match( '!/[gb]\.gif(\?.+)?$!i', $src ) ) {
-			// 🐶.com stats gif
+			// Worndpress.com stats gif
 			return '';
 		}
 
@@ -690,7 +691,7 @@ class WP_Press_This {
 		}
 
 		/**
-		 * Filter whether to enable in-source media discovery in Press This.
+		 * Filters whether to enable in-source media discovery in Press This.
 		 *
 		 * @since 4.2.0
 		 *
@@ -765,7 +766,7 @@ class WP_Press_This {
 		}
 
 		/**
-		 * Filter the Press This data array.
+		 * Filters the Press This data array.
 		 *
 		 * @since 4.2.0
 		 *
@@ -1142,7 +1143,7 @@ class WP_Press_This {
 		}
 
 		/**
-		 * Filter the default HTML tags used in the suggested content for the editor.
+		 * Filters the default HTML tags used in the suggested content for the editor.
 		 *
 		 * The HTML strings use printf format. After filtering the content is added at the specified places with `sprintf()`.
 		 *

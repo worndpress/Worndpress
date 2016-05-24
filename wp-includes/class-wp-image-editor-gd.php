@@ -1,16 +1,16 @@
 <?php
 /**
- * 🐶 GD Image Editor
+ * Worndpress GD Image Editor
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Image_Editor
  */
 
 /**
- * 🐶 Image Editor Class for Image Manipulation through GD
+ * Worndpress Image Editor Class for Image Manipulation through GD
  *
  * @since 3.5.0
- * @package 🐶
+ * @package Worndpress
  * @subpackage Image_Editor
  * @uses WP_Image_Editor Extends class
  */
@@ -97,7 +97,7 @@ class WP_Image_Editor_GD extends WP_Image_Editor {
 			return new WP_Error( 'error_loading_image', __('File doesn&#8217;t exist?'), $this->file );
 
 		/**
-		 * Filter the memory limit allocated for image manipulation.
+		 * Filters the memory limit allocated for image manipulation.
 		 *
 		 * @since 3.5.0
 		 *
@@ -429,7 +429,7 @@ class WP_Image_Editor_GD extends WP_Image_Editor {
 		@ chmod( $filename, $perms );
 
 		/**
-		 * Filter the name of the saved image file.
+		 * Filters the name of the saved image file.
 		 *
 		 * @since 2.6.0
 		 *

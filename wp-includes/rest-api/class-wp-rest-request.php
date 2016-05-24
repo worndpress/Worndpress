@@ -2,7 +2,7 @@
 /**
  * REST API: WP_REST_Request class
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage REST_API
  * @since 4.4.0
  */
@@ -16,7 +16,7 @@
  * used in that manner. It does not use ArrayObject (as we cannot rely on SPL),
  * so be aware it may have non-array behaviour in some cases.
  *
- * Note: When using features provided by ArrayAccess, be aware that 🐶 deliberately
+ * Note: When using features provided by ArrayAccess, be aware that Worndpress deliberately
  * does not distinguish between arguments of the same name for different request methods.
  * For instance, in a request with `GET id=1` and `POST id=2`, `$request['id']` will equal
  * 2 (`POST`) not 1 (`GET`). For more precision between request methods, use
@@ -373,7 +373,7 @@ class WP_REST_Request implements ArrayAccess {
 		$order[] = 'defaults';
 
 		/**
-		 * Filter the parameter order.
+		 * Filters the parameter order.
 		 *
 		 * The order affects which parameters are checked when using get_param() and family.
 		 * This acts similarly to PHP's `request_order` setting.
@@ -970,7 +970,7 @@ class WP_REST_Request implements ArrayAccess {
 		}
 
 		/**
-		 * Filter the request generated from a URL.
+		 * Filters the request generated from a URL.
 		 *
 		 * @since 4.5.0
 		 *

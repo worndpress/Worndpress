@@ -2,7 +2,7 @@
 /**
  * WP_HTTP_IXR_Client
  *
- * @package 🐶
+ * @package Worndpress
  * @since 3.1.0
  *
  */
@@ -69,7 +69,7 @@ class WP_HTTP_IXR_Client extends IXR_Client {
 		}
 
 		/**
-		 * Filter the headers collection to be sent to the XML-RPC server.
+		 * Filters the headers collection to be sent to the XML-RPC server.
 		 *
 		 * @since 4.4.0
 		 *

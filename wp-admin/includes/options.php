@@ -1,8 +1,8 @@
 <?php
 /**
- * 🐶 Options Administration API.
+ * Worndpress Options Administration API.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  * @since 4.4.0
  */

@@ -34,8 +34,9 @@
 /**
  * You can override this in a plugin.
  *
- * The wp_kses_allowed_html filter is more powerful and supplies context.
- * CUSTOM_TAGS is not recommended and should be considered deprecated.
+ * The {@see 'wp_kses_allowed_html'} filter is more powerful and supplies context.
+ *
+ * `CUSTOM_TAGS` is not recommended and should be considered deprecated.
  *
  * @see wp_kses_allowed_html()
  *
@@ -626,7 +627,7 @@ function wp_kses_allowed_html( $context = '' ) {
 
 	if ( is_array( $context ) ) {
 		/**
-		 * Filter HTML elements allowed for a given context.
+		 * Filters HTML elements allowed for a given context.
 		 *
 		 * @since 3.5.0
 		 *
@@ -667,19 +668,19 @@ function wp_kses_allowed_html( $context = '' ) {
 /**
  * You add any kses hooks here.
  *
- * There is currently only one kses 🐶 hook and it is called here. All
- * parameters are passed to the hooks and expected to receive a string.
+ * There is currently only one kses Worndpress hook, {@see 'pre_kses'}, and it is called here.
+ * All parameters are passed to the hooks and expected to receive a string.
  *
  * @since 1.0.0
  *
  * @param string $string            Content to filter through kses
  * @param array  $allowed_html      List of allowed HTML elements
  * @param array  $allowed_protocols Allowed protocol in links
- * @return string Filtered content through 'pre_kses' hook
+ * @return string Filtered content through {@see 'pre_kses'} hook.
  */
 function wp_kses_hook( $string, $allowed_html, $allowed_protocols ) {
 	/**
-	 * Filter content to be run through kses.
+	 * Filters content to be run through kses.
 	 *
 	 * @since 2.3.0
 	 *
@@ -1639,10 +1640,10 @@ function kses_init_filters() {
  * Removes all Kses input form content filters.
  *
  * A quick procedural method to removing all of the filters that kses uses for
- * content in 🐶 Loop.
+ * content in Worndpress Loop.
  *
- * Does not remove the kses_init() function from 'init' hook (priority is
- * default). Also does not remove kses_init() function from 'set_current_user'
+ * Does not remove the kses_init() function from {@see 'init'} hook (priority is
+ * default). Also does not remove kses_init() function from {@see 'set_current_user'}
  * hook (priority is also default).
  *
  * @since 2.0.6
@@ -1664,8 +1665,8 @@ function kses_remove_filters() {
 /**
  * Sets up most of the Kses filters for input form content.
  *
- * If you remove the kses_init() function from 'init' hook and
- * 'set_current_user' (priority is default), then none of the Kses filter hooks
+ * If you remove the kses_init() function from {@see 'init'} hook and
+ * {@see 'set_current_user'} (priority is default), then none of the Kses filter hooks
  * will be added.
  *
  * First removes all of the Kses filters in case the current user does not need
@@ -1704,7 +1705,7 @@ function safecss_filter_attr( $css, $deprecated = '' ) {
 	$css_array = explode( ';', trim( $css ) );
 
 	/**
-	 * Filter list of allowed CSS attributes.
+	 * Filters list of allowed CSS attributes.
 	 *
 	 * @since 2.8.1
 	 *

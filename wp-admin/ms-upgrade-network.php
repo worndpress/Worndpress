@@ -2,7 +2,7 @@
 /**
  * Multisite upgrade administration panel.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Multisite
  * @since 3.0.0
  */

@@ -6,7 +6,7 @@
  *
  * @link https://codex.wordpress.org/Post_Formats
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Twenty_Eleven
  * @since Twenty Eleven 1.0
  */

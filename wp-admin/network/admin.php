@@ -1,15 +1,15 @@
 <?php
 /**
- * 🐶 Network Administration Bootstrap
+ * Worndpress Network Administration Bootstrap
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Multisite
  * @since 3.1.0
  */
 
 define( 'WP_NETWORK_ADMIN', true );
 
-/** Load 🐶 Administration Bootstrap */
+/** Load Worndpress Administration Bootstrap */
 require_once( dirname( dirname( __FILE__ ) ) . '/admin.php' );
 
 if ( ! is_multisite() )
@@ -18,7 +18,7 @@ if ( ! is_multisite() )
 $redirect_network_admin_request = 0 !== strcasecmp( $current_blog->domain, $current_site->domain ) || 0 !== strcasecmp( $current_blog->path, $current_site->path );
 
 /**
- * Filter whether to redirect the request to the Network Admin.
+ * Filters whether to redirect the request to the Network Admin.
  *
  * @since 3.2.0
  *

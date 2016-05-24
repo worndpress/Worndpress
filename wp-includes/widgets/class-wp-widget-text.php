@@ -2,7 +2,7 @@
 /**
  * Widget API: WP_Widget_Text class
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Widgets
  * @since 4.4.0
  */
@@ -50,7 +50,7 @@ class WP_Widget_Text extends WP_Widget {
 		$widget_text = ! empty( $instance['text'] ) ? $instance['text'] : '';
 
 		/**
-		 * Filter the content of the Text widget.
+		 * Filters the content of the Text widget.
 		 *
 		 * @since 2.3.0
 		 * @since 4.4.0 Added the `$this` parameter.

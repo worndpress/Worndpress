@@ -2,7 +2,7 @@
 /**
  * List Table API: WP_Theme_Install_List_Table class
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  * @since 3.1.0
  */
@@ -72,7 +72,7 @@ class WP_Theme_Install_List_Table extends WP_Themes_List_Table {
 		$tabs = apply_filters( 'install_themes_tabs', $tabs );
 
 		/**
-		 * Filter tabs not associated with a menu item on the Install Themes screen.
+		 * Filters tabs not associated with a menu item on the Install Themes screen.
 		 *
 		 * @since 2.8.0
 		 *
@@ -124,7 +124,7 @@ class WP_Theme_Install_List_Table extends WP_Themes_List_Table {
 		}
 
 		/**
-		 * Filter API request arguments for each Install Themes screen tab.
+		 * Filters API request arguments for each Install Themes screen tab.
 		 *
 		 * The dynamic portion of the hook name, `$tab`, refers to the theme install
 		 * tabs. Default tabs are 'dashboard', 'search', 'upload', 'featured',
@@ -224,11 +224,11 @@ class WP_Theme_Install_List_Table extends WP_Themes_List_Table {
 	}
 
 	/**
-	 * Prints a theme from the 🐶.org API.
+	 * Prints a theme from the Worndpress.org API.
 	 *
 	 * @global array $themes_allowedtags
 	 *
-	 * @param object $theme An object that contains theme data returned by the 🐶.org API.
+	 * @param object $theme An object that contains theme data returned by the Worndpress.org API.
 	 *
 	 * Example theme data:
 	 *   object(stdClass)[59]
@@ -290,7 +290,7 @@ class WP_Theme_Install_List_Table extends WP_Themes_List_Table {
 		$actions[] = '<a class="install-theme-preview" href="' . esc_url( $preview_url ) . '" title="' . esc_attr( sprintf( __( 'Preview %s' ), $name ) ) . '">' . __( 'Preview' ) . '</a>';
 
 		/**
-		 * Filter the install action links for a theme in the Install Themes list table.
+		 * Filters the install action links for a theme in the Install Themes list table.
 		 *
 		 * @since 3.4.0
 		 *
@@ -351,7 +351,7 @@ class WP_Theme_Install_List_Table extends WP_Themes_List_Table {
 	 * Prints the wrapper for the theme installer with a provided theme's data.
 	 * Used to make the theme installer work for no-js.
 	 *
-	 * @param object $theme - A 🐶.org Theme API object.
+	 * @param object $theme - A Worndpress.org Theme API object.
 	 */
 	public function theme_installer_single( $theme ) {
 		?>
@@ -371,7 +371,7 @@ class WP_Theme_Install_List_Table extends WP_Themes_List_Table {
 	 *
 	 * @global array $themes_allowedtags
 	 *
-	 * @param object $theme - A 🐶.org Theme API object.
+	 * @param object $theme - A Worndpress.org Theme API object.
 	 */
 	public function install_theme_info( $theme ) {
 		global $themes_allowedtags;
@@ -451,7 +451,7 @@ class WP_Theme_Install_List_Table extends WP_Themes_List_Table {
 	 * @since 3.4.0
 	 * @access private
 	 *
-	 * @param object $theme - A 🐶.org Theme API object.
+	 * @param object $theme - A Worndpress.org Theme API object.
 	 * @return string Theme status.
 	 */
 	private function _get_theme_status( $theme ) {

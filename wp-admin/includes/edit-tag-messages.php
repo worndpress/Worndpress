@@ -2,7 +2,7 @@
 /**
  * Edit Tags Administration: Messages
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  * @since 4.4.0
  */
@@ -40,7 +40,7 @@ $messages['post_tag'] = array(
 );
 
 /**
- * Filter the messages displayed when a tag is updated.
+ * Filters the messages displayed when a tag is updated.
  *
  * @since 3.7.0
  *

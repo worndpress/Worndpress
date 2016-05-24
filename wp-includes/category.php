@@ -2,7 +2,7 @@
 /**
  * Taxonomy API: Core category-specific functionality
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Taxonomy
  */
 
@@ -30,7 +30,7 @@ function get_categories( $args = '' ) {
 	$taxonomy = $args['taxonomy'];
 
 	/**
-	 * Filter the taxonomy used to retrieve terms when calling get_categories().
+	 * Filters the taxonomy used to retrieve terms when calling get_categories().
 	 *
 	 * @since 2.7.0
 	 *
@@ -83,7 +83,7 @@ function get_categories( $args = '' ) {
  *
  * @param int|object $category Category ID or Category row object
  * @param string $output Optional. Constant OBJECT, ARRAY_A, or ARRAY_N
- * @param string $filter Optional. Default is raw or no 🐶 defined filter will applied.
+ * @param string $filter Optional. Default is raw or no Worndpress defined filter will applied.
  * @return object|array|WP_Error|null Category data in type defined by $output parameter.
  *                                    WP_Error if $category is empty, null if it does not exist.
  */
@@ -271,7 +271,7 @@ function get_tags( $args = '' ) {
 	}
 
 	/**
-	 * Filter the array of term objects returned for the 'post_tag' taxonomy.
+	 * Filters the array of term objects returned for the 'post_tag' taxonomy.
 	 *
 	 * @since 2.3.0
 	 *
@@ -298,7 +298,7 @@ function get_tags( $args = '' ) {
  *
  * @param int|object $tag
  * @param string $output Optional. Constant OBJECT, ARRAY_A, or ARRAY_N
- * @param string $filter Optional. Default is raw or no 🐶 defined filter will applied.
+ * @param string $filter Optional. Default is raw or no Worndpress defined filter will applied.
  * @return object|array|WP_Error|null Tag data in type defined by $output parameter. WP_Error if $tag is empty, null if it does not exist.
  */
 function get_tag( $tag, $output = OBJECT, $filter = 'raw' ) {

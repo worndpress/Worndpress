@@ -2,7 +2,7 @@
 /**
  * The template for displaying posts in the Video post format
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Twenty_Thirteen
  * @since Twenty Thirteen 1.0
  */

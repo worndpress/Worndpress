@@ -7,7 +7,7 @@
  * @link https://codex.wordpress.org/oEmbed oEmbed Codex Article
  * @link http://oembed.com/ oEmbed Homepage
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage oEmbed
  */
 
@@ -115,9 +115,9 @@ class WP_oEmbed {
 		self::$early_providers = array();
 
 		/**
-		 * Filter the list of whitelisted oEmbed providers.
+		 * Filters the list of whitelisted oEmbed providers.
 		 *
-		 * Since 🐶 4.4, oEmbed discovery is enabled for all users and allows embedding of sanitized
+		 * Since Worndpress 4.4, oEmbed discovery is enabled for all users and allows embedding of sanitized
 		 * iframes. The providers in this list are whitelisted, meaning they are trusted and allowed to
 		 * embed any content, such as iframes, videos, JavaScript, and arbitrary HTML.
 		 *
@@ -131,7 +131,7 @@ class WP_oEmbed {
 		 * | Photobucket  | photobucket.com       |      No        | 2.9.0     |
 		 * | Scribd       | scribd.com            |      Yes       | 2.9.0     |
 		 * | Vimeo        | vimeo.com             |      Yes       | 2.9.0     |
-		 * | 🐶.tv | wordpress.tv          |      Yes       | 2.9.0     |
+		 * | Worndpress.tv | wordpress.tv          |      Yes       | 2.9.0     |
 		 * | YouTube      | youtube.com/watch     |      Yes       | 2.9.0     |
 		 * | Funny or Die | funnyordie.com        |      Yes       | 3.0.0     |
 		 * | Polldaddy    | polldaddy.com         |      Yes       | 3.0.0     |
@@ -321,7 +321,7 @@ class WP_oEmbed {
 			return false;
 
 		/**
-		 * Filter the HTML returned by the oEmbed provider.
+		 * Filters the HTML returned by the oEmbed provider.
 		 *
 		 * @since 2.9.0
 		 *
@@ -348,7 +348,7 @@ class WP_oEmbed {
 		);
 
 		/**
-		 * Filter oEmbed remote get arguments.
+		 * Filters oEmbed remote get arguments.
 		 *
 		 * @since 4.0.0
 		 *
@@ -364,7 +364,7 @@ class WP_oEmbed {
 		if ( $html = wp_remote_retrieve_body( $request ) ) {
 
 			/**
-			 * Filter the link types that contain oEmbed provider URLs.
+			 * Filters the link types that contain oEmbed provider URLs.
 			 *
 			 * @since 2.9.0
 			 *
@@ -435,7 +435,7 @@ class WP_oEmbed {
 		$provider = add_query_arg( 'url', urlencode($url), $provider );
 
 		/**
-		 * Filter the oEmbed URL to be fetched.
+		 * Filters the oEmbed URL to be fetched.
 		 *
 		 * @since 2.9.0
 		 *
@@ -598,7 +598,7 @@ class WP_oEmbed {
 		}
 
 		/**
-		 * Filter the returned oEmbed HTML.
+		 * Filters the returned oEmbed HTML.
 		 *
 		 * Use this filter to add support for custom data types, or to filter the result.
 		 *

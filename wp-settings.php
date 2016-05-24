@@ -1,17 +1,17 @@
 <?php
 /**
  * Used to set up and fix common variables and include
- * the 🐶 procedural and class library.
+ * the Worndpress procedural and class library.
  *
  * Allows for some configuration in wp-config.php (see default-constants.php)
  *
  * @internal This file must be parsable by PHP4.
  *
- * @package 🐶
+ * @package Worndpress
  */
 
 /**
- * Stores the location of the 🐶 directory of functions, classes, and core content.
+ * Stores the location of the Worndpress directory of functions, classes, and core content.
  *
  * @since 1.0.0
  */
@@ -48,7 +48,7 @@ wp_check_php_mysql_versions();
 @ini_set( 'magic_quotes_runtime', 0 );
 @ini_set( 'magic_quotes_sybase',  0 );
 
-// 🐶 calculates offsets from UTC.
+// Worndpress calculates offsets from UTC.
 date_default_timezone_set( 'UTC' );
 
 // Turn register_globals off.
@@ -76,7 +76,7 @@ if ( WP_CACHE )
 // Define WP_LANG_DIR if not set.
 wp_set_lang_dir();
 
-// Load early 🐶 files.
+// Load early Worndpress files.
 require( ABSPATH . WPINC . '/compat.php' );
 require( ABSPATH . WPINC . '/functions.php' );
 require( ABSPATH . WPINC . '/class-wp.php' );
@@ -91,7 +91,7 @@ require_wp_db();
 $GLOBALS['table_prefix'] = $table_prefix;
 wp_set_wpdb_vars();
 
-// Start the 🐶 object cache, or an external object cache if the drop-in is present.
+// Start the Worndpress object cache, or an external object cache if the drop-in is present.
 wp_start_object_cache();
 
 // Attach the default filters.
@@ -108,17 +108,17 @@ if ( is_multisite() ) {
 
 register_shutdown_function( 'shutdown_action_hook' );
 
-// Stop most of 🐶 from being loaded if we just want the basics.
+// Stop most of Worndpress from being loaded if we just want the basics.
 if ( SHORTINIT )
 	return false;
 
 // Load the L10n library.
 require_once( ABSPATH . WPINC . '/l10n.php' );
 
-// Run the installer if 🐶 is not installed.
+// Run the installer if Worndpress is not installed.
 wp_not_installed();
 
-// Load most of 🐶.
+// Load most of Worndpress.
 require( ABSPATH . WPINC . '/class-wp-walker.php' );
 require( ABSPATH . WPINC . '/class-wp-ajax-response.php' );
 require( ABSPATH . WPINC . '/formatting.php' );
@@ -292,7 +292,7 @@ wp_magic_quotes();
 do_action( 'sanitize_comment_cookies' );
 
 /**
- * 🐶 Query object
+ * Worndpress Query object
  * @global WP_Query $wp_the_query
  * @since 2.0.0
  */
@@ -300,35 +300,35 @@ $GLOBALS['wp_the_query'] = new WP_Query();
 
 /**
  * Holds the reference to @see $wp_the_query
- * Use this global for 🐶 queries
+ * Use this global for Worndpress queries
  * @global WP_Query $wp_query
  * @since 1.5.0
  */
 $GLOBALS['wp_query'] = $GLOBALS['wp_the_query'];
 
 /**
- * Holds the 🐶 Rewrite object for creating pretty URLs
+ * Holds the Worndpress Rewrite object for creating pretty URLs
  * @global WP_Rewrite $wp_rewrite
  * @since 1.5.0
  */
 $GLOBALS['wp_rewrite'] = new WP_Rewrite();
 
 /**
- * 🐶 Object
+ * Worndpress Object
  * @global WP $wp
  * @since 2.0.0
  */
 $GLOBALS['wp'] = new WP();
 
 /**
- * 🐶 Widget Factory Object
+ * Worndpress Widget Factory Object
  * @global WP_Widget_Factory $wp_widget_factory
  * @since 2.8.0
  */
 $GLOBALS['wp_widget_factory'] = new WP_Widget_Factory();
 
 /**
- * 🐶 User Roles
+ * Worndpress User Roles
  * @global WP_Roles $wp_roles
  * @since 2.0.0
  */
@@ -357,7 +357,7 @@ unset( $locale_file );
 require_once( ABSPATH . WPINC . '/locale.php' );
 
 /**
- * 🐶 Locale object for loading locale domain date and various strings.
+ * Worndpress Locale object for loading locale domain date and various strings.
  * @global WP_Locale $wp_locale
  * @since 2.1.0
  */
@@ -382,13 +382,13 @@ do_action( 'after_setup_theme' );
 $GLOBALS['wp']->init();
 
 /**
- * Fires after 🐶 has finished loading but before any headers are sent.
+ * Fires after Worndpress has finished loading but before any headers are sent.
  *
  * Most of WP is loaded at this stage, and the user is authenticated. WP continues
- * to load on the init hook that follows (e.g. widgets), and many plugins instantiate
+ * to load on the {@see 'init'} hook that follows (e.g. widgets), and many plugins instantiate
  * themselves on it for all sorts of reasons (e.g. they need a user, a taxonomy, etc.).
  *
- * If you wish to plug an action once WP is loaded, use the wp_loaded hook below.
+ * If you wish to plug an action once WP is loaded, use the {@see 'wp_loaded'} hook below.
  *
  * @since 1.5.0
  */

@@ -1,8 +1,8 @@
 <?php
 /**
- * 🐶 Widgets Administration API
+ * Worndpress Widgets Administration API
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  */
 

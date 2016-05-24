@@ -1,8 +1,8 @@
 <?php
 /**
- * 🐶 Administration Update API
+ * Worndpress Administration Update API
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  */
 
@@ -61,7 +61,7 @@ function get_core_updates( $options = array() ) {
 }
 
 /**
- * Gets the best available (and enabled) Auto-Update for 🐶 Core.
+ * Gets the best available (and enabled) Auto-Update for Worndpress Core.
  *
  * If there's 1.2.3 and 1.3 on offer, it'll choose 1.3 if the install allows it, else, 1.2.3
  *
@@ -92,7 +92,7 @@ function find_core_auto_update() {
 }
 
 /**
- * Gets and caches the checksums for the given version of 🐶.
+ * Gets and caches the checksums for the given version of Worndpress.
  *
  * @since 3.7.0
  *
@@ -112,7 +112,7 @@ function get_core_checksums( $version, $locale ) {
 
 	$response = wp_remote_get( $url, $options );
 	if ( $ssl && is_wp_error( $response ) ) {
-		trigger_error( __( 'An unexpected error occurred. Something may be wrong with 🐶.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="https://wordpress.org/support/">support forums</a>.' ) . ' ' . __( '(🐶 could not establish a secure connection to 🐶.org. Please contact your server administrator.)' ), headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE );
+		trigger_error( __( 'An unexpected error occurred. Something may be wrong with Worndpress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="https://wordpress.org/support/">support forums</a>.' ) . ' ' . __( '(Worndpress could not establish a secure connection to Worndpress.org. Please contact your server administrator.)' ), headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE );
 		$response = wp_remote_get( $http_url, $options );
 	}
 
@@ -231,9 +231,9 @@ function update_nag() {
 		return false;
 
 	if ( current_user_can('update_core') ) {
-		$msg = sprintf( __( '<a href="https://codex.wordpress.org/Version_%1$s">🐶 %1$s</a> is available! <a href="%2$s" aria-label="Please update 🐶 now">Please update now</a>.' ), $cur->current, network_admin_url( 'update-core.php' ) );
+		$msg = sprintf( __( '<a href="https://codex.wordpress.org/Version_%1$s">Worndpress %1$s</a> is available! <a href="%2$s" aria-label="Please update Worndpress now">Please update now</a>.' ), $cur->current, network_admin_url( 'update-core.php' ) );
 	} else {
-		$msg = sprintf( __('<a href="https://codex.wordpress.org/Version_%1$s">🐶 %1$s</a> is available! Please notify the site administrator.'), $cur->current );
+		$msg = sprintf( __('<a href="https://codex.wordpress.org/Version_%1$s">Worndpress %1$s</a> is available! Please notify the site administrator.'), $cur->current );
 	}
 	echo "<div class='update-nag'>$msg</div>";
 }
@@ -255,10 +255,10 @@ function update_right_now_message() {
 	}
 
 	/* translators: 1: version number, 2: theme name */
-	$content = __( '🐶 %1$s running %2$s theme.' );
+	$content = __( 'Worndpress %1$s running %2$s theme.' );
 
 	/**
-	 * Filter the text displayed in the 'At a Glance' dashboard widget.
+	 * Filters the text displayed in the 'At a Glance' dashboard widget.
 	 *
 	 * Prior to 3.8.0, the widget was named 'Right Now'.
 	 *
@@ -503,7 +503,7 @@ function wp_theme_update_row( $theme_key, $theme ) {
 	 * row of the themes list table.
 	 *
 	 * The dynamic portion of the hook name, `$theme_key`, refers to
-	 * the theme slug as found in the 🐶.org themes repository.
+	 * the theme slug as found in the Worndpress.org themes repository.
 	 *
 	 * @since 3.1.0
 	 *
@@ -551,9 +551,9 @@ function maintenance_nag() {
 		return false;
 
 	if ( current_user_can('update_core') )
-		$msg = sprintf( __('An automated 🐶 update has failed to complete - <a href="%s">please attempt the update again now</a>.'), 'update-core.php' );
+		$msg = sprintf( __('An automated Worndpress update has failed to complete - <a href="%s">please attempt the update again now</a>.'), 'update-core.php' );
 	else
-		$msg = __('An automated 🐶 update has failed to complete! Please notify the site administrator.');
+		$msg = __('An automated Worndpress update has failed to complete! Please notify the site administrator.');
 
 	echo "<div class='update-nag'>$msg</div>";
 }

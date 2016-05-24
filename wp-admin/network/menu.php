@@ -2,7 +2,7 @@
 /**
  * Build Network Administration Menu.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Multisite
  * @since 3.1.0
  */

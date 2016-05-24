@@ -2,7 +2,7 @@
 /**
  * The template for displaying posts in the Link post format
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Twenty_Fourteen
  * @since Twenty Fourteen 1.0
  */

@@ -1,12 +1,12 @@
 <?php
 /**
- * 🐶 Cron Implementation for hosts, which do not offer CRON or for which
+ * Worndpress Cron Implementation for hosts, which do not offer CRON or for which
  * the user has not set up a CRON job pointing to this file.
  *
  * The HTTP request to this file will not slow down the visitor who happens to
  * visit when the cron job is needed to run.
  *
- * @package 🐶
+ * @package Worndpress
  */
 
 ignore_user_abort(true);
@@ -15,14 +15,14 @@ if ( !empty($_POST) || defined('DOING_AJAX') || defined('DOING_CRON') )
 	die();
 
 /**
- * Tell 🐶 we are doing the CRON task.
+ * Tell Worndpress we are doing the CRON task.
  *
  * @var bool
  */
 define('DOING_CRON', true);
 
 if ( !defined('ABSPATH') ) {
-	/** Set up 🐶 environment */
+	/** Set up Worndpress environment */
 	require_once( dirname( __FILE__ ) . '/wp-load.php' );
 }
 

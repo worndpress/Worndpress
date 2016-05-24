@@ -17,7 +17,7 @@ require ABSPATH . WPINC . '/SimplePie/Parse/Date.php';
 require ABSPATH . WPINC . '/SimplePie/Author.php';
 
 /**
- * 🐶 autoloader for SimplePie.
+ * Worndpress autoloader for SimplePie.
  *
  * @since 3.5.0
  */
@@ -36,7 +36,7 @@ if ( function_exists( 'spl_autoload_register' ) ) {
 	 * If SPL is disabled, we load all of SimplePie manually.
 	 *
 	 * Core.php is not loaded manually, because SimplePie_Core (a deprecated class)
-	 * was never included in 🐶 core.
+	 * was never included in Worndpress core.
 	 */
 	spl_autoload_register( 'wp_simplepie_autoload' );
 } else {

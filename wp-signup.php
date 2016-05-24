@@ -1,6 +1,6 @@
 <?php
 
-/** Sets up the 🐶 Environment. */
+/** Sets up the Worndpress Environment. */
 require( dirname(__FILE__) . '/wp-load.php' );
 
 add_action( 'wp_head', 'wp_no_robots' );
@@ -91,11 +91,15 @@ do_action( 'before_signup_form' );
  *
  * @since MU
  *
- * @param string $blogname The new site name
- * @param string $blog_title The new site title
- * @param array $errors
+ * @param string          $blogname   The new site name.
+ * @param string          $blog_title The new site title.
+ * @param WP_Error|string $errors     A WP_Error object containing existing errors. Defaults to empty string.
  */
 function show_blog_form( $blogname = '', $blog_title = '', $errors = '' ) {
+	if ( ! is_wp_error( $errors ) ) {
+		$errors = new WP_Error();
+	}
+
 	$current_site = get_current_site();
 	// Blog name
 	if ( !is_subdomain_install() )
@@ -183,7 +187,7 @@ function show_blog_form( $blogname = '', $blog_title = '', $errors = '' ) {
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param array $errors An array possibly containing 'blogname' or 'blog_title' errors.
+	 * @param WP_Error $errors A WP_Error object possibly containing 'blogname' or 'blog_title' errors.
 	 */
 	do_action( 'signup_blogform', $errors );
 }
@@ -208,17 +212,21 @@ function validate_blog_form() {
  *
  * @since MU
  *
- * @param string $user_name The entered username
- * @param string $user_email The entered email address
- * @param array $errors
+ * @param string          $user_name  The entered username.
+ * @param string          $user_email The entered email address.
+ * @param WP_Error|string $errors     A WP_Error object containing existing errors. Defaults to empty string.
  */
 function show_user_form($user_name = '', $user_email = '', $errors = '') {
+	if ( ! is_wp_error( $errors ) ) {
+		$errors = new WP_Error();
+	}
+
 	// User name
 	echo '<label for="user_name">' . __('Username:') . '</label>';
 	if ( $errmsg = $errors->get_error_message('user_name') ) {
 		echo '<p class="error">'.$errmsg.'</p>';
 	}
-	echo '<input name="user_name" type="text" id="user_name" value="'. esc_attr($user_name) .'" maxlength="60" /><br />';
+	echo '<input name="user_name" type="text" id="user_name" value="'. esc_attr( $user_name ) .'" autocapitalize="none" autocorrect="off" maxlength="60" /><br />';
 	_e( '(Must be at least 4 characters, letters and numbers only.)' );
 	?>
 
@@ -236,7 +244,7 @@ function show_user_form($user_name = '', $user_email = '', $errors = '') {
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param array $errors An array possibly containing 'user_name' or 'user_email' errors.
+	 * @param WP_Error $errors A WP_Error object containing containing 'user_name' or 'user_email' errors.
 	 */
 	do_action( 'signup_extra_fields', $errors );
 }
@@ -257,9 +265,9 @@ function validate_user_form() {
  *
  * @since MU
  *
- * @param string $blogname The new site name
- * @param string $blog_title The new site title.
- * @param array $errors
+ * @param string          $blogname   The new site name
+ * @param string          $blog_title The new site title.
+ * @param WP_Error|string $errors     A WP_Error object containing existing errors. Defaults to empty string.
  */
 function signup_another_blog( $blogname = '', $blog_title = '', $errors = '' ) {
 	$current_user = wp_get_current_user();
@@ -275,16 +283,16 @@ function signup_another_blog( $blogname = '', $blog_title = '', $errors = '' ) {
 	);
 
 	/**
-	 * Filter the default site sign-up variables.
+	 * Filters the default site sign-up variables.
 	 *
 	 * @since 3.0.0
 	 *
 	 * @param array $signup_defaults {
 	 *     An array of default site sign-up variables.
 	 *
-	 *     @type string $blogname   The site blogname.
-	 *     @type string $blog_title The site title.
-	 *     @type array  $errors     An array possibly containing 'blogname' or 'blog_title' errors.
+	 *     @type string   $blogname   The site blogname.
+	 *     @type string   $blog_title The site title.
+	 *     @type WP_Error $errors     A WP_Error object possibly containing 'blogname' or 'blog_title' errors.
 	 * }
 	 */
 	$filtered_results = apply_filters( 'signup_another_blog_init', $signup_defaults );
@@ -386,17 +394,19 @@ function validate_another_blog_signup() {
 	}
 
 	/**
-	 * Filter the new site meta variables.
+	 * Filters the new site meta variables.
+	 *
+	 * Use the {@see 'add_signup_meta'} filter instead.
 	 *
 	 * @since MU
-	 * @deprecated 3.0.0 Use the 'add_signup_meta' filter instead.
+	 * @deprecated 3.0.0 Use the {@see 'add_signup_meta'} filter instead.
 	 *
 	 * @param array $blog_meta_defaults An array of default blog meta variables.
 	 */
 	$meta_defaults = apply_filters( 'signup_create_blog_meta', $blog_meta_defaults );
 
 	/**
-	 * Filter the new default site meta variables.
+	 * Filters the new default site meta variables.
 	 *
 	 * @since 3.0.0
 	 *
@@ -430,7 +440,7 @@ function validate_another_blog_signup() {
  * @param string $blog_title The site title.
  * @param string $user_name  The username.
  * @param string $user_email The user's email address.
- * @param array  $meta       Any additional meta from the 'add_signup_meta' filter in validate_blog_signup().
+ * @param array  $meta       Any additional meta from the {@see 'add_signup_meta'} filter in validate_blog_signup().
  * @param int    $blog_id    The site ID.
  */
 function confirm_another_blog_signup( $domain, $path, $blog_title, $user_name, $user_email = '', $meta = array(), $blog_id = 0 ) {
@@ -475,9 +485,9 @@ function confirm_another_blog_signup( $domain, $path, $blog_title, $user_name, $
  *
  * @since MU
  *
- * @param string $user_name The username
- * @param string $user_email The user's email
- * @param array $errors
+ * @param string          $user_name  The username.
+ * @param string          $user_email The user's email.
+ * @param WP_Error|string $errors     A WP_Error object containing existing errors. Defaults to empty string.
  */
 function signup_user( $user_name = '', $user_email = '', $errors = '' ) {
 	global $active_signup;
@@ -494,16 +504,16 @@ function signup_user( $user_name = '', $user_email = '', $errors = '' ) {
 	);
 
 	/**
-	 * Filter the default user variables used on the user sign-up form.
+	 * Filters the default user variables used on the user sign-up form.
 	 *
 	 * @since 3.0.0
 	 *
 	 * @param array $signup_user_defaults {
 	 *     An array of default user variables.
 	 *
-	 *     @type string $user_name  The user username.
-	 *     @type string $user_email The user email address.
-	 *     @type array  $errors     An array of possible errors relevant to the sign-up user.
+	 *     @type string   $user_name  The user username.
+	 *     @type string   $user_email The user email address.
+	 *     @type WP_Error $errors     A WP_Error object with possible errors relevant to the sign-up user.
 	 * }
 	 */
 	$filtered_results = apply_filters( 'signup_user_init', $signup_user_defaults );
@@ -597,11 +607,11 @@ function confirm_user_signup($user_name, $user_email) {
  *
  * @since MU
  *
- * @param string $user_name The username
- * @param string $user_email The user's email address
- * @param string $blogname The site name
- * @param string $blog_title The site title
- * @param array $errors
+ * @param string          $user_name  The username.
+ * @param string          $user_email The user's email address.
+ * @param string          $blogname   The site name.
+ * @param string          $blog_title The site title.
+ * @param WP_Error|string $errors     A WP_Error object containing existing errors. Defaults to empty string.
  */
 function signup_blog($user_name = '', $user_email = '', $blogname = '', $blog_title = '', $errors = '') {
 	if ( !is_wp_error($errors) )
@@ -616,18 +626,18 @@ function signup_blog($user_name = '', $user_email = '', $blogname = '', $blog_ti
 	);
 
 	/**
-	 * Filter the default site creation variables for the site sign-up form.
+	 * Filters the default site creation variables for the site sign-up form.
 	 *
 	 * @since 3.0.0
 	 *
 	 * @param array $signup_blog_defaults {
 	 *     An array of default site creation variables.
 	 *
-	 *     @type string $user_name  The user username.
-	 *     @type string $user_email The user email address.
-	 *     @type string $blogname   The blogname.
-	 *     @type string $blog_title The title of the site.
-	 *     @type array  $errors     An array of possible errors relevant to new site creation variables.
+	 *     @type string   $user_name  The user username.
+	 *     @type string   $user_email The user email address.
+	 *     @type string   $blogname   The blogname.
+	 *     @type string   $blog_title The title of the site.
+	 *     @type WP_Error $errors     A WP_Error object with possible errors relevant to new site creation variables.
 	 * }
 	 */
 	$filtered_results = apply_filters( 'signup_blog_init', $signup_blog_defaults );
@@ -722,7 +732,7 @@ function validate_blog_signup() {
  * @param string $blog_title The new site title
  * @param string $user_name The user's username
  * @param string $user_email The user's email address
- * @param array $meta Any additional meta from the 'add_signup_meta' filter in validate_blog_signup()
+ * @param array $meta Any additional meta from the {@see 'add_signup_meta'} filter in validate_blog_signup()
  */
 function confirm_blog_signup( $domain, $path, $blog_title, $user_name = '', $user_email = '', $meta = array() ) {
 	?>
@@ -758,7 +768,7 @@ function confirm_blog_signup( $domain, $path, $blog_title, $user_name = '', $use
  */
 function signup_get_available_languages() {
 	/**
-	 * Filter the list of available languages for front-end site signups.
+	 * Filters the list of available languages for front-end site signups.
 	 *
 	 * Passing an empty array to this hook will disable output of the setting on the
 	 * signup form, and the default language will be used when creating the site.
@@ -782,8 +792,9 @@ function signup_get_available_languages() {
 
 // Main
 $active_signup = get_site_option( 'registration', 'none' );
+
 /**
- * Filter the type of site sign-up.
+ * Filters the type of site sign-up.
  *
  * @since 3.0.0
  *

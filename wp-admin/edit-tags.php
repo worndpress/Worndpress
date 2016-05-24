@@ -2,11 +2,11 @@
 /**
  * Edit Tags Administration Screen.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  */
 
-/** 🐶 Administration Bootstrap */
+/** Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( ! $taxnow )
@@ -427,7 +427,7 @@ do_action( "{$taxonomy}_term_new_form_tag" );
 	);
 
 	/**
-	 * Filter the taxonomy parent drop-down on the Edit Term page.
+	 * Filters the taxonomy parent drop-down on the Edit Term page.
 	 *
 	 * @since 3.7.0
 	 * @since 4.2.0 Added `$context` parameter.

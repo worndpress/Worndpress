@@ -2,7 +2,7 @@
 /**
  * Widget API: WP_Widget_Recent_Posts class
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Widgets
  * @since 4.4.0
  */
@@ -58,7 +58,7 @@ class WP_Widget_Recent_Posts extends WP_Widget {
 		$show_date = isset( $instance['show_date'] ) ? $instance['show_date'] : false;
 
 		/**
-		 * Filter the arguments for the Recent Posts widget.
+		 * Filters the arguments for the Recent Posts widget.
 		 *
 		 * @since 3.4.0
 		 *

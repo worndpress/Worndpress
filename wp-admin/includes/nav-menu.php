@@ -2,7 +2,7 @@
 /**
  * Core Navigation Menu API
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Nav_Menus
  * @since 3.0.0
  */
@@ -186,7 +186,7 @@ function wp_nav_menu_post_type_meta_boxes() {
 
 	foreach ( $post_types as $post_type ) {
 		/**
-		 * Filter whether a menu items meta box will be added for the current
+		 * Filters whether a menu items meta box will be added for the current
 		 * object type.
 		 *
 		 * If a falsey value is returned instead of an object, the menu items
@@ -400,7 +400,7 @@ function wp_nav_menu_item_post_type_meta_box( $object, $post_type ) {
 				$args['walker'] = $walker;
 
 				/**
-				 * Filter the posts displayed in the 'Most Recent' tab of the current
+				 * Filters the posts displayed in the 'Most Recent' tab of the current
 				 * post type's menu items meta box.
 				 *
 				 * The dynamic portion of the hook name, `$post_type_name`, refers to the post type name.
@@ -508,7 +508,7 @@ function wp_nav_menu_item_post_type_meta_box( $object, $post_type ) {
 				}
 
 				/**
-				 * Filter the posts displayed in the 'View All' tab of the current
+				 * Filters the posts displayed in the 'View All' tab of the current
 				 * post type's menu items meta box.
 				 *
 				 * The dynamic portion of the hook name, `$post_type_name`, refers
@@ -888,7 +888,7 @@ function wp_get_nav_menu_to_edit( $menu_id = 0 ) {
 			return $result . ' <ul class="menu" id="menu-to-edit"> </ul>';
 
 		/**
-		 * Filter the Walker class used when adding nav menu items.
+		 * Filters the Walker class used when adding nav menu items.
 		 *
 		 * @since 3.0.0
 		 *
@@ -916,11 +916,13 @@ function wp_get_nav_menu_to_edit( $menu_id = 0 ) {
 				$some_invalid_menu_items = true;
 		}
 
-		if ( $some_pending_menu_items )
-			$result .= '<div class="updated inline"><p>' . __('Click Save Menu to make pending menu items public.') . '</p></div>';
+		if ( $some_pending_menu_items ) {
+			$result .= '<div class="notice notice-info notice-alt inline"><p>' . __( 'Click Save Menu to make pending menu items public.' ) . '</p></div>';
+		}
 
-		if ( $some_invalid_menu_items )
-			$result .= '<div class="error inline"><p>' . __('There are some invalid menu items. Please check or delete them.') . '</p></div>';
+		if ( $some_invalid_menu_items ) {
+			$result .= '<div class="notice notice-error notice-alt inline"><p>' . __( 'There are some invalid menu items. Please check or delete them.' ) . '</p></div>';
+		}
 
 		$result .= '<ul class="menu" id="menu-to-edit"> ';
 		$result .= walk_nav_menu_tree( array_map('wp_setup_nav_menu_item', $menu_items), 0, (object) array('walker' => $walker ) );
@@ -957,7 +959,7 @@ function wp_nav_menu_manage_columns() {
  * @access private
  * @since 3.0.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function _wp_delete_orphaned_draft_menu_items() {
 	global $wpdb;

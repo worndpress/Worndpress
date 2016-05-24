@@ -2,11 +2,11 @@
 /**
  * Theme editor administration panel.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  */
 
-/** 🐶 Administration Bootstrap */
+/** Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( is_multisite() && ! is_network_admin() ) {
@@ -66,7 +66,7 @@ $has_templates = false;
 $default_types = array( 'php', 'css' );
 
 /**
- * Filter the list of file types allowed for editing in the Theme editor.
+ * Filters the list of file types allowed for editing in the Theme editor.
  *
  * @since 4.4.0
  *

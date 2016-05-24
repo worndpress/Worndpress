@@ -2,7 +2,7 @@
 /**
  * Toolbar API: Top-level Toolbar functionality
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Toolbar
  * @since 3.1.0
  */
@@ -11,7 +11,7 @@
  * Instantiate the admin bar object and set it up as a global for access elsewhere.
  *
  * UNHOOKING THIS FUNCTION WILL NOT PROPERLY REMOVE THE ADMIN BAR.
- * For that, use show_admin_bar(false) or the 'show_admin_bar' filter.
+ * For that, use show_admin_bar(false) or the {@see 'show_admin_bar'} filter.
  *
  * @since 3.1.0
  * @access private
@@ -32,7 +32,7 @@ function _wp_admin_bar_init() {
 	/* Instantiate the admin bar */
 
 	/**
-	 * Filter the admin bar class to instantiate.
+	 * Filters the admin bar class to instantiate.
 	 *
 	 * @since 3.1.0
 	 *
@@ -51,13 +51,15 @@ function _wp_admin_bar_init() {
 }
 
 /**
- * Render the admin bar to the page based on the $wp_admin_bar->menu member var.
- * This is called very late on the footer actions so that it will render after anything else being
- * added to the footer.
+ * Renders the admin bar to the page based on the $wp_admin_bar->menu member var.
  *
- * It includes the action "admin_bar_menu" which should be used to hook in and
- * add new menus to the admin bar. That way you can be sure that you are adding at most optimal point,
- * right before the admin bar is rendered. This also gives you access to the $post global, among others.
+ * This is called very late on the footer actions so that it will render after
+ * anything else being added to the footer.
+ *
+ * It includes the {@see 'admin_bar_menu'} action which should be used to hook in and
+ * add new menus to the admin bar. That way you can be sure that you are adding at most
+ * optimal point, right before the admin bar is rendered. This also gives you access to
+ * the `$post` global, among others.
  *
  * @since 3.1.0
  *
@@ -98,7 +100,7 @@ function wp_admin_bar_render() {
 }
 
 /**
- * Add the 🐶 logo menu.
+ * Add the Worndpress logo menu.
  *
  * @since 3.3.0
  *
@@ -107,25 +109,25 @@ function wp_admin_bar_render() {
 function wp_admin_bar_wp_menu( $wp_admin_bar ) {
 	$wp_admin_bar->add_menu( array(
 		'id'    => 'wp-logo',
-		'title' => '<span class="ab-icon"></span><span class="screen-reader-text">' . __( 'About 🐶' ) . '</span>',
+		'title' => '<span class="ab-icon"></span><span class="screen-reader-text">' . __( 'About Worndpress' ) . '</span>',
 		'href'  => self_admin_url( 'about.php' ),
 	) );
 
 	if ( is_user_logged_in() ) {
-		// Add "About 🐶" link
+		// Add "About Worndpress" link
 		$wp_admin_bar->add_menu( array(
 			'parent' => 'wp-logo',
 			'id'     => 'about',
-			'title'  => __('About 🐶'),
+			'title'  => __('About Worndpress'),
 			'href'   => self_admin_url( 'about.php' ),
 		) );
 	}
 
-	// Add 🐶.org link
+	// Add Worndpress.org link
 	$wp_admin_bar->add_menu( array(
 		'parent'    => 'wp-logo-external',
 		'id'        => 'wporg',
-		'title'     => __('🐶.org'),
+		'title'     => __('Worndpress.org'),
 		'href'      => __('https://wordpress.org/'),
 	) );
 
@@ -872,9 +874,10 @@ function _admin_bar_bump_cb() { ?>
 }
 
 /**
- * Set the display status of the admin bar.
+ * Sets the display status of the admin bar.
  *
- * This can be called immediately upon plugin load. It does not need to be called from a function hooked to the init action.
+ * This can be called immediately upon plugin load. It does not need to be called
+ * from a function hooked to the {@see 'init'} action.
  *
  * @since 3.1.0
  *
@@ -921,7 +924,7 @@ function is_admin_bar_showing() {
 	}
 
 	/**
-	 * Filter whether to show the admin bar.
+	 * Filters whether to show the admin bar.
 	 *
 	 * Returning false to this hook is the recommended way to hide the admin bar.
 	 * The user's display preference is used for logged in users.

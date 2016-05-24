@@ -2,7 +2,7 @@
 /**
  * Date and Time Locale object
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage i18n
  */
 
@@ -207,7 +207,7 @@ class WP_Locale {
 		// Set text direction.
 		if ( isset( $GLOBALS['text_direction'] ) )
 			$this->text_direction = $GLOBALS['text_direction'];
-		/* translators: 'rtl' or 'ltr'. This sets the text direction for 🐶. */
+		/* translators: 'rtl' or 'ltr'. This sets the text direction for Worndpress. */
 		elseif ( 'rtl' == _x( 'ltr', 'text direction' ) )
 			$this->text_direction = 'rtl';
 

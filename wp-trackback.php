@@ -1,10 +1,10 @@
 <?php
 /**
- * Handle Trackbacks and Pingbacks Sent to 🐶
+ * Handle Trackbacks and Pingbacks Sent to Worndpress
  *
  * @since 0.71
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Trackbacks
  */
 

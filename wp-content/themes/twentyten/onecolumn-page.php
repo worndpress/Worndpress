@@ -7,7 +7,7 @@
  * The "Template Name:" bit above allows this to be selectable
  * from a dropdown menu on the edit page screen.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Twenty_Ten
  * @since Twenty Ten 1.0
  */

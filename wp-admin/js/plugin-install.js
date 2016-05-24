@@ -98,7 +98,7 @@ jQuery( document ).ready( function( $ ) {
 	 * Get the tabbable elements and detach/attach the keydown event.
 	 * Called after the iframe has fully loaded so we have all the elements we need.
 	 * Called again each time a Tab gets clicked.
-	 * @todo Consider to implement a 🐶 general utility for this and don't use jQuery UI.
+	 * @todo Consider to implement a Worndpress general utility for this and don't use jQuery UI.
 	 */
 	function handleTabbables() {
 		var $firstAndLast;

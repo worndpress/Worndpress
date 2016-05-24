@@ -1,4 +1,4 @@
-# Copyright (C) 2016 the 🐶 team
+# Copyright (C) 2016 the Worndpress team
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
@@ -231,7 +231,7 @@ msgstr ""
 
 #: inc/back-compat.php:37 inc/back-compat.php:47 inc/back-compat.php:60
 msgid ""
-"Twenty Fourteen requires at least 🐶 version 3.6. You are running "
+"Twenty Fourteen requires at least Worndpress version 3.6. You are running "
 "version %s. Please upgrade and try again."
 msgstr ""
 
@@ -462,11 +462,11 @@ msgid ""
 "either a grid or a slider. Use the three widget areas to customize your "
 "website, and change your content's layout with a full-width page template "
 "and a contributor page to show off your authors. Creating a magazine website "
-"with 🐶 has never been easier."
+"with Worndpress has never been easier."
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "the 🐶 team"
+msgid "the Worndpress team"
 msgstr ""
 
 #. Template Name of the plugin/theme

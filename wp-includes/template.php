@@ -2,7 +2,7 @@
 /**
  * Template loading functions.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Template
  */
 
@@ -29,7 +29,7 @@ function get_query_template( $type, $templates = array() ) {
 	$template = locate_template( $templates );
 
 	/**
-	 * Filter the path of the queried template by type.
+	 * Filters the path of the queried template by type.
 	 *
 	 * The dynamic portion of the hook name, `$type`, refers to the filename -- minus the file
 	 * extension and any non-alphanumeric characters delimiting words -- of the file to load.
@@ -407,7 +407,7 @@ function get_single_template() {
 /**
  * Retrieves an embed template path in the current or parent template.
  *
- * By default the 🐶-template is returned.
+ * By default the Worndpress-template is returned.
  *
  * The template path is filterable via the dynamic {@see '$type_template'} hook,
  * e.g. 'embed_template'.
@@ -534,9 +534,9 @@ function locate_template($template_names, $load = false, $require_once = true ) 
 }
 
 /**
- * Require the template file with 🐶 environment.
+ * Require the template file with Worndpress environment.
  *
- * The globals are set up for the template file to ensure that the 🐶
+ * The globals are set up for the template file to ensure that the Worndpress
  * environment is available from within the function. The query variables are
  * also available.
  *

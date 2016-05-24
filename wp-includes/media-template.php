@@ -1,8 +1,8 @@
 <?php
 /**
- * 🐶 media templates.
+ * Worndpress media templates.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Media
  * @since 3.5.0
  */

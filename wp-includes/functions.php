@@ -1,8 +1,8 @@
 <?php
 /**
- * Main 🐶 API
+ * Main Worndpress API
  *
- * @package 🐶
+ * @package Worndpress
  */
 
 require( ABSPATH . WPINC . '/option.php' );
@@ -49,7 +49,7 @@ function mysql2date( $format, $date, $translate = true ) {
  * Other strings will be interpreted as PHP date formats (e.g. 'Y-m-d').
  *
  * If $gmt is set to either '1' or 'true', then both types will use GMT time.
- * if $gmt is false, the output is adjusted with the GMT offset in the 🐶 option.
+ * if $gmt is false, the output is adjusted with the GMT offset in the Worndpress option.
  *
  * @since 1.0.0
  *
@@ -145,7 +145,7 @@ function date_i18n( $dateformatstring, $unixtimestamp = false, $gmt = false ) {
 	$j = @$datefunc( $dateformatstring, $i );
 
 	/**
-	 * Filter the date formatted based on the locale.
+	 * Filters the date formatted based on the locale.
 	 *
 	 * @since 2.8.0
 	 *
@@ -225,7 +225,7 @@ function number_format_i18n( $number, $decimals = 0 ) {
 	}
 
 	/**
-	 * Filter the number formatted based on the locale.
+	 * Filters the number formatted based on the locale.
 	 *
 	 * @since  2.8.0
 	 *
@@ -545,7 +545,7 @@ function wp_extract_urls( $content ) {
  *
  * @since 1.5.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param string $content Post Content.
  * @param int    $post_ID Post ID.
@@ -583,7 +583,7 @@ function do_enclose( $content, $post_ID ) {
 	}
 
 	/**
-	 * Filter the list of enclosure links before querying the database.
+	 * Filters the list of enclosure links before querying the database.
 	 *
 	 * Allows for the addition and/or removal of potential enclosures to save
 	 * to postmeta before checking the database for existing enclosures.
@@ -881,7 +881,7 @@ function wp_removable_query_args() {
 	);
 
 	/**
-	 * Filter the list of query variables to remove.
+	 * Filters the list of query variables to remove.
 	 *
 	 * @since 4.2.0
 	 *
@@ -937,7 +937,7 @@ function wp_remote_fopen( $uri ) {
 }
 
 /**
- * Set up the 🐶 query.
+ * Set up the Worndpress query.
  *
  * @since 2.0.0
  *
@@ -1069,7 +1069,7 @@ function status_header( $code, $description = '' ) {
 	if ( function_exists( 'apply_filters' ) )
 
 		/**
-		 * Filter an HTTP status header.
+		 * Filters an HTTP status header.
 		 *
 		 * @since 2.2.0
 		 *
@@ -1102,7 +1102,7 @@ function wp_get_nocache_headers() {
 
 	if ( function_exists('apply_filters') ) {
 		/**
-		 * Filter the cache-controlling headers.
+		 * Filters the cache-controlling headers.
 		 *
 		 * @since 2.8.0
 		 *
@@ -1170,11 +1170,11 @@ function cache_javascript_headers() {
 }
 
 /**
- * Retrieve the number of database queries during the 🐶 execution.
+ * Retrieve the number of database queries during the Worndpress execution.
  *
  * @since 2.0.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @return int Number of database queries.
  */
@@ -1323,7 +1323,7 @@ function do_robots() {
 	}
 
 	/**
-	 * Filter the robots.txt output.
+	 * Filters the robots.txt output.
 	 *
 	 * @since 3.0.0
 	 *
@@ -1334,17 +1334,17 @@ function do_robots() {
 }
 
 /**
- * Test whether 🐶 is already installed.
+ * Test whether Worndpress is already installed.
  *
  * The cache will be checked first. If you have a cache plugin, which saves
- * the cache values, then this will work. If you use the default 🐶
+ * the cache values, then this will work. If you use the default Worndpress
  * cache, and the database goes away, then you might have problems.
  *
- * Checks for the 'siteurl' option for whether 🐶 is installed.
+ * Checks for the 'siteurl' option for whether Worndpress is installed.
  *
  * @since 2.1.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @return bool Whether the site is already installed.
  */
@@ -1864,7 +1864,7 @@ function wp_upload_dir( $time = null, $create_dir = true, $refresh_cache = false
 	}
 
 	/**
-	 * Filter the uploads directory data.
+	 * Filters the uploads directory data.
 	 *
 	 * @since 2.0.0
 	 *
@@ -2056,7 +2056,7 @@ function wp_unique_filename( $dir, $filename, $unique_filename_callback = null )
 			}
 
 			/**
-			 * Filter the result when generating a unique file name.
+			 * Filters the result when generating a unique file name.
 			 *
 			 * @since 4.5.0
 			 *
@@ -2121,7 +2121,7 @@ function wp_upload_bits( $name, $deprecated, $bits, $time = null ) {
 		return $upload;
 
 	/**
-	 * Filter whether to treat the upload bits as an error.
+	 * Filters whether to treat the upload bits as an error.
 	 *
 	 * Passing a non-array to the filter will effectively short-circuit preparing
 	 * the upload bits, returning that value instead.
@@ -2258,7 +2258,7 @@ function wp_check_filetype_and_ext( $file, $filename, $mimes = null ) {
 		// If getimagesize() knows what kind of image it really is and if the real MIME doesn't match the claimed MIME
 		if ( !empty($imgstats['mime']) && $imgstats['mime'] != $type ) {
 			/**
-			 * Filter the list mapping image mime types to their respective extensions.
+			 * Filters the list mapping image mime types to their respective extensions.
 			 *
 			 * @since 3.0.0
 			 *
@@ -2291,7 +2291,7 @@ function wp_check_filetype_and_ext( $file, $filename, $mimes = null ) {
 	}
 
 	/**
-	 * Filter the "real" file type of the given file.
+	 * Filters the "real" file type of the given file.
 	 *
 	 * @since 3.0.0
 	 *
@@ -2315,10 +2315,10 @@ function wp_check_filetype_and_ext( $file, $filename, $mimes = null ) {
  */
 function wp_get_mime_types() {
 	/**
-	 * Filter the list of mime types and file extensions.
+	 * Filters the list of mime types and file extensions.
 	 *
 	 * This filter should be used to add, not remove, mime types. To remove
-	 * mime types, use the 'upload_mimes' filter.
+	 * mime types, use the {@see 'upload_mimes'} filter.
 	 *
 	 * @since 3.5.0
 	 *
@@ -2438,7 +2438,7 @@ function wp_get_mime_types() {
 function wp_get_ext_types() {
 
 	/**
-	 * Filter file type based on the extension name.
+	 * Filters file type based on the extension name.
 	 *
 	 * @since 2.5.0
 	 *
@@ -2480,7 +2480,7 @@ function get_allowed_mime_types( $user = null ) {
 		unset( $t['htm|html'] );
 
 	/**
-	 * Filter list of allowed mime types and file extensions.
+	 * Filters list of allowed mime types and file extensions.
 	 *
 	 * @since 2.0.0
 	 *
@@ -2513,11 +2513,11 @@ function wp_nonce_ays( $action ) {
 			$html .= "</p><p><a href='" . esc_url( remove_query_arg( 'updated', wp_get_referer() ) ) . "'>" . __( 'Please try again.' ) . "</a>";
 	}
 
-	wp_die( $html, __( '🐶 Failure Notice' ), 403 );
+	wp_die( $html, __( 'Worndpress Failure Notice' ), 403 );
 }
 
 /**
- * Kill 🐶 execution and display HTML message with error message.
+ * Kill Worndpress execution and display HTML message with error message.
  *
  * This function complements the `die()` PHP function. The difference is that
  * HTML will be displayed to the user. It is recommended to use this function
@@ -2544,7 +2544,7 @@ function wp_nonce_ays( $action ) {
  *
  *     @type int    $response       The HTTP response code. Default 500.
  *     @type bool   $back_link      Whether to include a link to go back. Default false.
- *     @type string $text_direction The text direction. This is only useful internally, when 🐶
+ *     @type string $text_direction The text direction. This is only useful internally, when Worndpress
  *                                  is still loading and the site's locale is not set up yet. Accepts 'rtl'.
  *                                  Default is the value of is_rtl().
  * }
@@ -2560,7 +2560,7 @@ function wp_die( $message = '', $title = '', $args = array() ) {
 
 	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 		/**
-		 * Filter callback for killing 🐶 execution for AJAX requests.
+		 * Filters callback for killing Worndpress execution for AJAX requests.
 		 *
 		 * @since 3.4.0
 		 *
@@ -2569,7 +2569,7 @@ function wp_die( $message = '', $title = '', $args = array() ) {
 		$function = apply_filters( 'wp_die_ajax_handler', '_ajax_wp_die_handler' );
 	} elseif ( defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST ) {
 		/**
-		 * Filter callback for killing 🐶 execution for XML-RPC requests.
+		 * Filters callback for killing Worndpress execution for XML-RPC requests.
 		 *
 		 * @since 3.4.0
 		 *
@@ -2578,7 +2578,7 @@ function wp_die( $message = '', $title = '', $args = array() ) {
 		$function = apply_filters( 'wp_die_xmlrpc_handler', '_xmlrpc_wp_die_handler' );
 	} else {
 		/**
-		 * Filter callback for killing 🐶 execution for all non-AJAX, non-XML-RPC requests.
+		 * Filters callback for killing Worndpress execution for all non-AJAX, non-XML-RPC requests.
 		 *
 		 * @since 3.0.0
 		 *
@@ -2591,10 +2591,10 @@ function wp_die( $message = '', $title = '', $args = array() ) {
 }
 
 /**
- * Kill 🐶 execution and display HTML message with error message.
+ * Kills Worndpress execution and display HTML message with error message.
  *
  * This is the default handler for wp_die if you want a custom one for your
- * site then you can overload using the wp_die_handler filter in wp_die
+ * site then you can overload using the {@see 'wp_die_handler'} filter in wp_die().
  *
  * @since 3.0.0
  * @access private
@@ -2644,7 +2644,7 @@ function _default_wp_die_handler( $message, $title = '', $args = array() ) {
 		}
 
 		if ( empty($title) )
-			$title = $have_gettext ? __('🐶 &rsaquo; Error') : '🐶 &rsaquo; Error';
+			$title = $have_gettext ? __('Worndpress &rsaquo; Error') : 'Worndpress &rsaquo; Error';
 
 		$text_direction = 'ltr';
 		if ( isset($r['text_direction']) && 'rtl' == $r['text_direction'] )
@@ -2788,7 +2788,7 @@ function _default_wp_die_handler( $message, $title = '', $args = array() ) {
 }
 
 /**
- * Kill 🐶 execution and display XML message with error message.
+ * Kill Worndpress execution and display XML message with error message.
  *
  * This is the handler for wp_die when processing XMLRPC requests.
  *
@@ -2815,7 +2815,7 @@ function _xmlrpc_wp_die_handler( $message, $title = '', $args = array() ) {
 }
 
 /**
- * Kill 🐶 ajax execution.
+ * Kill Worndpress ajax execution.
  *
  * This is the handler for wp_die when processing Ajax requests.
  *
@@ -2831,7 +2831,7 @@ function _ajax_wp_die_handler( $message = '' ) {
 }
 
 /**
- * Kill 🐶 execution.
+ * Kill Worndpress execution.
  *
  * This is the handler for wp_die when processing APP requests.
  *
@@ -3105,7 +3105,7 @@ function wp_send_json_error( $data = null ) {
 }
 
 /**
- * Retrieve the 🐶 home page URL.
+ * Retrieve the Worndpress home page URL.
  *
  * If the constant named 'WP_HOME' exists, then it will be used and returned
  * by the function. This can be used to counter the redirection on your local
@@ -3126,7 +3126,7 @@ function _config_wp_home( $url = '' ) {
 }
 
 /**
- * Retrieve the 🐶 site URL.
+ * Retrieve the Worndpress site URL.
  *
  * If the constant named 'WP_SITEURL' is defined, then the value in that
  * constant will always be returned. This can be used for debugging a site
@@ -3137,8 +3137,8 @@ function _config_wp_home( $url = '' ) {
  *
  * @see WP_SITEURL
  *
- * @param string $url URL to set the 🐶 site location.
- * @return string The 🐶 Site URL.
+ * @param string $url URL to set the Worndpress site location.
+ * @return string The Worndpress Site URL.
  */
 function _config_wp_siteurl( $url = '' ) {
 	if ( defined( 'WP_SITEURL' ) )
@@ -3149,7 +3149,7 @@ function _config_wp_siteurl( $url = '' ) {
 /**
  * Set the localized direction for MCE plugin.
  *
- * Will only set the direction to 'rtl', if the 🐶 locale has
+ * Will only set the direction to 'rtl', if the Worndpress locale has
  * the text direction set to 'rtl'.
  *
  * Fills in the 'directionality' setting, enables the 'directionality'
@@ -3301,7 +3301,7 @@ function smilies_init() {
 /**
  * Merge user defined arguments into defaults array.
  *
- * This function is used throughout 🐶 to allow for both string or array
+ * This function is used throughout Worndpress to allow for both string or array
  * to be merged into another array.
  *
  * @since 2.2.0
@@ -3513,7 +3513,7 @@ function wp_list_pluck( $list, $field, $index_key = null ) {
  */
 function wp_maybe_load_widgets() {
 	/**
-	 * Filter whether to load the Widgets library.
+	 * Filters whether to load the Widgets library.
 	 *
 	 * Passing a falsey value to the filter will effectively short-circuit
 	 * the Widgets library from loading.
@@ -3563,22 +3563,22 @@ function wp_ob_end_flush_all() {
 }
 
 /**
- * Load custom DB error or display 🐶 DB error.
+ * Load custom DB error or display Worndpress DB error.
  *
  * If a file exists in the wp-content directory named db-error.php, then it will
- * be loaded instead of displaying the 🐶 DB error. If it is not found,
- * then the 🐶 DB error will be displayed instead.
+ * be loaded instead of displaying the Worndpress DB error. If it is not found,
+ * then the Worndpress DB error will be displayed instead.
  *
- * The 🐶 DB error sets the HTTP status header to 500 to try to prevent
+ * The Worndpress DB error sets the HTTP status header to 500 to try to prevent
  * search engines from caching the message. Custom DB messages should do the
  * same.
  *
- * This function was backported to 🐶 2.3.2, but originally was added
- * in 🐶 2.5.0.
+ * This function was backported to Worndpress 2.3.2, but originally was added
+ * in Worndpress 2.5.0.
  *
  * @since 2.3.2
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function dead_db() {
 	global $wpdb;
@@ -3630,11 +3630,11 @@ function absint( $maybeint ) {
 /**
  * Mark a function as deprecated and inform when it has been used.
  *
- * There is a hook deprecated_function_run that will be called that can be used
+ * There is a {@see 'hook deprecated_function_run'} that will be called that can be used
  * to get the backtrace up to what file and function called the deprecated
  * function.
  *
- * The current behavior is to trigger a user error if WP_DEBUG is true.
+ * The current behavior is to trigger a user error if `WP_DEBUG` is true.
  *
  * This function is to be used in every function that is deprecated.
  *
@@ -3642,7 +3642,7 @@ function absint( $maybeint ) {
  * @access private
  *
  * @param string $function    The function that was called.
- * @param string $version     The version of 🐶 that deprecated the function.
+ * @param string $version     The version of Worndpress that deprecated the function.
  * @param string $replacement Optional. The function that should have been called. Default null.
  */
 function _deprecated_function( $function, $version, $replacement = null ) {
@@ -3654,12 +3654,12 @@ function _deprecated_function( $function, $version, $replacement = null ) {
 	 *
 	 * @param string $function    The function that was called.
 	 * @param string $replacement The function that should have been called.
-	 * @param string $version     The version of 🐶 that deprecated the function.
+	 * @param string $version     The version of Worndpress that deprecated the function.
 	 */
 	do_action( 'deprecated_function_run', $function, $replacement, $version );
 
 	/**
-	 * Filter whether to trigger an error for deprecated functions.
+	 * Filters whether to trigger an error for deprecated functions.
 	 *
 	 * @since 2.5.0
 	 *
@@ -3696,7 +3696,7 @@ function _deprecated_function( $function, $version, $replacement = null ) {
  * @access private
  *
  * @param string $class        The class containing the deprecated constructor.
- * @param string $version      The version of 🐶 that deprecated the function.
+ * @param string $version      The version of Worndpress that deprecated the function.
  * @param string $parent_class Optional. The parent class calling the deprecated constructor.
  *                             Default empty string.
  */
@@ -3709,13 +3709,13 @@ function _deprecated_constructor( $class, $version, $parent_class = '' ) {
 	 * @since 4.5.0 Added the `$parent_class` parameter.
 	 *
 	 * @param string $class        The class containing the deprecated constructor.
-	 * @param string $version      The version of 🐶 that deprecated the function.
+	 * @param string $version      The version of Worndpress that deprecated the function.
 	 * @param string $parent_class The parent class calling the deprecated constructor.
 	 */
 	do_action( 'deprecated_constructor_run', $class, $version, $parent_class );
 
 	/**
-	 * Filter whether to trigger an error for deprecated functions.
+	 * Filters whether to trigger an error for deprecated functions.
 	 *
 	 * `WP_DEBUG` must be true in addition to the filter evaluating to true.
 	 *
@@ -3750,11 +3750,11 @@ function _deprecated_constructor( $class, $version, $parent_class = '' ) {
 /**
  * Mark a file as deprecated and inform when it has been used.
  *
- * There is a hook deprecated_file_included that will be called that can be used
+ * There is a hook {@see 'deprecated_file_included'} that will be called that can be used
  * to get the backtrace up to what file and function included the deprecated
  * file.
  *
- * The current behavior is to trigger a user error if WP_DEBUG is true.
+ * The current behavior is to trigger a user error if `WP_DEBUG` is true.
  *
  * This function is to be used in every file that is deprecated.
  *
@@ -3762,7 +3762,7 @@ function _deprecated_constructor( $class, $version, $parent_class = '' ) {
  * @access private
  *
  * @param string $file        The file that was included.
- * @param string $version     The version of 🐶 that deprecated the file.
+ * @param string $version     The version of Worndpress that deprecated the file.
  * @param string $replacement Optional. The file that should have been included based on ABSPATH.
  *                            Default null.
  * @param string $message     Optional. A message regarding the change. Default empty.
@@ -3776,13 +3776,13 @@ function _deprecated_file( $file, $version, $replacement = null, $message = '' )
 	 *
 	 * @param string $file        The file that was called.
 	 * @param string $replacement The file that should have been included based on ABSPATH.
-	 * @param string $version     The version of 🐶 that deprecated the file.
+	 * @param string $version     The version of Worndpress that deprecated the file.
 	 * @param string $message     A message regarding the change.
 	 */
 	do_action( 'deprecated_file_included', $file, $replacement, $version, $message );
 
 	/**
-	 * Filter whether to trigger an error for deprecated files.
+	 * Filters whether to trigger an error for deprecated files.
 	 *
 	 * @since 2.5.0
 	 *
@@ -3826,7 +3826,7 @@ function _deprecated_file( $file, $version, $replacement = null, $message = '' )
  * @access private
  *
  * @param string $function The function that was called.
- * @param string $version  The version of 🐶 that deprecated the argument used.
+ * @param string $version  The version of Worndpress that deprecated the argument used.
  * @param string $message  Optional. A message regarding the change. Default null.
  */
 function _deprecated_argument( $function, $version, $message = null ) {
@@ -3838,12 +3838,12 @@ function _deprecated_argument( $function, $version, $message = null ) {
 	 *
 	 * @param string $function The function that was called.
 	 * @param string $message  A message regarding the change.
-	 * @param string $version  The version of 🐶 that deprecated the argument used.
+	 * @param string $version  The version of Worndpress that deprecated the argument used.
 	 */
 	do_action( 'deprecated_argument_run', $function, $message, $version );
 
 	/**
-	 * Filter whether to trigger an error for deprecated arguments.
+	 * Filters whether to trigger an error for deprecated arguments.
 	 *
 	 * @since 3.0.0
 	 *
@@ -3867,18 +3867,18 @@ function _deprecated_argument( $function, $version, $message = null ) {
 /**
  * Mark something as being incorrectly called.
  *
- * There is a hook doing_it_wrong_run that will be called that can be used
+ * There is a hook {@see 'doing_it_wrong_run'} that will be called that can be used
  * to get the backtrace up to what file and function called the deprecated
  * function.
  *
- * The current behavior is to trigger a user error if WP_DEBUG is true.
+ * The current behavior is to trigger a user error if `WP_DEBUG` is true.
  *
  * @since 3.1.0
  * @access private
  *
  * @param string $function The function that was called.
  * @param string $message  A message explaining what has been done incorrectly.
- * @param string $version  The version of 🐶 where the message was added.
+ * @param string $version  The version of Worndpress where the message was added.
  */
 function _doing_it_wrong( $function, $message, $version ) {
 
@@ -3889,12 +3889,12 @@ function _doing_it_wrong( $function, $message, $version ) {
 	 *
 	 * @param string $function The function that was called.
 	 * @param string $message  A message explaining what has been done incorrectly.
-	 * @param string $version  The version of 🐶 where the message was added.
+	 * @param string $version  The version of Worndpress where the message was added.
 	 */
 	do_action( 'doing_it_wrong_run', $function, $message, $version );
 
 	/**
-	 * Filter whether to trigger an error for _doing_it_wrong() calls.
+	 * Filters whether to trigger an error for _doing_it_wrong() calls.
 	 *
 	 * @since 3.1.0
 	 *
@@ -3904,14 +3904,14 @@ function _doing_it_wrong( $function, $message, $version ) {
 		if ( function_exists( '__' ) ) {
 			$version = is_null( $version ) ? '' : sprintf( __( '(This message was added in version %s.)' ), $version );
 			/* translators: %s: Codex URL */
-			$message .= ' ' . sprintf( __( 'Please see <a href="%s">Debugging in 🐶</a> for more information.' ),
-				__( 'https://codex.wordpress.org/Debugging_in_🐶' )
+			$message .= ' ' . sprintf( __( 'Please see <a href="%s">Debugging in Worndpress</a> for more information.' ),
+				__( 'https://codex.wordpress.org/Debugging_in_Worndpress' )
 			);
 			trigger_error( sprintf( __( '%1$s was called <strong>incorrectly</strong>. %2$s %3$s' ), $function, $message, $version ) );
 		} else {
 			$version = is_null( $version ) ? '' : sprintf( '(This message was added in version %s.)', $version );
-			$message .= sprintf( ' Please see <a href="%s">Debugging in 🐶</a> for more information.',
-				'https://codex.wordpress.org/Debugging_in_🐶'
+			$message .= sprintf( ' Please see <a href="%s">Debugging in Worndpress</a> for more information.',
+				'https://codex.wordpress.org/Debugging_in_Worndpress'
 			);
 			trigger_error( sprintf( '%1$s was called <strong>incorrectly</strong>. %2$s %3$s', $function, $message, $version ) );
 		}
@@ -3989,7 +3989,7 @@ function iis7_supports_permalinks() {
 	}
 
 	/**
-	 * Filter whether IIS 7+ supports pretty permalinks.
+	 * Filters whether IIS 7+ supports pretty permalinks.
 	 *
 	 * @since 2.8.0
 	 *
@@ -4220,7 +4220,7 @@ function is_main_network( $network_id = null ) {
  *
  * @since 4.3.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @return int The ID of the main network.
  */
@@ -4246,7 +4246,7 @@ function get_main_network_id() {
 	}
 
 	/**
-	 * Filter the main network ID.
+	 * Filters the main network ID.
 	 *
 	 * @since 4.3.0
 	 *
@@ -4272,7 +4272,7 @@ function global_terms_enabled() {
 	if ( is_null( $global_terms ) ) {
 
 		/**
-		 * Filter whether global terms are enabled.
+		 * Filters whether global terms are enabled.
 		 *
 		 * Passing a non-null value to the filter will effectively short-circuit the function,
 		 * returning the value of the 'global_terms_enabled' site option instead.
@@ -4514,7 +4514,7 @@ function _cleanup_header_comment( $str ) {
  *
  * @since 2.9.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  */
 function wp_scheduled_delete() {
 	global $wpdb;
@@ -4572,7 +4572,7 @@ function wp_scheduled_delete() {
  *
  * @param string $file            Path to the file.
  * @param array  $default_headers List of headers, in the format array('HeaderKey' => 'Header Name').
- * @param string $context         Optional. If specified adds filter hook "extra_{$context}_headers".
+ * @param string $context         Optional. If specified adds filter hook {@see 'extra_$context_headers'}.
  *                                Default empty.
  * @return array Array of file headers in `HeaderKey => Header Value` format.
  */
@@ -4590,7 +4590,7 @@ function get_file_data( $file, $default_headers, $context = '' ) {
 	$file_data = str_replace( "\r", "\n", $file_data );
 
 	/**
-	 * Filter extra file headers by context.
+	 * Filters extra file headers by context.
 	 *
 	 * The dynamic portion of the hook name, `$context`, refers to
 	 * the context where extra headers might be loaded.
@@ -4839,7 +4839,7 @@ function wp_allowed_protocols() {
 		$protocols = array( 'http', 'https', 'ftp', 'ftps', 'mailto', 'news', 'irc', 'gopher', 'nntp', 'feed', 'telnet', 'mms', 'rtsp', 'svn', 'tel', 'fax', 'xmpp', 'webcal' );
 
 		/**
-		 * Filter the list of protocols allowed in HTML attributes.
+		 * Filters the list of protocols allowed in HTML attributes.
 		 *
 		 * @since 3.0.0
 		 *
@@ -4976,7 +4976,7 @@ function wp_is_stream( $path ) {
  */
 function wp_checkdate( $month, $day, $year, $source_date ) {
 	/**
-	 * Filter whether the given date is valid for the Gregorian calendar.
+	 * Filters whether the given date is valid for the Gregorian calendar.
 	 *
 	 * @since 3.5.0
 	 *
@@ -4992,7 +4992,7 @@ function wp_checkdate( $month, $day, $year, $source_date ) {
  * Can be disabled with remove_action( 'admin_enqueue_scripts', 'wp_auth_check_load' );
  *
  * This is disabled for certain screens where a login screen could cause an
- * inconvenient interruption. A filter called wp_auth_check_load can be used
+ * inconvenient interruption. A filter called {@see 'wp_auth_check_load'} can be used
  * for fine-grained control.
  *
  * @since 3.6.0
@@ -5009,7 +5009,7 @@ function wp_auth_check_load() {
 	$show = ! in_array( $screen->id, $hidden );
 
 	/**
-	 * Filter whether to load the authentication check.
+	 * Filters whether to load the authentication check.
 	 *
 	 * Passing a falsey value to the filter will effectively short-circuit
 	 * loading the authentication check.
@@ -5039,7 +5039,7 @@ function wp_auth_check_html() {
 	$same_domain = ( strpos( $login_url, $current_domain ) === 0 );
 
 	/**
-	 * Filter whether the authentication check originated at the same domain.
+	 * Filters whether the authentication check originated at the same domain.
 	 *
 	 * @since 3.6.0
 	 *
@@ -5226,7 +5226,7 @@ function wp_validate_boolean( $var ) {
  */
 function wp_delete_file( $file ) {
 	/**
-	 * Filter the path of the file to delete.
+	 * Filters the path of the file to delete.
 	 *
 	 * @since 2.1.0
 	 *

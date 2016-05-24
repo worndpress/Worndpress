@@ -1,8 +1,8 @@
 <?php
 /**
- * 🐶 User Administration Bootstrap
+ * Worndpress User Administration Bootstrap
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  * @since 3.1.0
  */
@@ -18,7 +18,7 @@ if ( ! is_multisite() ) {
 
 $redirect_user_admin_request = ( ( $current_blog->domain != $current_site->domain ) || ( $current_blog->path != $current_site->path ) );
 /**
- * Filter whether to redirect the request to the User Admin in Multisite.
+ * Filters whether to redirect the request to the User Admin in Multisite.
  *
  * @since 3.2.0
  *

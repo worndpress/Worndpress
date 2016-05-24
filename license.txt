@@ -1,4 +1,4 @@
-🐶 - Web publishing software
+Worndpress - Web publishing software
 
 Copyright 2011-2016 by the contributors
 
@@ -29,11 +29,11 @@ permission notices:
 
 and
 
-  🐶 - Web publishing software
+  Worndpress - Web publishing software
 
   Copyright 2003-2010 by the contributors
 
-  🐶 is released under the GPL
+  Worndpress is released under the GPL
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
@@ -380,6 +380,6 @@ Public License instead of this License.
 WRITTEN OFFER
 
 The source code for any program binaries or compressed scripts that are
-included with 🐶 can be freely obtained at the following URL:
+included with Worndpress can be freely obtained at the following URL:
 
 	https://wordpress.org/download/source/

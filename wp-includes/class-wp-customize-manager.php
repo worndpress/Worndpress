@@ -1,8 +1,8 @@
 <?php
 /**
- * 🐶 Customize Manager classes
+ * Worndpress Customize Manager classes
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Customize
  * @since 3.4.0
  */
@@ -242,7 +242,7 @@ final class WP_Customize_Manager {
 		require_once( ABSPATH . WPINC . '/customize/class-wp-customize-nav-menu-setting.php' );
 
 		/**
-		 * Filter the core Customizer components to load.
+		 * Filters the core Customizer components to load.
 		 *
 		 * This allows Core components to be excluded from being instantiated by
 		 * filtering them out of the array. Note that this filter generally runs
@@ -424,7 +424,7 @@ final class WP_Customize_Manager {
 	 * @since 3.4.0
 	 */
 	public function after_setup_theme() {
-		$doing_ajax_or_is_customized = ( $this->doing_ajax() || isset( $_SERVER['customized'] ) );
+		$doing_ajax_or_is_customized = ( $this->doing_ajax() || isset( $_POST['customized'] ) );
 		if ( ! $doing_ajax_or_is_customized && ! validate_current_theme() ) {
 			wp_redirect( 'themes.php?broken=true' );
 			exit;
@@ -596,7 +596,7 @@ final class WP_Customize_Manager {
 	public function wp_loaded() {
 
 		/**
-		 * Fires once 🐶 has loaded, allowing scripts and styles to be initialized.
+		 * Fires once Worndpress has loaded, allowing scripts and styles to be initialized.
 		 *
 		 * @since 3.4.0
 		 *
@@ -905,8 +905,8 @@ final class WP_Customize_Manager {
 	 *
 	 * @since 3.4.0
 	 *
-	 * @param mixed $return Value passed through for wp_die_handler filter.
-	 * @return mixed Value passed through for wp_die_handler filter.
+	 * @param mixed $return Value passed through for {@see 'wp_die_handler'} filter.
+	 * @return mixed Value passed through for {@see 'wp_die_handler'} filter.
 	 */
 	public function remove_preview_signature( $return = null ) {
 		remove_action( 'shutdown', array( $this, 'customize_preview_signature' ), 1000 );
@@ -970,7 +970,7 @@ final class WP_Customize_Manager {
 	}
 
 	/**
-	 * Filter the current theme and return the name of the previewed theme.
+	 * Filters the current theme and return the name of the previewed theme.
 	 *
 	 * @since 3.4.0
 	 *
@@ -1098,7 +1098,7 @@ final class WP_Customize_Manager {
 		do_action( 'customize_save_after', $this );
 
 		/**
-		 * Filter response data for a successful customize_save AJAX request.
+		 * Filters response data for a successful customize_save AJAX request.
 		 *
 		 * This filter does not apply if there was a nonce or authentication failure.
 		 *
@@ -1161,7 +1161,7 @@ final class WP_Customize_Manager {
 	 * that have no corresponding setting created.
 	 *
 	 * This is a mechanism to "wake up" settings that have been dynamically created
-	 * on the front end and have been sent to 🐶 in `$_POST['customized']`. When WP
+	 * on the front end and have been sent to Worndpress in `$_POST['customized']`. When WP
 	 * loads, the dynamically-created settings then will get created and previewed
 	 * even though they are not directly created statically with code.
 	 *
@@ -1183,7 +1183,7 @@ final class WP_Customize_Manager {
 			$setting_class = 'WP_Customize_Setting';
 
 			/**
-			 * Filter a dynamic setting's constructor args.
+			 * Filters a dynamic setting's constructor args.
 			 *
 			 * For a dynamic setting to be registered, this filter must be employed
 			 * to override the default false value with an array of args to pass to
@@ -1631,6 +1631,7 @@ final class WP_Customize_Manager {
 	 * @param string $preview_url URL to be previewed.
 	 */
 	public function set_preview_url( $preview_url ) {
+		$preview_url = esc_url_raw( $preview_url );
 		$this->preview_url = wp_validate_redirect( $preview_url, home_url( '/' ) );
 	}
 
@@ -1662,6 +1663,7 @@ final class WP_Customize_Manager {
 	 * @param string $return_url URL for return link.
 	 */
 	public function set_return_url( $return_url ) {
+		$return_url = esc_url_raw( $return_url );
 		$return_url = remove_query_arg( wp_removable_query_args(), $return_url );
 		$return_url = wp_validate_redirect( $return_url );
 		$this->return_url = $return_url;
@@ -1740,7 +1742,7 @@ final class WP_Customize_Manager {
 		);
 
 		/**
-		 * Filter nonces for Customizer.
+		 * Filters nonces for Customizer.
 		 *
 		 * @since 4.2.0
 		 *
@@ -1778,7 +1780,7 @@ final class WP_Customize_Manager {
 		}
 
 		/**
-		 * Filter the list of URLs allowed to be clicked and followed in the Customizer preview.
+		 * Filters the list of URLs allowed to be clicked and followed in the Customizer preview.
 		 *
 		 * @since 3.4.0
 		 *
@@ -1898,7 +1900,7 @@ final class WP_Customize_Manager {
 		);
 
 		/**
-		 * Filter the available devices to allow previewing in the Customizer.
+		 * Filters the available devices to allow previewing in the Customizer.
 		 *
 		 * @since 4.5.0
 		 *

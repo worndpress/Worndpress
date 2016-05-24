@@ -1,8 +1,8 @@
 <?php
 /**
- * 🐶 Comment Administration API.
+ * Worndpress Comment Administration API.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  * @since 2.3.0
  */
@@ -16,7 +16,7 @@
  * @since 2.0.0
  * @since 4.4.0 Added the `$timezone` parameter.
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param string $comment_author Author of the comment.
  * @param string $comment_date   Date of the comment.
@@ -102,7 +102,7 @@ function get_comment_to_edit( $id ) {
 
 	$comment->comment_content = format_to_edit( $comment->comment_content );
 	/**
-	 * Filter the comment content before editing.
+	 * Filters the comment content before editing.
 	 *
 	 * @since 2.0.0
 	 *
@@ -123,7 +123,7 @@ function get_comment_to_edit( $id ) {
  *
  * @since 2.3.0
  *
- * @global wpdb $wpdb 🐶 database abstraction object.
+ * @global wpdb $wpdb Worndpress database abstraction object.
  *
  * @param int|array $post_id Either a single Post ID or an array of Post IDs
  * @return int|array Either a single Posts pending comments as an int or an array of ints keyed on the Post IDs

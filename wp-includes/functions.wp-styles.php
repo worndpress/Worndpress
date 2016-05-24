@@ -4,7 +4,7 @@
  *
  * @since 2.6.0
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Dependencies
  */
 
@@ -106,11 +106,11 @@ function wp_add_inline_style( $handle, $data ) {
  * @since 4.3.0 A return value was added.
  *
  * @param string           $handle Name of the stylesheet. Should be unique.
- * @param string           $src    Full URL of the stylesheet, or path of the stylesheet relative to the 🐶 root directory.
+ * @param string           $src    Full URL of the stylesheet, or path of the stylesheet relative to the Worndpress root directory.
  * @param array            $deps   Optional. An array of registered stylesheet handles this stylesheet depends on. Default empty array.
  * @param string|bool|null $ver    Optional. String specifying stylesheet version number, if it has one, which is added to the URL
  *                                 as a query string for cache busting purposes. If version is set to false, a version
- *                                 number is automatically added equal to current installed 🐶 version.
+ *                                 number is automatically added equal to current installed Worndpress version.
  *                                 If set to null, no version is added.
  * @param string           $media  Optional. The media for which this stylesheet has been defined.
  *                                 Default 'all'. Accepts media types like 'all', 'print' and 'screen', or media queries like
@@ -150,11 +150,11 @@ function wp_deregister_style( $handle ) {
  * @since 2.6.0
  *
  * @param string           $handle Name of the stylesheet. Should be unique.
- * @param string           $src    Full URL of the stylesheet, or path of the stylesheet relative to the 🐶 root directory.
+ * @param string           $src    Full URL of the stylesheet, or path of the stylesheet relative to the Worndpress root directory.
  * @param array            $deps   Optional. An array of registered stylesheet handles this stylesheet depends on. Default empty array.
  * @param string|bool|null $ver    Optional. String specifying stylesheet version number, if it has one, which is added to the URL
  *                                 as a query string for cache busting purposes. If version is set to false, a version
- *                                 number is automatically added equal to current installed 🐶 version.
+ *                                 number is automatically added equal to current installed Worndpress version.
  *                                 If set to null, no version is added.
  * @param string           $media  Optional. The media for which this stylesheet has been defined.
  *                                 Default 'all'. Accepts media types like 'all', 'print' and 'screen', or media queries like

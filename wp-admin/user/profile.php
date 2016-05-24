@@ -2,12 +2,12 @@
 /**
  * User Profile Administration Screen.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  * @since 3.1.0
  */
 
-/** Load 🐶 Administration Bootstrap */
+/** Load Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 require( ABSPATH . 'wp-admin/profile.php' );

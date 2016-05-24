@@ -1,10 +1,10 @@
 <?php
 /**
- * 🐶 DB Class
+ * Worndpress DB Class
  *
  * Original code from {@link http://php.justinvincent.com Justin Vincent (justin@visunet.ie)}
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Database
  * @since 0.71
  */
@@ -36,7 +36,7 @@ define( 'ARRAY_A', 'ARRAY_A' );
 define( 'ARRAY_N', 'ARRAY_N' );
 
 /**
- * 🐶 Database Access Abstraction Object
+ * Worndpress Database Access Abstraction Object
  *
  * It is possible to replace this class with your own
  * by setting the $wpdb global variable in wp-content/db.php
@@ -45,7 +45,7 @@ define( 'ARRAY_N', 'ARRAY_N' );
  *
  * @link https://codex.wordpress.org/Function_Reference/wpdb_Class
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Database
  * @since 0.71
  */
@@ -209,9 +209,9 @@ class wpdb {
 	protected $reconnect_retries = 5;
 
 	/**
-	 * 🐶 table prefix
+	 * Worndpress table prefix
 	 *
-	 * You can set this to have multiple 🐶 installations
+	 * You can set this to have multiple Worndpress installations
 	 * in a single database. The second reason is for possible
 	 * security precautions.
 	 *
@@ -222,7 +222,7 @@ class wpdb {
 	public $prefix = '';
 
 	/**
-	 * 🐶 base table prefix.
+	 * Worndpress base table prefix.
 	 *
 	 * @since 3.0.0
 	 * @access public
@@ -258,7 +258,7 @@ class wpdb {
 	public $siteid = 0;
 
 	/**
-	 * List of 🐶 per-blog tables
+	 * List of Worndpress per-blog tables
 	 *
 	 * @since 2.5.0
 	 * @access private
@@ -269,7 +269,7 @@ class wpdb {
 		'terms', 'term_taxonomy', 'term_relationships', 'termmeta', 'commentmeta' );
 
 	/**
-	 * List of deprecated 🐶 tables
+	 * List of deprecated Worndpress tables
 	 *
 	 * categories, post2cat, and link2cat were deprecated in 2.3.0, db version 5539
 	 *
@@ -281,7 +281,7 @@ class wpdb {
 	var $old_tables = array( 'categories', 'post2cat', 'link2cat' );
 
 	/**
-	 * List of 🐶 global tables
+	 * List of Worndpress global tables
 	 *
 	 * @since 3.0.0
 	 * @access private
@@ -302,7 +302,7 @@ class wpdb {
 		'sitecategories', 'registration_log', 'blog_versions' );
 
 	/**
-	 * 🐶 Comments table
+	 * Worndpress Comments table
 	 *
 	 * @since 1.5.0
 	 * @access public
@@ -311,7 +311,7 @@ class wpdb {
 	public $comments;
 
 	/**
-	 * 🐶 Comment Metadata table
+	 * Worndpress Comment Metadata table
 	 *
 	 * @since 2.9.0
 	 * @access public
@@ -320,7 +320,7 @@ class wpdb {
 	public $commentmeta;
 
 	/**
-	 * 🐶 Links table
+	 * Worndpress Links table
 	 *
 	 * @since 1.5.0
 	 * @access public
@@ -329,7 +329,7 @@ class wpdb {
 	public $links;
 
 	/**
-	 * 🐶 Options table
+	 * Worndpress Options table
 	 *
 	 * @since 1.5.0
 	 * @access public
@@ -338,7 +338,7 @@ class wpdb {
 	public $options;
 
 	/**
-	 * 🐶 Post Metadata table
+	 * Worndpress Post Metadata table
 	 *
 	 * @since 1.5.0
 	 * @access public
@@ -347,7 +347,7 @@ class wpdb {
 	public $postmeta;
 
 	/**
-	 * 🐶 Posts table
+	 * Worndpress Posts table
 	 *
 	 * @since 1.5.0
 	 * @access public
@@ -356,7 +356,7 @@ class wpdb {
 	public $posts;
 
 	/**
-	 * 🐶 Terms table
+	 * Worndpress Terms table
 	 *
 	 * @since 2.3.0
 	 * @access public
@@ -365,7 +365,7 @@ class wpdb {
 	public $terms;
 
 	/**
-	 * 🐶 Term Relationships table
+	 * Worndpress Term Relationships table
 	 *
 	 * @since 2.3.0
 	 * @access public
@@ -374,7 +374,7 @@ class wpdb {
 	public $term_relationships;
 
 	/**
-	 * 🐶 Term Taxonomy table
+	 * Worndpress Term Taxonomy table
 	 *
 	 * @since 2.3.0
 	 * @access public
@@ -383,7 +383,7 @@ class wpdb {
 	public $term_taxonomy;
 
 	/**
-	 * 🐶 Term Meta table.
+	 * Worndpress Term Meta table.
 	 *
 	 * @since 4.4.0
 	 * @access public
@@ -396,7 +396,7 @@ class wpdb {
 	//
 
 	/**
-	 * 🐶 User Metadata table
+	 * Worndpress User Metadata table
 	 *
 	 * @since 2.3.0
 	 * @access public
@@ -405,7 +405,7 @@ class wpdb {
 	public $usermeta;
 
 	/**
-	 * 🐶 Users table
+	 * Worndpress Users table
 	 *
 	 * @since 1.5.0
 	 * @access public
@@ -568,7 +568,7 @@ class wpdb {
 	 * Whether MySQL is used as the database engine.
 	 *
 	 * Set in WPDB::db_connect() to true, by default. This is used when checking
-	 * against the required MySQL version for 🐶. Normally, a replacement
+	 * against the required MySQL version for Worndpress. Normally, a replacement
 	 * database drop-in (db.php) will skip these checks, but setting this to true
 	 * will force the checks to occur.
 	 *
@@ -631,7 +631,7 @@ class wpdb {
 
 		/* Use ext/mysqli if it exists and:
 		 *  - WP_USE_EXT_MYSQL is defined as false, or
-		 *  - We are a development version of 🐶, or
+		 *  - We are a development version of Worndpress, or
 		 *  - We are running PHP 5.5 or greater, or
 		 *  - ext/mysql is not loaded.
 		 */
@@ -757,8 +757,18 @@ class wpdb {
 			$this->charset = 'utf8mb4';
 		}
 
-		if ( 'utf8mb4' === $this->charset && ( ! $this->collate || stripos( $this->collate, 'utf8_' ) === 0 ) ) {
-			$this->collate = 'utf8mb4_unicode_ci';
+		if ( 'utf8mb4' === $this->charset ) {
+			// _general_ is outdated, so we can upgrade it to _unicode_, instead.
+			if ( ! $this->collate || 'utf8_general_ci' === $this->collate ) {
+				$this->collate = 'utf8mb4_unicode_ci';
+			} else {
+				$this->collate = str_replace( 'utf8_', 'utf8mb4_', $this->collate );
+			}
+		}
+
+		// _unicode_520_ is a better collation, we should use that when it's available.
+		if ( $this->has_cap( 'utf8mb4_520' ) && 'utf8mb4_unicode_ci' === $this->collate ) {
+			$this->collate = 'utf8mb4_unicode_520_ci';
 		}
 	}
 
@@ -798,7 +808,7 @@ class wpdb {
 	}
 
 	/**
-	 * Change the current SQL mode, and ensure its 🐶 compatibility.
+	 * Change the current SQL mode, and ensure its Worndpress compatibility.
 	 *
 	 * If no modes are passed, it will ensure the current MySQL server
 	 * modes are compatible.
@@ -839,7 +849,7 @@ class wpdb {
 		$modes = array_change_key_case( $modes, CASE_UPPER );
 
 		/**
-		 * Filter the list of incompatible SQL modes to exclude.
+		 * Filters the list of incompatible SQL modes to exclude.
 		 *
 		 * @since 3.9.0
 		 *
@@ -863,7 +873,7 @@ class wpdb {
 	}
 
 	/**
-	 * Sets the table prefix for the 🐶 tables.
+	 * Sets the table prefix for the Worndpress tables.
 	 *
 	 * @since 2.5.0
 	 *
@@ -951,10 +961,10 @@ class wpdb {
 	}
 
 	/**
-	 * Returns an array of 🐶 tables.
+	 * Returns an array of Worndpress tables.
 	 *
 	 * Also allows for the CUSTOM_USER_TABLE and CUSTOM_USER_META_TABLE to
-	 * override the 🐶 users and usermeta tables that would otherwise
+	 * override the Worndpress users and usermeta tables that would otherwise
 	 * be determined by the prefix.
 	 *
 	 * The scope argument can take one of the following:
@@ -1079,7 +1089,7 @@ class wpdb {
 
 				$message .= '<p>' . sprintf(
 					/* translators: %s: support forums URL */
-					__( 'If you don&#8217;t know how to set up a database you should <strong>contact your host</strong>. If all else fails you may find help at the <a href="%s">🐶 Support Forums</a>.' ),
+					__( 'If you don&#8217;t know how to set up a database you should <strong>contact your host</strong>. If all else fails you may find help at the <a href="%s">Worndpress Support Forums</a>.' ),
 					__( 'https://wordpress.org/support/' )
 				) . "</p>\n";
 
@@ -1318,9 +1328,9 @@ class wpdb {
 		wp_load_translations_early();
 
 		if ( $caller = $this->get_caller() )
-			$error_str = sprintf( __( '🐶 database error %1$s for query %2$s made by %3$s' ), $str, $this->last_query, $caller );
+			$error_str = sprintf( __( 'Worndpress database error %1$s for query %2$s made by %3$s' ), $str, $this->last_query, $caller );
 		else
-			$error_str = sprintf( __( '🐶 database error %1$s for query %2$s' ), $str, $this->last_query );
+			$error_str = sprintf( __( 'Worndpress database error %1$s for query %2$s' ), $str, $this->last_query );
 
 		error_log( $error_str );
 
@@ -1332,7 +1342,7 @@ class wpdb {
 		if ( is_multisite() ) {
 			$msg = sprintf(
 				"%s [%s]\n%s\n",
-				__( '🐶 database error:' ),
+				__( 'Worndpress database error:' ),
 				$str,
 				$this->last_query
 			);
@@ -1349,7 +1359,7 @@ class wpdb {
 
 			printf(
 				'<div id="error"><p class="wpdberror"><strong>%s</strong> [%s]<br /><code>%s</code></p></div>',
-				__( '🐶 database error:' ),
+				__( 'Worndpress database error:' ),
 				$str,
 				$query
 			);
@@ -1547,7 +1557,7 @@ class wpdb {
 
 			$message .= '<p>' . sprintf(
 				/* translators: %s: support forums URL */
-				__( 'If you&#8217;re unsure what these terms mean you should probably contact your host. If you still need help you can always visit the <a href="%s">🐶 Support Forums</a>.' ),
+				__( 'If you&#8217;re unsure what these terms mean you should probably contact your host. If you still need help you can always visit the <a href="%s">Worndpress Support Forums</a>.' ),
 				__( 'https://wordpress.org/support/' )
 			) . "</p>\n";
 
@@ -1574,10 +1584,10 @@ class wpdb {
 	}
 
 	/**
-	 * Check that the connection to the database is still up. If not, try to reconnect.
+	 * Checks that the connection to the database is still up. If not, try to reconnect.
 	 *
 	 * If this function is unable to reconnect, it will forcibly die, or if after the
-	 * the template_redirect hook has been fired, return false instead.
+	 * the {@see 'template_redirect'} hook has been fired, return false instead.
 	 *
 	 * If $allow_bail is false, the lack of database connection will need
 	 * to be handled manually.
@@ -1651,7 +1661,7 @@ class wpdb {
 
 		$message .= '<p>' . sprintf(
 			/* translators: %s: support forums URL */
-			__( 'If you&#8217;re unsure what these terms mean you should probably contact your host. If you still need help you can always visit the <a href="%s">🐶 Support Forums</a>.' ),
+			__( 'If you&#8217;re unsure what these terms mean you should probably contact your host. If you still need help you can always visit the <a href="%s">Worndpress Support Forums</a>.' ),
 			__( 'https://wordpress.org/support/' )
 		) . "</p>\n";
 
@@ -1679,7 +1689,7 @@ class wpdb {
 		}
 
 		/**
-		 * Filter the database query.
+		 * Filters the database query.
 		 *
 		 * Some queries are made before the plugins have been loaded,
 		 * and thus cannot be filtered with this method.
@@ -1709,18 +1719,28 @@ class wpdb {
 
 		$this->check_current_query = true;
 
-		// Keep track of the last query for debug..
+		// Keep track of the last query for debug.
 		$this->last_query = $query;
 
 		$this->_do_query( $query );
 
-		// MySQL server has gone away, try to reconnect
+		// MySQL server has gone away, try to reconnect.
 		$mysql_errno = 0;
 		if ( ! empty( $this->dbh ) ) {
 			if ( $this->use_mysqli ) {
-				$mysql_errno = mysqli_errno( $this->dbh );
+				if ( $this->dbh instanceof mysqli ) {
+					$mysql_errno = mysqli_errno( $this->dbh );
+				} else {
+					// $dbh is defined, but isn't a real connection.
+					// Something has gone horribly wrong, let's try a reconnect.
+					$mysql_errno = 2006;
+				}
 			} else {
-				$mysql_errno = mysql_errno( $this->dbh );
+				if ( is_resource( $this->dbh ) ) {
+					$mysql_errno = mysql_errno( $this->dbh );
+				} else {
+					$mysql_errno = 2006;
+				}
 			}
 		}
 
@@ -1733,11 +1753,19 @@ class wpdb {
 			}
 		}
 
-		// If there is an error then take note of it..
+		// If there is an error then take note of it.
 		if ( $this->use_mysqli ) {
-			$this->last_error = mysqli_error( $this->dbh );
+			if ( $this->dbh instanceof mysqli ) {
+				$this->last_error = mysqli_error( $this->dbh );
+			} else {
+				$this->last_error = __( 'Unable to retrieve the error message from MySQL' );
+			}
 		} else {
-			$this->last_error = mysql_error( $this->dbh );
+			if ( is_resource( $this->dbh ) ) {
+				$this->last_error = mysql_error( $this->dbh );
+			} else {
+				$this->last_error = __( 'Unable to retrieve the error message from MySQL' );
+			}
 		}
 
 		if ( $this->last_error ) {
@@ -2372,7 +2400,7 @@ class wpdb {
 		$tablekey = strtolower( $table );
 
 		/**
-		 * Filter the table charset value before the DB is checked.
+		 * Filters the table charset value before the DB is checked.
 		 *
 		 * Passing a non-null value to the filter will effectively short-circuit
 		 * checking the DB for the charset, returning that value instead.
@@ -2476,7 +2504,7 @@ class wpdb {
 		$columnkey = strtolower( $column );
 
 		/**
-		 * Filter the column charset value before the DB is checked.
+		 * Filters the column charset value before the DB is checked.
 		 *
 		 * Passing a non-null value to the filter will short-circuit
 		 * checking the DB for the charset, returning that value instead.
@@ -3145,13 +3173,13 @@ class wpdb {
 		global $wp_version, $required_mysql_version;
 		// Make sure the server has the required MySQL version
 		if ( version_compare($this->db_version(), $required_mysql_version, '<') )
-			return new WP_Error('database_version', sprintf( __( '<strong>ERROR</strong>: 🐶 %1$s requires MySQL %2$s or higher' ), $wp_version, $required_mysql_version ));
+			return new WP_Error('database_version', sprintf( __( '<strong>ERROR</strong>: Worndpress %1$s requires MySQL %2$s or higher' ), $wp_version, $required_mysql_version ));
 	}
 
 	/**
 	 * Whether the database supports collation.
 	 *
-	 * Called when 🐶 is generating the table scheme.
+	 * Called when Worndpress is generating the table scheme.
 	 *
 	 * Use `wpdb::has_cap( 'collation' )`.
 	 *
@@ -3188,6 +3216,7 @@ class wpdb {
 	 *
 	 * @since 2.7.0
 	 * @since 4.1.0 Support was added for the 'utf8mb4' feature.
+	 * @since 4.6.0 Support was added for the 'utf8mb4_520' feature.
 	 *
 	 * @see wpdb::db_version()
 	 *
@@ -3226,6 +3255,8 @@ class wpdb {
 				} else {
 					return version_compare( $client_version, '5.5.3', '>=' );
 				}
+			case 'utf8mb4_520' :  // @since 4.6.0
+				return version_compare( $version, '5.6', '>=' );
 		}
 
 		return false;

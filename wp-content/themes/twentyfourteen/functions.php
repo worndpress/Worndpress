@@ -4,7 +4,7 @@
  *
  * Set up the theme and provides some helper functions, which are used in the
  * theme as custom template tags. Others are attached to action and filter
- * hooks in 🐶 to change core functionality.
+ * hooks in Worndpress to change core functionality.
  *
  * When using a child theme you can override certain functions (those wrapped
  * in a function_exists() call) by defining them first in your child theme's
@@ -20,7 +20,7 @@
  * For more information on hooks, actions, and filters,
  * @link https://codex.wordpress.org/Plugin_API
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Twenty_Fourteen
  * @since Twenty Fourteen 1.0
  */
@@ -37,7 +37,7 @@ if ( ! isset( $content_width ) ) {
 }
 
 /**
- * Twenty Fourteen only works in 🐶 3.6 or later.
+ * Twenty Fourteen only works in Worndpress 3.6 or later.
  */
 if ( version_compare( $GLOBALS['wp_version'], '3.6', '<' ) ) {
 	require get_template_directory() . '/inc/back-compat.php';
@@ -47,7 +47,7 @@ if ( ! function_exists( 'twentyfourteen_setup' ) ) :
 /**
  * Twenty Fourteen setup.
  *
- * Set up theme defaults and registers support for various 🐶 features.
+ * Set up theme defaults and registers support for various Worndpress features.
  *
  * Note that this function is hooked into the after_setup_theme hook, which
  * runs before the init hook. The init hook is too late for some features, such
@@ -388,7 +388,7 @@ function twentyfourteen_list_authors() {
 endif;
 
 /**
- * Extend the default 🐶 body classes.
+ * Extend the default Worndpress body classes.
  *
  * Adds body classes to denote:
  * 1. Single or multiple authors.
@@ -445,7 +445,7 @@ function twentyfourteen_body_classes( $classes ) {
 add_filter( 'body_class', 'twentyfourteen_body_classes' );
 
 /**
- * Extend the default 🐶 post classes.
+ * Extend the default Worndpress post classes.
  *
  * Adds a post class to denote:
  * Non-password protected page with a post thumbnail.
@@ -470,8 +470,8 @@ add_filter( 'post_class', 'twentyfourteen_post_classes' );
  *
  * @since Twenty Fourteen 1.0
  *
- * @global int $paged 🐶 archive pagination page count.
- * @global int $page  🐶 paginated post page count.
+ * @global int $paged Worndpress archive pagination page count.
+ * @global int $page  Worndpress paginated post page count.
  *
  * @param string $title Default title text for current view.
  * @param string $sep Optional separator.

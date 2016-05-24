@@ -2,11 +2,11 @@
 /**
  * Edit plugin editor administration panel.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  */
 
-/** 🐶 Administration Bootstrap */
+/** Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( is_multisite() && ! is_network_admin() ) {
@@ -106,7 +106,7 @@ default:
 	$editable_extensions = array('php', 'txt', 'text', 'js', 'css', 'html', 'htm', 'xml', 'inc', 'include');
 
 	/**
-	 * Filter file type extensions editable in the plugin editor.
+	 * Filters file type extensions editable in the plugin editor.
 	 *
 	 * @since 2.8.0
 	 *

@@ -522,7 +522,7 @@ function post_categories_meta_box( $post, $box ) {
 					);
 
 					/**
-					 * Filter the arguments for the taxonomy parent dropdown on the Post Edit page.
+					 * Filters the arguments for the taxonomy parent dropdown on the Post Edit page.
 					 *
 					 * @since 4.4.0
 					 *
@@ -607,7 +607,7 @@ function post_trackback_meta_box($post) {
 <p><?php
 	printf(
 		/* translators: %s: Codex URL */
-		__( 'Trackbacks are a way to notify legacy blog systems that you&#8217;ve linked to them. If you link other 🐶 sites, they&#8217;ll be notified automatically using <a href="%s">pingbacks</a>, no other action necessary.' ),
+		__( 'Trackbacks are a way to notify legacy blog systems that you&#8217;ve linked to them. If you link other Worndpress sites, they&#8217;ll be notified automatically using <a href="%s">pingbacks</a>, no other action necessary.' ),
 		__( 'https://codex.wordpress.org/Introduction_to_Blogging#Managing_Comments' )
 	);
 ?></p>
@@ -798,7 +798,7 @@ function page_attributes_meta_box($post) {
 		);
 
 		/**
-		 * Filter the arguments used to generate a Pages drop-down element.
+		 * Filters the arguments used to generate a Pages drop-down element.
 		 *
 		 * @since 3.3.0
 		 *
@@ -835,7 +835,7 @@ function page_attributes_meta_box($post) {
 <label class="screen-reader-text" for="page_template"><?php _e('Page Template') ?></label><select name="page_template" id="page_template">
 <?php
 /**
- * Filter the title of the default page template displayed in the drop-down.
+ * Filters the title of the default page template displayed in the drop-down.
  *
  * @since 4.1.0
  *

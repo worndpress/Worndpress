@@ -2,7 +2,7 @@
 /**
  * API for easily embedding rich media such as videos and images into content.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Embed
  * @since 2.9.0
  */
@@ -16,7 +16,12 @@ class WP_Embed {
 
 	/**
 	 * When a URL cannot be embedded, return false instead of returning a link
-	 * or the URL. Bypasses the 'embed_maybe_make_link' filter.
+	 * or the URL.
+	 *
+	 * Bypasses the {@see 'embed_maybe_make_link'} filter.
+	 *
+	 * @access public
+	 * @var bool
 	 */
 	public $return_false_on_fail = false;
 
@@ -165,7 +170,7 @@ class WP_Embed {
 				if ( preg_match( $handler['regex'], $url, $matches ) && is_callable( $handler['callback'] ) ) {
 					if ( false !== $return = call_user_func( $handler['callback'], $matches, $attr, $url, $rawattr ) )
 						/**
-						 * Filter the returned embed handler.
+						 * Filters the returned embed handler.
 						 *
 						 * @since 2.9.0
 						 *
@@ -193,7 +198,7 @@ class WP_Embed {
 			$cachekey_time = '_oembed_time_' . $key_suffix;
 
 			/**
-			 * Filter the oEmbed TTL value (time to live).
+			 * Filters the oEmbed TTL value (time to live).
 			 *
 			 * @since 4.0.0
 			 *
@@ -220,7 +225,7 @@ class WP_Embed {
 
 				if ( ! empty( $cache ) ) {
 					/**
-					 * Filter the cached oEmbed HTML.
+					 * Filters the cached oEmbed HTML.
 					 *
 					 * @since 2.9.0
 					 *
@@ -236,7 +241,7 @@ class WP_Embed {
 			}
 
 			/**
-			 * Filter whether to inspect the given URL for discoverable link tags.
+			 * Filters whether to inspect the given URL for discoverable link tags.
 			 *
 			 * @since 2.9.0
 			 * @since 4.4.0 The default value changed to true.
@@ -295,7 +300,7 @@ class WP_Embed {
 
 		$post_types = get_post_types( array( 'show_ui' => true ) );
 		/**
-		 * Filter the array of post types to cache oEmbed results for.
+		 * Filters the array of post types to cache oEmbed results for.
 		 *
 		 * @since 2.9.0
 		 *
@@ -365,7 +370,7 @@ class WP_Embed {
 		$output = ( $this->linkifunknown ) ? '<a href="' . esc_url($url) . '">' . esc_html($url) . '</a>' : $url;
 
 		/**
-		 * Filter the returned, maybe-linked embed URL.
+		 * Filters the returned, maybe-linked embed URL.
 		 *
 		 * @since 2.9.0
 		 *

@@ -1,6 +1,6 @@
 <?php
 /**
- * 🐶 scripts and styles default loader.
+ * Worndpress scripts and styles default loader.
  *
  * Several constants are used to manage the loading, concatenating and compression of scripts and CSS:
  * define('SCRIPT_DEBUG', true); loads the development (non-minified) versions of all scripts and CSS, and disables compression and concatenation,
@@ -13,26 +13,26 @@
  * to temporarily override the above settings. Also a compression test is run once and the result is saved
  * as option 'can_compress_scripts' (0/1). The test will run again if that option is deleted.
  *
- * @package 🐶
+ * @package Worndpress
  */
 
-/** 🐶 Dependencies Class */
+/** Worndpress Dependencies Class */
 require( ABSPATH . WPINC . '/class.wp-dependencies.php' );
 
-/** 🐶 Scripts Class */
+/** Worndpress Scripts Class */
 require( ABSPATH . WPINC . '/class.wp-scripts.php' );
 
-/** 🐶 Scripts Functions */
+/** Worndpress Scripts Functions */
 require( ABSPATH . WPINC . '/functions.wp-scripts.php' );
 
-/** 🐶 Styles Class */
+/** Worndpress Styles Class */
 require( ABSPATH . WPINC . '/class.wp-styles.php' );
 
-/** 🐶 Styles Functions */
+/** Worndpress Styles Functions */
 require( ABSPATH . WPINC . '/functions.wp-styles.php' );
 
 /**
- * Register all 🐶 scripts.
+ * Register all Worndpress scripts.
  *
  * Localizes some of them.
  * args order: `$scripts->add( 'handle', 'url', 'dependencies', 'query-string', 1 );`
@@ -138,7 +138,7 @@ function wp_default_scripts( &$scripts ) {
 	$scripts->add( 'heartbeat', "/wp-includes/js/heartbeat$suffix.js", array('jquery'), false, 1 );
 	did_action( 'init' ) && $scripts->localize( 'heartbeat', 'heartbeatSettings',
 		/**
-		 * Filter the Heartbeat settings.
+		 * Filters the Heartbeat settings.
 		 *
 		 * @since 3.6.0
 		 *
@@ -152,7 +152,7 @@ function wp_default_scripts( &$scripts ) {
 		'beforeunload' => __('Your session has expired. You can log in again from this page or go to the login page.'),
 
 		/**
-		 * Filter the authentication check interval.
+		 * Filters the authentication check interval.
 		 *
 		 * @since 3.6.0
 		 *
@@ -164,7 +164,7 @@ function wp_default_scripts( &$scripts ) {
 
 	$scripts->add( 'wp-lists', "/wp-includes/js/wp-lists$suffix.js", array( 'wp-ajax-response', 'jquery-color' ), false, 1 );
 
-	// 🐶 no longer uses or bundles Prototype or script.aculo.us. These are now pulled from an external source.
+	// Worndpress no longer uses or bundles Prototype or script.aculo.us. These are now pulled from an external source.
 	$scripts->add( 'prototype', 'https://ajax.googleapis.com/ajax/libs/prototype/1.7.1.0/prototype.js', array(), '1.7.1');
 	$scripts->add( 'scriptaculous-root', 'https://ajax.googleapis.com/ajax/libs/scriptaculous/1.9.0/scriptaculous.js', array('prototype'), '1.9.0');
 	$scripts->add( 'scriptaculous-builder', 'https://ajax.googleapis.com/ajax/libs/scriptaculous/1.9.0/builder.js', array('scriptaculous-root'), '1.9.0');
@@ -179,8 +179,8 @@ function wp_default_scripts( &$scripts ) {
 	$scripts->add( 'cropper', '/wp-includes/js/crop/cropper.js', array('scriptaculous-dragdrop') );
 
 	// jQuery
-	$scripts->add( 'jquery', false, array( 'jquery-core', 'jquery-migrate' ), '1.12.4-pre' );
-	$scripts->add( 'jquery-core', '/wp-includes/js/jquery/jquery.js', array(), '1.12.4-pre' );
+	$scripts->add( 'jquery', false, array( 'jquery-core', 'jquery-migrate' ), '1.12.4' );
+	$scripts->add( 'jquery-core', '/wp-includes/js/jquery/jquery.js', array(), '1.12.4' );
 	$scripts->add( 'jquery-migrate', "/wp-includes/js/jquery/jquery-migrate$suffix.js", array(), '1.4.1' );
 
 	// full jQuery UI
@@ -360,7 +360,7 @@ function wp_default_scripts( &$scripts ) {
 	);
 	did_action( 'init' ) && $scripts->localize( 'mediaelement', '_wpmejsSettings',
 		/**
-		 * Filter the MediaElement configuration settings.
+		 * Filters the MediaElement configuration settings.
 		 *
 		 * @since 4.4.0
 		 *
@@ -927,7 +927,7 @@ function print_head_scripts() {
 	$wp_scripts->do_head_items();
 
 	/**
-	 * Filter whether to print the head scripts.
+	 * Filters whether to print the head scripts.
 	 *
 	 * @since 2.8.0
 	 *
@@ -962,7 +962,7 @@ function print_footer_scripts() {
 	$wp_scripts->do_footer_items();
 
 	/**
-	 * Filter whether to print the footer scripts.
+	 * Filters whether to print the footer scripts.
 	 *
 	 * @since 2.8.0
 	 *
@@ -1098,7 +1098,7 @@ function print_admin_styles() {
 	$wp_styles->do_items(false);
 
 	/**
-	 * Filter whether to print the admin styles.
+	 * Filters whether to print the admin styles.
 	 *
 	 * @since 2.8.0
 	 *
@@ -1134,7 +1134,7 @@ function print_late_styles() {
 	$wp_styles->do_footer_items();
 
 	/**
-	 * Filter whether to print the styles queued too late for the HTML head.
+	 * Filters whether to print the styles queued too late for the HTML head.
 	 *
 	 * @since 3.3.0
 	 *

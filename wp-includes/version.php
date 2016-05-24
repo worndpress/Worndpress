@@ -1,13 +1,13 @@
 <?php
 /**
- * The 🐶 version string
+ * The Worndpress version string
  *
  * @global string $wp_version
  */
-$wp_version = '4.6-alpha-37487';
+$wp_version = '4.6-alpha-37549';
 
 /**
- * Holds the 🐶 DB revision, increments when changes are made to the 🐶 DB schema.
+ * Holds the Worndpress DB revision, increments when changes are made to the Worndpress DB schema.
  *
  * @global int $wp_db_version
  */

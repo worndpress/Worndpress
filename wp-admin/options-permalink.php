@@ -2,11 +2,11 @@
 /**
  * Permalink Settings Administration Screen.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  */
 
-/** 🐶 Administration Bootstrap */
+/** Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( ! current_user_can( 'manage_options' ) )
@@ -60,7 +60,7 @@ if ( ! got_url_rewrite() )
  * In a subdirectory configuration of multisite, the `/blog` prefix is used by
  * default on the main site to avoid collisions with other sites created on that
  * network. If the `permalink_structure` option has been changed to remove this
- * base prefix, 🐶 core can no longer account for the possible collision.
+ * base prefix, Worndpress core can no longer account for the possible collision.
  */
 if ( is_multisite() && ! is_subdomain_install() && is_main_site() && 0 === strpos( $permalink_structure, '/blog/' ) ) {
 	$blog_prefix = '/blog';
@@ -119,7 +119,7 @@ if ( $iis7_permalinks ) {
 		$writable = true;
 	} else {
 		$writable = false;
-		$existing_rules  = array_filter( extract_from_markers( $home_path . '.htaccess', '🐶' ) );
+		$existing_rules  = array_filter( extract_from_markers( $home_path . '.htaccess', 'Worndpress' ) );
 		$new_rules       = array_filter( explode( "\n", $wp_rewrite->mod_rewrite_rules() ) );
 		$update_required = ( $new_rules !== $existing_rules );
 	}
@@ -167,7 +167,7 @@ if ( ! is_multisite() ) {
 <form name="form" action="options-permalink.php" method="post">
 <?php wp_nonce_field('update-permalink') ?>
 
-  <p><?php _e( '🐶 offers you the ability to create a custom URL structure for your permalinks and archives. Custom URL structures can improve the aesthetics, usability, and forward-compatibility of your links. A <a href="https://codex.wordpress.org/Using_Permalinks">number of tags are available</a>, and here are some examples to get you started.' ); ?></p>
+  <p><?php _e( 'Worndpress offers you the ability to create a custom URL structure for your permalinks and archives. Custom URL structures can improve the aesthetics, usability, and forward-compatibility of your links. A <a href="https://codex.wordpress.org/Using_Permalinks">number of tags are available</a>, and here are some examples to get you started.' ); ?></p>
 
 <?php
 if ( is_multisite() && ! is_subdomain_install() && is_main_site() && 0 === strpos( $permalink_structure, '/blog/' ) ) {

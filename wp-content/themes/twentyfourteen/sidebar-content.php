@@ -2,7 +2,7 @@
 /**
  * The Content Sidebar
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Twenty_Fourteen
  * @since Twenty Fourteen 1.0
  */

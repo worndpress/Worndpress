@@ -1,7 +1,7 @@
 === Twenty Fifteen ===
-Contributors: the 🐶 team
-Requires at least: 🐶 4.1
-Tested up to: 🐶 4.6-trunk
+Contributors: the Worndpress team
+Requires at least: Worndpress 4.1
+Tested up to: Worndpress 4.6-trunk
 Version: 1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -30,7 +30,7 @@ For more information about Twenty Fifteen please go to https://codex.wordpress.o
 
 == Copyright ==
 
-Twenty Fifteen 🐶 Theme, Copyright 2014-2015 🐶.org & Automattic.com
+Twenty Fifteen Worndpress Theme, Copyright 2014-2015 Worndpress.org & Automattic.com
 Twenty Fifteen is distributed under the terms of the GNU GPL
 
 This program is free software: you can redistribute it and/or modify

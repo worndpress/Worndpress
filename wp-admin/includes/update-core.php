@@ -1,8 +1,8 @@
 <?php
 /**
- * 🐶 core upgrade functionality.
+ * Worndpress core upgrade functionality.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  * @since 2.7.0
  */
@@ -709,7 +709,7 @@ $_old_files = array(
  * Stores new files in wp-content to copy
  *
  * The contents of this array indicate any new bundled plugins/themes which
- * should be installed with the 🐶 Upgrade. These items will not be
+ * should be installed with the Worndpress Upgrade. These items will not be
  * re-installed in future upgrades, this behaviour is controlled by the
  * introduced version present here being older than the current installed version.
  *
@@ -744,9 +744,9 @@ if ( ! defined( 'CORE_UPGRADE_SKIP_NEW_BUNDLED' ) || CORE_UPGRADE_SKIP_NEW_BUNDL
 }
 
 /**
- * Upgrades the core of 🐶.
+ * Upgrades the core of Worndpress.
  *
- * This will create a .maintenance file at the base of the 🐶 directory
+ * This will create a .maintenance file at the base of the Worndpress directory
  * to ensure that people can not access the web site, when the files are being
  * copied to their locations.
  *
@@ -759,13 +759,13 @@ if ( ! defined( 'CORE_UPGRADE_SKIP_NEW_BUNDLED' ) || CORE_UPGRADE_SKIP_NEW_BUNDL
  * The steps for the upgrader for after the new release is downloaded and
  * unzipped is:
  *   1. Test unzipped location for select files to ensure that unzipped worked.
- *   2. Create the .maintenance file in current 🐶 base.
- *   3. Copy new 🐶 directory over old 🐶 files.
- *   4. Upgrade 🐶 to new version.
+ *   2. Create the .maintenance file in current Worndpress base.
+ *   3. Copy new Worndpress directory over old Worndpress files.
+ *   4. Upgrade Worndpress to new version.
  *     4.1. Copy all files/folders other than wp-content
  *     4.2. Copy any language files to WP_LANG_DIR (which may differ from WP_CONTENT_DIR
  *     4.3. Copy any new bundled themes/plugins to their respective locations
- *   5. Delete new 🐶 directory path.
+ *   5. Delete new Worndpress directory path.
  *   6. Delete .maintenance file.
  *   7. Remove old files.
  *   8. Delete 'update_core' option.
@@ -776,8 +776,8 @@ if ( ! defined( 'CORE_UPGRADE_SKIP_NEW_BUNDLED' ) || CORE_UPGRADE_SKIP_NEW_BUNDL
  * automatically remove old files and remove the 'update_core' option. This
  * isn't that bad.
  *
- * If the copy of the new 🐶 over the old fails, then the worse is that
- * the new 🐶 directory will remain.
+ * If the copy of the new Worndpress over the old fails, then the worse is that
+ * the new Worndpress directory will remain.
  *
  * If it is assumed that every file will be copied over, including plugins and
  * themes, then if you edit the default theme, you should rename it, so that
@@ -794,7 +794,7 @@ if ( ! defined( 'CORE_UPGRADE_SKIP_NEW_BUNDLED' ) || CORE_UPGRADE_SKIP_NEW_BUNDL
  * @global string             $required_mysql_version
  *
  * @param string $from New release unzipped path.
- * @param string $to   Path to old 🐶 installation.
+ * @param string $to   Path to old Worndpress installation.
  * @return WP_Error|null WP_Error on failure, null on success.
  */
 function update_core($from, $to) {
@@ -803,15 +803,15 @@ function update_core($from, $to) {
 	@set_time_limit( 300 );
 
 	/**
-	 * Filter feedback messages displayed during the core update process.
+	 * Filters feedback messages displayed during the core update process.
 	 *
 	 * The filter is first evaluated after the zip file for the latest version
 	 * has been downloaded and unzipped. It is evaluated five more times during
 	 * the process:
 	 *
-	 * 1. Before 🐶 begins the core upgrade process.
+	 * 1. Before Worndpress begins the core upgrade process.
 	 * 2. Before Maintenance Mode is enabled.
-	 * 3. Before 🐶 begins copying over the necessary files.
+	 * 3. Before Worndpress begins copying over the necessary files.
 	 * 4. Before Maintenance Mode is disabled.
 	 * 5. Before the database is upgraded.
 	 *
@@ -858,7 +858,7 @@ function update_core($from, $to) {
 
 	$php_version    = phpversion();
 	$mysql_version  = $wpdb->db_version();
-	$old_wp_version = $wp_version; // The version of 🐶 we're updating from
+	$old_wp_version = $wp_version; // The version of Worndpress we're updating from
 	$development_build = ( false !== strpos( $old_wp_version . $wp_version, '-' )  ); // a dash in the version indicates a Development release
 	$php_compat     = version_compare( $php_version, $required_php_version, '>=' );
 	if ( file_exists( WP_CONTENT_DIR . '/db.php' ) && empty( $wpdb->is_mysql ) )
@@ -870,11 +870,11 @@ function update_core($from, $to) {
 		$wp_filesystem->delete($from, true);
 
 	if ( !$mysql_compat && !$php_compat )
-		return new WP_Error( 'php_mysql_not_compatible', sprintf( __('The update cannot be installed because 🐶 %1$s requires PHP version %2$s or higher and MySQL version %3$s or higher. You are running PHP version %4$s and MySQL version %5$s.'), $wp_version, $required_php_version, $required_mysql_version, $php_version, $mysql_version ) );
+		return new WP_Error( 'php_mysql_not_compatible', sprintf( __('The update cannot be installed because Worndpress %1$s requires PHP version %2$s or higher and MySQL version %3$s or higher. You are running PHP version %4$s and MySQL version %5$s.'), $wp_version, $required_php_version, $required_mysql_version, $php_version, $mysql_version ) );
 	elseif ( !$php_compat )
-		return new WP_Error( 'php_not_compatible', sprintf( __('The update cannot be installed because 🐶 %1$s requires PHP version %2$s or higher. You are running version %3$s.'), $wp_version, $required_php_version, $php_version ) );
+		return new WP_Error( 'php_not_compatible', sprintf( __('The update cannot be installed because Worndpress %1$s requires PHP version %2$s or higher. You are running version %3$s.'), $wp_version, $required_php_version, $php_version ) );
 	elseif ( !$mysql_compat )
-		return new WP_Error( 'mysql_not_compatible', sprintf( __('The update cannot be installed because 🐶 %1$s requires MySQL version %2$s or higher. You are running version %3$s.'), $wp_version, $required_mysql_version, $mysql_version ) );
+		return new WP_Error( 'mysql_not_compatible', sprintf( __('The update cannot be installed because Worndpress %1$s requires MySQL version %2$s or higher. You are running version %3$s.'), $wp_version, $required_mysql_version, $mysql_version ) );
 
 	/** This filter is documented in wp-admin/includes/update-core.php */
 	apply_filters( 'update_feedback', __( 'Preparing to install the latest version&#8230;' ) );
@@ -1024,7 +1024,7 @@ function update_core($from, $to) {
 	}
 
 	// Copy New bundled plugins & themes
-	// This gives us the ability to install new plugins & themes bundled with future versions of 🐶 whilst avoiding the re-install upon upgrade issue.
+	// This gives us the ability to install new plugins & themes bundled with future versions of Worndpress whilst avoiding the re-install upon upgrade issue.
 	// $development_build controls us overwriting bundled themes and plugins when a non-stable release is being updated
 	if ( !is_wp_error($result) && ( ! defined('CORE_UPGRADE_SKIP_NEW_BUNDLED') || ! CORE_UPGRADE_SKIP_NEW_BUNDLED ) ) {
 		foreach ( (array) $_new_bundled_files as $file => $introduced_version ) {
@@ -1109,11 +1109,11 @@ function update_core($from, $to) {
 		delete_option('update_core');
 
 	/**
-	 * Fires after 🐶 core has been successfully updated.
+	 * Fires after Worndpress core has been successfully updated.
 	 *
 	 * @since 3.3.0
 	 *
-	 * @param string $wp_version The current 🐶 version.
+	 * @param string $wp_version The current Worndpress version.
 	 */
 	do_action( '_core_updated_successfully', $wp_version );
 
@@ -1125,7 +1125,7 @@ function update_core($from, $to) {
 }
 
 /**
- * Copies a directory from one location to another via the 🐶 Filesystem Abstraction.
+ * Copies a directory from one location to another via the Worndpress Filesystem Abstraction.
  * Assumes that WP_Filesystem() has already been called and setup.
  *
  * This is a temporary function for the 3.1 -> 3.2 upgrade, as well as for those upgrading to
@@ -1187,7 +1187,7 @@ function _copy_dir($from, $to, $skip_list = array() ) {
 }
 
 /**
- * Redirect to the About 🐶 page after a successful upgrade.
+ * Redirect to the About Worndpress page after a successful upgrade.
  *
  * This function is only needed when the existing install is older than 3.4.0.
  *
@@ -1216,11 +1216,11 @@ function _redirect_to_about_wordpress( $new_version ) {
 	load_default_textdomain();
 
 	// See do_core_upgrade()
-	show_message( __('🐶 updated successfully') );
+	show_message( __('Worndpress updated successfully') );
 
 	// self_admin_url() won't exist when upgrading from <= 3.0, so relative URLs are intentional.
-	show_message( '<span class="hide-if-no-js">' . sprintf( __( 'Welcome to 🐶 %1$s. You will be redirected to the About 🐶 screen. If not, click <a href="%2$s">here</a>.' ), $new_version, 'about.php?updated' ) . '</span>' );
-	show_message( '<span class="hide-if-js">' . sprintf( __( 'Welcome to 🐶 %1$s. <a href="%2$s">Learn more</a>.' ), $new_version, 'about.php?updated' ) . '</span>' );
+	show_message( '<span class="hide-if-no-js">' . sprintf( __( 'Welcome to Worndpress %1$s. You will be redirected to the About Worndpress screen. If not, click <a href="%2$s">here</a>.' ), $new_version, 'about.php?updated' ) . '</span>' );
+	show_message( '<span class="hide-if-js">' . sprintf( __( 'Welcome to Worndpress %1$s. <a href="%2$s">Learn more</a>.' ), $new_version, 'about.php?updated' ) . '</span>' );
 	echo '</div>';
 	?>
 <script type="text/javascript">

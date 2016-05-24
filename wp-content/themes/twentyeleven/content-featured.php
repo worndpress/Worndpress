@@ -2,7 +2,7 @@
 /**
  * Template for displaying content featured in the showcase.php page template
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Twenty_Eleven
  * @since Twenty Eleven 1.0
  */

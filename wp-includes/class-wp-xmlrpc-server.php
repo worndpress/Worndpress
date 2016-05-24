@@ -1,22 +1,22 @@
 <?php
 /**
- * XML-RPC protocol support for 🐶
+ * XML-RPC protocol support for Worndpress
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Publishing
  */
 
 /**
- * 🐶 XMLRPC server implementation.
+ * Worndpress XMLRPC server implementation.
  *
  * Implements compatibility for Blogger API, MetaWeblog API, MovableType, and
- * pingback. Additional 🐶 API for managing comments, pages, posts,
+ * pingback. Additional Worndpress API for managing comments, pages, posts,
  * options, etc.
  *
- * As of 🐶 3.5.0, XML-RPC is enabled by default. It can be disabled
- * via the xmlrpc_enabled filter found in wp_xmlrpc_server::login().
+ * As of Worndpress 3.5.0, XML-RPC is enabled by default. It can be disabled
+ * via the {@see 'xmlrpc_enabled'} filter found in wp_xmlrpc_server::login().
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Publishing
  * @since 1.5.0
  */
@@ -54,17 +54,17 @@ class wp_xmlrpc_server extends IXR_Server {
 	protected $auth_failed = false;
 
 	/**
-	 * Register all of the XMLRPC methods that XMLRPC server understands.
+	 * Registers all of the XMLRPC methods that XMLRPC server understands.
 	 *
 	 * Sets up server and method property. Passes XMLRPC
-	 * methods through the 'xmlrpc_methods' filter to allow plugins to extend
-	 * or replace XMLRPC methods.
+	 * methods through the {@see 'xmlrpc_methods'} filter to allow plugins to extend
+	 * or replace XML-RPC methods.
 	 *
 	 * @since 1.5.0
 	 */
 	public function __construct() {
 		$this->methods = array(
-			// 🐶 API
+			// Worndpress API
 			'wp.getUsersBlogs'		=> 'this:wp_getUsersBlogs',
 			'wp.newPost'			=> 'this:wp_newPost',
 			'wp.editPost'			=> 'this:wp_editPost',
@@ -159,7 +159,7 @@ class wp_xmlrpc_server extends IXR_Server {
 		$this->initialise_blog_option_info();
 
 		/**
-		 * Filter the methods exposed by the XML-RPC server.
+		 * Filters the methods exposed by the XML-RPC server.
 		 *
 		 * This filter can be used to add new methods, and remove built-in methods.
 		 *
@@ -247,7 +247,7 @@ class wp_xmlrpc_server extends IXR_Server {
 		}
 
 		/**
-		 * Filter whether XML-RPC methods requiring authentication are enabled.
+		 * Filters whether XML-RPC methods requiring authentication are enabled.
 		 *
 		 * Contrary to the way it's named, this filter does not control whether XML-RPC is *fully*
 		 * enabled, rather, it only controls whether XML-RPC methods requiring authentication - such
@@ -288,7 +288,7 @@ class wp_xmlrpc_server extends IXR_Server {
 			$this->auth_failed = true;
 
 			/**
-			 * Filter the XML-RPC user login error message.
+			 * Filters the XML-RPC user login error message.
 			 *
 			 * @since 3.5.0
 			 *
@@ -415,7 +415,7 @@ class wp_xmlrpc_server extends IXR_Server {
 			'software_name'     => array(
 				'desc'          => __( 'Software Name' ),
 				'readonly'      => true,
-				'value'         => '🐶'
+				'value'         => 'Worndpress'
 			),
 			'software_version'  => array(
 				'desc'          => __( 'Software Version' ),
@@ -423,7 +423,7 @@ class wp_xmlrpc_server extends IXR_Server {
 				'value'         => $wp_version
 			),
 			'blog_url'          => array(
-				'desc'          => __( '🐶 Address (URL)' ),
+				'desc'          => __( 'Worndpress Address (URL)' ),
 				'readonly'      => true,
 				'option'        => 'siteurl'
 			),
@@ -562,7 +562,7 @@ class wp_xmlrpc_server extends IXR_Server {
 		);
 
 		/**
-		 * Filter the XML-RPC blog options property.
+		 * Filters the XML-RPC blog options property.
 		 *
 		 * @since 2.6.0
 		 *
@@ -704,7 +704,7 @@ class wp_xmlrpc_server extends IXR_Server {
 			$_taxonomy['object_type'] = array_unique( (array) $taxonomy->object_type );
 
 		/**
-		 * Filter XML-RPC-prepared data for the given taxonomy.
+		 * Filters XML-RPC-prepared data for the given taxonomy.
 		 *
 		 * @since 3.4.0
 		 *
@@ -738,7 +738,7 @@ class wp_xmlrpc_server extends IXR_Server {
 		$_term['count'] = intval( $_term['count'] );
 
 		/**
-		 * Filter XML-RPC-prepared data for the given term.
+		 * Filters XML-RPC-prepared data for the given term.
 		 *
 		 * @since 3.4.0
 		 *
@@ -749,7 +749,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	}
 
 	/**
-	 * Convert a 🐶 date string to an IXR_Date object.
+	 * Convert a Worndpress date string to an IXR_Date object.
 	 *
 	 * @access protected
 	 *
@@ -764,11 +764,11 @@ class wp_xmlrpc_server extends IXR_Server {
 	}
 
 	/**
-	 * Convert a 🐶 GMT date string to an IXR_Date object.
+	 * Convert a Worndpress GMT date string to an IXR_Date object.
 	 *
 	 * @access protected
 	 *
-	 * @param string $date_gmt 🐶 GMT date string.
+	 * @param string $date_gmt Worndpress GMT date string.
 	 * @param string $date     Date string.
 	 * @return IXR_Date IXR_Date object.
 	 */
@@ -867,7 +867,7 @@ class wp_xmlrpc_server extends IXR_Server {
 		}
 
 		/**
-		 * Filter XML-RPC-prepared date for the given post.
+		 * Filters XML-RPC-prepared date for the given post.
 		 *
 		 * @since 3.4.0
 		 *
@@ -918,7 +918,7 @@ class wp_xmlrpc_server extends IXR_Server {
 			$_post_type['taxonomies'] = get_object_taxonomies( $post_type->name, 'names' );
 
 		/**
-		 * Filter XML-RPC-prepared date for the given post type.
+		 * Filters XML-RPC-prepared date for the given post type.
 		 *
 		 * @since 3.4.0
 		 *
@@ -957,7 +957,7 @@ class wp_xmlrpc_server extends IXR_Server {
 			$_media_item['thumbnail'] = $_media_item['link'];
 
 		/**
-		 * Filter XML-RPC-prepared data for the given media item.
+		 * Filters XML-RPC-prepared data for the given media item.
 		 *
 		 * @since 3.4.0
 		 *
@@ -1039,7 +1039,7 @@ class wp_xmlrpc_server extends IXR_Server {
 		);
 
 		/**
-		 * Filter XML-RPC-prepared data for the given page.
+		 * Filters XML-RPC-prepared data for the given page.
 		 *
 		 * @since 3.4.0
 		 *
@@ -1088,7 +1088,7 @@ class wp_xmlrpc_server extends IXR_Server {
 		);
 
 		/**
-		 * Filter XML-RPC-prepared data for the given comment.
+		 * Filters XML-RPC-prepared data for the given comment.
 		 *
 		 * @since 3.4.0
 		 *
@@ -1136,7 +1136,7 @@ class wp_xmlrpc_server extends IXR_Server {
 		}
 
 		/**
-		 * Filter XML-RPC-prepared data for the given user.
+		 * Filters XML-RPC-prepared data for the given user.
 		 *
 		 * @since 3.5.0
 		 *
@@ -1506,7 +1506,7 @@ class wp_xmlrpc_server extends IXR_Server {
 		$this->attach_uploads( $post_ID, $post_data['post_content'] );
 
 		/**
-		 * Filter post data array to be inserted via XML-RPC.
+		 * Filters post data array to be inserted via XML-RPC.
 		 *
 		 * @since 3.4.0
 		 *
@@ -1709,7 +1709,7 @@ class wp_xmlrpc_server extends IXR_Server {
 			$fields = $args[4];
 		} else {
 			/**
-			 * Filter the list of post query fields used by the given XML-RPC method.
+			 * Filters the list of post query fields used by the given XML-RPC method.
 			 *
 			 * @since 3.4.0
 			 *
@@ -2260,7 +2260,7 @@ class wp_xmlrpc_server extends IXR_Server {
 			$fields = $args[4];
 		} else {
 			/**
-			 * Filter the taxonomy query fields used by the given XML-RPC method.
+			 * Filters the taxonomy query fields used by the given XML-RPC method.
 			 *
 			 * @since 3.4.0
 			 *
@@ -2395,7 +2395,7 @@ class wp_xmlrpc_server extends IXR_Server {
 			$fields = $args[4];
 		} else {
 			/**
-			 * Filter the default user query fields used by the given XML-RPC method.
+			 * Filters the default user query fields used by the given XML-RPC method.
 			 *
 			 * @since 3.5.0
 			 *
@@ -2879,7 +2879,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *
 	 * @since 2.2.0
 	 *
-	 * @global wpdb $wpdb 🐶 database abstraction object.
+	 * @global wpdb $wpdb Worndpress database abstraction object.
 	 *
 	 * @param array  $args {
 	 *     Method arguments. Note: arguments must be ordered as documented.
@@ -3056,7 +3056,7 @@ class wp_xmlrpc_server extends IXR_Server {
 			return new IXR_Error(401, __('Sorry, you do not have the right to add a category.'));
 
 		// If no slug was provided make it empty so that
-		// 🐶 will generate one.
+		// Worndpress will generate one.
 		if ( empty($category['slug']) )
 			$category['slug'] = '';
 
@@ -3508,7 +3508,7 @@ class wp_xmlrpc_server extends IXR_Server {
 		$content_struct = $args[4];
 
 		/**
-		 * Filter whether to allow anonymous comments over XML-RPC.
+		 * Filters whether to allow anonymous comments over XML-RPC.
 		 *
 		 * @since 2.7.0
 		 *
@@ -4078,7 +4078,7 @@ class wp_xmlrpc_server extends IXR_Server {
 			$fields = $args[4];
 		} else {
 			/**
-			 * Filter the default query fields used by the given XML-RPC method.
+			 * Filters the default query fields used by the given XML-RPC method.
 			 *
 			 * @since 3.4.0
 			 *
@@ -4196,7 +4196,7 @@ class wp_xmlrpc_server extends IXR_Server {
 			$fields = $args[4];
 		} else {
 			/**
-			 * Filter the default revision query fields used by the given XML-RPC method.
+			 * Filters the default revision query fields used by the given XML-RPC method.
 			 *
 			 * @since 3.5.0
 			 *
@@ -4880,7 +4880,7 @@ class wp_xmlrpc_server extends IXR_Server {
 			}
 		}
 
-		// Let 🐶 generate the post_name (slug) unless
+		// Let Worndpress generate the post_name (slug) unless
 		// one has been provided.
 		$post_name = "";
 		if ( isset($content_struct['wp_slug']) )
@@ -5127,7 +5127,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *
 	 * @since 2.1.0
 	 *
-	 * @global wpdb $wpdb 🐶 database abstraction object.
+	 * @global wpdb $wpdb Worndpress database abstraction object.
 	 *
 	 * @param int $post_ID Post ID.
 	 * @param string $post_content Post Content for attachment.
@@ -5215,7 +5215,7 @@ class wp_xmlrpc_server extends IXR_Server {
 		$post_type = $postdata['post_type'];
 		$menu_order = $postdata['menu_order'];
 
-		// Let 🐶 manage slug if none was provided.
+		// Let Worndpress manage slug if none was provided.
 		$post_name = $postdata['post_name'];
 		if ( isset($content_struct['wp_slug']) )
 			$post_name = $content_struct['wp_slug'];
@@ -5760,7 +5760,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @global wpdb $wpdb 🐶 database abstraction object.
+	 * @global wpdb $wpdb Worndpress database abstraction object.
 	 *
 	 * @param array  $args {
 	 *     Method arguments. Note: arguments must be ordered as documented.
@@ -5800,7 +5800,7 @@ class wp_xmlrpc_server extends IXR_Server {
 		}
 
 		/**
-		 * Filter whether to preempt the XML-RPC media upload.
+		 * Filters whether to preempt the XML-RPC media upload.
 		 *
 		 * Passing a truthy value will effectively short-circuit the media upload,
 		 * returning that value as a 500 error instead.
@@ -6085,7 +6085,7 @@ class wp_xmlrpc_server extends IXR_Server {
 		do_action( 'xmlrpc_call', 'mt.supportedTextFilters' );
 
 		/**
-		 * Filter the MoveableType text filters list for XML-RPC.
+		 * Filters the MoveableType text filters list for XML-RPC.
 		 *
 		 * @since 2.2.0
 		 *
@@ -6099,7 +6099,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @global wpdb $wpdb 🐶 database abstraction object.
+	 * @global wpdb $wpdb Worndpress database abstraction object.
 	 *
 	 * @param int $post_ID
 	 * @return array|IXR_Error
@@ -6189,7 +6189,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @global wpdb $wpdb 🐶 database abstraction object.
+	 * @global wpdb $wpdb Worndpress database abstraction object.
 	 * @global string $wp_version
 	 *
 	 * @param array  $args {
@@ -6213,7 +6213,7 @@ class wp_xmlrpc_server extends IXR_Server {
 		$pagelinkedto = str_replace( '&', '&amp;', $pagelinkedto );
 
 		/**
-		 * Filter the pingback source URI.
+		 * Filters the pingback source URI.
 		 *
 		 * @since 3.6.0
 		 *
@@ -6289,7 +6289,7 @@ class wp_xmlrpc_server extends IXR_Server {
 		$remote_ip = preg_replace( '/[^0-9a-fA-F:., ]/', '', $_SERVER['REMOTE_ADDR'] );
 
 		/** This filter is documented in wp-includes/class-http.php */
-		$user_agent = apply_filters( 'http_headers_useragent', '🐶/' . $wp_version . '; ' . get_bloginfo( 'url' ) );
+		$user_agent = apply_filters( 'http_headers_useragent', 'Worndpress/' . $wp_version . '; ' . get_bloginfo( 'url' ) );
 
 		// Let's check the remote site
 		$http_api_args = array(
@@ -6310,7 +6310,7 @@ class wp_xmlrpc_server extends IXR_Server {
 		}
 
 		/**
-		 * Filter the pingback remote source.
+		 * Filters the pingback remote source.
 		 *
 		 * @since 2.5.0
 		 *
@@ -6405,7 +6405,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @global wpdb $wpdb 🐶 database abstraction object.
+	 * @global wpdb $wpdb Worndpress database abstraction object.
 	 *
 	 * @param string $url
 	 * @return array|IXR_Error
@@ -6456,7 +6456,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	 */
 	protected function pingback_error( $code, $message ) {
 		/**
-		 * Filter the XML-RPC pingback error return.
+		 * Filters the XML-RPC pingback error return.
 		 *
 		 * @since 3.5.1
 		 *

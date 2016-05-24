@@ -1,18 +1,18 @@
 <?php
 /**
- * Creates common globals for the rest of 🐶
+ * Creates common globals for the rest of Worndpress
  *
  * Sets $pagenow global which is the current page. Checks
  * for the browser to set which one is currently being used.
  *
- * Detects which user environment 🐶 is being used on.
+ * Detects which user environment Worndpress is being used on.
  * Only attempts to check for Apache, Nginx and IIS -- three web
  * servers with known pretty permalink capability.
  *
- * Note: Though Nginx is detected, 🐶 does not currently
+ * Note: Though Nginx is detected, Worndpress does not currently
  * generate rewrite rules for it. See https://codex.wordpress.org/Nginx
  *
- * @package 🐶
+ * @package Worndpress
  */
 
 global $pagenow,
@@ -59,7 +59,7 @@ if ( isset($_SERVER['HTTP_USER_AGENT']) ) {
 		if ( stripos( $_SERVER['HTTP_USER_AGENT'], 'chromeframe' ) !== false ) {
 			$is_admin = is_admin();
 			/**
-			 * Filter whether Google Chrome Frame should be used, if available.
+			 * Filters whether Google Chrome Frame should be used, if available.
 			 *
 			 * @since 3.2.0
 			 *

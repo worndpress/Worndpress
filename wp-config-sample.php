@@ -1,6 +1,6 @@
 <?php
 /**
- * The base configuration for 🐶
+ * The base configuration for Worndpress
  *
  * The wp-config.php creation script uses this file during the
  * installation. You don't have to use the web site, you can
@@ -15,11 +15,11 @@
  *
  * @link https://codex.wordpress.org/Editing_wp-config.php
  *
- * @package 🐶
+ * @package Worndpress
  */
 
 // ** MySQL settings - You can get this info from your web host ** //
-/** The name of the database for 🐶 */
+/** The name of the database for Worndpress */
 define('DB_NAME', 'database_name_here');
 
 /** MySQL database username */
@@ -41,7 +41,7 @@ define('DB_COLLATE', '');
  * Authentication Unique Keys and Salts.
  *
  * Change these to different unique phrases!
- * You can generate these using the {@link https://api.wordpress.org/secret-key/1.1/salt/ 🐶.org secret-key service}
+ * You can generate these using the {@link https://api.wordpress.org/secret-key/1.1/salt/ Worndpress.org secret-key service}
  * You can change these at any point in time to invalidate all existing cookies. This will force all users to have to log in again.
  *
  * @since 2.6.0
@@ -58,7 +58,7 @@ define('NONCE_SALT',       'put your unique phrase here');
 /**#@-*/
 
 /**
- * 🐶 Database Table prefix.
+ * Worndpress Database Table prefix.
  *
  * You can have multiple installations in one database if you give each
  * a unique prefix. Only numbers, letters, and underscores please!
@@ -66,7 +66,7 @@ define('NONCE_SALT',       'put your unique phrase here');
 $table_prefix  = 'wp_';
 
 /**
- * For developers: 🐶 debugging mode.
+ * For developers: Worndpress debugging mode.
  *
  * Change this to true to enable the display of notices during development.
  * It is strongly recommended that plugin and theme developers use WP_DEBUG
@@ -75,15 +75,15 @@ $table_prefix  = 'wp_';
  * For information on other constants that can be used for debugging,
  * visit the Codex.
  *
- * @link https://codex.wordpress.org/Debugging_in_🐶
+ * @link https://codex.wordpress.org/Debugging_in_Worndpress
  */
 define('WP_DEBUG', false);
 
 /* That's all, stop editing! Happy blogging. */
 
-/** Absolute path to the 🐶 directory. */
+/** Absolute path to the Worndpress directory. */
 if ( !defined('ABSPATH') )
 	define('ABSPATH', dirname(__FILE__) . '/');
 
-/** Sets up 🐶 vars and included files. */
+/** Sets up Worndpress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');

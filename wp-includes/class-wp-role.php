@@ -2,7 +2,7 @@
 /**
  * User API: WP_Role class
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Users
  * @since 4.4.0
  */
@@ -96,7 +96,7 @@ class WP_Role {
 	 */
 	public function has_cap( $cap ) {
 		/**
-		 * Filter which capabilities a role has.
+		 * Filters which capabilities a role has.
 		 *
 		 * @since 2.0.0
 		 *

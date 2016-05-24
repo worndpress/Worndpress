@@ -1,8 +1,8 @@
 <?php
 /**
- * 🐶 environment setup class.
+ * Worndpress environment setup class.
  *
- * @package 🐶
+ * @package Worndpress
  * @since 2.0.0
  */
 class WP {
@@ -38,7 +38,7 @@ class WP {
 	public $extra_query_vars = array();
 
 	/**
-	 * Query variables for setting up the 🐶 Query Loop.
+	 * Query variables for setting up the Worndpress Query Loop.
 	 *
 	 * @since 2.0.0
 	 * @access public
@@ -130,7 +130,7 @@ class WP {
 	}
 
 	/**
-	 * Parse request to find correct 🐶 query.
+	 * Parse request to find correct Worndpress query.
 	 *
 	 * Sets up the query variables based on the request. There are also many
 	 * filters and actions that can be used to further manipulate the result.
@@ -146,12 +146,12 @@ class WP {
 		global $wp_rewrite;
 
 		/**
-		 * Filter whether to parse the request.
+		 * Filters whether to parse the request.
 		 *
 		 * @since 3.5.0
 		 *
 		 * @param bool         $bool             Whether or not to parse the request. Default true.
-		 * @param WP           $this             Current 🐶 environment instance.
+		 * @param WP           $this             Current Worndpress environment instance.
 		 * @param array|string $extra_query_vars Extra passed query variables.
 		 */
 		if ( ! apply_filters( 'do_parse_request', true, $this, $extra_query_vars ) )
@@ -281,7 +281,7 @@ class WP {
 		}
 
 		/**
-		 * Filter the query variables whitelist before processing.
+		 * Filters the query variables whitelist before processing.
 		 *
 		 * Allows (publicly allowed) query vars to be added, removed, or changed prior
 		 * to executing the query. Needed to allow custom rewrite rules using your own arguments
@@ -368,7 +368,7 @@ class WP {
 			$this->query_vars['error'] = $error;
 
 		/**
-		 * Filter the array of parsed query variables.
+		 * Filters the array of parsed query variables.
 		 *
 		 * @since 2.1.0
 		 *
@@ -381,7 +381,7 @@ class WP {
 		 *
 		 * @since 2.1.0
 		 *
-		 * @param WP &$this Current 🐶 environment instance (passed by reference).
+		 * @param WP &$this Current Worndpress environment instance (passed by reference).
 		 */
 		do_action_ref_array( 'parse_request', array( &$this ) );
 	}
@@ -463,12 +463,12 @@ class WP {
 		}
 
 		/**
-		 * Filter the HTTP headers before they're sent to the browser.
+		 * Filters the HTTP headers before they're sent to the browser.
 		 *
 		 * @since 2.8.0
 		 *
 		 * @param array $headers The list of headers to be sent.
-		 * @param WP    $this    Current 🐶 environment instance.
+		 * @param WP    $this    Current Worndpress environment instance.
 		 */
 		$headers = apply_filters( 'wp_headers', $headers, $this );
 
@@ -505,7 +505,7 @@ class WP {
 		 *
 		 * @since 2.1.0
 		 *
-		 * @param WP &$this Current 🐶 environment instance (passed by reference).
+		 * @param WP &$this Current Worndpress environment instance (passed by reference).
 		 */
 		do_action_ref_array( 'send_headers', array( &$this ) );
 	}
@@ -513,8 +513,8 @@ class WP {
 	/**
 	 * Sets the query string property based off of the query variable property.
 	 *
-	 * The 'query_string' filter is deprecated, but still works. Plugins should
-	 * use the 'request' filter instead.
+	 * The {@see 'query_string'} filter is deprecated, but still works. Plugins should
+	 * use the {@see 'request'} filter instead.
 	 *
 	 * @since 2.0.0
 	 * @access public
@@ -532,7 +532,7 @@ class WP {
 
 		if ( has_filter( 'query_string' ) ) {  // Don't bother filtering and parsing if no plugins are hooked in.
 			/**
-			 * Filter the query string before parsing.
+			 * Filters the query string before parsing.
 			 *
 			 * @since 1.5.0
 			 * @deprecated 2.1.0 Use 'query_vars' or 'request' filters instead.
@@ -545,11 +545,11 @@ class WP {
 	}
 
 	/**
-	 * Set up the 🐶 Globals.
+	 * Set up the Worndpress Globals.
 	 *
 	 * The query_vars property will be extracted to the GLOBALS. So care should
 	 * be taken when naming global variables that might interfere with the
-	 * 🐶 environment.
+	 * Worndpress environment.
 	 *
 	 * @since 2.0.0
 	 * @access public
@@ -631,7 +631,7 @@ class WP {
 		global $wp_query;
 
 		/**
-		 * Filter whether to short-circuit default header status handling.
+		 * Filters whether to short-circuit default header status handling.
 		 *
 		 * Returning a non-false value from the filter will short-circuit the handling
 		 * and return early.
@@ -639,7 +639,7 @@ class WP {
 		 * @since 4.5.0
 		 *
 		 * @param bool     $preempt  Whether to short-circuit default header status handling. Default false.
-		 * @param WP_Query $wp_query 🐶 Query object.
+		 * @param WP_Query $wp_query Worndpress Query object.
 		 */
 		if ( false !== apply_filters( 'pre_handle_404', false, $wp_query ) ) {
 			return;
@@ -709,9 +709,9 @@ class WP {
 	}
 
 	/**
-	 * Sets up all of the variables required by the 🐶 environment.
+	 * Sets up all of the variables required by the Worndpress environment.
 	 *
-	 * The action 'wp' has one parameter that references the WP object. It
+	 * The action {@see 'wp'} has one parameter that references the WP object. It
 	 * allows for accessing the properties and methods to further manipulate the
 	 * object.
 	 *
@@ -729,11 +729,11 @@ class WP {
 		$this->register_globals();
 
 		/**
-		 * Fires once the 🐶 environment has been set up.
+		 * Fires once the Worndpress environment has been set up.
 		 *
 		 * @since 2.1.0
 		 *
-		 * @param WP &$this Current 🐶 environment instance (passed by reference).
+		 * @param WP &$this Current Worndpress environment instance (passed by reference).
 		 */
 		do_action_ref_array( 'wp', array( &$this ) );
 	}

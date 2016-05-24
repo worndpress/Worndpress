@@ -5,15 +5,15 @@
  * This API is used for creating dynamic sidebar without hardcoding functionality into
  * themes
  *
- * Includes both internal 🐶 routines and theme-use routines.
+ * Includes both internal Worndpress routines and theme-use routines.
  *
- * This functionality was found in a plugin before the 🐶 2.2 release, which
+ * This functionality was found in a plugin before the Worndpress 2.2 release, which
  * included it in the core from that point on.
  *
- * @link https://codex.wordpress.org/Plugins/🐶_Widgets 🐶 Widgets
- * @link https://codex.wordpress.org/Plugins/🐶_Widgets_Api Widgets API
+ * @link https://codex.wordpress.org/Plugins/Worndpress_Widgets Worndpress Widgets
+ * @link https://codex.wordpress.org/Plugins/Worndpress_Widgets_Api Widgets API
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Widgets
  * @since 2.2.0
  */
@@ -114,10 +114,10 @@ function register_widget($widget_class) {
 }
 
 /**
- * Unregister a widget
+ * Unregisters a widget.
  *
- * Unregisters a WP_Widget widget. Useful for unregistering default widgets.
- * Run within a function hooked to the widgets_init action.
+ * Unregisters a WP_Widget widget. Useful for un-registering default widgets.
+ * Run within a function hooked to the {@see 'widgets_init'} action.
  *
  * @since 2.8.0
  *
@@ -125,7 +125,7 @@ function register_widget($widget_class) {
  *
  * @global WP_Widget_Factory $wp_widget_factory
  *
- * @param string $widget_class The name of a class that extends WP_Widget
+ * @param string $widget_class The name of a class that extends WP_Widget.
  */
 function unregister_widget($widget_class) {
 	global $wp_widget_factory;
@@ -196,7 +196,7 @@ function register_sidebars( $number = 1, $args = array() ) {
  * Builds the definition for a single sidebar and returns the ID.
  *
  * Accepts either a string or an array and then parses that against a set
- * of default arguments for the new sidebar. 🐶 will automatically
+ * of default arguments for the new sidebar. Worndpress will automatically
  * generate a sidebar ID and name based on the current number of registered
  * sidebars if those arguments are not included.
  *
@@ -672,7 +672,7 @@ function dynamic_sidebar( $index = 1 ) {
 		$params[0]['before_widget'] = sprintf($params[0]['before_widget'], $id, $classname_);
 
 		/**
-		 * Filter the parameters passed to a widget's display callback.
+		 * Filters the parameters passed to a widget's display callback.
 		 *
 		 * Note: The filter is evaluated on both the front end and back end,
 		 * including for the Inactive Widgets sidebar on the Widgets screen.
@@ -755,7 +755,7 @@ function dynamic_sidebar( $index = 1 ) {
 	do_action( 'dynamic_sidebar_after', $index, true );
 
 	/**
-	 * Filter whether a sidebar has widgets.
+	 * Filters whether a sidebar has widgets.
 	 *
 	 * Note: The filter is also evaluated for empty sidebars, and on both the front end
 	 * and back end, including the Inactive Widgets sidebar on the Widgets screen.
@@ -780,7 +780,7 @@ function dynamic_sidebar( $index = 1 ) {
  * the widget with that callback/$id_base AND that ID is found.
  *
  * NOTE: $widget_id and $id_base are the same for single widgets. To be effective
- * this function has to run after widgets have initialized, at action 'init' or later.
+ * this function has to run after widgets have initialized, at action {@see 'init'} or later.
  *
  * @since 2.2.0
  *
@@ -853,7 +853,7 @@ function is_active_sidebar( $index ) {
 	$is_active_sidebar = ! empty( $sidebars_widgets[$index] );
 
 	/**
-	 * Filter whether a dynamic sidebar is considered "active".
+	 * Filters whether a dynamic sidebar is considered "active".
 	 *
 	 * @since 3.9.0
 	 *
@@ -904,7 +904,7 @@ function wp_get_sidebars_widgets( $deprecated = true ) {
 		unset($sidebars_widgets['array_version']);
 
 	/**
-	 * Filter the list of sidebars and their widgets.
+	 * Filters the list of sidebars and their widgets.
 	 *
 	 * @since 2.7.0
 	 *
@@ -1429,10 +1429,9 @@ function wp_widget_rss_process( $widget_rss, $check_feed = true ) {
 }
 
 /**
- * Register all of the default 🐶 widgets on startup.
+ * Registers all of the default Worndpress widgets on startup.
  *
- * Calls 'widgets_init' action after all of the 🐶 widgets have been
- * registered.
+ * Calls {@see 'widgets_init'} action after all of the Worndpress widgets have been registered.
  *
  * @since 2.2.0
  */
@@ -1468,7 +1467,7 @@ function wp_widgets_init() {
 	register_widget('WP_Nav_Menu_Widget');
 
 	/**
-	 * Fires after all default 🐶 widgets have been registered.
+	 * Fires after all default Worndpress widgets have been registered.
 	 *
 	 * @since 2.2.0
 	 */

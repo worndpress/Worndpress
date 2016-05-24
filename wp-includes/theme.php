@@ -2,7 +2,7 @@
 /**
  * Theme, template, and stylesheet functions.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Theme
  */
 
@@ -151,7 +151,7 @@ function is_child_theme() {
  */
 function get_stylesheet() {
 	/**
-	 * Filter the name of current stylesheet.
+	 * Filters the name of current stylesheet.
 	 *
 	 * @since 1.5.0
 	 *
@@ -173,7 +173,7 @@ function get_stylesheet_directory() {
 	$stylesheet_dir = "$theme_root/$stylesheet";
 
 	/**
-	 * Filter the stylesheet directory path for current theme.
+	 * Filters the stylesheet directory path for current theme.
 	 *
 	 * @since 1.5.0
 	 *
@@ -197,7 +197,7 @@ function get_stylesheet_directory_uri() {
 	$stylesheet_dir_uri = "$theme_root_uri/$stylesheet";
 
 	/**
-	 * Filter the stylesheet directory URI.
+	 * Filters the stylesheet directory URI.
 	 *
 	 * @since 1.5.0
 	 *
@@ -222,7 +222,7 @@ function get_stylesheet_uri() {
 	$stylesheet_dir_uri = get_stylesheet_directory_uri();
 	$stylesheet_uri = $stylesheet_dir_uri . '/style.css';
 	/**
-	 * Filter the URI of the current theme stylesheet.
+	 * Filters the URI of the current theme stylesheet.
 	 *
 	 * @since 1.5.0
 	 *
@@ -233,7 +233,7 @@ function get_stylesheet_uri() {
 }
 
 /**
- * Retrieve localized stylesheet URI.
+ * Retrieves the localized stylesheet URI.
  *
  * The stylesheet directory for the localized stylesheet files are located, by
  * default, in the base theme directory. The name of the locale file will be the
@@ -241,9 +241,10 @@ function get_stylesheet_uri() {
  * stylesheet will be checked for existence, for example 'ltr.css'.
  *
  * The theme may change the location of the stylesheet directory by either using
- * the 'stylesheet_directory_uri' filter or the 'locale_stylesheet_uri' filter.
+ * the {@see 'stylesheet_directory_uri'} or {@see 'locale_stylesheet_uri'} filters.
+ *
  * If you want to change the location of the stylesheet files for the entire
- * 🐶 workflow, then change the former. If you just have the locale in a
+ * Worndpress workflow, then change the former. If you just have the locale in a
  * separate folder, then change the latter.
  *
  * @since 2.1.0
@@ -264,7 +265,7 @@ function get_locale_stylesheet_uri() {
 	else
 		$stylesheet_uri = '';
 	/**
-	 * Filter the localized stylesheet URI.
+	 * Filters the localized stylesheet URI.
 	 *
 	 * @since 2.1.0
 	 *
@@ -283,7 +284,7 @@ function get_locale_stylesheet_uri() {
  */
 function get_template() {
 	/**
-	 * Filter the name of the current theme.
+	 * Filters the name of the current theme.
 	 *
 	 * @since 1.5.0
 	 *
@@ -305,7 +306,7 @@ function get_template_directory() {
 	$template_dir = "$theme_root/$template";
 
 	/**
-	 * Filter the current theme directory path.
+	 * Filters the current theme directory path.
 	 *
 	 * @since 1.5.0
 	 *
@@ -329,7 +330,7 @@ function get_template_directory_uri() {
 	$template_dir_uri = "$theme_root_uri/$template";
 
 	/**
-	 * Filter the current theme directory URI.
+	 * Filters the current theme directory URI.
 	 *
 	 * @since 1.5.0
 	 *
@@ -434,7 +435,7 @@ function search_theme_directories( $force = false ) {
 	}
 
 	/**
-	 * Filter whether to get the cache of the registered theme directories.
+	 * Filters whether to get the cache of the registered theme directories.
 	 *
 	 * @since 3.4.0
 	 *
@@ -551,7 +552,7 @@ function get_theme_root( $stylesheet_or_template = false ) {
 	}
 
 	/**
-	 * Filter the absolute path to the themes directory.
+	 * Filters the absolute path to the themes directory.
 	 *
 	 * @since 1.5.0
 	 *
@@ -600,12 +601,12 @@ function get_theme_root_uri( $stylesheet_or_template = false, $theme_root = fals
 	}
 
 	/**
-	 * Filter the URI for themes directory.
+	 * Filters the URI for themes directory.
 	 *
 	 * @since 1.5.0
 	 *
 	 * @param string $theme_root_uri         The URI for themes directory.
-	 * @param string $siteurl                🐶 web address which is set in General Options.
+	 * @param string $siteurl                Worndpress web address which is set in General Options.
 	 * @param string $stylesheet_or_template Stylesheet or template name of the theme.
 	 */
 	return apply_filters( 'theme_root_uri', $theme_root_uri, get_option( 'siteurl' ), $stylesheet_or_template );
@@ -760,7 +761,7 @@ function switch_theme( $stylesheet ) {
  * But if it doesn't exist, it'll fall back to the latest core default theme that does exist.
  * Will switch theme to the fallback theme if current theme does not validate.
  *
- * You can use the 'validate_current_theme' filter to return false to
+ * You can use the {@see 'validate_current_theme'} filter to return false to
  * disable this functionality.
  *
  * @since 1.5.0
@@ -770,7 +771,7 @@ function switch_theme( $stylesheet ) {
  */
 function validate_current_theme() {
 	/**
-	 * Filter whether to validate the current theme.
+	 * Filters whether to validate the current theme.
 	 *
 	 * @since 2.7.0
 	 *
@@ -856,7 +857,7 @@ function get_theme_mod( $name, $default = false ) {
 
 	if ( isset( $mods[$name] ) ) {
 		/**
-		 * Filter the theme modification, or 'theme_mod', value.
+		 * Filters the theme modification, or 'theme_mod', value.
 		 *
 		 * The dynamic portion of the hook name, `$name`, refers to
 		 * the key name of the modification array. For example,
@@ -890,7 +891,7 @@ function set_theme_mod( $name, $value ) {
 	$old_value = isset( $mods[ $name ] ) ? $mods[ $name ] : false;
 
 	/**
-	 * Filter the theme mod value on save.
+	 * Filters the theme mod value on save.
 	 *
 	 * The dynamic portion of the hook name, `$name`, refers to the key name of
 	 * the modification array. For example, 'header_textcolor', 'header_image',
@@ -1070,7 +1071,7 @@ function get_header_image_tag( $attr = array() ) {
 	$html .= ' />';
 
 	/**
-	 * Filter the markup of header images.
+	 * Filters the markup of header images.
 	 *
 	 * @since 4.4.0
 	 *
@@ -1503,7 +1504,7 @@ function get_editor_stylesheets() {
 	}
 
 	/**
-	 * Filter the array of stylesheets applied to the editor.
+	 * Filters the array of stylesheets applied to the editor.
 	 *
 	 * @since 4.3.0
 	 *
@@ -1516,8 +1517,8 @@ function get_editor_stylesheets() {
  * Allows a theme to register its support of a certain feature
  *
  * Must be called in the theme's functions.php file to work.
- * If attached to a hook, it must be after_setup_theme.
- * The init hook may be too late for some features.
+ * If attached to a hook, it must be {@see 'after_setup_theme'}.
+ * The {@see 'init'} hook may be too late for some features.
  *
  * @since 2.9.0
  *
@@ -1946,7 +1947,7 @@ function current_theme_supports( $feature ) {
 	}
 
 	/**
-	 * Filter whether the current theme supports a specific feature.
+	 * Filters whether the current theme supports a specific feature.
 	 *
 	 * The dynamic portion of the hook name, `$feature`, refers to the specific theme
 	 * feature. Possible values include 'post-formats', 'post-thumbnails', 'custom-background',
@@ -2013,7 +2014,9 @@ function _delete_attachment_theme_mod( $id ) {
 }
 
 /**
- * Checks if a theme has been changed and runs 'after_switch_theme' hook on the next WP load
+ * Checks if a theme has been changed and runs 'after_switch_theme' hook on the next WP load.
+ *
+ * See {@see 'after_switch_theme'}.
  *
  * @since 3.3.0
  */
@@ -2058,7 +2061,7 @@ function check_theme_switched() {
  * Loads the Customizer at plugins_loaded when accessing the customize.php admin
  * page or when any request includes a wp_customize=on param, either as a GET
  * query var or as POST data. This param is a signal for whether to bootstrap
- * the Customizer when 🐶 is loading, especially in the Customizer preview
+ * the Customizer when Worndpress is loading, especially in the Customizer preview
  * or when making Customizer Ajax requests for widgets or menus.
  *
  * @since 3.4.0

@@ -2,7 +2,7 @@
 /**
  * Build Administration Menu.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Administration
  */
 

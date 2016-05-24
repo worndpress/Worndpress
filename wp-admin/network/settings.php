@@ -2,15 +2,15 @@
 /**
  * Multisite network settings administration panel.
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Multisite
  * @since 3.0.0
  */
 
-/** Load 🐶 Administration Bootstrap */
+/** Load Worndpress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
-/** 🐶 Translation Install API */
+/** Worndpress Translation Install API */
 require_once( ABSPATH . 'wp-admin/includes/translation-install.php' );
 
 if ( ! is_multisite() )
@@ -347,7 +347,7 @@ if ( isset( $_GET['updated'] ) ) {
 			<?php
 			$menu_perms = get_site_option( 'menu_items' );
 			/**
-			 * Filter available network-wide administration menu options.
+			 * Filters available network-wide administration menu options.
 			 *
 			 * Options returned to this filter are output as individual checkboxes that, when selected,
 			 * enable site administrator access to the specified administration menu in certain contexts.

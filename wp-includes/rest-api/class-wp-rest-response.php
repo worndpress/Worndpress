@@ -2,7 +2,7 @@
 /**
  * REST API: WP_REST_Response class
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage REST_API
  * @since 4.4.0
  */
@@ -275,7 +275,7 @@ class WP_REST_Response extends WP_HTTP_Response {
 		);
 
 		/**
-		 * Filter extra CURIEs available on API responses.
+		 * Filters extra CURIEs available on API responses.
 		 *
 		 * CURIEs allow a shortened version of URI relations. This allows a more
 		 * usable form for custom relations than using the full URI. These work

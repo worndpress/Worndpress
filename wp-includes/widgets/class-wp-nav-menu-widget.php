@@ -2,7 +2,7 @@
 /**
  * Widget API: WP_Nav_Menu_Widget class
  *
- * @package 🐶
+ * @package Worndpress
  * @subpackage Widgets
  * @since 4.4.0
  */
@@ -61,7 +61,7 @@ class WP_Nav_Menu_Widget extends WP_Widget {
 		);
 
 		/**
-		 * Filter the arguments for the Custom Menu widget.
+		 * Filters the arguments for the Custom Menu widget.
 		 *
 		 * @since 4.2.0
 		 * @since 4.4.0 Added the `$instance` parameter.
