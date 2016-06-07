@@ -903,10 +903,12 @@ function get_custom_logo( $blog_id = 0 ) {
 	 * Filters the custom logo output.
 	 *
 	 * @since 4.5.0
+	 * @since 4.6.0 Added the `$blog_id` parameter.
 	 *
-	 * @param string $html Custom logo HTML output.
+	 * @param string $html    Custom logo HTML output.
+	 * @param int    $blog_id ID of the blog to get the custom logo for.
 	 */
-	return apply_filters( 'get_custom_logo', $html );
+	return apply_filters( 'get_custom_logo', $html, $blog_id );
 }
 
 /**
@@ -2523,7 +2525,7 @@ function the_weekday_date($before='',$after='') {
  */
 function wp_head() {
 	/**
-	 * Print scripts or data in the head tag on the front end.
+	 * Prints scripts or data in the head tag on the front end.
 	 *
 	 * @since 1.5.0
 	 */
@@ -2539,7 +2541,7 @@ function wp_head() {
  */
 function wp_footer() {
 	/**
-	 * Print scripts or data before the closing body tag on the front end.
+	 * Prints scripts or data before the closing body tag on the front end.
 	 *
 	 * @since 1.5.1
 	 */

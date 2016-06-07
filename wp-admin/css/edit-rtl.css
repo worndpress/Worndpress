@@ -377,16 +377,6 @@ form#tags-filter {
 	position: relative;
 }
 
-#content-textarea-clone {
-	z-index: -1;
-	position: absolute;
-	top: 0;
-	visibility: hidden;
-	overflow: hidden;
-	max-width: 100%;
-	border: 1px solid transparent;
-}
-
 .wp-editor-expand #wp-content-editor-tools {
 	z-index: 1000;
 	border-bottom: 1px solid #e5e5e5;
@@ -642,19 +632,6 @@ span.wp-media-buttons-icon:before {
 #poststuff .inside #parent_id,
 #poststuff .inside #page_template {
 	max-width: 100%;
-}
-
-#poststuff .inside label.spam,
-#poststuff .inside label.deleted {
-	color: red;
-}
-
-#poststuff .inside label.waiting {
-	color: orange;
-}
-
-#poststuff .inside label.approved {
-	color: green;
 }
 
 .ie8 #poststuff .inside #parent_id,
@@ -1139,6 +1116,7 @@ p.popular-tags a {
 	padding: 0 4px;
 	color: #72777C;
 	font-size: 13px;
+	word-break: break-all;
 }
 
 .comment-ays .comment-content p.edit-comment {

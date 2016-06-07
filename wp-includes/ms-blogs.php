@@ -465,6 +465,8 @@ function clean_blog_cache( $blog ) {
 	 * @param string  $domain_path_key md5 hash of domain and path.
 	 */
 	do_action( 'clean_site_cache', $blog_id, $blog, $domain_path_key );
+
+	wp_cache_set( 'last_changed', microtime(), 'sites' );
 }
 
 /**
@@ -558,6 +560,63 @@ function update_site_cache( &$sites ) {
 		wp_cache_add( $site->blog_id, $site, 'sites' );
 		wp_cache_add( $site->blog_id . 'short', $site, 'blog-details' );
 	}
+}
+
+/**
+ * Retrieves a list of sites matching requested arguments.
+ *
+ * @since 4.6.0
+ *
+ * @see WP_Site_Query::parse_query()
+ *
+ * @param string|array $args {
+ *     Optional. Array or query string of site query parameters. Default empty.
+ *
+ *     @type array        $site__in          Array of site IDs to include. Default empty.
+ *     @type array        $site__not_in      Array of site IDs to exclude. Default empty.
+ *     @type bool         $count             Whether to return a site count (true) or array of site objects.
+ *                                           Default false.
+ *     @type array        $date_query        Date query clauses to limit sites by. See WP_Date_Query.
+ *                                           Default null.
+ *     @type string       $fields            Site fields to return. Accepts 'ids' for site IDs only or empty
+ *                                           for all fields. Default empty.
+ *     @type int          $ID                A site ID to only return that site. Default empty.
+ *     @type int          $number            Maximum number of sites to retrieve. Default null (no limit).
+ *     @type int          $offset            Number of sites to offset the query. Used to build LIMIT clause.
+ *                                           Default 0.
+ *     @type bool         $no_found_rows     Whether to disable the `SQL_CALC_FOUND_ROWS` query. Default true.
+ *     @type string|array $orderby           Site status or array of statuses. Accepts 'id', 'domain', 'path',
+ *                                           'network_id', 'last_updated', 'registered', 'domain_length',
+ *                                           'path_length', 'site__in' and 'network__in'. Also accepts false,
+ *                                           an empty array, or 'none' to disable `ORDER BY` clause.
+ *                                           Default 'id'.
+ *     @type string       $order             How to order retrieved sites. Accepts 'ASC', 'DESC'. Default 'ASC'.
+ *     @type int          $network_id        Limit results to those affiliated with a given network ID.
+ *                                           Default current network ID.
+ *     @type array        $network__in       Array of network IDs to include affiliated sites for. Default empty.
+ *     @type array        $network__not_in   Array of network IDs to exclude affiliated sites for. Default empty.
+ *     @type string       $domain            Limit results to those affiliated with a given domain.
+ *                                           Default empty.
+ *     @type array        $domain__in        Array of domains to include affiliated sites for. Default empty.
+ *     @type array        $domain__not_in    Array of domains to exclude affiliated sites for. Default empty.
+ *     @type string       $path              Limit results to those affiliated with a given path.
+ *                                           Default empty.
+ *     @type array        $path__in          Array of paths to include affiliated sites for. Default empty.
+ *     @type array        $path__not_in      Array of paths to exclude affiliated sites for. Default empty.
+ *     @type int          $public            Limit results to public sites. Accepts '1' or '0'. Default empty.
+ *     @type int          $archived          Limit results to archived sites. Accepts '1' or '0'. Default empty.
+ *     @type int          $mature            Limit results to mature sites. Accepts '1' or '0'. Default empty.
+ *     @type int          $spam              Limit results to spam sites. Accepts '1' or '0'. Default empty.
+ *     @type int          $deleted           Limit results to deleted sites. Accepts '1' or '0'. Default empty.
+ *     @type string       $search            Search term(s) to retrieve matching sites for. Default empty.
+ *     @type bool         $update_site_cache Whether to prime the cache for found sites. Default false.
+ * }
+ * @return array List of sites.
+ */
+function get_sites( $args = array() ) {
+	$query = new WP_Site_Query();
+
+	return $query->query( $args );
 }
 
 /**
@@ -766,7 +825,7 @@ function switch_to_blog( $new_blog, $deprecated = null ) {
 			} else {
 				wp_cache_add_global_groups( array( 'users', 'userlogins', 'usermeta', 'user_meta', 'useremail', 'userslugs', 'site-transient', 'site-options', 'site-lookup', 'blog-lookup', 'blog-details', 'rss', 'global-posts', 'blog-id-cache', 'networks', 'sites' ) );
 			}
-			wp_cache_add_non_persistent_groups( array( 'comment', 'counts', 'plugins' ) );
+			wp_cache_add_non_persistent_groups( array( 'counts', 'plugins' ) );
 		}
 	}
 
@@ -837,7 +896,7 @@ function restore_current_blog() {
 			} else {
 				wp_cache_add_global_groups( array( 'users', 'userlogins', 'usermeta', 'user_meta', 'useremail', 'userslugs', 'site-transient', 'site-options', 'site-lookup', 'blog-lookup', 'blog-details', 'rss', 'global-posts', 'blog-id-cache', 'networks', 'sites' ) );
 			}
-			wp_cache_add_non_persistent_groups( array( 'comment', 'counts', 'plugins' ) );
+			wp_cache_add_non_persistent_groups( array( 'counts', 'plugins' ) );
 		}
 	}
 

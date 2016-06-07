@@ -20,6 +20,7 @@ define( 'WPINC', 'wp-includes' );
 // Include files required for initialization.
 require( ABSPATH . WPINC . '/load.php' );
 require( ABSPATH . WPINC . '/default-constants.php' );
+require( ABSPATH . WPINC . '/plugin.php' );
 
 /*
  * These can't be directly globalized in version.php. When updating,
@@ -69,9 +70,22 @@ timer_start();
 // Check if we're in WP_DEBUG mode.
 wp_debug_mode();
 
+/**
+ * Bypass the loading of advanced-cache.php
+ *
+ * This filter should *NOT* be used by plugins. It is designed for non-web
+ * runtimes. If true is returned, advance-cache.php will never be loaded.
+ *
+ * @since 4.6.0
+ *
+ * @param bool True to bypass advanced-cache.php
+ */
+if ( WP_CACHE && ! apply_filters( 'bypass_advanced_cache', false )  ) {
 // For an advanced caching plugin to use. Uses a static drop-in because you would only want one.
-if ( WP_CACHE )
+	_backup_plugin_globals();
 	WP_DEBUG ? include( WP_CONTENT_DIR . '/advanced-cache.php' ) : @include( WP_CONTENT_DIR . '/advanced-cache.php' );
+	_restore_plugin_globals();
+}
 
 // Define WP_LANG_DIR if not set.
 wp_set_lang_dir();
@@ -81,7 +95,6 @@ require( ABSPATH . WPINC . '/compat.php' );
 require( ABSPATH . WPINC . '/functions.php' );
 require( ABSPATH . WPINC . '/class-wp.php' );
 require( ABSPATH . WPINC . '/class-wp-error.php' );
-require( ABSPATH . WPINC . '/plugin.php' );
 require( ABSPATH . WPINC . '/pomo/mo.php' );
 
 // Include the wpdb class and, if present, a db.php database drop-in.
@@ -168,6 +181,7 @@ require( ABSPATH . WPINC . '/deprecated.php' );
 require( ABSPATH . WPINC . '/script-loader.php' );
 require( ABSPATH . WPINC . '/taxonomy.php' );
 require( ABSPATH . WPINC . '/class-wp-term.php' );
+require( ABSPATH . WPINC . '/class-wp-term-query.php' );
 require( ABSPATH . WPINC . '/class-wp-tax-query.php' );
 require( ABSPATH . WPINC . '/update.php' );
 require( ABSPATH . WPINC . '/canonical.php' );
