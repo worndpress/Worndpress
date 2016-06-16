@@ -77,9 +77,9 @@ get_current_screen()->add_help_tab( array(
 'title'		=> __('Adding Plugins'),
 'content'	=>
 	'<p>' . __('If you know what you&#8217;re looking for, Search is your best bet. The Search screen has options to search the Worndpress Plugin Directory for a particular Term, Author, or Tag. You can also search the directory by selecting popular tags. Tags in larger type mean more plugins have been labeled with that tag.') . '</p>' .
-	'<p>' . __('If you just want to get an idea of what&#8217;s available, you can browse Featured and Popular plugins by using the links in the upper left of the screen. These sections rotate regularly.') . '</p>' .
-	'<p>' . __('You can also browse a user&#8217;s favorite plugins, by using the Favorites link in the upper left of the screen and entering their Worndpress.org username.') . '</p>' .
-	'<p>' . __('If you want to install a plugin that you&#8217;ve downloaded elsewhere, click the Upload link in the upper left. You will be prompted to upload the .zip package, and once uploaded, you can activate the new plugin.') . '</p>'
+	'<p>' . __( 'If you just want to get an idea of what&#8217;s available, you can browse Featured and Popular plugins by using the links above the plugins list. These sections rotate regularly.' ) . '</p>' .
+	'<p>' . __( 'You can also browse a user&#8217;s favorite plugins, by using the Favorites link above the plugins list and entering their Worndpress.org username.' ) . '</p>' .
+	'<p>' . __( 'If you want to install a plugin that you&#8217;ve downloaded elsewhere, click the Upload Plugin button above the plugins list. You will be prompted to upload the .zip package, and once uploaded, you can activate the new plugin.' ) . '</p>'
 ) );
 
 get_current_screen()->set_help_sidebar(
@@ -148,10 +148,13 @@ if ( $tab !== 'upload' ) {
  * @param int $paged The current page number of the plugins list table.
  */
 do_action( "install_plugins_$tab", $paged ); ?>
+
+	<span class="spinner"></span>
 </div>
 
 <?php
 wp_print_request_filesystem_credentials_modal();
+wp_print_admin_notice_templates();
 
 /**
  * Worndpress Administration Template Footer.

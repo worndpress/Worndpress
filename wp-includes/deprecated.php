@@ -2818,7 +2818,7 @@ function is_blog_user( $blog_id = 0 ) {
  * @deprecated 3.4.0 Use error_log()
  * @see error_log()
  *
- * @link http://www.php.net/manual/en/function.error-log.php
+ * @link https://secure.php.net/manual/en/function.error-log.php
  *
  * @param string $filename File name.
  * @param string $mode     Type of access you required to the stream.
@@ -2836,7 +2836,7 @@ function debug_fopen( $filename, $mode ) {
  * @deprecated 3.4.0 Use error_log()
  * @see error_log()
  *
- * @link http://www.php.net/manual/en/function.error-log.php
+ * @link https://secure.php.net/manual/en/function.error-log.php
  *
  * @param mixed  $fp     Unused.
  * @param string $string Message to log.
@@ -2854,7 +2854,7 @@ function debug_fwrite( $fp, $string ) {
  * @deprecated 3.4.0 Use error_log()
  * @see error_log()
  *
- * @link http://www.php.net/manual/en/function.error-log.php
+ * @link https://secure.php.net/manual/en/function.error-log.php
  *
  * @param mixed $fp Unused.
  */
@@ -3329,7 +3329,7 @@ function gd_edit_image_support($mime_type) {
 function wp_convert_bytes_to_hr( $bytes ) {
 	_deprecated_function( __FUNCTION__, '3.6', 'size_format()' );
 
-	$units = array( 0 => 'B', 1 => 'kB', 2 => 'MB', 3 => 'GB', 4 => 'TB' );
+	$units = array( 0 => 'B', 1 => 'KB', 2 => 'MB', 3 => 'GB', 4 => 'TB' );
 	$log   = log( $bytes, KB_IN_BYTES );
 	$power = (int) $log;
 	$size  = pow( KB_IN_BYTES, $log - $power );
@@ -3739,22 +3739,4 @@ function popuplinks( $text ) {
 	_deprecated_function( __FUNCTION__, '4.5' );
 	$text = preg_replace('/<a (.+?)>/i', "<a $1 target='_blank' rel='external'>", $text);
 	return $text;
-}
-
-/**
- * Returns the base URL of the uploads directory.
- * Note: this function will be removed in 4.6.
- *
- * @ignore
- * @since 4.4.0
- * @access private
- * @deprecated 4.5.0 Use wp_get_upload_dir()
- * @see wp_get_upload_dir()
- *
- * @return string The base URL.
- */
-function _wp_upload_dir_baseurl() {
-	_deprecated_function( __FUNCTION__, '4.5', 'wp_get_upload_dir()' );
-	$upload_dir = wp_get_upload_dir();
-	return $upload_dir['baseurl'];
 }

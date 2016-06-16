@@ -186,7 +186,7 @@ function wp_maybe_decline_date( $date ) {
 			$months = $wp_locale->month;
 
 			foreach ( $months as $key => $month ) {
-				$months[ $key ] = '#' . $month . '#';
+				$months[ $key ] = '#\b' . $month . '\b#u';
 			}
 
 			$date = preg_replace( $months, $wp_locale->month_genitive, $date );
@@ -237,7 +237,7 @@ function number_format_i18n( $number, $decimals = 0 ) {
 /**
  * Convert number of bytes largest unit bytes will fit into.
  *
- * It is easier to read 1 kB than 1024 bytes and 1 MB than 1048576 bytes. Converts
+ * It is easier to read 1 KB than 1024 bytes and 1 MB than 1048576 bytes. Converts
  * number of bytes to human readable number by taking the number of that unit
  * that the bytes will go into it. Supports TB value.
  *
@@ -259,7 +259,7 @@ function size_format( $bytes, $decimals = 0 ) {
 		'TB' => TB_IN_BYTES,
 		'GB' => GB_IN_BYTES,
 		'MB' => MB_IN_BYTES,
-		'kB' => KB_IN_BYTES,
+		'KB' => KB_IN_BYTES,
 		'B'  => 1,
 	);
 
@@ -675,7 +675,7 @@ function is_new_day() {
  * @since 2.3.0
  *
  * @see _http_build_query() Used to build the query
- * @link http://us2.php.net/manual/en/function.http-build-query.php for more on what
+ * @link https://secure.php.net/manual/en/function.http-build-query.php for more on what
  *		 http_build_query() does.
  *
  * @param array $data URL-encode key/value pairs.
@@ -691,7 +691,7 @@ function build_query( $data ) {
  * @since 3.2.0
  * @access private
  *
- * @see http://us1.php.net/manual/en/function.http-build-query.php
+ * @see https://secure.php.net/manual/en/function.http-build-query.php
  *
  * @param array|object  $data       An array or object of data. Converted to array.
  * @param string        $prefix     Optional. Numeric index. If set, start parameter numbering with it.
@@ -865,6 +865,8 @@ function wp_removable_query_args() {
 		'disabled',
 		'enabled',
 		'error',
+		'hotkeys_highlight_first',
+		'hotkeys_highlight_last',
 		'locked',
 		'message',
 		'same',
@@ -1777,8 +1779,8 @@ function wp_is_writable( $path ) {
  *
  * @since 2.8.0
  *
- * @see http://bugs.php.net/bug.php?id=27609
- * @see http://bugs.php.net/bug.php?id=30931
+ * @see https://bugs.php.net/bug.php?id=27609
+ * @see https://bugs.php.net/bug.php?id=30931
  *
  * @param string $path Windows path to check for write-ability.
  * @return bool Whether the path is writable.
@@ -2659,7 +2661,11 @@ function _default_wp_die_handler( $message, $title = '', $args = array() ) {
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width">
-	<?php wp_no_robots(); ?>
+	<?php
+	if ( function_exists( 'wp_no_robots' ) ) {
+		wp_no_robots();
+	}
+	?>
 	<title><?php echo $title ?></title>
 	<style type="text/css">
 		html {
@@ -4051,25 +4057,6 @@ function validate_file( $file, $allowed_files = '' ) {
 }
 
 /**
- * Determine if SSL is used.
- *
- * @since 2.6.0
- *
- * @return bool True if SSL, false if not used.
- */
-function is_ssl() {
-	if ( isset($_SERVER['HTTPS']) ) {
-		if ( 'on' == strtolower($_SERVER['HTTPS']) )
-			return true;
-		if ( '1' == $_SERVER['HTTPS'] )
-			return true;
-	} elseif ( isset($_SERVER['SERVER_PORT']) && ( '443' == $_SERVER['SERVER_PORT'] ) ) {
-		return true;
-	}
-	return false;
-}
-
-/**
  * Whether to force SSL used for the Administration Screens.
  *
  * @since 2.6.0
@@ -4253,9 +4240,11 @@ function get_main_network_id() {
 		return 1;
 	}
 
+	$current_site = get_current_site();
+
 	if ( defined( 'PRIMARY_NETWORK_ID' ) ) {
 		$main_network_id = PRIMARY_NETWORK_ID;
-	} elseif ( 1 === (int) get_current_site()->id ) {
+	} elseif ( isset( $current_site->id ) && 1 === (int) $current_site->id ) {
 		// If the current network has an ID of 1, assume it is the main network.
 		$main_network_id = 1;
 	} else {
@@ -4727,8 +4716,8 @@ function __return_empty_string() {
  *
  * @since 3.0.0
  *
- * @see http://blogs.msdn.com/ie/archive/2008/07/02/ie8-security-part-v-comprehensive-protection.aspx
- * @see http://src.chromium.org/viewvc/chrome?view=rev&revision=6985
+ * @see https://blogs.msdn.com/ie/archive/2008/07/02/ie8-security-part-v-comprehensive-protection.aspx
+ * @see https://src.chromium.org/viewvc/chrome?view=rev&revision=6985
  */
 function send_nosniff_header() {
 	@header( 'X-Content-Type-Options: nosniff' );

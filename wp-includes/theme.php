@@ -842,7 +842,7 @@ function get_theme_mods() {
  * Retrieve theme modification value for the current theme.
  *
  * If the modification name does not exist, then the $default will be passed
- * through {@link http://php.net/sprintf sprintf()} PHP function with the first
+ * through {@link https://secure.php.net/sprintf sprintf()} PHP function with the first
  * string the template directory URI and the second string the stylesheet
  * directory URI.
  *
@@ -1514,7 +1514,7 @@ function get_editor_stylesheets() {
 }
 
 /**
- * Allows a theme to register its support of a certain feature
+ * Registers theme support for a given feature.
  *
  * Must be called in the theme's functions.php file to work.
  * If attached to a hook, it must be {@see 'after_setup_theme'}.
@@ -1524,7 +1524,10 @@ function get_editor_stylesheets() {
  *
  * @global array $_wp_theme_features
  *
- * @param string $feature The feature being added.
+ * @param string $feature  The feature being added. Likely core values include 'post-formats',
+ *                         'post-thumbnails', 'html5', 'custom-logo', 'custom-header-uploads',
+ *                         'custom-header', 'custom-background', 'title-tag', etc.
+ * @param mixed  $args,... Optional extra arguments to pass along with certain features.
  * @return void|bool False on failure, void otherwise.
  */
 function add_theme_support( $feature ) {

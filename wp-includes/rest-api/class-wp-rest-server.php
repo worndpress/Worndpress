@@ -226,11 +226,12 @@ class WP_REST_Server {
 	public function serve_request( $path = null ) {
 		$content_type = isset( $_GET['_jsonp'] ) ? 'application/javascript' : 'application/json';
 		$this->send_header( 'Content-Type', $content_type . '; charset=' . get_option( 'blog_charset' ) );
+		$this->send_header( 'X-Robots-Tag', 'noindex' );
 
 		/*
 		 * Mitigate possible JSONP Flash attacks.
 		 *
-		 * http://miki.it/blog/2014/7/8/abusing-jsonp-with-rosetta-flash/
+		 * https://miki.it/blog/2014/7/8/abusing-jsonp-with-rosetta-flash/
 		 */
 		$this->send_header( 'X-Content-Type-Options', 'nosniff' );
 		$this->send_header( 'Access-Control-Expose-Headers', 'X-WP-Total, X-WP-TotalPages' );
@@ -389,7 +390,7 @@ class WP_REST_Server {
 
 			if ( $jsonp_callback ) {
 				// Prepend '/**/' to mitigate possible JSONP Flash attacks
-				// http://miki.it/blog/2014/7/8/abusing-jsonp-with-rosetta-flash/
+				// https://miki.it/blog/2014/7/8/abusing-jsonp-with-rosetta-flash/
 				echo '/**/' . $jsonp_callback . '(' . $result . ')';
 			} else {
 				echo $result;

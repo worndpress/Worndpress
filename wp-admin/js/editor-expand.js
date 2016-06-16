@@ -86,16 +86,20 @@
 
 			var length = textEditor.value.length;
 			var height = parseInt( textEditor.style.height, 10 );
+			var top = window.scrollTop;
 
 			if ( length < oldTextLength ) {
 				// textEditor.scrollHeight is not adjusted until the next line.
 				textEditor.style.height = 'auto';
 
-				if ( textEditor.scrollHeight >= autoresizeMinHeight ) {
+				if ( textEditor.scrollHeight > autoresizeMinHeight ) {
 					textEditor.style.height = textEditor.scrollHeight + 'px';
 				} else {
 					textEditor.style.height = autoresizeMinHeight + 'px';
 				}
+
+				// Prevent scroll-jumping in Firefox and IE.
+				window.scrollTop = top;
 
 				if ( textEditor.scrollHeight < height ) {
 					adjust();
@@ -600,7 +604,7 @@
 
 			// Adjust when collapsing the menu, changing the columns, changing the body class.
 			$document.on( 'wp-collapse-menu.editor-expand postboxes-columnchange.editor-expand editor-classchange.editor-expand', adjust )
-				.on( 'postbox-toggled.editor-expand', function() {
+				.on( 'postbox-toggled.editor-expand postbox-moved.editor-expand', function() {
 					if ( ! fixedSideTop && ! fixedSideBottom && window.pageYOffset > pinnedToolsTop ) {
 						fixedSideBottom = true;
 						window.scrollBy( 0, -1 );

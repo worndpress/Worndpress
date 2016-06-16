@@ -600,7 +600,7 @@ function wp_allow_comment( $commentdata ) {
 	);
 	if ( $commentdata['comment_author_email'] ) {
 		$dupe .= $wpdb->prepare(
-			"OR comment_author_email = %s ",
+			"AND comment_author_email = %s ",
 			wp_unslash( $commentdata['comment_author_email'] )
 		);
 	}
@@ -2543,7 +2543,7 @@ function pingback_ping_source_uri( $source_uri ) {
  * which reports that the pingback is already registered.
  *
  * @since 3.5.1
- * @link http://www.hixie.ch/specs/pingback/pingback#TOC3
+ * @link https://www.hixie.ch/specs/pingback/pingback#TOC3
  *
  * @param IXR_Error $ixr_error
  * @return IXR_Error
