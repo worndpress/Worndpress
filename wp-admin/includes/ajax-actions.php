@@ -352,8 +352,18 @@ function _wp_ajax_delete_comment_response( $comment_id, $delta = -1 ) {
 
 	// JS didn't send us everything we need to know. Just die with success message
 	if ( ! $total || ! $per_page || ! $page || ! $url ) {
-		$time = time();
-		$comment = get_comment( $comment_id );
+		$time           = time();
+		$comment        = get_comment( $comment_id );
+		$comment_status = '';
+		$comment_link   = '';
+
+		if ( $comment ) {
+			$comment_status = $comment->comment_approved;
+		}
+
+		if ( 1 === (int) $comment_status ) {
+			$comment_link = get_comment_link( $comment );
+		}
 
 		$counts = wp_count_comments();
 
@@ -362,7 +372,7 @@ function _wp_ajax_delete_comment_response( $comment_id, $delta = -1 ) {
 			// Here for completeness - not used.
 			'id' => $comment_id,
 			'supplemental' => array(
-				'status' => $comment ? $comment->comment_approved : '',
+				'status' => $comment_status,
 				'postId' => $comment ? $comment->comment_post_ID : '',
 				'time' => $time,
 				'in_moderation' => $counts->moderated,
@@ -373,7 +383,8 @@ function _wp_ajax_delete_comment_response( $comment_id, $delta = -1 ) {
 				'i18n_moderation_text' => sprintf(
 					_nx( '%s in moderation', '%s in moderation', $counts->moderated, 'comments' ),
 					number_format_i18n( $counts->moderated )
-				)
+				),
+				'comment_link' => $comment_link,
 			)
 		) );
 		$x->send();
@@ -2767,7 +2778,7 @@ function wp_ajax_get_revision_diffs() {
 	if ( ! $post = get_post( (int) $_REQUEST['post_id'] ) )
 		wp_send_json_error();
 
-	if ( ! current_user_can( 'read_post', $post->ID ) )
+	if ( ! current_user_can( 'edit_post', $post->ID ) )
 		wp_send_json_error();
 
 	// Really just pre-loading the cache here.
@@ -3831,4 +3842,46 @@ function wp_ajax_search_install_plugins() {
 	$status['items'] = ob_get_clean();
 
 	wp_send_json_success( $status );
+}
+
+/**
+ * Ajax handler for testing if an URL exists. Used in the editor.
+ *
+ * @since 4.6.0
+ */
+function wp_ajax_test_url() {
+	if ( ! current_user_can( 'edit_posts' ) || ! wp_verify_nonce( $_POST['nonce'], 'wp-test-url' ) ) {
+		wp_send_json_error();
+	}
+
+	$href = esc_url_raw( $_POST['href'] );
+
+	// Relative URL
+	if ( strpos( $href, '//' ) !== 0 && in_array( $href[0], array( '/', '#', '?' ), true ) ) {
+		$href = get_bloginfo( 'url' ) . $href;
+	}
+
+	$response = wp_safe_remote_get( $href, array(
+		'timeout' => 15,
+		// Use an explicit user-agent
+		'user-agent' => 'Worndpress URL Test',
+	) );
+
+	$message = null;
+
+	if ( is_wp_error( $response ) ) {
+		$error = $response->get_error_message();
+
+		if ( strpos( $message, 'resolve host' ) !== false ) {
+			$message = array( 'error' => __( 'Invalid host name.' ) );
+		}
+
+		wp_send_json_error( $message );
+	}
+
+	if ( wp_remote_retrieve_response_code( $response ) === 404 ) {
+		wp_send_json_error( array( 'error' => __( 'Not found, HTTP error 404.' ) ) );
+	}
+
+	wp_send_json_success();
 }

@@ -289,14 +289,14 @@ function wp_loginout($redirect = '', $echo = true) {
 }
 
 /**
- * Returns the Log Out URL.
+ * Retrieves the logout URL.
  *
  * Returns the URL that allows the user to log out of the site.
  *
  * @since 2.7.0
  *
  * @param string $redirect Path to redirect to on logout.
- * @return string A log out URL.
+ * @return string The logout URL. Note: HTML-encoded via esc_html() in wp_nonce_url().
  */
 function wp_logout_url($redirect = '') {
 	$args = array( 'action' => 'logout' );
@@ -312,20 +312,21 @@ function wp_logout_url($redirect = '') {
 	 *
 	 * @since 2.8.0
 	 *
-	 * @param string $logout_url The Log Out URL.
+	 * @param string $logout_url The HTML-encoded logout URL.
 	 * @param string $redirect   Path to redirect to on logout.
 	 */
 	return apply_filters( 'logout_url', $logout_url, $redirect );
 }
 
 /**
- * Returns the URL that allows the user to log in to the site.
+ * Retrieves the login URL.
  *
  * @since 2.7.0
  *
- * @param string $redirect     Path to redirect to on login.
- * @param bool   $force_reauth Whether to force reauthorization, even if a cookie is present. Default is false.
- * @return string A log in URL.
+ * @param string $redirect     Path to redirect to on log in.
+ * @param bool   $force_reauth Whether to force reauthorization, even if a cookie is present.
+ *                             Default false.
+ * @return string The login URL. Not HTML-encoded.
  */
 function wp_login_url($redirect = '', $force_reauth = false) {
 	$login_url = site_url('wp-login.php', 'login');
@@ -342,7 +343,7 @@ function wp_login_url($redirect = '', $force_reauth = false) {
 	 * @since 2.8.0
 	 * @since 4.2.0 The `$force_reauth` parameter was added.
 	 *
-	 * @param string $login_url    The login URL.
+	 * @param string $login_url    The login URL. Not HTML-encoded.
 	 * @param string $redirect     The path to redirect to on login, if supplied.
 	 * @param bool   $force_reauth Whether to force reauthorization, even if a cookie is present.
 	 */
@@ -2254,26 +2255,37 @@ function the_modified_date( $d = '', $before = '', $after = '', $echo = true ) {
  * Retrieve the date on which the post was last modified.
  *
  * @since 2.1.0
+ * @since 4.6.0 The `$post` parameter was added.
  *
- * @param string $d Optional. PHP date format. Defaults to the "date_format" option
- * @return string
+ * @param string      $d    Optional. PHP date format defaults to the date_format option if not specified.
+ * @param int|WP_Post $post Optional. Post ID or WP_Post object. Default current post.
+ * @return false|string Date the current post was modified. False on failure.
  */
-function get_the_modified_date($d = '') {
-	if ( '' == $d )
-		$the_time = get_post_modified_time(get_option('date_format'), null, null, true);
-	else
-		$the_time = get_post_modified_time($d, null, null, true);
+function get_the_modified_date( $d = '', $post = null ) {
+	$post = get_post( $post );
+
+	if ( ! $post ) {
+		return false;
+	}
+
+	if ( empty( $d ) ) {
+		$the_time = get_post_modified_time( get_option( 'date_format' ), false, $post, true );
+	} else {
+		$the_time = get_post_modified_time( $d, false, $post, true );
+	}
 
 	/**
 	 * Filters the date a post was last modified.
 	 *
 	 * @since 2.1.0
+	 * @since 4.6.0 The `$post` parameter was added.
 	 *
-	 * @param string $the_time The formatted date.
-	 * @param string $d        PHP date format. Defaults to value specified in
-	 *                         'date_format' option.
+	 * @param string  $the_time The formatted date.
+	 * @param string  $d        PHP date format. Defaults to value specified in
+	 *                          'date_format' option.
+	 * @param WP_Post $post     WP_Post object.
 	 */
-	return apply_filters( 'get_the_modified_date', $the_time, $d );
+	return apply_filters( 'get_the_modified_date', $the_time, $d, $post );
 }
 
 /**
@@ -2397,27 +2409,40 @@ function the_modified_time($d = '') {
  * Retrieve the time at which the post was last modified.
  *
  * @since 2.0.0
+ * @since 4.6.0 The `$post` parameter was added.
  *
- * @param string $d Optional Either 'G', 'U', or php date format defaults to the value specified in the time_format option.
- * @return string
+ * @param string      $d     Optional. Format to use for retrieving the time the post
+ *                           was modified. Either 'G', 'U', or php date format defaults
+ *                           to the value specified in the time_format option. Default empty.
+ * @param int|WP_Post $post  Optional. Post ID or WP_Post object. Default current post.
+ * @return false|string Formatted date string or Unix timestamp. False on failure.
  */
-function get_the_modified_time($d = '') {
-	if ( '' == $d )
-		$the_time = get_post_modified_time(get_option('time_format'), null, null, true);
-	else
-		$the_time = get_post_modified_time($d, null, null, true);
+function get_the_modified_time( $d = '', $post = null ) {
+	$post = get_post( $post );
+
+	if ( ! $post ) {
+		return false;
+	}
+
+	if ( empty( $d ) ) {
+		$the_time = get_post_modified_time( get_option( 'time_format' ), false, $post, true );
+	} else {
+		$the_time = get_post_modified_time( $d, false, $post, true );
+	}
 
 	/**
 	 * Filters the localized time a post was last modified.
 	 *
 	 * @since 2.0.0
+	 * @since 4.6.0 The `$post` parameter was added.
 	 *
 	 * @param string $the_time The formatted time.
 	 * @param string $d        Format to use for retrieving the time the post was
 	 *                         written. Accepts 'G', 'U', or php date format. Defaults
 	 *                         to value specified in 'time_format' option.
+	 * @param WP_Post $post    WP_Post object.
 	 */
-	return apply_filters( 'get_the_modified_time', $the_time, $d );
+	return apply_filters( 'get_the_modified_time', $the_time, $d, $post );
 }
 
 /**
