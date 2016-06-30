@@ -68,7 +68,6 @@ function wp_get_active_network_plugins() {
  * @return true|string Returns true on success, or drop-in file to include.
  */
 function ms_site_check() {
-	$blog = get_blog_details();
 
 	/**
 	 * Filters checking the status of the current blog.
@@ -84,6 +83,8 @@ function ms_site_check() {
 	// Allow super admins to see blocked sites
 	if ( is_super_admin() )
 		return true;
+
+	$blog = get_blog_details();
 
 	if ( '1' == $blog->deleted ) {
 		if ( file_exists( WP_CONTENT_DIR . '/blog-deleted.php' ) )
@@ -136,15 +137,15 @@ function get_network_by_path( $domain, $path, $segments = null ) {
  *
  * @since 3.9.0
  * @since 4.4.0 Converted to leverage WP_Network
+ * @since 4.6.0 Converted to use `get_network()`
  *
  * @param object|int $network The network's database row or ID.
  * @return WP_Network|false Object containing network information if found, false if not.
  */
 function wp_get_network( $network ) {
-	if ( ! is_object( $network ) ) {
-		$network = WP_Network::get_instance( $network );
-	} else {
-		$network = new WP_Network( $network );
+	$network = get_network( $network );
+	if ( null === $network ) {
+		return false;
 	}
 
 	return $network;

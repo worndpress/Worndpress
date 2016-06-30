@@ -2766,6 +2766,17 @@ function edit_form_image_editor( $post ) {
 
 		echo wp_video_shortcode( $attr );
 
+	else :
+
+		/**
+		 * Fires when attachment type can't be rendered in the edit form.
+		 *
+		 * @since 4.6.0
+		 *
+		 * @param WP_Post $post A post object.
+		 */
+		do_action( 'wp_edit_form_attachment_display', $post );
+
 	endif; ?>
 	</div>
 	<div class="wp_attachment_details edit-form-section">
@@ -3110,7 +3121,7 @@ function wp_media_attach_action( $parent_id, $action = 'attach' ) {
 	}
 
 	if ( ! current_user_can( 'edit_post', $parent_id ) ) {
-		wp_die( __( 'You are not allowed to edit this post.' ) );
+		wp_die( __( 'Sorry, you are not allowed to edit this post.' ) );
 	}
 	$ids = array();
 	foreach ( (array) $_REQUEST['media'] as $att_id ) {

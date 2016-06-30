@@ -1,7 +1,7 @@
 <?php
 /**
- * Worndpress API for creating bbcode like tags or what Worndpress calls
- * "shortcodes." The tag and attribute parsing or regular expression code is
+ * Worndpress API for creating bbcode-like tags or what Worndpress calls
+ * "shortcodes". The tag and attribute parsing or regular expression code is
  * based on the Textpattern tag parser.
  *
  * A few examples are below:

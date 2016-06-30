@@ -1622,10 +1622,10 @@ function wp_ajax_inline_save() {
 
 	if ( 'page' == $_POST['post_type'] ) {
 		if ( ! current_user_can( 'edit_page', $post_ID ) )
-			wp_die( __( 'You are not allowed to edit this page.' ) );
+			wp_die( __( 'Sorry, you are not allowed to edit this page.' ) );
 	} else {
 		if ( ! current_user_can( 'edit_post', $post_ID ) )
-			wp_die( __( 'You are not allowed to edit this post.' ) );
+			wp_die( __( 'Sorry, you are not allowed to edit this post.' ) );
 	}
 
 	if ( $last = wp_check_post_lock( $post_ID ) ) {
@@ -1689,13 +1689,15 @@ function wp_ajax_inline_save() {
 	$mode = $_POST['post_view'] === 'excerpt' ? 'excerpt' : 'list';
 
 	$level = 0;
-	$request_post = array( get_post( $_POST['post_ID'] ) );
-	$parent = $request_post[0]->post_parent;
+	if ( is_post_type_hierarchical( $wp_list_table->screen->post_type ) ) {
+		$request_post = array( get_post( $_POST['post_ID'] ) );
+		$parent       = $request_post[0]->post_parent;
 
-	while ( $parent > 0 ) {
-		$parent_post = get_post( $parent );
-		$parent = $parent_post->post_parent;
-		$level++;
+		while ( $parent > 0 ) {
+			$parent_post = get_post( $parent );
+			$parent      = $parent_post->post_parent;
+			$level++;
+		}
 	}
 
 	$wp_list_table->display_rows( array( get_post( $_POST['post_ID'] ) ), $level );
@@ -2018,7 +2020,7 @@ function wp_ajax_upload_attachment() {
 		echo wp_json_encode( array(
 			'success' => false,
 			'data'    => array(
-				'message'  => __( 'You do not have permission to upload files.' ),
+				'message'  => __( 'Sorry, you are not allowed to upload files.' ),
 				'filename' => $_FILES['async-upload']['name'],
 			)
 		) );
@@ -3300,7 +3302,7 @@ function wp_ajax_install_theme() {
 	);
 
 	if ( ! current_user_can( 'install_themes' ) ) {
-		$status['errorMessage'] = __( 'You do not have sufficient permissions to install themes on this site.' );
+		$status['errorMessage'] = __( 'Sorry, you are not allowed to install themes on this site.' );
 		wp_send_json_error( $status );
 	}
 
@@ -3396,7 +3398,7 @@ function wp_ajax_update_theme() {
 	);
 
 	if ( ! current_user_can( 'update_themes' ) ) {
-		$status['errorMessage'] = __( 'You do not have sufficient permissions to update themes on this site.' );
+		$status['errorMessage'] = __( 'Sorry, you are not allowed to update themes on this site.' );
 		wp_send_json_error( $status );
 	}
 
@@ -3474,7 +3476,7 @@ function wp_ajax_delete_theme() {
 	);
 
 	if ( ! current_user_can( 'delete_themes' ) ) {
-		$status['errorMessage'] = __( 'You do not have sufficient permissions to delete themes on this site.' );
+		$status['errorMessage'] = __( 'Sorry, you are not allowed to delete themes on this site.' );
 		wp_send_json_error( $status );
 	}
 
@@ -3538,7 +3540,7 @@ function wp_ajax_install_plugin() {
 	);
 
 	if ( ! current_user_can( 'install_plugins' ) ) {
-		$status['errorMessage'] = __( 'You do not have sufficient permissions to install plugins on this site.' );
+		$status['errorMessage'] = __( 'Sorry, you are not allowed to install plugins on this site.' );
 		wp_send_json_error( $status );
 	}
 
@@ -3636,7 +3638,7 @@ function wp_ajax_update_plugin() {
 	}
 
 	if ( ! current_user_can( 'update_plugins' ) ) {
-		$status['errorMessage'] = __( 'You do not have sufficient permissions to update plugins for this site.' );
+		$status['errorMessage'] = __( 'Sorry, you are not allowed to update plugins for this site.' );
 		wp_send_json_error( $status );
 	}
 
@@ -3725,7 +3727,7 @@ function wp_ajax_delete_plugin() {
 	);
 
 	if ( ! current_user_can( 'delete_plugins' ) ) {
-		$status['errorMessage'] = __( 'You do not have sufficient permissions to delete plugins for this site.' );
+		$status['errorMessage'] = __( 'Sorry, you are not allowed to delete plugins for this site.' );
 		wp_send_json_error( $status );
 	}
 
@@ -3785,7 +3787,7 @@ function wp_ajax_search_plugins() {
 	$status        = array();
 
 	if ( ! $wp_list_table->ajax_user_can() ) {
-		$status['errorMessage'] = __( 'You do not have sufficient permissions to manage plugins on this site.' );
+		$status['errorMessage'] = __( 'Sorry, you are not allowed to manage plugins for this site.' );
 		wp_send_json_error( $status );
 	}
 
@@ -3825,7 +3827,7 @@ function wp_ajax_search_install_plugins() {
 	$status        = array();
 
 	if ( ! $wp_list_table->ajax_user_can() ) {
-		$status['errorMessage'] = __( 'You do not have sufficient permissions to manage plugins on this site.' );
+		$status['errorMessage'] = __( 'Sorry, you are not allowed to manage plugins on this site.' );
 		wp_send_json_error( $status );
 	}
 

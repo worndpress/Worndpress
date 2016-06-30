@@ -85,6 +85,9 @@ foreach ( array( 'pre_post_type', 'pre_post_status', 'pre_post_comment_status', 
 add_filter( 'pre_post_mime_type', 'sanitize_mime_type' );
 add_filter( 'post_mime_type', 'sanitize_mime_type' );
 
+// Meta
+add_filter( 'register_meta_args', '_wp_register_meta_args_whitelist', 10, 2 );
+
 // Places to balance tags on input
 foreach ( array( 'content_save_pre', 'excerpt_save_pre', 'comment_save_pre', 'pre_comment_content' ) as $filter ) {
 	add_filter( $filter, 'convert_invalid_entities' );
@@ -142,6 +145,10 @@ add_filter( 'the_excerpt',     'convert_chars'    );
 add_filter( 'the_excerpt',     'wpautop'          );
 add_filter( 'the_excerpt',     'shortcode_unautop');
 add_filter( 'get_the_excerpt', 'wp_trim_excerpt'  );
+
+add_filter( 'the_post_thumbnail_caption', 'wptexturize'     );
+add_filter( 'the_post_thumbnail_caption', 'convert_smilies' );
+add_filter( 'the_post_thumbnail_caption', 'convert_chars'   );
 
 add_filter( 'comment_text', 'wptexturize'            );
 add_filter( 'comment_text', 'convert_chars'          );
@@ -235,6 +242,7 @@ add_action( 'wp_head',             'wp_print_styles',                  8    );
 add_action( 'wp_head',             'wp_print_head_scripts',            9    );
 add_action( 'wp_head',             'wp_generator'                           );
 add_action( 'wp_head',             'rel_canonical'                          );
+add_action( 'wp_head',             'wp_resource_hints'                      );
 add_action( 'wp_head',             'wp_shortlink_wp_head',            10, 0 );
 add_action( 'wp_head',             'wp_site_icon',                    99    );
 add_action( 'wp_footer',           'wp_print_footer_scripts',         20    );
@@ -404,6 +412,8 @@ add_action( 'set_current_user', 'kses_init' );
 
 // Script Loader
 add_action( 'wp_default_scripts', 'wp_default_scripts' );
+add_action( 'wp_enqueue_scripts', 'wp_localize_jquery_ui_datepicker', 1000 );
+add_action( 'admin_enqueue_scripts', 'wp_localize_jquery_ui_datepicker', 1000 );
 add_filter( 'wp_print_scripts', 'wp_just_in_time_script_localization' );
 add_filter( 'print_scripts_array', 'wp_prototype_before_jquery' );
 

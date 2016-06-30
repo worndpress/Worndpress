@@ -99,6 +99,7 @@ require( ABSPATH . WPINC . '/class-wp-error.php' );
 require( ABSPATH . WPINC . '/pomo/mo.php' );
 
 // Include the wpdb class and, if present, a db.php database drop-in.
+global $wpdb;
 require_wp_db();
 
 // Set the database table prefix and the format specifiers for database table columns.
@@ -114,6 +115,7 @@ require( ABSPATH . WPINC . '/default-filters.php' );
 // Initialize multisite if enabled.
 if ( is_multisite() ) {
 	require( ABSPATH . WPINC . '/class-wp-site-query.php' );
+	require( ABSPATH . WPINC . '/class-wp-network-query.php' );
 	require( ABSPATH . WPINC . '/ms-blogs.php' );
 	require( ABSPATH . WPINC . '/ms-settings.php' );
 } elseif ( ! defined( 'MULTISITE' ) ) {
@@ -157,6 +159,7 @@ require( ABSPATH . WPINC . '/author-template.php' );
 require( ABSPATH . WPINC . '/post.php' );
 require( ABSPATH . WPINC . '/class-walker-page.php' );
 require( ABSPATH . WPINC . '/class-walker-page-dropdown.php' );
+require( ABSPATH . WPINC . '/class-wp-post-type.php' );
 require( ABSPATH . WPINC . '/class-wp-post.php' );
 require( ABSPATH . WPINC . '/post-template.php' );
 require( ABSPATH . WPINC . '/revision.php' );

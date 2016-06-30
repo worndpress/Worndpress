@@ -378,14 +378,6 @@ function wp_restore_post_revision( $revision_id, $fields = null ) {
 	if ( ! $post_id || is_wp_error( $post_id ) )
 		return $post_id;
 
-	// Add restore from details
-	$restore_details = array(
-		'restored_revision_id' => $revision_id,
-		'restored_by_user'     => get_current_user_id(),
-		'restored_time'        => time()
-	);
-	update_post_meta( $post_id, '_post_restored_from', $restore_details );
-
 	// Update last edit user
 	update_post_meta( $post_id, '_edit_last', get_current_user_id() );
 
@@ -553,7 +545,7 @@ function _show_post_preview() {
 		$id = (int) $_GET['preview_id'];
 
 		if ( false === wp_verify_nonce( $_GET['preview_nonce'], 'post_preview_' . $id ) )
-			wp_die( __('You do not have permission to preview drafts.') );
+			wp_die( __('Sorry, you are not allowed to preview drafts.') );
 
 		add_filter('the_preview', '_set_preview');
 	}

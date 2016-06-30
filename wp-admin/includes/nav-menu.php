@@ -70,24 +70,28 @@ function _wp_ajax_menu_quick_search( $request = array() ) {
 
 	} elseif ( preg_match('/quick-search-(posttype|taxonomy)-([a-zA-Z_-]*\b)/', $type, $matches) ) {
 		if ( 'posttype' == $matches[1] && get_post_type_object( $matches[2] ) ) {
-			query_posts(array(
-				'posts_per_page' => 10,
-				'post_type' => $matches[2],
-				's' => $query,
-			));
-			if ( ! have_posts() )
+			$search_results_query = new WP_Query( array(
+				'no_found_rows'          => true,
+				'update_post_meta_cache' => false,
+				'update_post_term_cache' => false,
+				'posts_per_page'         => 10,
+				'post_type'              => $matches[2],
+				's'                      => $query,
+			) );
+			if ( ! $search_results_query->have_posts() ) {
 				return;
-			while ( have_posts() ) {
-				the_post();
+			}
+			while ( $search_results_query->have_posts() ) {
+				$post = $search_results_query->next_post();
 				if ( 'markup' == $response_format ) {
-					$var_by_ref = get_the_ID();
+					$var_by_ref = $post->ID;
 					echo walk_nav_menu_tree( array_map('wp_setup_nav_menu_item', array( get_post( $var_by_ref ) ) ), 0, (object) $args );
 				} elseif ( 'json' == $response_format ) {
 					echo wp_json_encode(
 						array(
-							'ID' => get_the_ID(),
-							'post_title' => get_the_title(),
-							'post_type' => get_post_type(),
+							'ID' => $post->ID,
+							'post_title' => get_the_title( $post->ID ),
+							'post_type' => $matches[2],
 						)
 					);
 					echo "\n";
@@ -518,9 +522,9 @@ function wp_nav_menu_item_post_type_meta_box( $object, $post_type ) {
 				 *
 				 * @see WP_Query::query()
 				 *
-				 * @param array  $posts     The posts for the current post type.
-				 * @param array  $args      An array of WP_Query arguments.
-				 * @param object $post_type The current post type object for this menu item meta box.
+				 * @param array        $posts     The posts for the current post type.
+				 * @param array        $args      An array of WP_Query arguments.
+				 * @param WP_Post_Type $post_type The current post type object for this menu item meta box.
 				 */
 				$posts = apply_filters( "nav_menu_items_{$post_type_name}", $posts, $args, $post_type );
 				$checkbox_items = walk_nav_menu_tree( array_map('wp_setup_nav_menu_item', $posts), 0, (object) $args );

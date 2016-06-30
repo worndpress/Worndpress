@@ -124,7 +124,7 @@ function wp_default_scripts( &$scripts ) {
 
 	$scripts->add( 'wp-ajax-response', "/wp-includes/js/wp-ajax-response$suffix.js", array('jquery'), false, 1 );
 	did_action( 'init' ) && $scripts->localize( 'wp-ajax-response', 'wpAjax', array(
-		'noPerm' => __('You do not have permission to do that.'),
+		'noPerm' => __('Sorry, you are not allowed to do that.'),
 		'broken' => __('An unidentified error has occurred.')
 	) );
 
@@ -248,7 +248,8 @@ function wp_default_scripts( &$scripts ) {
 
 	// Masonry v2 depended on jQuery. v3 does not. The older jquery-masonry handle is a shiv.
 	// It sets jQuery as a dependency, as the theme may have been implicitly loading it this way.
-	$scripts->add( 'masonry', "/wp-includes/js/masonry.min.js", array(), '3.1.2', 1 );
+	$scripts->add( 'imagesloaded', "/wp-includes/js/imagesloaded.min.js", array(), '3.2.0', 1 );
+	$scripts->add( 'masonry', "/wp-includes/js/masonry.min.js", array( 'imagesloaded' ), '3.3.2', 1 );
 	$scripts->add( 'jquery-masonry', "/wp-includes/js/jquery/jquery.masonry$dev_suffix.js", array( 'jquery', 'masonry' ), '3.1.2', 1 );
 
 	$scripts->add( 'thickbox', "/wp-includes/js/thickbox/thickbox.js", array('jquery'), '3.1-20121105', 1 );
@@ -334,7 +335,7 @@ function wp_default_scripts( &$scripts ) {
 
 	$scripts->add( 'imgareaselect', "/wp-includes/js/imgareaselect/jquery.imgareaselect$suffix.js", array('jquery'), false, 1 );
 
-	$scripts->add( 'mediaelement', "/wp-includes/js/mediaelement/mediaelement-and-player.min.js", array('jquery'), '2.18.1-a', 1 );
+	$scripts->add( 'mediaelement', "/wp-includes/js/mediaelement/mediaelement-and-player.min.js", array('jquery'), '2.21.2', 1 );
 	did_action( 'init' ) && $scripts->localize( 'mediaelement', 'mejsL10n', array(
 		'language' => get_bloginfo( 'language' ),
 		'strings'  => array(
@@ -444,7 +445,7 @@ function wp_default_scripts( &$scripts ) {
 		'cancel'             => __( 'Cancel' ),
 		'close'              => __( 'Close' ),
 		'cheatin'            => __( 'Cheatin&#8217; uh?' ),
-		'notAllowed'         => __( 'You are not allowed to customize this site.' ),
+		'notAllowed'         => __( 'Sorry, you are not allowed to customize this site.' ),
 		'previewIframeTitle' => __( 'Site Preview' ),
 		'loginIframeTitle'   => __( 'Session expired' ),
 		'collapseSidebar'    => __( 'Collapse Sidebar' ),
@@ -484,7 +485,7 @@ function wp_default_scripts( &$scripts ) {
 	if ( is_admin() ) {
 		$scripts->add( 'admin-tags', "/wp-admin/js/tags$suffix.js", array( 'jquery', 'wp-ajax-response' ), false, 1 );
 		did_action( 'init' ) && $scripts->localize( 'admin-tags', 'tagsl10n', array(
-			'noPerm' => __('You do not have permission to do that.'),
+			'noPerm' => __('Sorry, you are not allowed to do that.'),
 			'broken' => __('An unidentified error has occurred.')
 		));
 
@@ -811,7 +812,7 @@ function wp_default_styles( &$styles ) {
 	// External libraries and friends
 	$styles->add( 'imgareaselect',       '/wp-includes/js/imgareaselect/imgareaselect.css', array(), '0.9.8' );
 	$styles->add( 'wp-jquery-ui-dialog', "/wp-includes/css/jquery-ui-dialog$suffix.css", array( 'dashicons' ) );
-	$styles->add( 'mediaelement',        "/wp-includes/js/mediaelement/mediaelementplayer.min.css", array(), '2.18.1' );
+	$styles->add( 'mediaelement',        "/wp-includes/js/mediaelement/mediaelementplayer.min.css", array(), '2.21.2' );
 	$styles->add( 'wp-mediaelement',     "/wp-includes/js/mediaelement/wp-mediaelement$suffix.css", array( 'mediaelement' ) );
 	$styles->add( 'thickbox',            '/wp-includes/js/thickbox/thickbox.css', array( 'dashicons' ) );
 
@@ -881,7 +882,54 @@ function wp_just_in_time_script_localization() {
 		'autosaveInterval' => AUTOSAVE_INTERVAL,
 		'blog_id' => get_current_blog_id(),
 	) );
+}
 
+/**
+ * Localizes the jQuery UI datepicker.
+ *
+ * @since 4.6.0
+ *
+ * @link http://api.jqueryui.com/datepicker/#options
+ * @global WP_Locale $wp_locale The Worndpress date and time locale object.
+ */
+function wp_localize_jquery_ui_datepicker() {
+	global $wp_locale;
+
+	if ( ! wp_script_is( 'jquery-ui-datepicker', 'enqueued' ) ) {
+		return;
+	}
+
+	// Convert the PHP date format into jQuery UI's format.
+	$datepicker_date_format = str_replace(
+		array(
+			'd', 'j', 'l', 'z', // Day.
+			'F', 'M', 'n', 'm', // Month.
+			'Y', 'y'            // Year.
+		),
+		array(
+			'dd', 'd', 'DD', 'o',
+			'MM', 'M', 'm', 'mm',
+			'yy', 'y'
+		),
+		get_option( 'date_format' )
+	);
+
+	$datepicker_defaults = wp_json_encode( array(
+		'closeText'       => __( 'Close' ),
+		'currentText'     => __( 'Today' ),
+		'monthNames'      => array_values( $wp_locale->month ),
+		'monthNamesShort' => array_values( $wp_locale->month_abbrev ),
+		'nextText'        => __( 'Next' ),
+		'prevText'        => __( 'Previous' ),
+		'dayNames'        => array_values( $wp_locale->weekday ),
+		'dayNamesShort'   => array_values( $wp_locale->weekday_abbrev ),
+		'dayNamesMin'     => array_values( $wp_locale->weekday_initial ),
+		'dateFormat'      => $datepicker_date_format,
+		'firstDay'        => absint( get_option( 'start_of_week' ) ),
+		'isRTL'           => $wp_locale->is_rtl(),
+	) );
+
+	wp_add_inline_script( 'jquery-ui-datepicker', "jQuery(document).ready(function(jQuery){jQuery.datepicker.setDefaults({$datepicker_defaults});});" );
 }
 
 /**

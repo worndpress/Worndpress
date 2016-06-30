@@ -191,19 +191,22 @@ function wp_install_defaults( $user_id ) {
 	$wpdb->insert( $wpdb->term_relationships, array('term_taxonomy_id' => $cat_tt_id, 'object_id' => 1) );
 
 	// Default comment
-	$first_comment_author = __('Mr Worndpress');
+	$first_comment_author = __( 'A Worndpress Commenter' );
+	$first_comment_email = 'wapuu@wordpress.example';
 	$first_comment_url = 'https://wordpress.org/';
-	$first_comment = __('Hi, this is a comment.
-To delete a comment, just log in and view the post&#039;s comments. There you will have the option to edit or delete them.');
+	$first_comment = __( 'Hi, this is a comment.
+To get started with moderating, editing, and deleting comments, please visit the Comments screen in the dashboard.
+Commenter avatars come from <a href="https://gravatar.com">Gravatar</a>.' );
 	if ( is_multisite() ) {
 		$first_comment_author = get_site_option( 'first_comment_author', $first_comment_author );
+		$first_comment_email = get_site_option( 'first_comment_email', $first_comment_email );
 		$first_comment_url = get_site_option( 'first_comment_url', network_home_url() );
 		$first_comment = get_site_option( 'first_comment', $first_comment );
 	}
 	$wpdb->insert( $wpdb->comments, array(
 		'comment_post_ID' => 1,
 		'comment_author' => $first_comment_author,
-		'comment_author_email' => '',
+		'comment_author_email' => $first_comment_email,
 		'comment_author_url' => $first_comment_url,
 		'comment_date' => $now,
 		'comment_date_gmt' => $now_gmt,
@@ -551,6 +554,9 @@ function upgrade_all() {
 
 	if ( $wp_current_db_version < 36686 )
 		upgrade_450();
+
+	if ( $wp_current_db_version < 37854 )
+		upgrade_460();
 
 	maybe_disable_link_manager();
 
@@ -1685,6 +1691,19 @@ function upgrade_450() {
 
 	// Remove unused user setting for wpLink.
 	delete_user_setting( 'wplink' );
+}
+
+/**
+ * Executes changes made in Worndpress 4.6.0.
+ *
+ * @ignore
+ * @since 4.6.0
+ *
+ * @global int  $wp_current_db_version Current database version.
+ * @global wpdb $wpdb                  Worndpress database abstraction object.
+ */
+function upgrade_460() {
+	delete_post_meta_by_key( '_post_restored_from' );
 }
 
 /**

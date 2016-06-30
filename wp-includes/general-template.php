@@ -2265,10 +2265,9 @@ function get_the_modified_date( $d = '', $post = null ) {
 	$post = get_post( $post );
 
 	if ( ! $post ) {
-		return false;
-	}
-
-	if ( empty( $d ) ) {
+		// For backward compatibility, failures go through the filter below.
+		$the_time = false;
+	} elseif ( empty( $d ) ) {
 		$the_time = get_post_modified_time( get_option( 'date_format' ), false, $post, true );
 	} else {
 		$the_time = get_post_modified_time( $d, false, $post, true );
@@ -2421,10 +2420,9 @@ function get_the_modified_time( $d = '', $post = null ) {
 	$post = get_post( $post );
 
 	if ( ! $post ) {
-		return false;
-	}
-
-	if ( empty( $d ) ) {
+		// For backward compatibility, failures go through the filter below.
+		$the_time = false;
+	} elseif ( empty( $d ) ) {
 		$the_time = get_post_modified_time( get_option( 'time_format' ), false, $post, true );
 	} else {
 		$the_time = get_post_modified_time( $d, false, $post, true );
@@ -2787,6 +2785,90 @@ function wp_site_icon() {
 	foreach ( $meta_tags as $meta_tag ) {
 		echo "$meta_tag\n";
 	}
+}
+
+/**
+ * Prints resource hints to browsers for pre-fetching, pre-rendering and pre-connecting to web sites.
+ *
+ * Gives hints to browsers to prefetch specific pages or render them in the background,
+ * to perform DNS lookups or to begin the connection handshake (DNS, TCP, TLS) in the background.
+ *
+ * These performance improving indicators work by using `<link rel"…">`.
+ *
+ * @since 4.6.0
+ */
+function wp_resource_hints() {
+	$hints = array(
+		'dns-prefetch' => wp_resource_hints_scripts_styles(),
+		'preconnect'   => array( 's.w.org' ),
+		'prefetch'     => array(),
+		'prerender'    => array(),
+	);
+
+	foreach ( $hints as $relation_type => $urls ) {
+		/**
+		 * Filters domains and URLs for resource hints.
+		 *
+		 * @since 4.6.0
+		 *
+		 * @param array  $urls          URLs to print for resource hints.
+		 * @param string $relation_type The relation type the URLs are printed for, e.g. 'preconnect' or 'prerender'.
+		 */
+		$urls = apply_filters( 'wp_resource_hints', $urls, $relation_type );
+		$urls = array_unique( $urls );
+
+		foreach ( $urls as $url ) {
+			$url = esc_url( $url, array( 'http', 'https' ) );
+
+			if ( in_array( $relation_type, array( 'preconnect', 'dns-prefetch' ) ) ) {
+				$parsed = wp_parse_url( $url );
+				if ( empty( $parsed['host'] ) ) {
+					continue;
+				}
+
+				if ( ! empty( $parsed['scheme'] ) ) {
+					$url = $parsed['scheme'] . '://' . $parsed['host'];
+				} else {
+					$url = $parsed['host'];
+				}
+			}
+
+			printf( "<link rel='%s' href='%s'>\r\n", $relation_type, $url );
+		}
+	}
+}
+
+/**
+ * Adds dns-prefetch for all scripts and styles enqueued from external hosts.
+ *
+ * @since 4.6.0
+ */
+function wp_resource_hints_scripts_styles() {
+	global $wp_scripts, $wp_styles;
+
+	$unique_hosts = array();
+
+	if ( is_object( $wp_scripts ) && ! empty( $wp_scripts->registered ) ) {
+		foreach ( $wp_scripts->registered as $registered_script ) {
+			$parsed = wp_parse_url( $registered_script->src );
+
+			if ( ! empty( $parsed['host'] ) && ! in_array( $parsed['host'], $unique_hosts ) && $parsed['host'] !== $_SERVER['SERVER_NAME'] ) {
+				$unique_hosts[] = $parsed['host'];
+			}
+		}
+	}
+
+	if ( is_object( $wp_styles ) && ! empty( $wp_styles->registered ) ) {
+		foreach ( $wp_styles->registered as $registered_style ) {
+			$parsed = wp_parse_url( $registered_style->src );
+
+			if ( ! empty( $parsed['host'] ) && ! in_array( $parsed['host'], $unique_hosts ) && $parsed['host'] !== $_SERVER['SERVER_NAME'] ) {
+				$unique_hosts[] = $parsed['host'];
+			}
+		}
+	}
+
+	return $unique_hosts;
 }
 
 /**
