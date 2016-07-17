@@ -647,7 +647,7 @@ function get_bloginfo( $show = '', $filter = 'raw' ) {
 	switch( $show ) {
 		case 'home' : // DEPRECATED
 		case 'siteurl' : // DEPRECATED
-			_deprecated_argument( __FUNCTION__, '2.2', sprintf(
+			_deprecated_argument( __FUNCTION__, '2.2.0', sprintf(
 				/* translators: 1: 'siteurl'/'home' argument, 2: bloginfo() function name, 3: 'url' argument */
 				__( 'The %1$s option is deprecated for the family of %2$s functions. Use the %3$s option instead.' ),
 				'<code>' . $show . '</code>',
@@ -720,7 +720,7 @@ function get_bloginfo( $show = '', $filter = 'raw' ) {
 			}
 			break;
 		case 'text_direction':
-			_deprecated_argument( __FUNCTION__, '2.2', sprintf(
+			_deprecated_argument( __FUNCTION__, '2.2.0', sprintf(
 				/* translators: 1: 'text_direction' argument, 2: bloginfo() function name, 3: is_rtl() function name */
 				__( 'The %1$s option is deprecated for the family of %2$s functions. Use the %3$s function instead.' ),
 				'<code>' . $show . '</code>',
@@ -2815,25 +2815,37 @@ function wp_resource_hints() {
 		 * @param string $relation_type The relation type the URLs are printed for, e.g. 'preconnect' or 'prerender'.
 		 */
 		$urls = apply_filters( 'wp_resource_hints', $urls, $relation_type );
-		$urls = array_unique( $urls );
 
-		foreach ( $urls as $url ) {
+		foreach ( $urls as $key => $url ) {
 			$url = esc_url( $url, array( 'http', 'https' ) );
+			if ( ! $url ) {
+				unset( $urls[ $key ] );
+				continue;
+			}
 
 			if ( in_array( $relation_type, array( 'preconnect', 'dns-prefetch' ) ) ) {
 				$parsed = wp_parse_url( $url );
 				if ( empty( $parsed['host'] ) ) {
+					unset( $urls[ $key ] );
 					continue;
 				}
 
-				if ( ! empty( $parsed['scheme'] ) ) {
+				if ( 'dns-prefetch' === $relation_type ) {
+					$url = '//' . $parsed['host'];
+				} else if ( ! empty( $parsed['scheme'] ) ) {
 					$url = $parsed['scheme'] . '://' . $parsed['host'];
 				} else {
 					$url = $parsed['host'];
 				}
 			}
 
-			printf( "<link rel='%s' href='%s'>\r\n", $relation_type, $url );
+			$urls[ $key ] = $url;
+		}
+
+		$urls = array_unique( $urls );
+
+		foreach ( $urls as $url ) {
+			printf( "<link rel='%s' href='%s'>\n", $relation_type, $url );
 		}
 	}
 }
@@ -2947,7 +2959,7 @@ function wp_default_editor() {
  * _WP_Editors should not be used directly. See https://core.trac.wordpress.org/ticket/17144.
  *
  * NOTE: Once initialized the TinyMCE editor cannot be safely moved in the DOM. For that reason
- * running wp_editor() inside of a metabox is not a good idea unless only Quicktags is used.
+ * running wp_editor() inside of a meta box is not a good idea unless only Quicktags is used.
  * On the post edit screen several actions can be used to include additional editors
  * containing TinyMCE: 'edit_page_form', 'edit_form_advanced' and 'dbx_post_sidebar'.
  * See https://core.trac.wordpress.org/ticket/19173 for more information.

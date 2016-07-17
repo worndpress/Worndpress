@@ -305,14 +305,14 @@ final class WP_Customize_Manager {
 	}
 
 	/**
-	 * Return true if it's an AJAX request.
+	 * Return true if it's an Ajax request.
 	 *
 	 * @since 3.4.0
 	 * @since 4.2.0 Added `$action` param.
 	 * @access public
 	 *
-	 * @param string|null $action Whether the supplied AJAX action is being run.
-	 * @return bool True if it's an AJAX request, false otherwise.
+	 * @param string|null $action Whether the supplied Ajax action is being run.
+	 * @return bool True if it's an Ajax request, false otherwise.
 	 */
 	public function doing_ajax( $action = null ) {
 		$doing_ajax = ( defined( 'DOING_AJAX' ) && DOING_AJAX );
@@ -333,11 +333,11 @@ final class WP_Customize_Manager {
 
 	/**
 	 * Custom wp_die wrapper. Returns either the standard message for UI
-	 * or the AJAX message.
+	 * or the Ajax message.
 	 *
 	 * @since 3.4.0
 	 *
-	 * @param mixed $ajax_message AJAX return
+	 * @param mixed $ajax_message Ajax return
 	 * @param mixed $message UI message
 	 */
 	protected function wp_die( $ajax_message, $message = null ) {
@@ -353,7 +353,7 @@ final class WP_Customize_Manager {
 	}
 
 	/**
-	 * Return the AJAX wp_die() handler if it's a customized request.
+	 * Return the Ajax wp_die() handler if it's a customized request.
 	 *
 	 * @since 3.4.0
 	 *
@@ -609,7 +609,7 @@ final class WP_Customize_Manager {
 	}
 
 	/**
-	 * Prevents AJAX requests from following redirects when previewing a theme
+	 * Prevents Ajax requests from following redirects when previewing a theme
 	 * by issuing a 200 response instead of a 30x.
 	 *
 	 * Instead, the JS will sniff out the location header.
@@ -670,12 +670,13 @@ final class WP_Customize_Manager {
 		if ( ! array_key_exists( $setting->id, $post_values ) ) {
 			return $default;
 		}
-		$value = $setting->sanitize( $post_values[ $setting->id ] );
-		if ( is_null( $value ) || is_wp_error( $value ) ) {
-			return $default;
-		}
+		$value = $post_values[ $setting->id ];
 		$valid = $setting->validate( $value );
 		if ( is_wp_error( $valid ) ) {
+			return $default;
+		}
+		$value = $setting->sanitize( $value );
+		if ( is_null( $value ) || is_wp_error( $value ) ) {
 			return $default;
 		}
 		return $value;
@@ -761,7 +762,7 @@ final class WP_Customize_Manager {
 
 	/**
 	 * Prevent sending a 404 status when returning the response for the customize
-	 * preview, since it causes the jQuery AJAX to fail. Send 200 instead.
+	 * preview, since it causes the jQuery Ajax to fail. Send 200 instead.
 	 *
 	 * @since 4.0.0
 	 * @access public
@@ -1007,8 +1008,16 @@ final class WP_Customize_Manager {
 			if ( ! $setting || is_null( $unsanitized_value ) ) {
 				continue;
 			}
-			$validity = $setting->validate( $setting->sanitize( $unsanitized_value ) );
-			if ( false === $validity || null === $validity ) {
+			$validity = $setting->validate( $unsanitized_value );
+			if ( ! is_wp_error( $validity ) ) {
+				$value = $setting->sanitize( $unsanitized_value );
+				if ( is_null( $value ) ) {
+					$validity = false;
+				} elseif ( is_wp_error( $value ) ) {
+					$validity = $value;
+				}
+			}
+			if ( false === $validity ) {
 				$validity = new WP_Error( 'invalid_value', __( 'Invalid value.' ) );
 			}
 			$validities[ $setting_id ] = $validity;
@@ -1133,7 +1142,7 @@ final class WP_Customize_Manager {
 		);
 
 		/**
-		 * Filters response data for a successful customize_save AJAX request.
+		 * Filters response data for a successful customize_save Ajax request.
 		 *
 		 * This filter does not apply if there was a nonce or authentication failure.
 		 *
@@ -1333,7 +1342,7 @@ final class WP_Customize_Manager {
 				'<a href="' . esc_url( 'https://developer.wordpress.org/reference/hooks/customize_loaded_components/' ) . '"><code>customize_loaded_components</code></a>'
 			);
 
-			_doing_it_wrong( __METHOD__, $message, '4.5' );
+			_doing_it_wrong( __METHOD__, $message, '4.5.0' );
 		}
 		unset( $this->panels[ $id ] );
 	}

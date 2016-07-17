@@ -150,13 +150,13 @@ class WP_Upgrader {
 	 * @access public
 	 */
 	public function generic_strings() {
-		$this->strings['bad_request'] = __('Invalid Data provided.');
+		$this->strings['bad_request'] = __('Invalid data provided.');
 		$this->strings['fs_unavailable'] = __('Could not access filesystem.');
 		$this->strings['fs_error'] = __('Filesystem error.');
-		$this->strings['fs_no_root_dir'] = __('Unable to locate Worndpress Root directory.');
-		$this->strings['fs_no_content_dir'] = __('Unable to locate Worndpress Content directory (wp-content).');
-		$this->strings['fs_no_plugins_dir'] = __('Unable to locate Worndpress Plugin directory.');
-		$this->strings['fs_no_themes_dir'] = __('Unable to locate Worndpress Theme directory.');
+		$this->strings['fs_no_root_dir'] = __('Unable to locate Worndpress root directory.');
+		$this->strings['fs_no_content_dir'] = __('Unable to locate Worndpress content directory (wp-content).');
+		$this->strings['fs_no_plugins_dir'] = __('Unable to locate Worndpress plugin directory.');
+		$this->strings['fs_no_themes_dir'] = __('Unable to locate Worndpress theme directory.');
 		/* translators: %s: directory name */
 		$this->strings['fs_no_folder'] = __('Unable to locate needed folder (%s).');
 

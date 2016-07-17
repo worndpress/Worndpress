@@ -1055,6 +1055,10 @@ function wp_blacklist_check($author, $email, $url, $comment, $user_ip, $user_age
 	$mod_keys = trim( get_option('blacklist_keys') );
 	if ( '' == $mod_keys )
 		return false; // If moderation keys are empty
+
+	// Ensure HTML tags are not being used to bypass the blacklist.
+	$comment_without_html = wp_kses( $comment, array() );
+
 	$words = explode("\n", $mod_keys );
 
 	foreach ( (array) $words as $word ) {
@@ -1073,6 +1077,7 @@ function wp_blacklist_check($author, $email, $url, $comment, $user_ip, $user_age
 			|| preg_match($pattern, $email)
 			|| preg_match($pattern, $url)
 			|| preg_match($pattern, $comment)
+			|| preg_match($pattern, $comment_without_html)
 			|| preg_match($pattern, $user_ip)
 			|| preg_match($pattern, $user_agent)
 		 )
@@ -2195,7 +2200,7 @@ function wp_update_comment_count_now($post_id) {
  */
 function discover_pingback_server_uri( $url, $deprecated = '' ) {
 	if ( !empty( $deprecated ) )
-		_deprecated_argument( __FUNCTION__, '2.7' );
+		_deprecated_argument( __FUNCTION__, '2.7.0' );
 
 	$pingback_str_dquote = 'rel="pingback"';
 	$pingback_str_squote = 'rel=\'pingback\'';

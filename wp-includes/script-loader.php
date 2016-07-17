@@ -380,6 +380,7 @@ function wp_default_scripts( &$scripts ) {
 
 	$scripts->add( 'password-strength-meter', "/wp-admin/js/password-strength-meter$suffix.js", array( 'jquery', 'zxcvbn-async' ), false, 1 );
 	did_action( 'init' ) && $scripts->localize( 'password-strength-meter', 'pwsL10n', array(
+		'unknown'  => _x( 'Password strength unknown', 'password strength' ),
 		'short'    => _x( 'Very weak', 'password strength' ),
 		'bad'      => _x( 'Weak', 'password strength' ),
 		'good'     => _x( 'Medium', 'password strength' ),
@@ -390,6 +391,7 @@ function wp_default_scripts( &$scripts ) {
 	$scripts->add( 'user-profile', "/wp-admin/js/user-profile$suffix.js", array( 'jquery', 'password-strength-meter', 'wp-util' ), false, 1 );
 	did_action( 'init' ) && $scripts->localize( 'user-profile', 'userProfileL10n', array(
 		'warn'     => __( 'Your new password has not been saved.' ),
+		'warnWeak' => __( 'Confirm use of weak password.' ),
 		'show'     => __( 'Show' ),
 		'hide'     => __( 'Hide' ),
 		'cancel'   => __( 'Cancel' ),
@@ -605,13 +607,13 @@ function wp_default_scripts( &$scripts ) {
 				'update'                     => __( 'Update' ),
 				'updateNow'                  => __( 'Update Now' ),
 				'updateFailedShort'          => __( 'Update Failed!' ),
-				/* translators: Error string for a failed update */
+				/* translators: %s: Error string for a failed update */
 				'updateFailed'               => __( 'Update Failed: %s' ),
-				/* translators: Plugin name and version */
+				/* translators: %s: Plugin name and version */
 				'updatingLabel'              => __( 'Updating %s...' ), // No ellipsis.
-				/* translators: Plugin name and version */
+				/* translators: %s: Plugin name and version */
 				'updatedLabel'               => __( '%s updated!' ),
-				/* translators: Plugin name and version */
+				/* translators: %s: Plugin name and version */
 				'updateFailedLabel'          => __( '%s update failed' ),
 				/* translators: JavaScript accessible string */
 				'updatingMsg'                => __( 'Updating... please wait.' ), // No ellipsis.
@@ -621,21 +623,29 @@ function wp_default_scripts( &$scripts ) {
 				'updateCancel'               => __( 'Update canceled.' ),
 				'beforeunload'               => __( 'Updates may not complete if you navigate away from this page.' ),
 				'installNow'                 => __( 'Install Now' ),
+				/* translators: %s: Plugin name */
+				'installNowLabel'            => __( 'Install %s' ),
 				'installing'                 => __( 'Installing...' ),
 				'installed'                  => __( 'Installed!' ),
 				'installFailedShort'         => __( 'Install Failed!' ),
-				/* translators: Error string for a failed installation */
+				/* translators: %s: Error string for a failed installation */
 				'installFailed'              => __( 'Installation failed: %s' ),
-				/* translators: Plugin/Theme name and version */
-				'installingLabel'            => __( 'Installing %s...' ), // no ellipsis
-				/* translators: Plugin/Theme name and version */
-				'installedLabel'             => __( '%s installed!' ),
-				/* translators: Plugin/Theme name and version */
-				'installFailedLabel'         => __( '%s installation failed' ),
+				/* translators: %s: Plugin name and version */
+				'pluginInstallingLabel'      => _x( 'Installing %s...', 'plugin' ), // no ellipsis
+				/* translators: %s: Theme name and version */
+				'themeInstallingLabel'       => _x( 'Installing %s...', 'theme' ), // no ellipsis
+				/* translators: %s: Plugin name and version */
+				'pluginInstalledLabel'       => _x( '%s installed!', 'plugin' ),
+				/* translators: %s: Theme name and version */
+				'themeInstalledLabel'        => _x( '%s installed!', 'theme' ),
+				/* translators: %s: Plugin name and version */
+				'pluginInstallFailedLabel'   => _x( '%s installation failed', 'plugin' ),
+				/* translators: %s: Theme name and version */
+				'themeInstallFailedLabel'    => _x( '%s installation failed', 'theme' ),
 				'installingMsg'              => __( 'Installing... please wait.' ),
 				'installedMsg'               => __( 'Installation completed successfully.' ),
-				/* translators: Activation URL */
-				'importerInstalledMsg'       => __( 'Importer installed successfully. <a href="%s">Activate plugin &#38; run importer</a>' ),
+				/* translators: %s: Activation URL */
+				'importerInstalledMsg'       => __( 'Importer installed successfully. <a href="%s">Run importer</a>' ),
 				/* translators: %s: Theme name */
 				'aysDelete'                  => __( 'Are you sure you want to delete %s?' ),
 				/* translators: %s: Plugin name */
@@ -649,8 +659,16 @@ function wp_default_scripts( &$scripts ) {
 				'livePreview'                => __( 'Live Preview' ),
 				'activatePlugin'             => is_network_admin() ? __( 'Network Activate' ) : __( 'Activate' ),
 				'activateTheme'              => is_network_admin() ? __( 'Network Enable' ) : __( 'Activate' ),
-				'activateImporter'           => __( 'Activate importer' ),
-				'unknownError'               => __( 'An unknown error occured' ),
+				/* translators: %s: Plugin name */
+				'activatePluginLabel'        => is_network_admin() ? _x( 'Network Activate %s', 'plugin' ) : _x( 'Activate %s', 'plugin' ),
+				/* translators: %s: Theme name */
+				'activateThemeLabel'         => is_network_admin() ? _x( 'Network Activate %s', 'theme' ) : _x( 'Activate %s', 'theme' ),
+				'activateImporter'           => __( 'Run Importer' ),
+				/* translators: %s: Importer name */
+				'activateImporterLabel'      => __( 'Run %s' ),
+				'unknownError'               => __( 'An unknown error occurred' ),
+				'pluginsFound'               => __( 'Number of plugins found: %d' ),
+				'noPluginsFound'             => __( 'No plugins found. Try a different search.' ),
 			),
 		) );
 

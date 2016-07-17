@@ -1131,7 +1131,7 @@ function media_post_single_attachment_fields_to_edit( $form_fields, $post ) {
 }
 
 /**
- * Filterss input from media_upload_form_handler() and assigns a default
+ * Filters input from media_upload_form_handler() and assigns a default
  * post_title from the file name if none supplied.
  *
  * Illustrates the use of the {@see 'attachment_fields_to_save'} filter
@@ -2769,7 +2769,7 @@ function edit_form_image_editor( $post ) {
 	else :
 
 		/**
-		 * Fires when attachment type can't be rendered in the edit form.
+		 * Fires when an attachment type can't be rendered in the edit form.
 		 *
 		 * @since 4.6.0
 		 *
@@ -2818,7 +2818,7 @@ function edit_form_image_editor( $post ) {
 }
 
 /**
- * Displays non-editable attachment metadata in the publish metabox
+ * Displays non-editable attachment metadata in the publish meta box.
  *
  * @since 3.5.0
  */

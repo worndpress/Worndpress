@@ -203,7 +203,7 @@ function wp_popular_terms_checklist( $taxonomy, $default = 0, $number = 10, $ech
 	$popular_ids = array();
 	foreach ( (array) $terms as $term ) {
 		$popular_ids[] = $term->term_id;
-		if ( !$echo ) // hack for AJAX use
+		if ( !$echo ) // Hack for Ajax use.
 			continue;
 		$id = "popular-$taxonomy-$term->term_id";
 		$checked = in_array( $term->term_id, $checked_terms ) ? 'checked="checked"' : '';
@@ -1027,8 +1027,16 @@ function do_meta_boxes( $screen, $context, $object ) {
 					$hidden_class = in_array($box['id'], $hidden) ? ' hide-if-js' : '';
 					echo '<div id="' . $box['id'] . '" class="postbox ' . postbox_classes($box['id'], $page) . $hidden_class . '" ' . '>' . "\n";
 					if ( 'dashboard_browser_nag' != $box['id'] ) {
+						$widget_title = $box[ 'title' ];
+
+						if ( is_array( $box[ 'args' ] ) && isset( $box[ 'args' ][ '__widget_basename' ] ) ) {
+							$widget_title = esc_html( $box[ 'args' ][ '__widget_basename' ] );
+							// Do not pass this parameter to the user callback function.
+							unset( $box[ 'args' ][ '__widget_basename' ] );
+						}
+
 						echo '<button type="button" class="handlediv button-link" aria-expanded="true">';
-						echo '<span class="screen-reader-text">' . sprintf( __( 'Toggle panel: %s' ), $box['title'] ) . '</span>';
+						echo '<span class="screen-reader-text">' . sprintf( __( 'Toggle panel: %s' ), $widget_title ) . '</span>';
 						echo '<span class="toggle-indicator" aria-hidden="true"></span>';
 						echo '</button>';
 					}
@@ -1196,12 +1204,12 @@ function add_settings_section($id, $title, $callback, $page) {
 	global $wp_settings_sections;
 
 	if ( 'misc' == $page ) {
-		_deprecated_argument( __FUNCTION__, '3.0', sprintf( __( 'The "%s" options group has been removed. Use another settings group.' ), 'misc' ) );
+		_deprecated_argument( __FUNCTION__, '3.0.0', sprintf( __( 'The "%s" options group has been removed. Use another settings group.' ), 'misc' ) );
 		$page = 'general';
 	}
 
 	if ( 'privacy' == $page ) {
-		_deprecated_argument( __FUNCTION__, '3.5', sprintf( __( 'The "%s" options group has been removed. Use another settings group.' ), 'privacy' ) );
+		_deprecated_argument( __FUNCTION__, '3.5.0', sprintf( __( 'The "%s" options group has been removed. Use another settings group.' ), 'privacy' ) );
 		$page = 'reading';
 	}
 
@@ -1247,12 +1255,12 @@ function add_settings_field($id, $title, $callback, $page, $section = 'default',
 	global $wp_settings_fields;
 
 	if ( 'misc' == $page ) {
-		_deprecated_argument( __FUNCTION__, '3.0', __( 'The miscellaneous options group has been removed. Use another settings group.' ) );
+		_deprecated_argument( __FUNCTION__, '3.0.0', __( 'The miscellaneous options group has been removed. Use another settings group.' ) );
 		$page = 'general';
 	}
 
 	if ( 'privacy' == $page ) {
-		_deprecated_argument( __FUNCTION__, '3.5', __( 'The privacy options group has been removed. Use another settings group.' ) );
+		_deprecated_argument( __FUNCTION__, '3.5.0', __( 'The privacy options group has been removed. Use another settings group.' ) );
 		$page = 'reading';
 	}
 
@@ -1988,7 +1996,7 @@ function _wp_admin_html_begin() {
  */
 function convert_to_screen( $hook_name ) {
 	if ( ! class_exists( 'WP_Screen', false ) ) {
-		_doing_it_wrong( 'convert_to_screen(), add_meta_box()', __( "Likely direct inclusion of wp-admin/includes/template.php in order to use add_meta_box(). This is very wrong. Hook the add_meta_box() call into the add_meta_boxes action instead." ), '3.3' );
+		_doing_it_wrong( 'convert_to_screen(), add_meta_box()', __( "Likely direct inclusion of wp-admin/includes/template.php in order to use add_meta_box(). This is very wrong. Hook the add_meta_box() call into the add_meta_boxes action instead." ), '3.3.0' );
 		return (object) array( 'id' => '_invalid', 'base' => '_are_belong_to_us' );
 	}
 

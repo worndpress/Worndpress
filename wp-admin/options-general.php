@@ -112,7 +112,7 @@ if ( $new_admin_email && $new_admin_email != get_option('admin_email') ) : ?>
 	);
 	printf(
 		' <a href="%1$s">%2$s</a>',
-		esc_url( admin_url( 'options.php?dismiss=new_admin_email' ) ),
+		esc_url( wp_nonce_url( admin_url( 'options.php?dismiss=new_admin_email' ), 'dismiss-' . get_current_blog_id() . '-new_admin_email' ) ),
 		__( 'Cancel' )
 	);
 ?></p>
@@ -353,7 +353,7 @@ if ( ! empty( $languages ) || ! empty( $translations ) ) {
 					</p>
 					<?php
 				}
-				_deprecated_argument( 'define()', '4.0', sprintf( __( 'The %s constant in your %s file is no longer needed.' ), 'WPLANG', 'wp-config.php' ) );
+				_deprecated_argument( 'define()', '4.0.0', sprintf( __( 'The %s constant in your %s file is no longer needed.' ), 'WPLANG', 'wp-config.php' ) );
 			}
 			?>
 		</td>

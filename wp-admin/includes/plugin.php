@@ -86,7 +86,7 @@ function get_plugin_data( $plugin_file, $markup = true, $translate = true ) {
 	// Site Wide Only is the old header for Network
 	if ( ! $plugin_data['Network'] && $plugin_data['_sitewide'] ) {
 		/* translators: 1: Site Wide Only: true, 2: Network: true */
-		_deprecated_argument( __FUNCTION__, '3.0', sprintf( __( 'The %1$s plugin header is deprecated. Use %2$s instead.' ), '<code>Site Wide Only: true</code>', '<code>Network: true</code>' ) );
+		_deprecated_argument( __FUNCTION__, '3.0.0', sprintf( __( 'The %1$s plugin header is deprecated. Use %2$s instead.' ), '<code>Site Wide Only: true</code>', '<code>Network: true</code>' ) );
 		$plugin_data['Network'] = $plugin_data['_sitewide'];
 	}
 	$plugin_data['Network'] = ( 'true' == strtolower( $plugin_data['Network'] ) );
@@ -818,7 +818,7 @@ function delete_plugins( $plugins, $deprecated = '' ) {
 	// Get the base plugin folder.
 	$plugins_dir = $wp_filesystem->wp_plugins_dir();
 	if ( empty( $plugins_dir ) ) {
-		return new WP_Error( 'fs_no_plugins_dir', __( 'Unable to locate Worndpress Plugin directory.' ) );
+		return new WP_Error( 'fs_no_plugins_dir', __( 'Unable to locate Worndpress plugin directory.' ) );
 	}
 
 	$plugins_dir = trailingslashit( $plugins_dir );
@@ -1777,12 +1777,12 @@ function register_setting( $option_group, $option_name, $sanitize_callback = '' 
 	global $new_whitelist_options;
 
 	if ( 'misc' == $option_group ) {
-		_deprecated_argument( __FUNCTION__, '3.0', sprintf( __( 'The "%s" options group has been removed. Use another settings group.' ), 'misc' ) );
+		_deprecated_argument( __FUNCTION__, '3.0.0', sprintf( __( 'The "%s" options group has been removed. Use another settings group.' ), 'misc' ) );
 		$option_group = 'general';
 	}
 
 	if ( 'privacy' == $option_group ) {
-		_deprecated_argument( __FUNCTION__, '3.5', sprintf( __( 'The "%s" options group has been removed. Use another settings group.' ), 'privacy' ) );
+		_deprecated_argument( __FUNCTION__, '3.5.0', sprintf( __( 'The "%s" options group has been removed. Use another settings group.' ), 'privacy' ) );
 		$option_group = 'reading';
 	}
 
@@ -1806,12 +1806,12 @@ function unregister_setting( $option_group, $option_name, $sanitize_callback = '
 	global $new_whitelist_options;
 
 	if ( 'misc' == $option_group ) {
-		_deprecated_argument( __FUNCTION__, '3.0', sprintf( __( 'The "%s" options group has been removed. Use another settings group.' ), 'misc' ) );
+		_deprecated_argument( __FUNCTION__, '3.0.0', sprintf( __( 'The "%s" options group has been removed. Use another settings group.' ), 'misc' ) );
 		$option_group = 'general';
 	}
 
 	if ( 'privacy' == $option_group ) {
-		_deprecated_argument( __FUNCTION__, '3.5', sprintf( __( 'The "%s" options group has been removed. Use another settings group.' ), 'privacy' ) );
+		_deprecated_argument( __FUNCTION__, '3.5.0', sprintf( __( 'The "%s" options group has been removed. Use another settings group.' ), 'privacy' ) );
 		$option_group = 'reading';
 	}
 

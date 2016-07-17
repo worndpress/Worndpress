@@ -1008,7 +1008,7 @@ function wp_calculate_image_srcset( $size_array, $image_src, $image_meta, $attac
 	 * If src is an intermediate size GIF, the full size is excluded from srcset to keep a flattened GIF from becoming animated.
 	 */
 	if ( ! isset( $image_sizes['thumbnail']['mime-type'] ) || 'image/gif' !== $image_sizes['thumbnail']['mime-type'] ) {
-		$image_sizes['full'] = array(
+		$image_sizes[] = array(
 			'width'  => $image_meta['width'],
 			'height' => $image_meta['height'],
 			'file'   => $image_basename,
@@ -1142,7 +1142,7 @@ function wp_calculate_image_srcset( $size_array, $image_src, $image_meta, $attac
 	 * @param array  $size_array    Array of width and height values in pixels (in that order).
 	 * @param string $image_src     The 'src' of the image.
 	 * @param array  $image_meta    The image meta data as returned by 'wp_get_attachment_metadata()'.
- 	 * @param int    $attachment_id Image attachment ID or 0.
+	 * @param int    $attachment_id Image attachment ID or 0.
 	 */
 	$sources = apply_filters( 'wp_calculate_image_srcset', $sources, $size_array, $image_src, $image_meta, $attachment_id );
 
@@ -1154,7 +1154,7 @@ function wp_calculate_image_srcset( $size_array, $image_src, $image_meta, $attac
 	$srcset = '';
 
 	foreach ( $sources as $source ) {
-		$srcset .= $source['url'] . ' ' . $source['value'] . $source['descriptor'] . ', ';
+		$srcset .= str_replace( ' ', '%20', $source['url'] ) . ' ' . $source['value'] . $source['descriptor'] . ', ';
 	}
 
 	return rtrim( $srcset, ', ' );
@@ -2777,26 +2777,6 @@ function wp_expand_dimensions( $example_width, $example_height, $max_width, $max
 }
 
 /**
- * Converts a shorthand byte value to an integer byte value.
- *
- * @since 2.3.0
- *
- * @param string $size A shorthand byte value.
- * @return int An integer byte value.
- */
-function wp_convert_hr_to_bytes( $size ) {
-	$size  = strtolower( $size );
-	$bytes = (int) $size;
-	if ( strpos( $size, 'k' ) !== false )
-		$bytes = intval( $size ) * KB_IN_BYTES;
-	elseif ( strpos( $size, 'm' ) !== false )
-		$bytes = intval($size) * MB_IN_BYTES;
-	elseif ( strpos( $size, 'g' ) !== false )
-		$bytes = intval( $size ) * GB_IN_BYTES;
-	return $bytes;
-}
-
-/**
  * Determines the maximum upload size allowed in php.ini.
  *
  * @since 2.5.0
@@ -3062,10 +3042,14 @@ function wp_prepare_attachment_for_js( $attachment ) {
 
 	if ( $post_parent ) {
 		$parent_type = get_post_type_object( $post_parent->post_type );
+
 		if ( $parent_type && $parent_type->show_ui && current_user_can( 'edit_post', $attachment->post_parent ) ) {
 			$response['uploadedToLink'] = get_edit_post_link( $attachment->post_parent, 'raw' );
 		}
-		$response['uploadedToTitle'] = $post_parent->post_title ? $post_parent->post_title : __( '(no title)' );
+
+		if ( $parent_type && current_user_can( 'read_post', $attachment->post_parent ) ) {
+			$response['uploadedToTitle'] = $post_parent->post_title ? $post_parent->post_title : __( '(no title)' );
+		}
 	}
 
 	$attached_file = get_attached_file( $attachment->ID );

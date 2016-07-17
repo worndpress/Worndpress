@@ -347,11 +347,26 @@ class WP_Http {
 		 */
 		$options['verify'] = apply_filters( 'https_ssl_verify', $options['verify'] );
 
+		// Check for proxies.
+		$proxy = new WP_HTTP_Proxy();
+		if ( $proxy->is_enabled() && $proxy->send_through_proxy( $url ) ) {
+			$options['proxy'] = new Requests_Proxy_HTTP( $proxy->host() . ':' . $proxy->port() );
+
+			if ( $proxy->use_authentication() ) {
+				$options['proxy']->user = $proxy->username();
+				$options['proxy']->pass = $proxy->password();
+			}
+		}
+
 		try {
-			$response = Requests::request( $url, $headers, $data, $type, $options );
+			$requests_response = Requests::request( $url, $headers, $data, $type, $options );
 
 			// Convert the response into an array
-			$response = new WP_HTTP_Requests_Response( $response, $r['filename'] );
+			$http_response = new WP_HTTP_Requests_Response( $requests_response, $r['filename'] );
+			$response = $http_response->to_array();
+
+			// Add the original object to the array.
+			$response['http_response'] = $http_response;
 		}
 		catch ( Requests_Exception $e ) {
 			$response = new WP_Error( 'http_request_failed', $e->getMessage() );
@@ -382,6 +397,7 @@ class WP_Http {
 					'message' => false,
 				),
 				'cookies' => array(),
+				'http_response' => null,
 			);
 		}
 
@@ -489,17 +505,7 @@ class WP_Http {
 
 		$response = $transports[$class]->request( $url, $args );
 
-		/**
-		 * Fires after an HTTP API response is received and before the response is returned.
-		 *
-		 * @since 2.8.0
-		 *
-		 * @param array|WP_Error $response HTTP response or WP_Error object.
-		 * @param string         $context  Context under which the hook is fired.
-		 * @param string         $class    HTTP transport used.
-		 * @param array          $args     HTTP request arguments.
-		 * @param string         $url      The request URL.
-		 */
+		/** This action is documented in wp-includes/class-http.php */
 		do_action( 'http_api_debug', $response, 'response', $class, $args, $url );
 
 		if ( is_wp_error( $response ) )

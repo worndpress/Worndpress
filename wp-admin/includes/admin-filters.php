@@ -44,7 +44,9 @@ add_action( 'admin_head', 'wp_site_icon'             );
 add_action( 'admin_head', '_ipad_meta'               );
 
 // Prerendering.
-add_filter( 'admin_head', 'wp_resource_hints' );
+if ( ! is_customize_preview() ) {
+	add_filter( 'admin_print_styles', 'wp_resource_hints', 1 );
+}
 
 add_action( 'admin_print_scripts-post.php',     'wp_page_reload_on_back_button_js' );
 add_action( 'admin_print_scripts-post-new.php', 'wp_page_reload_on_back_button_js' );
@@ -100,8 +102,8 @@ add_action( 'admin_notices', 'default_password_nag' );
 add_action( 'profile_update', 'default_password_nag_edit_user', 10, 2 );
 
 // Update hooks.
-add_action( 'admin_init', 'wp_plugin_update_rows' );
-add_action( 'admin_init', 'wp_theme_update_rows'  );
+add_action( 'load-plugins.php', 'wp_plugin_update_rows', 20 ); // After wp_update_plugins() is called.
+add_action( 'load-themes.php', 'wp_theme_update_rows', 20 ); // After wp_update_themes() is called.
 
 add_action( 'admin_notices', 'update_nag',      3  );
 add_action( 'admin_notices', 'maintenance_nag', 10 );

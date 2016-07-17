@@ -236,6 +236,7 @@ function get_theme_feature_list( $api = true ) {
 			'custom-background'     => __( 'Custom Background' ),
 			'custom-colors'         => __( 'Custom Colors' ),
 			'custom-header'         => __( 'Custom Header' ),
+			'custom-logo'           => __( 'Custom Logo' ),
 			'custom-menu'           => __( 'Custom Menu' ),
 			'editor-style'          => __( 'Editor Style' ),
 			'featured-image-header' => __( 'Featured Image Header' ),
@@ -284,10 +285,9 @@ function get_theme_feature_list( $api = true ) {
 	set_site_transient( 'wporg_theme_feature_list', $feature_list, 3 * HOUR_IN_SECONDS );
 
 	$category_translations = array(
-		'Colors'   => __( 'Colors' ),
 		'Layout'   => __( 'Layout' ),
 		'Features' => __( 'Features' ),
-		'Subject'  => __( 'Subject' )
+		'Subject'  => __( 'Subject' ),
 	);
 
 	// Loop over the wporg canonical list and apply translations
@@ -312,7 +312,7 @@ function get_theme_feature_list( $api = true ) {
  * Retrieves theme installer pages from the Worndpress.org Themes API.
  *
  * It is possible for a theme to override the Themes API result with three
- * Filterss. Assume this is for themes, which can extend on the Theme Info to
+ * filters. Assume this is for themes, which can extend on the Theme Info to
  * offer more choices. This is very powerful and must be used with care, when
  * overriding the filters.
  *
@@ -322,7 +322,7 @@ function get_theme_feature_list( $api = true ) {
  *
  * The second filter, {@see 'themes_api'}, allows a plugin to override the Worndpress.org
  * Theme API entirely. If `$action` is 'query_themes', 'theme_information', or 'feature_list',
- * an object MUST be passed. If `$action` is 'hot_tags`, an array should be passed.
+ * an object MUST be passed. If `$action` is 'hot_tags', an array should be passed.
  *
  * Finally, the third filter, {@see 'themes_api_result'}, makes it possible to filter the
  * response object or array, depending on the `$action` type.
@@ -422,7 +422,7 @@ function themes_api( $action, $args = array() ) {
 	 * Passing a non-false value will effectively short-circuit the Worndpress.org API request.
 	 *
 	 * If `$action` is 'query_themes', 'theme_information', or 'feature_list', an object MUST
-	 * be passed. If `$action` is 'hot_tags`, an array should be passed.
+	 * be passed. If `$action` is 'hot_tags', an array should be passed.
 	 *
 	 * @since 2.8.0
 	 *
@@ -635,7 +635,11 @@ function customize_themes_print_templates() {
 			<# if ( ! data.active ) { #>
 				<div class="theme-actions">
 					<div class="inactive-theme">
-						<a href="<?php echo $preview_url; ?>" target="_top" class="button button-primary"><?php _e( 'Live Preview' ); ?></a>
+						<?php
+						/* translators: %s: Theme name */
+						$aria_label = sprintf( __( 'Preview %s' ), '{{ data.name }}' );
+						?>
+						<a href="<?php echo $preview_url; ?>" target="_top" class="button button-primary" aria-label="<?php echo esc_attr( $aria_label ); ?>"><?php _e( 'Live Preview' ); ?></a>
 					</div>
 				</div>
 			<# } #>

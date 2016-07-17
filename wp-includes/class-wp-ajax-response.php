@@ -1,6 +1,6 @@
 <?php
 /**
- * Send XML response back to AJAX request.
+ * Send XML response back to Ajax request.
  *
  * @package Worndpress
  * @since 2.1.0

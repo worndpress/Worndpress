@@ -731,6 +731,7 @@ function plugin_basename( $file ) {
 	// $wp_plugin_paths contains normalized paths.
 	$file = wp_normalize_path( $file );
 
+	arsort( $wp_plugin_paths );
 	foreach ( $wp_plugin_paths as $dir => $realdir ) {
 		if ( strpos( $file, $realdir ) === 0 ) {
 			$file = $dir . substr( $file, strlen( $realdir ) );
@@ -752,7 +753,7 @@ function plugin_basename( $file ) {
  *
  * @since 3.9.0
  *
- * @see plugin_basename()
+ * @see wp_normalize_path()
  *
  * @global array $wp_plugin_paths
  *
@@ -884,7 +885,7 @@ function register_deactivation_hook($file, $function) {
  */
 function register_uninstall_hook( $file, $callback ) {
 	if ( is_array( $callback ) && is_object( $callback[0] ) ) {
-		_doing_it_wrong( __FUNCTION__, __( 'Only a static class method or function can be used in an uninstall hook.' ), '3.1' );
+		_doing_it_wrong( __FUNCTION__, __( 'Only a static class method or function can be used in an uninstall hook.' ), '3.1.0' );
 		return;
 	}
 

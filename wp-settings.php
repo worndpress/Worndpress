@@ -74,7 +74,7 @@ wp_debug_mode();
  * Filters whether to enable loading of the advanced-cache.php drop-in.
  *
  * This filter runs before it can be used by plugins. It is designed for non-web
- * run-times. If false is returned, advance-cache.php will never be loaded.
+ * run-times. If false is returned, advanced-cache.php will never be loaded.
  *
  * @since 4.6.0
  *
@@ -424,7 +424,7 @@ if ( is_multisite() ) {
 /**
  * This hook is fired once WP, all plugins, and the theme are fully loaded and instantiated.
  *
- * AJAX requests should use wp-admin/admin-ajax.php. admin-ajax.php can handle requests for
+ * Ajax requests should use wp-admin/admin-ajax.php. admin-ajax.php can handle requests for
  * users not logged in.
  *
  * @link https://codex.wordpress.org/AJAX_in_Plugins

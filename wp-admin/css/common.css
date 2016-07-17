@@ -582,6 +582,7 @@ code {
 	color: #555d66;
 	font-size: 14px;
 	font-weight: 400;
+	line-height: 1;
 }
 
 .wrap .add-new-h2, /* deprecated */
@@ -602,6 +603,7 @@ code {
 	font-weight: 600;
 	font-size: 13px;
 	line-height: normal; /* IE8-IE11 need this for buttons */
+	color: #0073aa; /* some of these controls are button elements and don't inherit from links */
 	cursor: pointer;
 	outline: 0;
 }
@@ -611,6 +613,11 @@ code {
 	border-color: #008EC2;
 	background: #00a0d2;
 	color: #fff;
+}
+
+/* lower specificity: color needs to be overridden by :hover and :active */
+.page-title-action:focus {
+	color: #124964;
 }
 
 .wrap .page-title-action:focus {
@@ -2268,13 +2275,45 @@ body.iframe {
 	display: block;
 }
 
-.importers td {
-	padding-right: 14px;
-}
-
 .importers {
 	font-size: 16px;
 	width: auto;
+}
+
+.importers td {
+	padding-right: 14px;
+	line-height: 1.5em;
+}
+
+.importers .import-system {
+	max-width: 250px;
+}
+
+.importers td.desc {
+	max-width: 500px;
+}
+
+.importer-title,
+.importer-desc,
+.importer-action {
+	display: block;
+}
+
+.importer-title {
+	color: #000;
+	font-size: 14px;
+	font-weight: 400;
+	margin-bottom: .2em;
+}
+
+.importer-action {
+	line-height: 20px; /* Same as with .updating-message */
+	color: #ddd;
+	margin-bottom: 1em;
+}
+
+.not-installed-main-site .importer-action {
+	color: #555;
 }
 
 #post-body #post-body-content #namediv h3, /* Back-compat for pre-4.4 */
