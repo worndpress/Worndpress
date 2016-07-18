@@ -335,22 +335,31 @@ function wp_default_scripts( &$scripts ) {
 
 	$scripts->add( 'imgareaselect', "/wp-includes/js/imgareaselect/jquery.imgareaselect$suffix.js", array('jquery'), false, 1 );
 
-	$scripts->add( 'mediaelement', "/wp-includes/js/mediaelement/mediaelement-and-player.min.js", array('jquery'), '2.21.2', 1 );
+	$scripts->add( 'mediaelement', "/wp-includes/js/mediaelement/mediaelement-and-player.min.js", array('jquery'), '2.22.0', 1 );
 	did_action( 'init' ) && $scripts->localize( 'mediaelement', 'mejsL10n', array(
 		'language' => get_bloginfo( 'language' ),
 		'strings'  => array(
-			'Close'               => __( 'Close' ),
-			'Fullscreen'          => __( 'Fullscreen' ),
-			'Download File'       => __( 'Download File' ),
-			'Download Video'      => __( 'Download Video' ),
-			'Play/Pause'          => __( 'Play/Pause' ),
-			'Mute Toggle'         => __( 'Mute Toggle' ),
-			'None'                => __( 'None' ),
-			'Turn off Fullscreen' => __( 'Turn off Fullscreen' ),
-			'Go Fullscreen'       => __( 'Go Fullscreen' ),
-			'Unmute'              => __( 'Unmute' ),
-			'Mute'                => __( 'Mute' ),
-			'Captions/Subtitles'  => __( 'Captions/Subtitles' )
+			'Close'                   => __( 'Close' ),
+			'Fullscreen'              => __( 'Fullscreen' ),
+			'Turn off Fullscreen'     => __( 'Turn off Fullscreen' ),
+			'Go Fullscreen'           => __( 'Go Fullscreen' ),
+			'Download File'           => __( 'Download File' ),
+			'Download Video'          => __( 'Download Video' ),
+			'Play'                    => __( 'Play' ),
+			'Pause'                   => __( 'Pause' ),
+			'Captions/Subtitles'      => __( 'Captions/Subtitles' ),
+			'None'                    => __( 'None', 'no captions/subtitles' ),
+			'Time Slider'             => __( 'Time Slider' ),
+			'Jump forward %1 seconds' => __( 'Jump forward %1 seconds' ),
+			'Skip back %1 seconds'    => __( 'Skip back %1 seconds' ),
+			'Video Player'            => __( 'Video Player' ),
+			'Audio Player'            => __( 'Audio Player' ),
+			'Volume Slider'           => __( 'Volume Slider' ),
+			'Mute Toggle'             => __( 'Mute Toggle' ),
+			'Unmute'                  => __( 'Unmute' ),
+			'Mute'                    => __( 'Mute' ),
+			'Use Up/Down Arrow keys to increase or decrease volume.' => __( 'Use Up/Down Arrow keys to increase or decrease volume.' ),
+			'Use Left/Right Arrow keys to advance one second, Up/Down arrows to advance ten seconds.' => __( 'Use Left/Right Arrow keys to advance one second, Up/Down arrows to advance ten seconds.' ),
 		),
 	) );
 
@@ -830,7 +839,7 @@ function wp_default_styles( &$styles ) {
 	// External libraries and friends
 	$styles->add( 'imgareaselect',       '/wp-includes/js/imgareaselect/imgareaselect.css', array(), '0.9.8' );
 	$styles->add( 'wp-jquery-ui-dialog', "/wp-includes/css/jquery-ui-dialog$suffix.css", array( 'dashicons' ) );
-	$styles->add( 'mediaelement',        "/wp-includes/js/mediaelement/mediaelementplayer.min.css", array(), '2.21.2' );
+	$styles->add( 'mediaelement',        "/wp-includes/js/mediaelement/mediaelementplayer.min.css", array(), '2.22.0' );
 	$styles->add( 'wp-mediaelement',     "/wp-includes/js/mediaelement/wp-mediaelement$suffix.css", array( 'mediaelement' ) );
 	$styles->add( 'thickbox',            '/wp-includes/js/thickbox/thickbox.css', array( 'dashicons' ) );
 
