@@ -51,11 +51,11 @@ function check_comment($author, $email, $url, $comment, $user_ip, $user_agent, $
 		$num_links = preg_match_all( '/<a [^>]*href/i', $comment, $out );
 
 		/**
-		 * Filters the maximum number of links allowed in a comment.
+		 * Filters the number of links found in a comment.
 		 *
 		 * @since 3.0.0
 		 *
-		 * @param int    $num_links The number of links allowed.
+		 * @param int    $num_links The number of links found.
 		 * @param string $url       Comment author's URL. Included in allowed links total.
 		 */
 		$num_links = apply_filters( 'comment_max_links_url', $num_links, $url );
@@ -1057,7 +1057,7 @@ function wp_blacklist_check($author, $email, $url, $comment, $user_ip, $user_age
 		return false; // If moderation keys are empty
 
 	// Ensure HTML tags are not being used to bypass the blacklist.
-	$comment_without_html = wp_kses( $comment, array() );
+	$comment_without_html = wp_strip_all_tags( $comment );
 
 	$words = explode("\n", $mod_keys );
 
