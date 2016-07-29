@@ -350,7 +350,9 @@ function wp_default_scripts( &$scripts ) {
 			'Captions/Subtitles'      => __( 'Captions/Subtitles' ),
 			'None'                    => __( 'None', 'no captions/subtitles' ),
 			'Time Slider'             => __( 'Time Slider' ),
+			/* translators: %1: number of seconds (30 by default) */
 			'Jump forward %1 seconds' => __( 'Jump forward %1 seconds' ),
+			/* translators: %1: number of seconds (30 by default) */
 			'Skip back %1 seconds'    => __( 'Skip back %1 seconds' ),
 			'Video Player'            => __( 'Video Player' ),
 			'Audio Player'            => __( 'Audio Player' ),
@@ -609,6 +611,7 @@ function wp_default_scripts( &$scripts ) {
 			'l10n'       => array(
 				/* translators: %s: Search string */
 				'searchResults'              => __( 'Search results for &#8220;%s&#8221;' ),
+				'searchResultsLabel'         => __( 'Search Results' ),
 				'noPlugins'                  => __( 'You do not appear to have any plugins available at this time.' ),
 				'noItemsSelected'            => __( 'Please select at least one item to perform this action on.' ),
 				'updating'                   => __( 'Updating...' ), // No ellipsis.
@@ -917,6 +920,7 @@ function wp_just_in_time_script_localization() {
  * @since 4.6.0
  *
  * @link http://api.jqueryui.com/datepicker/#options
+ *
  * @global WP_Locale $wp_locale The Worndpress date and time locale object.
  */
 function wp_localize_jquery_ui_datepicker() {

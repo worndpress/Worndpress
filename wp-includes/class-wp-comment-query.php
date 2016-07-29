@@ -151,6 +151,7 @@ class WP_Comment_Query {
 	 * @since 4.4.0 Order by `comment__in` was added. `$update_comment_meta_cache`, `$no_found_rows`,
 	 *              `$hierarchical`, and `$update_comment_post_cache` were added.
 	 * @since 4.5.0 Introduced the `$author_url` argument.
+	 * @since 4.6.0 Introduced the `$cache_domain` argument.
 	 * @access public
 	 *
 	 * @param string|array $query {
@@ -250,6 +251,8 @@ class WP_Comment_Query {
 	 *                                                   The parameter is ignored (forced to `false`) when
 	 *                                                   `$fields` is 'ids' or 'counts'. Accepts 'threaded',
 	 *                                                   'flat', or false. Default: false.
+ 	 *     @type string       $cache_domain              Unique cache key to be produced when this query is stored in
+	 *                                                   an object cache. Default is 'core'.
 	 *     @type bool         $update_comment_meta_cache Whether to prime the metadata cache for found comments.
 	 *                                                   Default true.
 	 *     @type bool         $update_comment_post_cache Whether to prime the cache for comment posts.
@@ -299,6 +302,7 @@ class WP_Comment_Query {
 			'meta_query' => '',
 			'date_query' => null, // See WP_Date_Query
 			'hierarchical' => false,
+			'cache_domain' => 'core',
 			'update_comment_meta_cache' => true,
 			'update_comment_post_cache' => false,
 		);
@@ -901,7 +905,8 @@ class WP_Comment_Query {
 	}
 
 	/**
-	 * Populates found_comments and max_num_pages properties for the current query if the limit clause was used.
+	 * Populates found_comments and max_num_pages properties for the current
+	 * query if the limit clause was used.
 	 *
 	 * @since 4.6.0
 	 * @access private
@@ -917,8 +922,8 @@ class WP_Comment_Query {
 			 *
 			 * @since 4.4.0
 			 *
-			 * @param string $found_comments_query SQL query. Default 'SELECT FOUND_ROWS()'.
-			 * @param WP_Comment_Query $comment_query The `WP_Comment_Query` instance.
+			 * @param string           $found_comments_query SQL query. Default 'SELECT FOUND_ROWS()'.
+			 * @param WP_Comment_Query $comment_query        The `WP_Comment_Query` instance.
 			 */
 			$found_comments_query = apply_filters( 'found_comments_query', 'SELECT FOUND_ROWS()', $this );
 

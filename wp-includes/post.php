@@ -3260,6 +3260,16 @@ function wp_insert_post( $postarr, $wp_error = false ) {
 		}
 	}
 
+	// Set or remove featured image.
+	if ( isset( $postarr['_thumbnail_id'] ) && ( post_type_supports( $post_type, 'thumbnail' ) || 'revision' === $post_type ) ) {
+		$thumbnail_id = intval( $postarr['_thumbnail_id'] );
+		if ( -1 === $thumbnail_id ) {
+			delete_post_thumbnail( $post_ID );
+		} else {
+			set_post_thumbnail( $post_ID, $thumbnail_id );
+		}
+	}
+
 	if ( ! empty( $postarr['meta_input'] ) ) {
 		foreach ( $postarr['meta_input'] as $field => $value ) {
 			update_post_meta( $post_ID, $field, $value );
@@ -4306,7 +4316,7 @@ function _page_traverse_name( $page_id, &$children, &$result ){
  * Sub pages will be in the "directory" under the parent page post name.
  *
  * @since 1.5.0
- * @since 4.6.0 The $page parameter is optional.
+ * @since 4.6.0 Converted the `$page` parameter to optional.
  *
  * @param WP_Post|object|int $page Optional. Page ID or WP_Post object. Default is global $post.
  * @return string|false Page URI, false on error.
@@ -4323,7 +4333,7 @@ function get_page_uri( $page = 0 ) {
 
 	foreach ( $page->ancestors as $parent ) {
 		$parent = get_post( $parent );
-		if ( $parent ) {
+		if ( $parent && $parent->post_name ) {
 			$uri = $parent->post_name . '/' . $uri;
 		}
 	}
@@ -4945,7 +4955,7 @@ function wp_get_attachment_url( $post_id = 0 ) {
  *
  * @since 4.6.0
  *
- * @param int $post_id Optional. Attachment ID. Default 0.
+ * @param int $post_id Optional. Attachment ID. Default is the ID of the global `$post`.
  * @return string|false False on failure. Attachment caption on success.
  */
 function wp_get_attachment_caption( $post_id = 0 ) {

@@ -2164,6 +2164,31 @@ function wp_ajax_set_post_thumbnail() {
 }
 
 /**
+ * Ajax handler for retrieving HTML for the featured image.
+ *
+ * @since 4.6.0
+ */
+function wp_ajax_get_post_thumbnail_html() {
+	$post_ID = intval( $_POST['post_id'] );
+
+	check_ajax_referer( "update-post_$post_ID" );
+
+	if ( ! current_user_can( 'edit_post', $post_ID ) ) {
+		wp_die( -1 );
+	}
+
+	$thumbnail_id = intval( $_POST['thumbnail_id'] );
+
+	// For backward compatibility, -1 refers to no featured image.
+	if ( -1 === $thumbnail_id ) {
+		$thumbnail_id = null;
+	}
+
+	$return = _wp_post_thumbnail_html( $thumbnail_id, $post_ID );
+	wp_send_json_success( $return );
+}
+
+/**
  * Ajax handler for setting the featured image for an attachment.
  *
  * @since 4.0.0
@@ -3490,12 +3515,13 @@ function wp_ajax_delete_theme() {
 		wp_send_json_error( $status );
 	}
 
-	// Check filesystem credentials. `delete_plugins()` will bail otherwise.
-	ob_start();
+	// Check filesystem credentials. `delete_theme()` will bail otherwise.
 	$url = wp_nonce_url( 'themes.php?action=delete&stylesheet=' . urlencode( $stylesheet ), 'delete-theme_' . $stylesheet );
-	if ( false === ( $credentials = request_filesystem_credentials( $url ) ) || ! WP_Filesystem( $credentials ) ) {
+	ob_start();
+	$credentials = request_filesystem_credentials( $url );
+	ob_end_clean();
+	if ( false === $credentials || ! WP_Filesystem( $credentials ) ) {
 		global $wp_filesystem;
-		ob_end_clean();
 
 		$status['errorCode']    = 'unable_to_connect_to_filesystem';
 		$status['errorMessage'] = __( 'Unable to connect to the filesystem. Please confirm your credentials.' );
@@ -3627,26 +3653,27 @@ function wp_ajax_update_plugin() {
 		) );
 	}
 
-	$plugin      = plugin_basename( sanitize_text_field( wp_unslash( $_POST['plugin'] ) ) );
-	$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin );
+	$plugin = plugin_basename( sanitize_text_field( wp_unslash( $_POST['plugin'] ) ) );
 
 	$status = array(
 		'update'     => 'plugin',
-		'plugin'     => $plugin,
 		'slug'       => sanitize_key( wp_unslash( $_POST['slug'] ) ),
-		'pluginName' => $plugin_data['Name'],
 		'oldVersion' => '',
 		'newVersion' => '',
 	);
 
+	if ( ! current_user_can( 'update_plugins' ) || 0 !== validate_file( $plugin ) ) {
+		$status['errorMessage'] = __( 'Sorry, you are not allowed to update plugins for this site.' );
+		wp_send_json_error( $status );
+	}
+
+	$plugin_data          = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin );
+	$status['plugin']     = $plugin;
+	$status['pluginName'] = $plugin_data['Name'];
+
 	if ( $plugin_data['Version'] ) {
 		/* translators: %s: Plugin version */
 		$status['oldVersion'] = sprintf( __( 'Version %s' ), $plugin_data['Version'] );
-	}
-
-	if ( ! current_user_can( 'update_plugins' ) ) {
-		$status['errorMessage'] = __( 'Sorry, you are not allowed to update plugins for this site.' );
-		wp_send_json_error( $status );
 	}
 
 	include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
@@ -3722,23 +3749,28 @@ function wp_ajax_delete_plugin() {
 	check_ajax_referer( 'updates' );
 
 	if ( empty( $_POST['slug'] ) || empty( $_POST['plugin'] ) ) {
-		wp_send_json_error( array( 'errorCode' => 'no_plugin_specified' ) );
+		wp_send_json_error( array(
+			'slug'         => '',
+			'errorCode'    => 'no_plugin_specified',
+			'errorMessage' => __( 'No plugin specified.' ),
+		) );
 	}
 
-	$plugin      = plugin_basename( sanitize_text_field( wp_unslash( $_POST['plugin'] ) ) );
-	$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin );
+	$plugin = plugin_basename( sanitize_text_field( wp_unslash( $_POST['plugin'] ) ) );
 
 	$status = array(
-		'delete'     => 'plugin',
-		'slug'       => sanitize_key( wp_unslash( $_POST['slug'] ) ),
-		'plugin'     => $plugin,
-		'pluginName' => $plugin_data['Name'],
+		'delete' => 'plugin',
+		'slug'   => sanitize_key( wp_unslash( $_POST['slug'] ) ),
 	);
 
-	if ( ! current_user_can( 'delete_plugins' ) ) {
+	if ( ! current_user_can( 'delete_plugins' ) || 0 !== validate_file( $plugin ) ) {
 		$status['errorMessage'] = __( 'Sorry, you are not allowed to delete plugins for this site.' );
 		wp_send_json_error( $status );
 	}
+
+	$plugin_data          = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin );
+	$status['plugin']     = $plugin;
+	$status['pluginName'] = $plugin_data['Name'];
 
 	if ( is_plugin_active( $plugin ) ) {
 		$status['errorMessage'] = __( 'You cannot delete a plugin while it is active on the main site.' );
@@ -3746,11 +3778,12 @@ function wp_ajax_delete_plugin() {
 	}
 
 	// Check filesystem credentials. `delete_plugins()` will bail otherwise.
-	ob_start();
 	$url = wp_nonce_url( 'plugins.php?action=delete-selected&verify-delete=1&checked[]=' . $plugin, 'bulk-plugins' );
-	if ( false === ( $credentials = request_filesystem_credentials( $url ) ) || ! WP_Filesystem( $credentials ) ) {
+	ob_start();
+	$credentials = request_filesystem_credentials( $url );
+	ob_end_clean();
+	if ( false === $credentials || ! WP_Filesystem( $credentials ) ) {
 		global $wp_filesystem;
-		ob_end_clean();
 
 		$status['errorCode']    = 'unable_to_connect_to_filesystem';
 		$status['errorMessage'] = __( 'Unable to connect to the filesystem. Please confirm your credentials.' );
@@ -3856,51 +3889,8 @@ function wp_ajax_search_install_plugins() {
 
 	ob_start();
 	$wp_list_table->display();
+	$status['count'] = (int) $wp_list_table->get_pagination_arg( 'total_items' );
 	$status['items'] = ob_get_clean();
 
 	wp_send_json_success( $status );
-}
-
-/**
- * Ajax handler for testing if a URL exists.
- *
- * Used in the editor.
- *
- * @since 4.6.0
- */
-function wp_ajax_test_url() {
-	if ( ! current_user_can( 'edit_posts' ) || ! wp_verify_nonce( $_POST['nonce'], 'wp-test-url' ) ) {
-		wp_send_json_error();
-	}
-
-	$href = esc_url_raw( $_POST['href'] );
-
-	// Relative URL
-	if ( strpos( $href, '//' ) !== 0 && in_array( $href[0], array( '/', '#', '?' ), true ) ) {
-		$href = get_bloginfo( 'url' ) . $href;
-	}
-
-	$response = wp_safe_remote_get( $href, array(
-		'timeout' => 15,
-		// Use an explicit user-agent
-		'user-agent' => 'Worndpress URL Test',
-	) );
-
-	$message = null;
-
-	if ( is_wp_error( $response ) ) {
-		$error = $response->get_error_message();
-
-		if ( strpos( $message, 'resolve host' ) !== false ) {
-			$message = array( 'error' => __( 'Invalid host name.' ) );
-		}
-
-		wp_send_json_error( $message );
-	}
-
-	if ( wp_remote_retrieve_response_code( $response ) === 404 ) {
-		wp_send_json_error( array( 'error' => __( 'Not found, HTTP error 404.' ) ) );
-	}
-
-	wp_send_json_success();
 }
