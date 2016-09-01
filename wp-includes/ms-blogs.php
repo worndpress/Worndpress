@@ -478,15 +478,12 @@ function clean_blog_cache( $blog ) {
  *
  * @since 4.6.0
  *
- * @global WP_Site $current_blog The current site.
- *
  * @param WP_Site|int|null $site Optional. Site to retrieve. Default is the current site.
  * @return WP_Site|null The site object or null if not found.
  */
-function get_site( &$site = null ) {
-	global $current_blog;
-	if ( empty( $site ) && isset( $current_blog ) ) {
-		$site = $current_blog;
+function get_site( $site = null ) {
+	if ( empty( $site ) ) {
+		$site = get_current_blog_id();
 	}
 
 	if ( $site instanceof WP_Site ) {
@@ -540,9 +537,9 @@ function _prime_site_caches( $ids ) {
  *
  * @since 4.6.0
  *
- * @param array $sites Array of site objects, passed by reference.
+ * @param array $sites Array of site objects.
  */
-function update_site_cache( &$sites ) {
+function update_site_cache( $sites ) {
 	if ( ! $sites ) {
 		return;
 	}
@@ -769,17 +766,19 @@ function update_blog_option( $id, $option, $value, $deprecated = null ) {
 function switch_to_blog( $new_blog, $deprecated = null ) {
 	global $wpdb;
 
-	if ( empty( $new_blog ) )
-		$new_blog = $GLOBALS['blog_id'];
+	$blog_id = get_current_blog_id();
+	if ( empty( $new_blog ) ) {
+		$new_blog = $blog_id;
+	}
 
-	$GLOBALS['_wp_switched_stack'][] = $GLOBALS['blog_id'];
+	$GLOBALS['_wp_switched_stack'][] = $blog_id;
 
 	/*
 	 * If we're switching to the same blog id that we're on,
 	 * set the right vars, do the associated actions, but skip
 	 * the extra unnecessary work
 	 */
-	if ( $new_blog == $GLOBALS['blog_id'] ) {
+	if ( $new_blog == $blog_id ) {
 		/**
 		 * Fires when the blog is switched.
 		 *
@@ -795,7 +794,7 @@ function switch_to_blog( $new_blog, $deprecated = null ) {
 
 	$wpdb->set_blog_id( $new_blog );
 	$GLOBALS['table_prefix'] = $wpdb->get_blog_prefix();
-	$prev_blog_id = $GLOBALS['blog_id'];
+	$prev_blog_id = $blog_id;
 	$GLOBALS['blog_id'] = $new_blog;
 
 	if ( function_exists( 'wp_cache_switch_to_blog' ) ) {
@@ -803,11 +802,11 @@ function switch_to_blog( $new_blog, $deprecated = null ) {
 	} else {
 		global $wp_object_cache;
 
-		if ( is_object( $wp_object_cache ) && isset( $wp_object_cache->global_groups ) )
+		if ( is_object( $wp_object_cache ) && isset( $wp_object_cache->global_groups ) ) {
 			$global_groups = $wp_object_cache->global_groups;
-		else
+		} else {
 			$global_groups = false;
-
+		}
 		wp_cache_init();
 
 		if ( function_exists( 'wp_cache_add_global_groups' ) ) {
@@ -851,12 +850,14 @@ function switch_to_blog( $new_blog, $deprecated = null ) {
 function restore_current_blog() {
 	global $wpdb;
 
-	if ( empty( $GLOBALS['_wp_switched_stack'] ) )
+	if ( empty( $GLOBALS['_wp_switched_stack'] ) ) {
 		return false;
+	}
 
 	$blog = array_pop( $GLOBALS['_wp_switched_stack'] );
+	$blog_id = get_current_blog_id();
 
-	if ( $GLOBALS['blog_id'] == $blog ) {
+	if ( $blog_id == $blog ) {
 		/** This filter is documented in wp-includes/ms-blogs.php */
 		do_action( 'switch_blog', $blog, $blog );
 		// If we still have items in the switched stack, consider ourselves still 'switched'
@@ -865,7 +866,7 @@ function restore_current_blog() {
 	}
 
 	$wpdb->set_blog_id( $blog );
-	$prev_blog_id = $GLOBALS['blog_id'];
+	$prev_blog_id = $blog_id;
 	$GLOBALS['blog_id'] = $blog;
 	$GLOBALS['table_prefix'] = $wpdb->get_blog_prefix();
 
@@ -874,10 +875,11 @@ function restore_current_blog() {
 	} else {
 		global $wp_object_cache;
 
-		if ( is_object( $wp_object_cache ) && isset( $wp_object_cache->global_groups ) )
+		if ( is_object( $wp_object_cache ) && isset( $wp_object_cache->global_groups ) ) {
 			$global_groups = $wp_object_cache->global_groups;
-		else
+		} else {
 			$global_groups = false;
+		}
 
 		wp_cache_init();
 
@@ -1086,13 +1088,11 @@ function get_networks( $args = array() ) {
  *
  * @since 4.6.0
  *
- * @global WP_Network $current_site
- *
- * @param WP_Network|int|null $network Network to retrieve, passed by reference.
+ * @param WP_Network|int|null $network Optional. Network to retrieve. Default is the current network.
  * @return WP_Network|null The network object or null if not found.
  */
-function get_network( &$network = null ) {
-	global $current_site;
+function get_network( $network = null ) {
+	$current_site = get_current_site();
 	if ( empty( $network ) && isset( $current_site ) ) {
 		$network = $current_site;
 	}

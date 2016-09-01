@@ -902,7 +902,7 @@ function set_theme_mod( $name, $value ) {
 	 * @param string $value     The new value of the theme mod.
 	 * @param string $old_value The current value of the theme mod.
 	 */
-	$mods[ $name ] = apply_filters( "pre_set_theme_mod_$name", $value, $old_value );
+	$mods[ $name ] = apply_filters( "pre_set_theme_mod_{$name}", $value, $old_value );
 
 	$theme = get_option( 'stylesheet' );
 	update_option( "theme_mods_$theme", $mods );
@@ -2082,7 +2082,7 @@ function _wp_customize_include() {
 		return;
 	}
 
-	require_once ABSPATH . WPINC . '/class-wp-customize-manager.php';
+	require_once ABSPATH . WPINC . '/class-wp-customize-manager.php'; 
 	$GLOBALS['wp_customize'] = new WP_Customize_Manager();
 }
 

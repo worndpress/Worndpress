@@ -101,8 +101,6 @@ class WP_Http {
 	 * @access public
 	 * @since 2.7.0
 	 *
-	 * @global string $wp_version
-	 *
 	 * @param string       $url  The request URL.
 	 * @param string|array $args {
 	 *     Optional. Array or string of HTTP request arguments.
@@ -116,7 +114,7 @@ class WP_Http {
 	 *     @type string       $httpversion         Version of the HTTP protocol to use. Accepts '1.0' and '1.1'.
 	 *                                             Default '1.0'.
 	 *     @type string       $user-agent          User-agent value sent.
-	 *                                             Default Worndpress/' . $wp_version . '; ' . get_bloginfo( 'url' ).
+	 *                                             Default Worndpress/' . get_bloginfo( 'version' ) . '; ' . get_bloginfo( 'url' ).
 	 *     @type bool         $reject_unsafe_urls  Whether to pass URLs through wp_http_validate_url().
 	 *                                             Default false.
 	 *     @type bool         $blocking            Whether the calling code requires the result of the request.
@@ -148,8 +146,6 @@ class WP_Http {
 	 *                        A WP_Error instance upon error.
 	 */
 	public function request( $url, $args = array() ) {
-		global $wp_version;
-
 		$defaults = array(
 			'method' => 'GET',
 			/**
@@ -185,7 +181,7 @@ class WP_Http {
 			 *
 			 * @param string $user_agent Worndpress user agent string.
 			 */
-			'user-agent' => apply_filters( 'http_headers_useragent', 'Worndpress/' . $wp_version . '; ' . get_bloginfo( 'url' ) ),
+			'user-agent' => apply_filters( 'http_headers_useragent', 'Worndpress/' . get_bloginfo( 'version' ) . '; ' . get_bloginfo( 'url' ) ),
 			/**
 			 * Filters whether to pass URLs through wp_http_validate_url() in an HTTP request.
 			 *
@@ -362,6 +358,9 @@ class WP_Http {
 			}
 		}
 
+		// Work around a bug in Requests when the path starts with // See https://github.com/rmccue/Requests/issues/231
+		$url = preg_replace( '!^(\w+://[^/]+)//(.*)$!i', '$1/$2', $url );
+
 		try {
 			$requests_response = Requests::request( $url, $headers, $data, $type, $options );
 
@@ -433,7 +432,7 @@ class WP_Http {
 		foreach ( $cookies as $name => $value ) {
 			if ( $value instanceof WP_Http_Cookie ) {
 				$cookie_jar[ $value->name ] = new Requests_Cookie( $value->name, $value->value, $value->get_attributes() );
-			} elseif ( is_string( $value ) ) {
+			} elseif ( is_scalar( $value ) ) {
 				$cookie_jar[ $name ] = new Requests_Cookie( $name, $value );
 			}
 		}

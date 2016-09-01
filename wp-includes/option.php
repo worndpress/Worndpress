@@ -49,7 +49,7 @@ function get_option( $option, $default = false ) {
 	 *                               Default false to skip it.
 	 * @param string     $option     Option name.
 	 */
-	$pre = apply_filters( 'pre_option_' . $option, false, $option );
+	$pre = apply_filters( "pre_option_{$option}", false, $option );
 	if ( false !== $pre )
 		return $pre;
 
@@ -72,7 +72,7 @@ function get_option( $option, $default = false ) {
 			 *                        in the database.
 			 * @param string $option  Option name.
 			 */
-			return apply_filters( 'default_option_' . $option, $default, $option );
+			return apply_filters( "default_option_{$option}", $default, $option );
 		}
 
 		$alloptions = wp_load_alloptions();
@@ -133,7 +133,7 @@ function get_option( $option, $default = false ) {
 	 *                       unserialized prior to being returned.
 	 * @param string $option Option name.
 	 */
-	return apply_filters( 'option_' . $option, maybe_unserialize( $value ), $option );
+	return apply_filters( "option_{$option}", maybe_unserialize( $value ), $option );
 }
 
 /**
@@ -277,7 +277,7 @@ function update_option( $option, $value, $autoload = null ) {
 	 * @param mixed  $old_value The old option value.
 	 * @param string $option    Option name.
 	 */
-	$value = apply_filters( 'pre_update_option_' . $option, $value, $old_value, $option );
+	$value = apply_filters( "pre_update_option_{$option}", $value, $old_value, $option );
 
 	/**
 	 * Filters an option before its value is (maybe) serialized and updated.
@@ -534,7 +534,7 @@ function delete_option( $option ) {
 		 *
 		 * @param string $option Name of the deleted option.
 		 */
-		do_action( "delete_option_$option", $option );
+		do_action( "delete_option_{$option}", $option );
 
 		/**
 		 * Fires after an option has been deleted.
@@ -568,7 +568,7 @@ function delete_transient( $transient ) {
 	 *
 	 * @param string $transient Transient name.
 	 */
-	do_action( 'delete_transient_' . $transient, $transient );
+	do_action( "delete_transient_{$transient}", $transient );
 
 	if ( wp_using_ext_object_cache() ) {
 		$result = wp_cache_delete( $transient, 'transient' );
@@ -624,7 +624,7 @@ function get_transient( $transient ) {
 	 *                              of the transient, and return the returned value.
 	 * @param string $transient     Transient name.
 	 */
-	$pre = apply_filters( 'pre_transient_' . $transient, false, $transient );
+	$pre = apply_filters( "pre_transient_{$transient}", false, $transient );
 	if ( false !== $pre )
 		return $pre;
 
@@ -661,7 +661,7 @@ function get_transient( $transient ) {
 	 * @param mixed  $value     Value of transient.
 	 * @param string $transient Transient name.
 	 */
-	return apply_filters( 'transient_' . $transient, $value, $transient );
+	return apply_filters( "transient_{$transient}", $value, $transient );
 }
 
 /**
@@ -696,7 +696,7 @@ function set_transient( $transient, $value, $expiration = 0 ) {
 	 * @param int    $expiration Time until expiration in seconds.
 	 * @param string $transient  Transient name.
 	 */
-	$value = apply_filters( 'pre_set_transient_' . $transient, $value, $expiration, $transient );
+	$value = apply_filters( "pre_set_transient_{$transient}", $value, $expiration, $transient );
 
 	/**
 	 * Filters the expiration for a transient before its value is set.
@@ -709,7 +709,7 @@ function set_transient( $transient, $value, $expiration = 0 ) {
 	 * @param mixed  $value      New value of transient.
 	 * @param string $transient  Transient name.
 	 */
-	$expiration = apply_filters( 'expiration_of_transient_' . $transient, $expiration, $value, $transient );
+	$expiration = apply_filters( "expiration_of_transient_{$transient}", $expiration, $value, $transient );
 
 	if ( wp_using_ext_object_cache() ) {
 		$result = wp_cache_set( $transient, $value, 'transient', $expiration );
@@ -758,7 +758,7 @@ function set_transient( $transient, $value, $expiration = 0 ) {
 		 * @param int    $expiration Time until expiration in seconds.
 		 * @param string $transient  The name of the transient.
 		 */
-		do_action( 'set_transient_' . $transient, $value, $expiration, $transient );
+		do_action( "set_transient_{$transient}", $value, $expiration, $transient );
 
 		/**
 		 * Fires after the value for a transient has been set.
@@ -786,7 +786,7 @@ function set_transient( $transient, $value, $expiration = 0 ) {
  */
 function wp_user_settings() {
 
-	if ( ! is_admin() || defined( 'DOING_AJAX' ) ) {
+	if ( ! is_admin() || wp_doing_ajax() ) {
 		return;
 	}
 
@@ -1070,7 +1070,6 @@ function update_site_option( $option, $value ) {
  * @see get_option()
  *
  * @global wpdb   $wpdb
- * @global object $current_site
  *
  * @param int      $network_id ID of the network. Can be null to default to the current network ID.
  * @param string   $option     Name of option to retrieve. Expected to not be SQL-escaped.
@@ -1078,7 +1077,7 @@ function update_site_option( $option, $value ) {
  * @return mixed Value set for the option.
  */
 function get_network_option( $network_id, $option, $default = false ) {
-	global $wpdb, $current_site;
+	global $wpdb;
 
 	if ( $network_id && ! is_numeric( $network_id ) ) {
 		return false;
@@ -1088,7 +1087,7 @@ function get_network_option( $network_id, $option, $default = false ) {
 
 	// Fallback to the current network if a network ID is not specified.
 	if ( ! $network_id && is_multisite() ) {
-		$network_id = $current_site->id;
+		$network_id = get_current_site()->id;
 	}
 
 	/**
@@ -1106,7 +1105,7 @@ function get_network_option( $network_id, $option, $default = false ) {
 	 * @param mixed  $pre_option The default value to return if the option does not exist.
 	 * @param string $option     Option name.
 	 */
-	$pre = apply_filters( 'pre_site_option_' . $option, false, $option );
+	$pre = apply_filters( "pre_site_option_{$option}", false, $option );
 
 	if ( false !== $pre ) {
 		return $pre;
@@ -1130,7 +1129,7 @@ function get_network_option( $network_id, $option, $default = false ) {
 		 *                        in the database.
 		 * @param string $option  Option name.
 		 */
-		return apply_filters( 'default_site_option_' . $option, $default, $option );
+		return apply_filters( "default_site_option_{$option}", $default, $option );
 	}
 
 	if ( ! is_multisite() ) {
@@ -1174,7 +1173,7 @@ function get_network_option( $network_id, $option, $default = false ) {
 	 * @param mixed  $value  Value of network option.
 	 * @param string $option Option name.
 	 */
-	return apply_filters( 'site_option_' . $option, $value, $option );
+	return apply_filters( "site_option_{$option}", $value, $option );
 }
 
 /**
@@ -1187,7 +1186,6 @@ function get_network_option( $network_id, $option, $default = false ) {
  * @see add_option()
  *
  * @global wpdb   $wpdb
- * @global object $current_site
  *
  * @param int    $network_id ID of the network. Can be null to default to the current network ID.
  * @param string $option     Name of option to add. Expected to not be SQL-escaped.
@@ -1195,7 +1193,7 @@ function get_network_option( $network_id, $option, $default = false ) {
  * @return bool False if option was not added and true if option was added.
  */
 function add_network_option( $network_id, $option, $value ) {
-	global $wpdb, $current_site;
+	global $wpdb;
 
 	if ( $network_id && ! is_numeric( $network_id ) ) {
 		return false;
@@ -1205,7 +1203,7 @@ function add_network_option( $network_id, $option, $value ) {
 
 	// Fallback to the current network if a network ID is not specified.
 	if ( ! $network_id && is_multisite() ) {
-		$network_id = $current_site->id;
+		$network_id = get_current_site()->id;
 	}
 
 	wp_protect_special_option( $option );
@@ -1222,7 +1220,7 @@ function add_network_option( $network_id, $option, $value ) {
 	 * @param mixed  $value  Value of network option.
 	 * @param string $option Option name.
 	 */
-	$value = apply_filters( 'pre_add_site_option_' . $option, $value, $option );
+	$value = apply_filters( "pre_add_site_option_{$option}", $value, $option );
 
 	$notoptions_key = "$network_id:notoptions";
 
@@ -1271,7 +1269,7 @@ function add_network_option( $network_id, $option, $value ) {
 		 * @param string $option Name of the network option.
 		 * @param mixed  $value  Value of the network option.
 		 */
-		do_action( 'add_site_option_' . $option, $option, $value );
+		do_action( "add_site_option_{$option}", $option, $value );
 
 		/**
 		 * Fires after a network option has been successfully added.
@@ -1297,14 +1295,13 @@ function add_network_option( $network_id, $option, $value ) {
  * @see delete_option()
  *
  * @global wpdb   $wpdb
- * @global object $current_site
  *
  * @param int    $network_id ID of the network. Can be null to default to the current network ID.
  * @param string $option     Name of option to remove. Expected to not be SQL-escaped.
  * @return bool True, if succeed. False, if failure.
  */
 function delete_network_option( $network_id, $option ) {
-	global $wpdb, $current_site;
+	global $wpdb;
 
 	if ( $network_id && ! is_numeric( $network_id ) ) {
 		return false;
@@ -1314,7 +1311,7 @@ function delete_network_option( $network_id, $option ) {
 
 	// Fallback to the current network if a network ID is not specified.
 	if ( ! $network_id && is_multisite() ) {
-		$network_id = $current_site->id;
+		$network_id = get_current_site()->id;
 	}
 
 	/**
@@ -1327,7 +1324,7 @@ function delete_network_option( $network_id, $option ) {
 	 *
 	 * @param string $option Option name.
 	 */
-	do_action( 'pre_delete_site_option_' . $option, $option );
+	do_action( "pre_delete_site_option_{$option}", $option );
 
 	if ( ! is_multisite() ) {
 		$result = delete_option( $option );
@@ -1354,7 +1351,7 @@ function delete_network_option( $network_id, $option ) {
 		 *
 		 * @param string $option Name of the network option.
 		 */
-		do_action( 'delete_site_option_' . $option, $option );
+		do_action( "delete_site_option_{$option}", $option );
 
 		/**
 		 * Fires after a network option has been deleted.
@@ -1379,7 +1376,6 @@ function delete_network_option( $network_id, $option ) {
  * @see update_option()
  *
  * @global wpdb   $wpdb
- * @global object $current_site
  *
  * @param int      $network_id ID of the network. Can be null to default to the current network ID.
  * @param string   $option     Name of option. Expected to not be SQL-escaped.
@@ -1387,7 +1383,7 @@ function delete_network_option( $network_id, $option ) {
  * @return bool False if value was not updated and true if value was updated.
  */
 function update_network_option( $network_id, $option, $value ) {
-	global $wpdb, $current_site;
+	global $wpdb;
 
 	if ( $network_id && ! is_numeric( $network_id ) ) {
 		return false;
@@ -1397,7 +1393,7 @@ function update_network_option( $network_id, $option, $value ) {
 
 	// Fallback to the current network if a network ID is not specified.
 	if ( ! $network_id && is_multisite() ) {
-		$network_id = $current_site->id;
+		$network_id = get_current_site()->id;
 	}
 
 	wp_protect_special_option( $option );
@@ -1417,7 +1413,7 @@ function update_network_option( $network_id, $option, $value ) {
 	 * @param mixed  $old_value Old value of the network option.
 	 * @param string $option    Option name.
 	 */
-	$value = apply_filters( 'pre_update_site_option_' . $option, $value, $old_value, $option );
+	$value = apply_filters( "pre_update_site_option_{$option}", $value, $old_value, $option );
 
 	if ( $value === $old_value ) {
 		return false;
@@ -1462,7 +1458,7 @@ function update_network_option( $network_id, $option, $value ) {
 		 * @param mixed  $value     Current value of the network option.
 		 * @param mixed  $old_value Old value of the network option.
 		 */
-		do_action( 'update_site_option_' . $option, $option, $value, $old_value );
+		do_action( "update_site_option_{$option}", $option, $value, $old_value );
 
 		/**
 		 * Fires after the value of a network option has been successfully updated.
@@ -1500,7 +1496,7 @@ function delete_site_transient( $transient ) {
 	 *
 	 * @param string $transient Transient name.
 	 */
-	do_action( 'delete_site_transient_' . $transient, $transient );
+	do_action( "delete_site_transient_{$transient}", $transient );
 
 	if ( wp_using_ext_object_cache() ) {
 		$result = wp_cache_delete( $transient, 'site-transient' );
@@ -1557,7 +1553,7 @@ function get_site_transient( $transient ) {
 	 *                                   of the transient, and return the returned value.
 	 * @param string $transient          Transient name.
 	 */
-	$pre = apply_filters( 'pre_site_transient_' . $transient, false, $transient );
+	$pre = apply_filters( "pre_site_transient_{$transient}", false, $transient );
 
 	if ( false !== $pre )
 		return $pre;
@@ -1593,7 +1589,7 @@ function get_site_transient( $transient ) {
 	 * @param mixed  $value     Value of site transient.
 	 * @param string $transient Transient name.
 	 */
-	return apply_filters( 'site_transient_' . $transient, $value, $transient );
+	return apply_filters( "site_transient_{$transient}", $value, $transient );
 }
 
 /**
@@ -1625,7 +1621,7 @@ function set_site_transient( $transient, $value, $expiration = 0 ) {
 	 * @param mixed  $value     New value of site transient.
 	 * @param string $transient Transient name.
 	 */
-	$value = apply_filters( 'pre_set_site_transient_' . $transient, $value, $transient );
+	$value = apply_filters( "pre_set_site_transient_{$transient}", $value, $transient );
 
 	$expiration = (int) $expiration;
 
@@ -1640,7 +1636,7 @@ function set_site_transient( $transient, $value, $expiration = 0 ) {
 	 * @param mixed  $value      New value of site transient.
 	 * @param string $transient  Transient name.
 	 */
-	$expiration = apply_filters( 'expiration_of_site_transient_' . $transient, $expiration, $value, $transient );
+	$expiration = apply_filters( "expiration_of_site_transient_{$transient}", $expiration, $value, $transient );
 
 	if ( wp_using_ext_object_cache() ) {
 		$result = wp_cache_set( $transient, $value, 'site-transient', $expiration );
@@ -1671,7 +1667,7 @@ function set_site_transient( $transient, $value, $expiration = 0 ) {
 		 * @param int    $expiration Time until expiration in seconds.
 		 * @param string $transient  Transient name.
 		 */
-		do_action( 'set_site_transient_' . $transient, $value, $expiration, $transient );
+		do_action( "set_site_transient_{$transient}", $value, $expiration, $transient );
 
 		/**
 		 * Fires after the value for a site transient has been set.

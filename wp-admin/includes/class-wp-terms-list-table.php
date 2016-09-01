@@ -313,7 +313,7 @@ class WP_Terms_List_Table extends WP_List_Table {
 
 	/**
 	 * @global string $taxonomy
-	 * @param object $tag
+	 * @param WP_Term $tag Term object.
 	 * @param int $level
 	 */
 	public function single_row( $tag, $level = 0 ) {
@@ -328,7 +328,7 @@ class WP_Terms_List_Table extends WP_List_Table {
 	}
 
 	/**
-	 * @param object $tag
+	 * @param WP_Term $tag Term object.
 	 * @return string
 	 */
 	public function column_cb( $tag ) {
@@ -342,7 +342,7 @@ class WP_Terms_List_Table extends WP_List_Table {
 	}
 
 	/**
-	 * @param object $tag
+	 * @param WP_Term $tag Term object.
 	 * @return string
 	 */
 	public function column_name( $tag ) {
@@ -361,13 +361,13 @@ class WP_Terms_List_Table extends WP_List_Table {
 		 * @see WP_Terms_List_Table::column_name()
 		 *
 		 * @param string $pad_tag_name The term name, padded if not top-level.
-		 * @param object $tag          Term object.
+		 * @param WP_Term $tag         Term object.
 		 */
 		$name = apply_filters( 'term_name', $pad . ' ' . $tag->name, $tag );
 
 		$qe_data = get_term( $tag->term_id, $taxonomy, OBJECT, 'edit' );
 
-		$uri = ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ? wp_get_referer() : $_SERVER['REQUEST_URI'];
+		$uri = wp_doing_ajax() ? wp_get_referer() : $_SERVER['REQUEST_URI'];
 
 		$edit_link = add_query_arg(
 			'wp_http_referer',
@@ -411,9 +411,9 @@ class WP_Terms_List_Table extends WP_List_Table {
 	 * @since 4.3.0
 	 * @access protected
 	 *
-	 * @param object $tag         Tag being acted upon.
-	 * @param string $column_name Current column name.
-	 * @param string $primary     Primary column name.
+	 * @param WP_Term $tag         Tag being acted upon.
+	 * @param string  $column_name Current column name.
+	 * @param string  $primary     Primary column name.
 	 * @return string Row actions output for terms.
 	 */
 	protected function handle_row_actions( $tag, $column_name, $primary ) {
@@ -425,7 +425,7 @@ class WP_Terms_List_Table extends WP_List_Table {
 		$tax = get_taxonomy( $taxonomy );
 		$default_term = get_option( 'default_' . $taxonomy );
 
-		$uri = ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ? wp_get_referer() : $_SERVER['REQUEST_URI'];
+		$uri = wp_doing_ajax() ? wp_get_referer() : $_SERVER['REQUEST_URI'];
 
 		$edit_link = add_query_arg(
 			'wp_http_referer',
@@ -476,7 +476,7 @@ class WP_Terms_List_Table extends WP_List_Table {
 		 *
 		 * @param array  $actions An array of action links to be displayed. Default
 		 *                        'Edit', 'Quick Edit', 'Delete', and 'View'.
-		 * @param object $tag     Term object.
+		 * @param WP_Term $tag    Term object.
 		 */
 		$actions = apply_filters( 'tag_row_actions', $actions, $tag );
 
@@ -489,7 +489,7 @@ class WP_Terms_List_Table extends WP_List_Table {
 		 *
 		 * @param array  $actions An array of action links to be displayed. Default
 		 *                        'Edit', 'Quick Edit', 'Delete', and 'View'.
-		 * @param object $tag     Term object.
+		 * @param WP_Term $tag    Term object.
 		 */
 		$actions = apply_filters( "{$taxonomy}_row_actions", $actions, $tag );
 
@@ -497,7 +497,7 @@ class WP_Terms_List_Table extends WP_List_Table {
 	}
 
 	/**
-	 * @param object $tag
+	 * @param WP_Term $tag Term object.
 	 * @return string
 	 */
 	public function column_description( $tag ) {
@@ -505,7 +505,7 @@ class WP_Terms_List_Table extends WP_List_Table {
 	}
 
 	/**
-	 * @param object $tag
+	 * @param WP_Term $tag Term object.
 	 * @return string
 	 */
 	public function column_slug( $tag ) {
@@ -514,7 +514,7 @@ class WP_Terms_List_Table extends WP_List_Table {
 	}
 
 	/**
-	 * @param object $tag
+	 * @param WP_Term $tag Term object.
 	 * @return string
 	 */
 	public function column_posts( $tag ) {
@@ -542,7 +542,7 @@ class WP_Terms_List_Table extends WP_List_Table {
 	}
 
 	/**
-	 * @param object $tag
+	 * @param WP_Term $tag Term object.
 	 * @return string
 	 */
 	public function column_links( $tag ) {
@@ -553,7 +553,7 @@ class WP_Terms_List_Table extends WP_List_Table {
 	}
 
 	/**
-	 * @param object $tag
+	 * @param WP_Term $tag Term object.
 	 * @param string $column_name
 	 * @return string
 	 */

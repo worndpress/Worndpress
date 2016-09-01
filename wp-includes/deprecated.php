@@ -2357,7 +2357,6 @@ function update_usermeta( $user_id, $meta_key, $meta_value ) {
  * @see get_users()
  *
  * @global wpdb $wpdb    Worndpress database abstraction object.
- * @global int  $blog_id The site ID of the site for those that use more than one site.
  *
  * @param int $id Site ID.
  * @return array List of users that are part of that site ID
@@ -2365,9 +2364,10 @@ function update_usermeta( $user_id, $meta_key, $meta_value ) {
 function get_users_of_blog( $id = '' ) {
 	_deprecated_function( __FUNCTION__, '3.1.0', 'get_users()' );
 
-	global $wpdb, $blog_id;
-	if ( empty($id) )
-		$id = (int) $blog_id;
+	global $wpdb;
+	if ( empty( $id ) ) {
+		$id = get_current_blog_id();
+	}
 	$blog_prefix = $wpdb->get_blog_prefix($id);
 	$users = $wpdb->get_results( "SELECT user_id, user_id AS ID, user_login, display_name, user_email, meta_value FROM $wpdb->users, $wpdb->usermeta WHERE {$wpdb->users}.ID = {$wpdb->usermeta}.user_id AND meta_key = '{$blog_prefix}capabilities' ORDER BY {$wpdb->usermeta}.user_id" );
 	return $users;
@@ -3169,8 +3169,10 @@ function wp_load_image( $file ) {
 	if ( is_numeric( $file ) )
 		$file = get_attached_file( $file );
 
-	if ( ! is_file( $file ) )
-		return sprintf(__('File &#8220;%s&#8221; doesn&#8217;t exist?'), $file);
+	if ( ! is_file( $file ) ) {
+		/* translators: %s: file name */
+		return sprintf( __( 'File &#8220;%s&#8221; doesn&#8217;t exist?' ), $file );
+	}
 
 	if ( ! function_exists('imagecreatefromstring') )
 		return __('The GD image library is not installed.');
@@ -3180,8 +3182,10 @@ function wp_load_image( $file ) {
 
 	$image = imagecreatefromstring( file_get_contents( $file ) );
 
-	if ( !is_resource( $image ) )
-		return sprintf(__('File &#8220;%s&#8221; is not an image.'), $file);
+	if ( ! is_resource( $image ) ) {
+		/* translators: %s: file name */
+		return sprintf( __( 'File &#8220;%s&#8221; is not an image.' ), $file );
+	}
 
 	return $image;
 }

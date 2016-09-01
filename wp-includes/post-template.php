@@ -30,14 +30,14 @@ function get_the_ID() {
 }
 
 /**
- * Display or retrieve the current post title with optional content.
+ * Display or retrieve the current post title with optional markup.
  *
  * @since 0.71
  *
- * @param string $before Optional. Content to prepend to the title.
- * @param string $after  Optional. Content to append to the title.
- * @param bool   $echo   Optional, default to true.Whether to display or return.
- * @return string|void String if $echo parameter is false.
+ * @param string $before Optional. Markup to prepend to the title. Default empty.
+ * @param string $after  Optional. Markup to append to the title. Default empty.
+ * @param bool   $echo   Optional. Whether to echo or return the title. Default true for echo.
+ * @return string|void Current post title if $echo is false.
  */
 function the_title( $before = '', $after = '', $echo = true ) {
 	$title = get_the_title();
@@ -785,7 +785,6 @@ function post_password_required( $post = null ) {
 	if ( ! isset( $_COOKIE['wp-postpass_' . COOKIEHASH] ) )
 		return true;
 
-	require_once ABSPATH . WPINC . '/class-phpass.php';
 	$hasher = new PasswordHash( 8, true );
 
 	$hash = wp_unslash( $_COOKIE[ 'wp-postpass_' . COOKIEHASH ] );
@@ -1445,11 +1444,13 @@ function the_attachment_link( $id = 0, $fullsize = false, $deprecated = false, $
 function wp_get_attachment_link( $id = 0, $size = 'thumbnail', $permalink = false, $icon = false, $text = false, $attr = '' ) {
 	$_post = get_post( $id );
 
-	if ( empty( $_post ) || ( 'attachment' != $_post->post_type ) || ! $url = wp_get_attachment_url( $_post->ID ) )
+	if ( empty( $_post ) || ( 'attachment' !== $_post->post_type ) || ! $url = wp_get_attachment_url( $_post->ID ) ) {
 		return __( 'Missing Attachment' );
+	}
 
-	if ( $permalink )
+	if ( $permalink ) {
 		$url = get_attachment_link( $_post->ID );
+	}
 
 	if ( $text ) {
 		$link_text = $text;
@@ -1459,9 +1460,13 @@ function wp_get_attachment_link( $id = 0, $size = 'thumbnail', $permalink = fals
 		$link_text = '';
 	}
 
-	if ( trim( $link_text ) == '' )
+	if ( '' === trim( $link_text ) ) {
 		$link_text = $_post->post_title;
+	}
 
+	if ( '' === trim( $link_text ) ) {
+		$link_text = esc_html( pathinfo( get_attached_file( $_post->ID ), PATHINFO_FILENAME ) );
+	}
 	/**
 	 * Filters a retrieved attachment page link.
 	 *
@@ -1633,10 +1638,10 @@ function wp_post_revision_title( $revision, $link = true ) {
 
 	/* translators: revision date format, see https://secure.php.net/date */
 	$datef = _x( 'F j, Y @ H:i:s', 'revision date format' );
-	/* translators: 1: date */
-	$autosavef = _x( '%1$s [Autosave]', 'post revision title extra' );
-	/* translators: 1: date */
-	$currentf  = _x( '%1$s [Current Revision]', 'post revision title extra' );
+	/* translators: %s: revision date */
+	$autosavef = __( '%s [Autosave]' );
+	/* translators: %s: revision date */
+	$currentf  = __( '%s [Current Revision]' );
 
 	$date = date_i18n( $datef, strtotime( $revision->post_modified ) );
 	if ( $link && current_user_can( 'edit_post', $revision->ID ) && $link = get_edit_post_link( $revision->ID ) )
@@ -1678,15 +1683,17 @@ function wp_post_revision_title_expanded( $revision, $link = true ) {
 
 	$revision_date_author = sprintf(
 		/* translators: post revision title: 1: author avatar, 2: author name, 3: time ago, 4: date */
-		_x( '%1$s %2$s, %3$s ago (%4$s)', 'post revision title' ),
+		__( '%1$s %2$s, %3$s ago (%4$s)' ),
 		$gravatar,
 		$author,
 		human_time_diff( strtotime( $revision->post_modified ), current_time( 'timestamp' ) ),
 		$date
 	);
 
-	$autosavef = __( '%1$s [Autosave]' );
-	$currentf  = __( '%1$s [Current Revision]' );
+	/* translators: %s: revision date with author avatar */
+	$autosavef = __( '%s [Autosave]' );
+	/* translators: %s: revision date with author avatar */
+	$currentf  = __( '%s [Current Revision]' );
 
 	if ( !wp_is_post_revision( $revision ) )
 		$revision_date_author = sprintf( $currentf, $revision_date_author );

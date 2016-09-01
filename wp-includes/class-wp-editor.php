@@ -296,14 +296,13 @@ final class _WP_Editors {
 	/**
 	 * @static
 	 *
-	 * @global string $wp_version
 	 * @global string $tinymce_version
 	 *
 	 * @param string $editor_id
 	 * @param array  $set
 	 */
 	public static function editor_settings($editor_id, $set) {
-		global $wp_version, $tinymce_version;
+		global $tinymce_version;
 
 		if ( empty(self::$first_init) ) {
 			if ( is_admin() ) {
@@ -559,7 +558,7 @@ final class _WP_Editors {
 				}
 
 				$suffix = SCRIPT_DEBUG ? '' : '.min';
-				$version = 'ver=' . $wp_version;
+				$version = 'ver=' . get_bloginfo( 'version' );
 				$dashicons = includes_url( "css/dashicons$suffix.css?$version" );
 
 				// Worndpress default stylesheet and dashicons
@@ -1131,13 +1130,12 @@ final class _WP_Editors {
 	/**
 	 *
 	 * @static
-	 * @global string $wp_version
 	 * @global string $tinymce_version
 	 * @global bool   $concatenate_scripts
 	 * @global bool   $compress_scripts
 	 */
 	public static function editor_js() {
-		global $wp_version, $tinymce_version, $concatenate_scripts, $compress_scripts;
+		global $tinymce_version, $concatenate_scripts, $compress_scripts;
 
 		/**
 		 * Filters "tiny_mce_version" is deprecated
@@ -1215,7 +1213,7 @@ final class _WP_Editors {
 
 		$baseurl = self::$baseurl;
 		// Load tinymce.js when running from /src, else load wp-tinymce.js.gz (production) or tinymce.min.js (SCRIPT_DEBUG)
-		$mce_suffix = false !== strpos( $wp_version, '-src' ) ? '' : '.min';
+		$mce_suffix = false !== strpos( get_bloginfo( 'version' ), '-src' ) ? '' : '.min';
 
 		if ( $tmce_on ) {
 			if ( $compressed ) {
@@ -1259,6 +1257,14 @@ final class _WP_Editors {
 			var init, id, $wrap;
 
 			if ( typeof tinymce !== 'undefined' ) {
+				// Fix RTL
+				tinymce.on( 'addeditor', function( event ) {
+					event.editor.rtl = event.editor.settings.rtl_ui ||
+						( event.editor.editorManager &&
+						event.editor.editorManager.i18n &&
+						event.editor.editorManager.i18n.rtl );
+				}, true );
+
 				for ( id in tinyMCEPreInit.mceInit ) {
 					init = tinyMCEPreInit.mceInit[id];
 					$wrap = tinymce.$( '#wp-' + id + '-wrap' );

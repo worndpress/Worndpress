@@ -176,8 +176,8 @@ function get_permalink( $post = 0, $leavename = false ) {
 				 *
 				 * @since 3.5.0
 				 *
-				 * @param stdClass $cat  The category to use in the permalink.
-				 * @param array    $cats Array of all categories associated with the post.
+				 * @param WP_Term  $cat  The category to use in the permalink.
+				 * @param array    $cats Array of all categories (WP_Term objects) associated with the post.
 				 * @param WP_Post  $post The post in question.
 				 */
 				$category_object = apply_filters( 'post_link_category', $cats[0], $cats, $post );
@@ -2897,20 +2897,13 @@ function the_comments_pagination( $args = array() ) {
  *
  * @since 2.6.0
  *
- * @global bool   $is_IE      Whether the browser matches an Internet Explorer user agent.
- * @global string $wp_version WP version.
- *
- * @global bool          $is_IE
- * @global string        $wp_version
- * @global WP_Press_This $wp_press_this
- *
- * @return string The Press This bookmarklet link URL.
+ * @global bool          $is_IE      Whether the browser matches an Internet Explorer user agent.
  */
 function get_shortcut_link() {
-	global $is_IE, $wp_version;
+	global $is_IE;
 
 	include_once( ABSPATH . 'wp-admin/includes/class-wp-press-this.php' );
-	$bookmarklet_version = $GLOBALS['wp_press_this']->version;
+
 	$link = '';
 
 	if ( $is_IE ) {
@@ -2928,7 +2921,7 @@ function get_shortcut_link() {
 
 			$link = 'javascript:var d=document,w=window,e=w.getSelection,k=d.getSelection,x=d.selection,' .
 				's=(e?e():(k)?k():(x?x.createRange().text:0)),f=' . $url . ',l=d.location,e=encodeURIComponent,' .
-				'u=f+"?u="+e(l.href)+"&t="+e(d.title)+"&s="+e(s)+"&v=' . $bookmarklet_version . '";' .
+				'u=f+"?u="+e(l.href)+"&t="+e(d.title)+"&s="+e(s)+"&v=' . WP_Press_This::VERSION . '";' .
 				'a=function(){if(!w.open(u,"t","toolbar=0,resizable=1,scrollbars=1,status=1,width=600,height=700"))l.href=u;};' .
 				'if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else a();void(0)';
 		}
@@ -2938,7 +2931,7 @@ function get_shortcut_link() {
 		$src = @file_get_contents( ABSPATH . 'wp-admin/js/bookmarklet.min.js' );
 
 		if ( $src ) {
-			$url = wp_json_encode( admin_url( 'press-this.php' ) . '?v=' . $bookmarklet_version );
+			$url = wp_json_encode( admin_url( 'press-this.php' ) . '?v=' . WP_Press_This::VERSION );
 			$link = 'javascript:' . str_replace( 'window.pt_url', $url, $src );
 		}
 	}
@@ -3263,13 +3256,15 @@ function network_site_url( $path = '', $scheme = null ) {
 
 	$current_site = get_current_site();
 
-	if ( 'relative' == $scheme )
+	if ( 'relative' == $scheme ) {
 		$url = $current_site->path;
-	else
+	} else {
 		$url = set_url_scheme( 'http://' . $current_site->domain . $current_site->path, $scheme );
+	}
 
-	if ( $path && is_string( $path ) )
+	if ( $path && is_string( $path ) ) {
 		$url .= ltrim( $path, '/' );
+	}
 
 	/**
 	 * Filters the network site URL.
@@ -3309,13 +3304,15 @@ function network_home_url( $path = '', $scheme = null ) {
 	if ( ! in_array( $scheme, array( 'http', 'https', 'relative' ) ) )
 		$scheme = is_ssl() && ! is_admin() ? 'https' : 'http';
 
-	if ( 'relative' == $scheme )
+	if ( 'relative' == $scheme ) {
 		$url = $current_site->path;
-	else
+	} else {
 		$url = set_url_scheme( 'http://' . $current_site->domain . $current_site->path, $scheme );
+	}
 
-	if ( $path && is_string( $path ) )
+	if ( $path && is_string( $path ) ) {
 		$url .= ltrim( $path, '/' );
+	}
 
 	/**
 	 * Filters the network home URL.

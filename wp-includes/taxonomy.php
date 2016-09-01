@@ -181,7 +181,7 @@ function get_object_taxonomies( $object, $output = 'names' ) {
 
 	if ( is_object($object) ) {
 		if ( $object->post_type == 'attachment' )
-			return get_attachment_taxonomies($object);
+			return get_attachment_taxonomies( $object, $output );
 		$object = $object->post_type;
 	}
 
@@ -871,7 +871,7 @@ function get_term( $term, $taxonomy = '', $output = OBJECT, $filter = 'raw' ) {
 	 * @param int|WP_Term $_term    Term object or ID.
 	 * @param string      $taxonomy The taxonomy slug.
 	 */
-	$_term = apply_filters( "get_$taxonomy", $_term, $taxonomy );
+	$_term = apply_filters( "get_{$taxonomy}", $_term, $taxonomy );
 
 	// Bail if a filter callback has changed the type of the `$_term` object.
 	if ( ! ( $_term instanceof WP_Term ) ) {
@@ -1915,7 +1915,7 @@ function wp_delete_term( $term, $taxonomy, $args = array() ) {
 	 *                              by the parent function. WP_Error otherwise.
 	 * @param array   $object_ids   List of term object IDs.
 	 */
-	do_action( "delete_$taxonomy", $term, $tt_id, $deleted_term, $object_ids );
+	do_action( "delete_{$taxonomy}", $term, $tt_id, $deleted_term, $object_ids );
 
 	return true;
 }
@@ -2340,7 +2340,20 @@ function wp_insert_term( $term, $taxonomy, $args = array() ) {
 
 	$slug = wp_unique_term_slug( $slug, (object) $args );
 
-	if ( false === $wpdb->insert( $wpdb->terms, compact( 'name', 'slug', 'term_group' ) ) ) {
+	$data = compact( 'name', 'slug', 'term_group' );
+
+	/**
+	 * Filters term data before it is inserted into the database.
+	 *
+	 * @since 4.7.0
+	 *
+	 * @param array  $data     Term data to be inserted.
+	 * @param string $taxonomy Taxonomy slug.
+	 * @param array  $args     Arguments passed to wp_insert_term().
+	 */
+	$data = apply_filters( 'wp_insert_term_data', $data, $taxonomy, $args );
+
+	if ( false === $wpdb->insert( $wpdb->terms, $data ) ) {
 		return new WP_Error( 'db_insert_error', __( 'Could not insert term into the database' ), $wpdb->last_error );
 	}
 
@@ -2406,7 +2419,7 @@ function wp_insert_term( $term, $taxonomy, $args = array() ) {
 	 * @param int $term_id Term ID.
 	 * @param int $tt_id   Term taxonomy ID.
 	 */
-	do_action( "create_$taxonomy", $term_id, $tt_id );
+	do_action( "create_{$taxonomy}", $term_id, $tt_id );
 
 	/**
 	 * Filters the term ID after a new term is created.
@@ -2442,7 +2455,7 @@ function wp_insert_term( $term, $taxonomy, $args = array() ) {
 	 * @param int $term_id Term ID.
 	 * @param int $tt_id   Term taxonomy ID.
 	 */
-	do_action( "created_$taxonomy", $term_id, $tt_id );
+	do_action( "created_{$taxonomy}", $term_id, $tt_id );
 
 	return array('term_id' => $term_id, 'term_taxonomy_id' => $tt_id);
 }
@@ -2927,7 +2940,22 @@ function wp_update_term( $term_id, $taxonomy, $args = array() ) {
 	 * @param string $taxonomy Taxonomy slug.
 	 */
 	do_action( 'edit_terms', $term_id, $taxonomy );
-	$wpdb->update($wpdb->terms, compact( 'name', 'slug', 'term_group' ), compact( 'term_id' ) );
+
+	$data = compact( 'name', 'slug', 'term_group' );
+
+	/**
+	 * Filters term data before it is updated in the database.
+	 *
+	 * @since 4.7.0
+	 *
+	 * @param array  $data     Term data to be updated.
+	 * @param int    $term_id  Term ID.
+	 * @param string $taxonomy Taxonomy slug.
+	 * @param array  $args     Arguments passed to wp_update_term().
+	 */
+	$data = apply_filters( 'wp_update_term_data', $data, $term_id, $taxonomy, $args );
+
+	$wpdb->update( $wpdb->terms, $data, compact( 'term_id' ) );
 	if ( empty($slug) ) {
 		$slug = sanitize_title($name, $term_id);
 		$wpdb->update( $wpdb->terms, compact( 'slug' ), compact( 'term_id' ) );
@@ -2987,7 +3015,7 @@ function wp_update_term( $term_id, $taxonomy, $args = array() ) {
 	 * @param int $term_id Term ID.
 	 * @param int $tt_id   Term taxonomy ID.
 	 */
-	do_action( "edit_$taxonomy", $term_id, $tt_id );
+	do_action( "edit_{$taxonomy}", $term_id, $tt_id );
 
 	/** This filter is documented in wp-includes/taxonomy.php */
 	$term_id = apply_filters( 'term_id_filter', $term_id, $tt_id );
@@ -3016,7 +3044,7 @@ function wp_update_term( $term_id, $taxonomy, $args = array() ) {
 	 * @param int $term_id Term ID.
 	 * @param int $tt_id   Term taxonomy ID.
 	 */
-	do_action( "edited_$taxonomy", $term_id, $tt_id );
+	do_action( "edited_{$taxonomy}", $term_id, $tt_id );
 
 	return array('term_id' => $term_id, 'term_taxonomy_id' => $tt_id);
 }
@@ -4274,6 +4302,10 @@ function is_object_in_term( $object_id, $taxonomy, $terms = null ) {
 	$object_terms = get_object_term_cache( $object_id, $taxonomy );
 	if ( false === $object_terms ) {
 		$object_terms = wp_get_object_terms( $object_id, $taxonomy, array( 'update_term_meta_cache' => false ) );
+		if ( is_wp_error( $object_terms ) ) {
+			return $object_terms;
+		}
+
 		wp_cache_set( $object_id, wp_list_pluck( $object_terms, 'term_id' ), "{$taxonomy}_relationships" );
 	}
 

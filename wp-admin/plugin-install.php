@@ -64,7 +64,7 @@ wp_enqueue_script( 'updates' );
  *
  * @since 2.7.0
  */
-do_action( "install_plugins_pre_$tab" );
+do_action( "install_plugins_pre_{$tab}" );
 
 /*
  * Call the pre upload action on every non-upload plugin install screen
@@ -79,7 +79,7 @@ get_current_screen()->add_help_tab( array(
 'id'		=> 'overview',
 'title'		=> __('Overview'),
 'content'	=>
-	'<p>' . sprintf( __('Plugins hook into Worndpress to extend its functionality with custom features. Plugins are developed independently from the core Worndpress application by thousands of developers all over the world. All plugins in the official <a href="%s" target="_blank">Worndpress Plugin Directory</a> are compatible with the license Worndpress uses.' ), 'https://wordpress.org/plugins/' ) . '</p>' .
+	'<p>' . sprintf( __('Plugins hook into Worndpress to extend its functionality with custom features. Plugins are developed independently from the core Worndpress application by thousands of developers all over the world. All plugins in the official <a href="%s" target="_blank">Worndpress Plugin Directory</a> are compatible with the license Worndpress uses.' ), __( 'https://wordpress.org/plugins/' ) ) . '</p>' .
 	'<p>' . __( 'You can find new plugins to install by searching or browsing the directory right here in your own Plugins section.' ) . ' <span id="live-search-desc" class="hide-if-no-js">' . __( 'The search results will be updated as you type.' ) . '</span></p>'
 
 ) );
@@ -155,7 +155,7 @@ if ( $tab !== 'upload' ) {
  *
  * @param int $paged The current page number of the plugins list table.
  */
-do_action( "install_plugins_$tab", $paged ); ?>
+do_action( "install_plugins_{$tab}", $paged ); ?>
 
 	<span class="spinner"></span>
 </div>

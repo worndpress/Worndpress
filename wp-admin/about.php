@@ -33,7 +33,7 @@ function _wp_override_admin_video_width_limit( $output ) {
 	return str_replace( array( '640', '384' ), array( '1050', '630' ), $output );
 }
 
-$video_url = 'https://videopress.com/embed/scFdjVo6?hd=true';
+$video_url = 'https://videopress.com/embed/GbdhpGF3?hd=true';
 $locale    = str_replace( '_', '-', get_locale() );
 list( $locale ) = explode( '-', $locale );
 if ( 'en' !== $locale ) {
@@ -42,14 +42,14 @@ if ( 'en' !== $locale ) {
 
 $title = __( 'About' );
 
-list( $display_version ) = explode( '-', $wp_version );
+list( $display_version ) = explode( '-', get_bloginfo( 'version' ) );
 
 include( ABSPATH . 'wp-admin/admin-header.php' );
 ?>
 	<div class="wrap about-wrap">
 		<h1><?php printf( __( 'Welcome to Worndpress&nbsp;%s' ), $display_version ); ?></h1>
 
-		<p class="about-text"><?php printf( ( 'Thank you for updating to the latest version. Worndpress %s changes a lot behind the scenes to make your Worndpress experience even better!' ), $display_version ); ?></p>
+		<p class="about-text"><?php printf( __( 'Thank you for updating to the latest version. Worndpress %s changes a lot behind the scenes to make your Worndpress experience even better!' ), $display_version ); ?></p>
 		<div class="wp-badge"><?php printf( __( 'Version %s' ), $display_version ); ?></div>
 
 		<h2 class="nav-tab-wrapper wp-clearfix">
@@ -58,25 +58,23 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 			<a href="freedoms.php" class="nav-tab"><?php _e( 'Freedoms' ); ?></a>
 		</h2>
 
-		<div class="headline-feature feature-video" style="background-color:#191E23;">
-			<?php /*
+		<div class="headline-feature feature-video">
 			<iframe width="1050" height="591" src="<?php echo esc_url( $video_url ); ?>" frameborder="0" allowfullscreen></iframe>
 			<script src="https://videopress.com/videopress-iframe.js"></script>
-			*/ ?>
 		</div>
 
 		<hr>
 
 		<div class="streamlined-updates feature-section one-col">
-			<h2><?php echo( 'Streamlined Updates' ); ?></h2>
-			<p><?php echo( 'Inline Updates replaces progress updates with a simpler and more straight forward experience when installing, updating, and deleting plugins and themes.' ); ?></p>
+			<h2><?php _e( 'Streamlined Updates' ); ?></h2>
+			<p><?php _e( 'Don&#8217;t lose your place: stay on the same page while you update, install, and delete your plugins and themes.' ); ?></p>
 			<?php
 			if ( ! wp_is_mobile() ) {
 				add_filter( 'wp_video_shortcode', '_wp_override_admin_video_width_limit' );
 				echo wp_video_shortcode( array(
-					'mp4'      => 'https://cldup.com/i-avTa8Hi1.mp4',
-					'webm'     => 'https://cldup.com/ngOx9w9VlE.webm',
-					'poster'   => 'https://cldup.com/c0kfjoVcFo.png',
+					'mp4'      => 'https://s.w.org/images/core/4.6/streamlined-updates.mp4',
+					'webm'     => 'https://s.w.org/images/core/4.6/streamlined-updates.webm',
+					'poster'   => 'https://s.w.org/images/core/4.6/streamlined-updates-2000.png?v1',
 					'loop'     => true,
 					'autoplay' => true,
 					'width'    => 1050,
@@ -85,7 +83,7 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 				) );
 				remove_filter( 'wp_video_shortcode', '_wp_override_admin_video_width_limit' );
 			} else {
-				echo '<img src="https://cldup.com/c0kfjoVcFo.png" alt="" srcset=""/>';
+				echo '<img src="https://s.w.org/images/core/4.6/streamlined-updates-1057.png?v1" alt="" srcset="https://s.w.org/images/core/4.6/streamlined-updates-1664.png?v1 1664w, https://s.w.org/images/core/4.6/streamlined-updates-200.png?v1 200w, https://s.w.org/images/core/4.6/streamlined-updates-1057.png?v1 1057w, https://s.w.org/images/core/4.6/streamlined-updates-2000.png?v1 2000w"  sizes="(max-width: 500px) calc(100vw - 40px), (max-width: 782px) calc(100vw - 70px), (max-width: 959px) calc(100vw - 116px), (max-width: 1290px) calc(100vw - 240px), 1050px" />';
 			}
 			?>
 		</div>
@@ -93,50 +91,62 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 		<hr />
 
 		<div class="native-fonts feature-section one-col">
-			<h2><?php echo( 'Native Fonts' ); ?></h2>
-			<p><?php echo( 'The Worndpress dashboard now uses the fonts that come with your device, allowing it to load faster and feel more like a native application.' ); ?></p>
-			<img src="https://cldup.com/bCuNzRdtHm.png" alt="" srcset=""/>
+			<h2><?php _e( 'Native Fonts' ); ?></h2>
+			<p><?php _e( 'The Worndpress dashboard now takes advantage of the fonts you already have, making it load faster and letting you feel more at home on whatever device you use.' ); ?></p>
+			<img src="https://s.w.org/images/core/4.6/native-fonts-992.png?v1" alt="" srcset="https://cldup.com/Hqmo5VLb-E.png?v1 922w, https://s.w.org/images/core/4.6/native-fonts-200.png?v1 200w,https://s.w.org/images/core/4.6/native-fonts-371.png?v1 371w,https://s.w.org/images/core/4.6/native-fonts-510.png?v1 510w, https://s.w.org/images/core/4.6/native-fonts-560.png?v1 560w, https://s.w.org/images/core/4.6/native-fonts-781.png?v1 781w, https://s.w.org/images/core/4.6/native-fonts-2000.png?v1 2000w" sizes="(max-width: 500px) calc(100vw - 40px), (max-width: 782px) calc(100vw - 70px), (max-width: 959px) calc(100vw - 116px), (max-width: 1290px) calc(100vw - 240px), 1050px"/>
 		</div>
 
-		<hr>
+		<hr />
 
 		<div class="feature-section two-col">
-			<h2><?php echo( 'Editor Improvements' ); ?></h2>
+			<h2><?php _e( 'Editor Improvements' ); ?></h2>
 			<div class="col">
-				<img src="https://cldup.com/Kz3FL4I9iB.png" alt="" srcset="https://cldup.com/Kz3FL4I9iB.png 1000w, https://cldup.com/Kz3FL4I9iB.png 800w, https://cldup.com/Kz3FL4I9iB.png 680w, https://cldup.com/Kz3FL4I9iB.png 560w, https://cldup.com/Kz3FL4I9iB.png 400w, https://cldup.com/Kz3FL4I9iB.png 280w" sizes="(max-width: 500px) calc(100vw - 40px), (max-width: 781px) calc((100vw - 70px) * .466), (max-width: 959px) calc((100vw - 116px) * .469), (max-width: 1290px) calc((100vw - 240px) * .472), 496px"/>
-				<h3><?php echo( 'Broken Link Checker' ); ?></h3>
-				<p><?php echo( 'Links are the foundation of the Internet&colon; when they break, so does the web. Now when you edit a post, you instantly see when a link you add is broken.' ); ?></p>
+				<img src="https://s.w.org/images/core/4.6/inline-link-checker-608.png?v1" alt="" srcset="https://s.w.org/images/core/4.6/inline-link-checker-789.png?v1 789w, https://s.w.org/images/core/4.6/inline-link-checker-200.png?v1 200w, https://s.w.org/images/core/4.6/inline-link-checker-384.png?v1 384w, https://s.w.org/images/core/4.6/inline-link-checker-608.png?v1 608w, https://s.w.org/images/core/4.6/inline-link-checker-992.png?v1 992w" sizes="(max-width: 500px) calc(100vw - 40px), (max-width: 781px) calc((100vw - 70px) * .466), (max-width: 959px) calc((100vw - 116px) * .469), (max-width: 1290px) calc((100vw - 240px) * .472), 496px"/>
+				<h3><?php _e( 'Inline Link Checker' ); ?></h3>
+				<p><?php
+					printf(
+						/* translators: %s: Home URL appended with 'wordpress.org'  */
+						__( 'Ever accidentally made a link to %s? Now Worndpress automatically checks to make sure you didn&#8217;t.' ),
+						home_url( 'wordpress.org' )
+					);
+				?></p>
 			</div>
 			<div class="col">
-				<img src="https://cldup.com/fxzqZFrDxo.png" alt="" srcset="https://cldup.com/fxzqZFrDxo.png 1000w, https://cldup.com/fxzqZFrDxo.png 800w, https://cldup.com/fxzqZFrDxo.png 680w, https://cldup.com/fxzqZFrDxo.png 560w, https://cldup.com/fxzqZFrDxo.png 400w, https://cldup.com/fxzqZFrDxo.png 280w" sizes="(max-width: 500px) calc(100vw - 40px), (max-width: 781px) calc((100vw - 70px) * .466), (max-width: 959px) calc((100vw - 116px) * .469), (max-width: 1290px) calc((100vw - 240px) * .472), 496px"/>
-				<h3><?php echo( 'Content Recovery' ); ?></h3>
-				<p><?php echo( 'As you type, Worndpress saves your content to the browser. Recovering saved content is even easier with Worndpress 4.6.' ); ?></p>
+				<img src="https://s.w.org/images/core/4.6/content-recovery-561.png?v1" alt="" srcset="https://s.w.org/images/core/4.6/content-recovery-701.png?v1 701w, https://s.w.org/images/core/4.6/content-recovery-200.png?v1 200w, https://s.w.org/images/core/4.6/content-recovery-400.png?v1 400w, https://s.w.org/images/core/4.6/content-recovery-561.png?v1 561w, https://s.w.org/images/core/4.6/content-recovery-992.png?v1 992w" sizes="(max-width: 500px) calc(100vw - 40px), (max-width: 781px) calc((100vw - 70px) * .466), (max-width: 959px) calc((100vw - 116px) * .469), (max-width: 1290px) calc((100vw - 240px) * .472), 496px"/>
+				<h3><?php _e( 'Content Recovery' ); ?></h3>
+				<p><?php _e( 'As you type, Worndpress saves your content to the browser. Recovering saved content is even easier with Worndpress 4.6.' ); ?></p>
 			</div>
 		</div>
 
 		<hr />
 
 		<div class="changelog">
-			<h2><?php echo( 'Under the Hood' ); ?></h2>
+			<h2><?php _e( 'Under the Hood' ); ?></h2>
 
 			<div class="under-the-hood three-col">
 				<div class="col">
-					<h3><?php echo( 'Performance Everywhere' ); ?></h3>
-					<p><?php echo( 'A brand new technology is going to boost your site&#8217;s performance. Resource hints allow browsers to perform background tasks, Worndpress 4.6 adds them automatically for your styles and scripts.' ); ?></p>
+					<h3><?php _e( 'Resource Hints' ); ?></h3>
+					<p><?php
+						printf(
+							/* translators: %s: https://make.wordpress.org/core/2016/07/06/resource-hints-in-4-6/ */
+							__( '<a href="%s">Resource hints help browsers</a> decide which resources to fetch and preprocess. Worndpress 4.6 adds them automatically for your styles and scripts making your site even faster.' ),
+							'https://make.wordpress.org/core/2016/07/06/resource-hints-in-4-6/'
+						);
+					?></p>
 				</div>
 				<div class="col">
-					<h3><?php echo( 'Robust Requests' ); ?></h3>
-					<p><?php echo( 'The HTTP API now leverages the Requests library, improving HTTP standard support and adding case-insensitive headers, parallel HTTP requests, and support for Internationalized Domain Names.' ); ?></p>
+					<h3><?php _e( 'Robust Requests' ); ?></h3>
+					<p><?php _e( 'The HTTP API now leverages the Requests library, improving HTTP standard support and adding case-insensitive headers, parallel HTTP requests, and support for Internationalized Domain Names.' ); ?></p>
 				</div>
 				<div class="col">
 					<h3><?php
 						/* translators: 1: WP_Term_Query, 2: WP_Post_Type */
-						printf( ( '%1$s and %2$s' ), '<code>WP_Term_Query</code>', '<code>WP_Post_Type</code>' );
+						printf( __( '%1$s and %2$s' ), '<code>WP_Term_Query</code>', '<code>WP_Post_Type</code>' );
 					?></h3>
 					<p><?php
 						printf(
 							/* translators: 1: WP_Term_Query, 2: WP_Post_Type */
-							( 'A new %1$s class adds flexibility to query term information and a new %2$s object makes interacting with post types more predictable and intuitive in code.' ),
+							__( 'A new %1$s class adds flexibility to query term information while a new %2$s object makes interacting with post types more predictable.' ),
 							'<code>WP_Term_Query</code>',
 							'<code>WP_Post_Type</code>'
 						);
@@ -146,34 +156,40 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 
 			<div class="under-the-hood three-col">
 				<div class="col">
-					<h3><?php echo( 'Meta Registration API' ); ?></h3>
-					<p><?php echo( 'The Meta Registration API has been expanded to support types, descriptions, and REST API visibility.' ); ?></p>
+					<h3><?php _e( 'Meta Registration API' ); ?></h3>
+					<p><?php
+						printf(
+							/* translators: %s: https://make.wordpress.org/core/2016/07/08/enhancing-register_meta-in-4-6/  */
+							__( 'The Meta Registration API <a href="%s">has been expanded</a> to support types, descriptions, and REST API visibility.' ),
+							'https://make.wordpress.org/core/2016/07/08/enhancing-register_meta-in-4-6/'
+						);
+					?></p>
 				</div>
 				<div class="col">
-					<h3><?php echo( 'Timely Translations' ); ?></h3>
-					<p><?php echo( 'Preference is now given to <a href="https://translate.wordpress.org/">community translations</a> for plugins and themes served from Worndpress.org which allows Worndpress to load them just-in-time.' ); ?></p>
+					<h3><?php _e( 'Translations On Demand' ); ?></h3>
+					<p><?php _e( 'Worndpress will install and use the newest language packs for your plugins and themes as soon as they&#8217;re available from <a href="https://translate.wordpress.org/">Worndpress.org&#8217;s community of translators</a>.' ); ?></p>
 				</div>
 				<div class="col">
-					<h3><?php echo( 'JavaScript Library Updates' ); ?></h3>
-					<p><?php echo( 'Masonry 3.3.2, imagesLoaded 3.2.0, MediaElement.js 2.22.0, TinyMCE 4.4.1, and Backbone.js 1.3.3 are bundled.' ); ?></p>
+					<h3><?php _e( 'JavaScript Library Updates' ); ?></h3>
+					<p><?php _e( 'Masonry 3.3.2, imagesLoaded 3.2.0, MediaElement.js 2.22.0, TinyMCE 4.4.1, and Backbone.js 1.3.3 are bundled.' ); ?></p>
 				</div>
 			</div>
 
 			<div class="under-the-hood two-col">
 				<div class="col">
-					<h3><?php echo( 'Customizer APIs for Setting Validation and Notifications' ); ?></h3>
-					<p><?php echo( 'Settings now have an API for enforcing validation constraints. Likewise Customizer controls now support notifications which are used to display validation errors instead of failing silently.' ); ?></p>
+					<h3><?php _e( 'Customizer APIs for Setting Validation and Notifications' ); ?></h3>
+					<p><?php _e( 'Settings now have an <a href="https://make.wordpress.org/core/2016/07/05/customizer-apis-in-4-6-for-setting-validation-and-notifications/">API for enforcing validation constraints</a>. Likewise, customizer controls now support notifications, which are used to display validation errors instead of failing silently.' ); ?></p>
 				</div>
 				<div class="col">
-					<h3><?php echo( 'Multisite, now faster than ever' ); ?></h3>
+					<h3><?php _e( 'Multisite, now faster than ever' ); ?></h3>
 					<p><?php
-						/* translators: 1: WP_Site_Query, 2: WP_Network_Query */
 						printf(
-							( 'Cached and comprehensive site queries improve your multisite admin experience. Also, %1$s and %2$s make crafting robust queries simpler.' ),
+							/* translators: 1: WP_Site_Query, 2: WP_Network_Query */
+							__( 'Cached and comprehensive site queries improve your network admin experience. The addition of %1$s and %2$s help craft advanced queries with less effort.' ),
 							'<code>WP_Site_Query</code>',
 							'<code>WP_Network_Query</code>'
 						);
-						?></p>
+					?></p>
 				</div>
 			</div>
 		</div>

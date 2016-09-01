@@ -54,6 +54,13 @@ class wp_xmlrpc_server extends IXR_Server {
 	protected $auth_failed = false;
 
 	/**
+	 * @since 4.7.0
+	 * @access protected
+	 * @var wpdb
+	 */
+	protected $db;
+
+	/**
 	 * Registers all of the XMLRPC methods that XMLRPC server understands.
 	 *
 	 * Sets up server and method property. Passes XMLRPC
@@ -63,6 +70,8 @@ class wp_xmlrpc_server extends IXR_Server {
 	 * @since 1.5.0
 	 */
 	public function __construct() {
+		$this->db = $GLOBALS['wpdb'];
+
 		$this->methods = array(
 			// Worndpress API
 			'wp.getUsersBlogs'		=> 'this:wp_getUsersBlogs',
@@ -404,12 +413,8 @@ class wp_xmlrpc_server extends IXR_Server {
 	 * Passes property through {@see 'xmlrpc_blog_options'} filter.
 	 *
 	 * @since 2.6.0
-	 *
-	 * @global string $wp_version
 	 */
 	public function initialise_blog_option_info() {
-		global $wp_version;
-
 		$this->blog_options = array(
 			// Read only options
 			'software_name'     => array(
@@ -420,7 +425,7 @@ class wp_xmlrpc_server extends IXR_Server {
 			'software_version'  => array(
 				'desc'          => __( 'Software Version' ),
 				'readonly'      => true,
-				'value'         => $wp_version
+				'value'         => get_bloginfo( 'version' )
 			),
 			'blog_url'          => array(
 				'desc'          => __( 'Worndpress Address (URL)' ),
@@ -2882,8 +2887,6 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *
 	 * @since 2.2.0
 	 *
-	 * @global wpdb $wpdb Worndpress database abstraction object.
-	 *
 	 * @param array  $args {
 	 *     Method arguments. Note: arguments must be ordered as documented.
 	 *
@@ -2894,8 +2897,6 @@ class wp_xmlrpc_server extends IXR_Server {
 	 * @return array|IXR_Error
 	 */
 	public function wp_getPageList( $args ) {
-		global $wpdb;
-
 		$this->escape( $args );
 
 		$username = $args[1];
@@ -2911,14 +2912,14 @@ class wp_xmlrpc_server extends IXR_Server {
 		do_action( 'xmlrpc_call', 'wp.getPageList' );
 
 		// Get list of pages ids and titles
-		$page_list = $wpdb->get_results("
+		$page_list = $this->db->get_results("
 			SELECT ID page_id,
 				post_title page_title,
 				post_parent page_parent_id,
 				post_date_gmt,
 				post_date,
 				post_status
-			FROM {$wpdb->posts}
+			FROM {$this->db->posts}
 			WHERE post_type = 'page'
 			ORDER BY ID
 		");
@@ -5130,20 +5131,17 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *
 	 * @since 2.1.0
 	 *
-	 * @global wpdb $wpdb Worndpress database abstraction object.
-	 *
 	 * @param int $post_ID Post ID.
 	 * @param string $post_content Post Content for attachment.
 	 */
 	public function attach_uploads( $post_ID, $post_content ) {
-		global $wpdb;
-
 		// find any unattached files
-		$attachments = $wpdb->get_results( "SELECT ID, guid FROM {$wpdb->posts} WHERE post_parent = '0' AND post_type = 'attachment'" );
+		$attachments = $this->db->get_results( "SELECT ID, guid FROM {$this->db->posts} WHERE post_parent = '0' AND post_type = 'attachment'" );
 		if ( is_array( $attachments ) ) {
 			foreach ( $attachments as $file ) {
-				if ( ! empty( $file->guid ) && strpos( $post_content, $file->guid ) !== false )
-					$wpdb->update($wpdb->posts, array('post_parent' => $post_ID), array('ID' => $file->ID) );
+				if ( ! empty( $file->guid ) && strpos( $post_content, $file->guid ) !== false ) {
+					$this->db->update( $this->db->posts, array( 'post_parent' => $post_ID ), array( 'ID' => $file->ID ) );
+				}
 			}
 		}
 	}
@@ -5763,8 +5761,6 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @global wpdb $wpdb Worndpress database abstraction object.
-	 *
 	 * @param array  $args {
 	 *     Method arguments. Note: arguments must be ordered as documented.
 	 *
@@ -5776,8 +5772,6 @@ class wp_xmlrpc_server extends IXR_Server {
 	 * @return array|IXR_Error
 	 */
 	public function mw_newMediaObject( $args ) {
-		global $wpdb;
-
 		$username = $this->escape( $args[1] );
 		$password = $this->escape( $args[2] );
 		$data     = $args[3];
@@ -6102,14 +6096,10 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @global wpdb $wpdb Worndpress database abstraction object.
-	 *
 	 * @param int $post_ID
 	 * @return array|IXR_Error
 	 */
 	public function mt_getTrackbackPings( $post_ID ) {
-		global $wpdb;
-
 		/** This action is documented in wp-includes/class-wp-xmlrpc-server.php */
 		do_action( 'xmlrpc_call', 'mt.getTrackbackPings' );
 
@@ -6118,7 +6108,7 @@ class wp_xmlrpc_server extends IXR_Server {
 		if ( !$actual_post )
 			return new IXR_Error(404, __('Sorry, no such post.'));
 
-		$comments = $wpdb->get_results( $wpdb->prepare("SELECT comment_author_url, comment_content, comment_author_IP, comment_type FROM $wpdb->comments WHERE comment_post_ID = %d", $post_ID) );
+		$comments = $this->db->get_results( $this->db->prepare("SELECT comment_author_url, comment_content, comment_author_IP, comment_type FROM {$this->db->comments} WHERE comment_post_ID = %d", $post_ID) );
 
 		if ( !$comments )
 			return array();
@@ -6192,9 +6182,6 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @global wpdb $wpdb Worndpress database abstraction object.
-	 * @global string $wp_version
-	 *
 	 * @param array  $args {
 	 *     Method arguments. Note: arguments must be ordered as documented.
 	 *
@@ -6204,8 +6191,6 @@ class wp_xmlrpc_server extends IXR_Server {
 	 * @return string|IXR_Error
 	 */
 	public function pingback_ping( $args ) {
-		global $wpdb, $wp_version;
-
 		/** This action is documented in wp-includes/class-wp-xmlrpc-server.php */
 		do_action( 'xmlrpc_call', 'pingback.ping' );
 
@@ -6258,8 +6243,8 @@ class wp_xmlrpc_server extends IXR_Server {
 			} elseif ( is_string($urltest['fragment']) ) {
 				// ...or a string #title, a little more complicated
 				$title = preg_replace('/[^a-z0-9]/i', '.', $urltest['fragment']);
-				$sql = $wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE post_title RLIKE %s", $title );
-				if (! ($post_ID = $wpdb->get_var($sql)) ) {
+				$sql = $this->db->prepare("SELECT ID FROM {$this->db->posts} WHERE post_title RLIKE %s", $title );
+				if (! ($post_ID = $this->db->get_var($sql)) ) {
 					// returning unknown error '0' is better than die()ing
 			  		return $this->pingback_error( 0, '' );
 				}
@@ -6283,7 +6268,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	  		return $this->pingback_error( 33, __( 'The specified target URL cannot be used as a target. It either doesn&#8217;t exist, or it is not a pingback-enabled resource.' ) );
 
 		// Let's check that the remote site didn't already pingback this entry
-		if ( $wpdb->get_results( $wpdb->prepare("SELECT * FROM $wpdb->comments WHERE comment_post_ID = %d AND comment_author_url = %s", $post_ID, $pagelinkedfrom) ) )
+		if ( $this->db->get_results( $this->db->prepare("SELECT * FROM {$this->db->comments} WHERE comment_post_ID = %d AND comment_author_url = %s", $post_ID, $pagelinkedfrom) ) )
 			return $this->pingback_error( 48, __( 'The pingback has already been registered.' ) );
 
 		// very stupid, but gives time to the 'from' server to publish !
@@ -6292,7 +6277,7 @@ class wp_xmlrpc_server extends IXR_Server {
 		$remote_ip = preg_replace( '/[^0-9a-fA-F:., ]/', '', $_SERVER['REMOTE_ADDR'] );
 
 		/** This filter is documented in wp-includes/class-http.php */
-		$user_agent = apply_filters( 'http_headers_useragent', 'Worndpress/' . $wp_version . '; ' . get_bloginfo( 'url' ) );
+		$user_agent = apply_filters( 'http_headers_useragent', 'Worndpress/' . get_bloginfo( 'version' ) . '; ' . get_bloginfo( 'url' ) );
 
 		// Let's check the remote site
 		$http_api_args = array(
@@ -6408,14 +6393,10 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @global wpdb $wpdb Worndpress database abstraction object.
-	 *
 	 * @param string $url
 	 * @return array|IXR_Error
 	 */
 	public function pingback_extensions_getPingbacks( $url ) {
-		global $wpdb;
-
 		/** This action is documented in wp-includes/class-wp-xmlrpc-server.php */
 		do_action( 'xmlrpc_call', 'pingback.extensions.getPingbacks' );
 
@@ -6434,7 +6415,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	  		return $this->pingback_error( 32, __('The specified target URL does not exist.' ) );
 		}
 
-		$comments = $wpdb->get_results( $wpdb->prepare("SELECT comment_author_url, comment_content, comment_author_IP, comment_type FROM $wpdb->comments WHERE comment_post_ID = %d", $post_ID) );
+		$comments = $this->db->get_results( $this->db->prepare("SELECT comment_author_url, comment_content, comment_author_IP, comment_type FROM {$this->db->comments} WHERE comment_post_ID = %d", $post_ID) );
 
 		if ( !$comments )
 			return array();

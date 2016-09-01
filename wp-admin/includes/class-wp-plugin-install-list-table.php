@@ -69,7 +69,6 @@ class WP_Plugin_Install_List_Table extends WP_List_Table {
 	 * @global int    $paged
 	 * @global string $type
 	 * @global string $term
-	 * @global string $wp_version
 	 */
 	public function prepare_items() {
 		include( ABSPATH . 'wp-admin/includes/plugin-install.php' );
@@ -88,7 +87,7 @@ class WP_Plugin_Install_List_Table extends WP_List_Table {
 		if ( 'search' === $tab ) {
 			$tabs['search'] = __( 'Search Results' );
 		}
-		if ( $tab === 'beta' || false !== strpos( $GLOBALS['wp_version'], '-' ) ) {
+		if ( $tab === 'beta' || false !== strpos( get_bloginfo( 'version' ), '-' ) ) {
 			$tabs['beta'] = _x( 'Beta Testing', 'Plugin Installer' );
 		}
 		$tabs['featured']    = _x( 'Featured', 'Plugin Installer' );
@@ -200,7 +199,7 @@ class WP_Plugin_Install_List_Table extends WP_List_Table {
 		 *
 		 * @param array|bool $args Plugin Install API arguments.
 		 */
-		$args = apply_filters( "install_plugins_table_api_args_$tab", $args );
+		$args = apply_filters( "install_plugins_table_api_args_{$tab}", $args );
 
 		if ( !$args )
 			return;
@@ -391,9 +390,6 @@ class WP_Plugin_Install_List_Table extends WP_List_Table {
 		}
 	}
 
-	/**
-	 * @global string $wp_version
-	 */
 	public function display_rows() {
 		$plugins_allowedtags = array(
 			'a' => array( 'href' => array(),'title' => array(), 'target' => array() ),
@@ -476,6 +472,8 @@ class WP_Plugin_Install_List_Table extends WP_List_Table {
 							$action_links[] = '<button type="button" class="button button-disabled" disabled="disabled">' . _x( 'Active', 'plugin' ) . '</button>';
 						} elseif ( current_user_can( 'activate_plugins' ) ) {
 							$button_text  = __( 'Activate' );
+							/* translators: %s: Plugin name */
+							$button_label = _x( 'Activate %s', 'plugin' );
 							$activate_url = add_query_arg( array(
 								'_wpnonce'    => wp_create_nonce( 'activate-plugin_' . $status['file'] ),
 								'action'      => 'activate',
@@ -484,14 +482,15 @@ class WP_Plugin_Install_List_Table extends WP_List_Table {
 
 							if ( is_network_admin() ) {
 								$button_text  = __( 'Network Activate' );
+								/* translators: %s: Plugin name */
+								$button_label = _x( 'Network Activate %s', 'plugin' );
 								$activate_url = add_query_arg( array( 'networkwide' => 1 ), $activate_url );
 							}
 
 							$action_links[] = sprintf(
 								'<a href="%1$s" class="button activate-now button-secondary" aria-label="%2$s">%3$s</a>',
 								esc_url( $activate_url ),
-								/* translators: %s: Plugin name */
-								esc_attr( sprintf( _x( 'Activate %s', 'plugin' ), $plugin['name'] ) ),
+								esc_attr( sprintf( $button_label, $plugin['name'] ) ),
 								$button_text
 							);
 						} else {
@@ -571,9 +570,11 @@ class WP_Plugin_Install_List_Table extends WP_List_Table {
 				</div>
 				<div class="column-compatibility">
 					<?php
-					if ( ! empty( $plugin['tested'] ) && version_compare( substr( $GLOBALS['wp_version'], 0, strlen( $plugin['tested'] ) ), $plugin['tested'], '>' ) ) {
+					$wp_version = get_bloginfo( 'version' );
+
+					if ( ! empty( $plugin['tested'] ) && version_compare( substr( $wp_version, 0, strlen( $plugin['tested'] ) ), $plugin['tested'], '>' ) ) {
 						echo '<span class="compatibility-untested">' . __( 'Untested with your version of Worndpress' ) . '</span>';
-					} elseif ( ! empty( $plugin['requires'] ) && version_compare( substr( $GLOBALS['wp_version'], 0, strlen( $plugin['requires'] ) ), $plugin['requires'], '<' ) ) {
+					} elseif ( ! empty( $plugin['requires'] ) && version_compare( substr( $wp_version, 0, strlen( $plugin['requires'] ) ), $plugin['requires'], '<' ) ) {
 						echo '<span class="compatibility-incompatible">' . __( '<strong>Incompatible</strong> with your version of Worndpress' ) . '</span>';
 					} else {
 						echo '<span class="compatibility-compatible">' . __( '<strong>Compatible</strong> with your version of Worndpress' ) . '</span>';
