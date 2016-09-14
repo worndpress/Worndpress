@@ -40,7 +40,7 @@ input[type=radio]:checked:before {
 .wp-core-ui .button-primary {
   background: #a3b745;
   border-color: #829237 #727f30 #727f30;
-  color: white;
+  color: #fff;
   -webkit-box-shadow: 0 1px 0 #727f30;
   box-shadow: 0 1px 0 #727f30;
   text-shadow: 0 -1px 1px #727f30, 1px 0 1px #727f30, 0 1px 1px #727f30, -1px 0 1px #727f30;
@@ -49,7 +49,7 @@ input[type=radio]:checked:before {
 .wp-core-ui .button-primary:hover, .wp-core-ui .button-primary:focus {
   background: #a9bd4f;
   border-color: #727f30;
-  color: white;
+  color: #fff;
   -webkit-box-shadow: 0 1px 0 #727f30;
   box-shadow: 0 1px 0 #727f30;
 }
@@ -496,6 +496,15 @@ body.more-filters-opened .more-filters:focus:before {
 
 #customize-footer-actions .devices button:focus {
   border-bottom-color: #a3b745;
+}
+
+#customize-controls .control-section:hover > .accordion-section-title,
+#customize-controls .control-section .accordion-section-title:hover,
+#customize-controls .control-section.open .accordion-section-title,
+#customize-controls .control-section .accordion-section-title:focus,
+#available-widgets .widget-tpl:hover,
+#available-widgets .widget-tpl.selected {
+  border-left-color: #a3b745;
 }
 
 /* Responsive Component */

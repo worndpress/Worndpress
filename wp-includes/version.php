@@ -4,14 +4,14 @@
  *
  * @global string $wp_version
  */
-$wp_version = '4.7-alpha-38496';
+$wp_version = '4.7-alpha-38603';
 
 /**
  * Holds the Worndpress DB revision, increments when changes are made to the Worndpress DB schema.
  *
  * @global int $wp_db_version
  */
-$wp_db_version = 37965;
+$wp_db_version = 38590;
 
 /**
  * Holds the TinyMCE version
