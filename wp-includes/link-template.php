@@ -2529,8 +2529,8 @@ function get_the_posts_pagination( $args = array() ) {
 	if ( $GLOBALS['wp_query']->max_num_pages > 1 ) {
 		$args = wp_parse_args( $args, array(
 			'mid_size'           => 1,
-			'prev_text'          => _x( 'Previous', 'previous post' ),
-			'next_text'          => _x( 'Next', 'next post' ),
+			'prev_text'          => _x( 'Previous', 'previous set of posts' ),
+			'next_text'          => _x( 'Next', 'next set of posts' ),
 			'screen_reader_text' => __( 'Posts navigation' ),
 		) );
 
@@ -4026,7 +4026,7 @@ function get_avatar_data( $id_or_email, $args = null ) {
 }
 
 /**
- * Retrieve the URL of a file in the theme.
+ * Retrieves the URL of a file in the theme.
  *
  * Searches in the stylesheet directory before the template directory so themes
  * which inherit from a parent theme can just override one file.
@@ -4048,7 +4048,7 @@ function get_theme_file_uri( $file = '' ) {
 	}
 
 	/**
-	 * Filter the URL to a file in the theme.
+	 * Filters the URL to a file in the theme.
 	 *
 	 * @since 4.7.0
 	 *
@@ -4059,7 +4059,7 @@ function get_theme_file_uri( $file = '' ) {
 }
 
 /**
- * Retrieve the URL of a file in the parent theme.
+ * Retrieves the URL of a file in the parent theme.
  *
  * @since 4.7.0
  *
@@ -4076,7 +4076,7 @@ function get_parent_theme_file_uri( $file = '' ) {
 	}
 
 	/**
-	 * Filter the URL to a file in the parent theme.
+	 * Filters the URL to a file in the parent theme.
 	 *
 	 * @since 4.7.0
 	 *
@@ -4087,7 +4087,7 @@ function get_parent_theme_file_uri( $file = '' ) {
 }
 
 /**
- * Retrieve the path of a file in the theme.
+ * Retrieves the path of a file in the theme.
  *
  * Searches in the stylesheet directory before the template directory so themes
  * which inherit from a parent theme can just override one file.
@@ -4109,7 +4109,7 @@ function get_theme_file_path( $file = '' ) {
 	}
 
 	/**
-	 * Filter the path to a file in the theme.
+	 * Filters the path to a file in the theme.
 	 *
 	 * @since 4.7.0
 	 *
@@ -4120,7 +4120,7 @@ function get_theme_file_path( $file = '' ) {
 }
 
 /**
- * Retrieve the path of a file in the parent theme.
+ * Retrieves the path of a file in the parent theme.
  *
  * @since 4.7.0
  *
@@ -4137,7 +4137,7 @@ function get_parent_theme_file_path( $file = '' ) {
 	}
 
 	/**
-	 * Filter the path to a file in the parent theme.
+	 * Filters the path to a file in the parent theme.
 	 *
 	 * @since 4.7.0
 	 *
