@@ -339,13 +339,21 @@ function do_shortcode_tag( $m ) {
 		return $return;
 	}
 
-	if ( isset( $m[5] ) ) {
-		// enclosing tag - extra parameter
-		return $m[1] . call_user_func( $shortcode_tags[$tag], $attr, $m[5], $tag ) . $m[6];
-	} else {
-		// self-closing tag
-		return $m[1] . call_user_func( $shortcode_tags[$tag], $attr, null,  $tag ) . $m[6];
-	}
+	$content = isset( $m[5] ) ? $m[5] : null;
+
+	$output = $m[1] . call_user_func( $shortcode_tags[ $tag ], $attr, $content, $tag ) . $m[6];
+
+	/**
+	 * Filters the output created by a shortcode callback.
+	 *
+	 * @since 4.7.0
+	 *
+	 * @param string $output Shortcode output.
+	 * @param string $tag    Shortcode name.
+	 * @param array  $attr   Shortcode attributes array,
+	 * @param array  $m      Regular expression match array.
+	 */
+	return apply_filters( 'do_shortcode_tag', $output, $tag, $attr, $m );
 }
 
 /**
@@ -597,7 +605,20 @@ function strip_shortcodes( $content ) {
 
 	// Find all registered tag names in $content.
 	preg_match_all( '@\[([^<>&/\[\]\x00-\x20=]++)@', $content, $matches );
-	$tagnames = array_intersect( array_keys( $shortcode_tags ), $matches[1] );
+
+	$tags_to_remove = array_keys( $shortcode_tags );
+
+	/**
+	 * Filters the list of shortcode tags to remove from the content.
+	 *
+	 * @since 4.7.0
+	 *
+	 * @param array  $tag_array Array of shortcode tags to remove.
+	 * @param string $content   Content shortcodes are being removed from.
+	 */
+	$tags_to_remove = apply_filters( 'strip_shortcodes_tagnames', $tags_to_remove, $content );
+
+	$tagnames = array_intersect( $tags_to_remove, $matches[1] );
 
 	if ( empty( $tagnames ) ) {
 		return $content;

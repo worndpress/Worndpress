@@ -247,11 +247,11 @@ function the_content( $more_link_text = null, $strip_teaser = false) {
  *
  * @since 0.71
  *
- * @global int   $page
- * @global int   $more
- * @global bool  $preview
- * @global array $pages
- * @global int   $multipage
+ * @global int   $page      Page number of a single post/page.
+ * @global int   $more      Boolean indicator for whether single post/page is being viewed.
+ * @global bool  $preview   Whether post/page is in preview mode.
+ * @global array $pages     Array of all pages in post/page. Each array element contains part of the content separated by the <!--nextpage--> tag.
+ * @global int   $multipage Boolean indicator for whether multiple pages are in play.
  *
  * @param string $more_link_text Optional. Content for when there is more text.
  * @param bool   $strip_teaser   Optional. Strip teaser content before the more text. Default is false.
@@ -594,23 +594,40 @@ function get_body_class( $class = '' ) {
 	if ( is_404() )
 		$classes[] = 'error404';
 
-	if ( is_single() ) {
+	if ( is_singular() ) {
 		$post_id = $wp_query->get_queried_object_id();
 		$post = $wp_query->get_queried_object();
+		$post_type = $post->post_type;
 
-		$classes[] = 'single';
-		if ( isset( $post->post_type ) ) {
-			$classes[] = 'single-' . sanitize_html_class($post->post_type, $post_id);
-			$classes[] = 'postid-' . $post_id;
+		if ( is_page_template() ) {
+			$classes[] = "{$post_type}-template";
 
-			// Post Format
-			if ( post_type_supports( $post->post_type, 'post-formats' ) ) {
-				$post_format = get_post_format( $post->ID );
+			$template_slug  = get_page_template_slug( $post_id );
+			$template_parts = explode( '/', $template_slug );
 
-				if ( $post_format && !is_wp_error($post_format) )
-					$classes[] = 'single-format-' . sanitize_html_class( $post_format );
-				else
-					$classes[] = 'single-format-standard';
+			foreach ( $template_parts as $part ) {
+				$classes[] = "{$post_type}-template-" . sanitize_html_class( str_replace( array( '.', '/' ), '-', basename( $part, '.php' ) ) );
+			}
+			$classes[] = "{$post_type}-template-" . sanitize_html_class( str_replace( '.', '-', $template_slug ) );
+		} else {
+			$classes[] = "{$post_type}-template-default";
+		}
+
+		if ( is_single() ) {
+			$classes[] = 'single';
+			if ( isset( $post->post_type ) ) {
+				$classes[] = 'single-' . sanitize_html_class( $post->post_type, $post_id );
+				$classes[] = 'postid-' . $post_id;
+
+				// Post Format
+				if ( post_type_supports( $post->post_type, 'post-formats' ) ) {
+					$post_format = get_post_format( $post->ID );
+
+					if ( $post_format && !is_wp_error($post_format) )
+						$classes[] = 'single-format-' . sanitize_html_class( $post_format );
+					else
+						$classes[] = 'single-format-standard';
+				}
 			}
 		}
 
@@ -619,6 +636,23 @@ function get_body_class( $class = '' ) {
 			$mime_prefix = array( 'application/', 'image/', 'text/', 'audio/', 'video/', 'music/' );
 			$classes[] = 'attachmentid-' . $post_id;
 			$classes[] = 'attachment-' . str_replace( $mime_prefix, '', $mime_type );
+		} elseif ( is_page() ) {
+			$classes[] = 'page';
+
+			$page_id = $wp_query->get_queried_object_id();
+
+			$post = get_post($page_id);
+
+			$classes[] = 'page-id-' . $page_id;
+
+			if ( get_pages( array( 'parent' => $page_id, 'number' => 1 ) ) ) {
+				$classes[] = 'page-parent';
+			}
+
+			if ( $post->post_parent ) {
+				$classes[] = 'page-child';
+				$classes[] = 'parent-pageid-' . $post->post_parent;
+			}
 		}
 	} elseif ( is_archive() ) {
 		if ( is_post_type_archive() ) {
@@ -670,36 +704,6 @@ function get_body_class( $class = '' ) {
 				$classes[] = 'term-' . $term_class;
 				$classes[] = 'term-' . $term->term_id;
 			}
-		}
-	} elseif ( is_page() ) {
-		$classes[] = 'page';
-
-		$page_id = $wp_query->get_queried_object_id();
-
-		$post = get_post($page_id);
-
-		$classes[] = 'page-id-' . $page_id;
-
-		if ( get_pages( array( 'parent' => $page_id, 'number' => 1 ) ) ) {
-			$classes[] = 'page-parent';
-		}
-
-		if ( $post->post_parent ) {
-			$classes[] = 'page-child';
-			$classes[] = 'parent-pageid-' . $post->post_parent;
-		}
-		if ( is_page_template() ) {
-			$classes[] = 'page-template';
-
-			$template_slug  = get_page_template_slug( $page_id );
-			$template_parts = explode( '/', $template_slug );
-
-			foreach ( $template_parts as $part ) {
-				$classes[] = 'page-template-' . sanitize_html_class( str_replace( array( '.', '/' ), '-', basename( $part, '.php' ) ) );
-			}
-			$classes[] = 'page-template-' . sanitize_html_class( str_replace( '.', '-', $template_slug ) );
-		} else {
-			$classes[] = 'page-template-default';
 		}
 	}
 
@@ -1134,40 +1138,48 @@ function wp_dropdown_pages( $args = '' ) {
  * @param array|string $args {
  *     Array or string of arguments. Optional.
  *
- *     @type int    $child_of     Display only the sub-pages of a single page by ID. Default 0 (all pages).
- *     @type string $authors      Comma-separated list of author IDs. Default empty (all authors).
- *     @type string $date_format  PHP date format to use for the listed pages. Relies on the 'show_date' parameter.
- *                                Default is the value of 'date_format' option.
- *     @type int    $depth        Number of levels in the hierarchy of pages to include in the generated list.
- *                                Accepts -1 (any depth), 0 (all pages), 1 (top-level pages only), and n (pages to
- *                                the given n depth). Default 0.
- *     @type bool   $echo         Whether or not to echo the list of pages. Default true.
- *     @type string $exclude      Comma-separated list of page IDs to exclude. Default empty.
- *     @type array  $include      Comma-separated list of page IDs to include. Default empty.
- *     @type string $link_after   Text or HTML to follow the page link label. Default null.
- *     @type string $link_before  Text or HTML to precede the page link label. Default null.
- *     @type string $post_type    Post type to query for. Default 'page'.
- *     @type string $post_status  Comma-separated list of post statuses to include. Default 'publish'.
- *     @type string $show_date	  Whether to display the page publish or modified date for each page. Accepts
- *                                'modified' or any other value. An empty value hides the date. Default empty.
- *     @type string $sort_column  Comma-separated list of column names to sort the pages by. Accepts 'post_author',
- *                                'post_date', 'post_title', 'post_name', 'post_modified', 'post_modified_gmt',
- *                                'menu_order', 'post_parent', 'ID', 'rand', or 'comment_count'. Default 'post_title'.
- *     @type string $title_li     List heading. Passing a null or empty value will result in no heading, and the list
- *                                will not be wrapped with unordered list `<ul>` tags. Default 'Pages'.
- *     @type string $item_spacing Whether to preserve whitespace within the menu's HTML. Accepts 'preserve' or 'discard'. Default 'preserve'.
- *     @type Walker $walker       Walker instance to use for listing pages. Default empty (Walker_Page).
+ *     @type int          $child_of     Display only the sub-pages of a single page by ID. Default 0 (all pages).
+ *     @type string       $authors      Comma-separated list of author IDs. Default empty (all authors).
+ *     @type string       $date_format  PHP date format to use for the listed pages. Relies on the 'show_date' parameter.
+ *                                      Default is the value of 'date_format' option.
+ *     @type int          $depth        Number of levels in the hierarchy of pages to include in the generated list.
+ *                                      Accepts -1 (any depth), 0 (all pages), 1 (top-level pages only), and n (pages to
+ *                                      the given n depth). Default 0.
+ *     @type bool         $echo         Whether or not to echo the list of pages. Default true.
+ *     @type string       $exclude      Comma-separated list of page IDs to exclude. Default empty.
+ *     @type array        $include      Comma-separated list of page IDs to include. Default empty.
+ *     @type string       $link_after   Text or HTML to follow the page link label. Default null.
+ *     @type string       $link_before  Text or HTML to precede the page link label. Default null.
+ *     @type string       $post_type    Post type to query for. Default 'page'.
+ *     @type string|array $post_status  Comma-separated list or array of post statuses to include. Default 'publish'.
+ *     @type string       $show_date    Whether to display the page publish or modified date for each page. Accepts
+ *                                      'modified' or any other value. An empty value hides the date. Default empty.
+ *     @type string       $sort_column  Comma-separated list of column names to sort the pages by. Accepts 'post_author',
+ *                                      'post_date', 'post_title', 'post_name', 'post_modified', 'post_modified_gmt',
+ *                                      'menu_order', 'post_parent', 'ID', 'rand', or 'comment_count'. Default 'post_title'.
+ *     @type string       $title_li     List heading. Passing a null or empty value will result in no heading, and the list
+ *                                      will not be wrapped with unordered list `<ul>` tags. Default 'Pages'.
+ *     @type string       $item_spacing Whether to preserve whitespace within the menu's HTML. Accepts 'preserve' or 'discard'.
+ *                                      Default 'preserve'.
+ *     @type Walker       $walker       Walker instance to use for listing pages. Default empty (Walker_Page).
  * }
  * @return string|void HTML list of pages.
  */
 function wp_list_pages( $args = '' ) {
 	$defaults = array(
-		'depth' => 0, 'show_date' => '',
-		'date_format' => get_option( 'date_format' ),
-		'child_of' => 0, 'exclude' => '',
-		'title_li' => __( 'Pages' ), 'echo' => 1,
-		'authors' => '', 'sort_column' => 'menu_order, post_title',
-		'link_before' => '', 'link_after' => '', 'item_spacing' => 'preserve', 'walker' => '',
+		'depth'        => 0,
+		'show_date'    => '',
+		'date_format'  => get_option( 'date_format' ),
+		'child_of'     => 0,
+		'exclude'      => '',
+		'title_li'     => __( 'Pages' ),
+		'echo'         => 1,
+		'authors'      => '',
+		'sort_column'  => 'menu_order, post_title',
+		'link_before'  => '',
+		'link_after'   => '',
+		'item_spacing' => 'preserve',
+		'walker'       => '',
 	);
 
 	$r = wp_parse_args( $args, $defaults );
@@ -1613,14 +1625,12 @@ function get_the_password_form( $post = 0 ) {
  *
  * @since 2.5.0
  * @since 4.2.0 The `$template` parameter was changed to also accept an array of page templates.
+ * @since 4.7.0 Now works with any post type, not just pages.
  *
  * @param string|array $template The specific template name or array of templates to match.
  * @return bool True on success, false on failure.
  */
 function is_page_template( $template = '' ) {
-	if ( ! is_page() )
-		return false;
-
 	$page_template = get_page_template_slug( get_queried_object_id() );
 
 	if ( empty( $template ) )
@@ -1641,21 +1651,28 @@ function is_page_template( $template = '' ) {
 }
 
 /**
- * Get the specific template name for a page.
+ * Get the specific template name for a given post.
  *
  * @since 3.4.0
+ * @since 4.7.0 Now works with any post type, not just pages.
  *
- * @param int $post_id Optional. The page ID to check. Defaults to the current post, when used in the loop.
+ * @param int|WP_Post $post Optional. Post ID or WP_Post object. Default is global $post.
  * @return string|false Page template filename. Returns an empty string when the default page template
- * 	is in use. Returns false if the post is not a page.
+ * 	is in use. Returns false if the post does not exist.
  */
-function get_page_template_slug( $post_id = null ) {
-	$post = get_post( $post_id );
-	if ( ! $post || 'page' != $post->post_type )
+function get_page_template_slug( $post = null ) {
+	$post = get_post( $post );
+
+	if ( ! $post ) {
 		return false;
+	}
+
 	$template = get_post_meta( $post->ID, '_wp_page_template', true );
-	if ( ! $template || 'default' == $template )
+
+	if ( ! $template || 'default' == $template ) {
 		return '';
+	}
+
 	return $template;
 }
 

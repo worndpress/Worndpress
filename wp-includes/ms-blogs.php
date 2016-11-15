@@ -38,7 +38,7 @@ function wpmu_update_blogs_date() {
  * @return string Full URL of the blog if found. Empty string if not.
  */
 function get_blogaddress_by_id( $blog_id ) {
-	$bloginfo = get_blog_details( (int) $blog_id );
+	$bloginfo = get_site( (int) $blog_id );
 
 	if ( empty( $bloginfo ) ) {
 		return '';
@@ -72,36 +72,38 @@ function get_blogaddress_by_name( $blogname ) {
 }
 
 /**
- * Given a blog's (subdomain or directory) slug, retrieve its id.
+ * Retrieves a sites ID given its (subdomain or directory) slug.
  *
  * @since MU
+ * @since 4.7.0 Converted to use get_sites().
  *
- * @global wpdb $wpdb Worndpress database abstraction object.
- *
- * @param string $slug
- * @return int A blog id
+ * @param string $slug A site's slug.
+ * @return int|null The site ID, or null if no site is found for the given slug.
  */
 function get_id_from_blogname( $slug ) {
-	global $wpdb;
-
-	$current_site = get_current_site();
+	$current_network = get_network();
 	$slug = trim( $slug, '/' );
 
-	$blog_id = wp_cache_get( 'get_id_from_blogname_' . $slug, 'blog-details' );
-	if ( $blog_id )
-		return $blog_id;
-
 	if ( is_subdomain_install() ) {
-		$domain = $slug . '.' . $current_site->domain;
-		$path = $current_site->path;
+		$domain = $slug . '.' . preg_replace( '|^www\.|', '', $current_network->domain );
+		$path = $current_network->path;
 	} else {
-		$domain = $current_site->domain;
-		$path = $current_site->path . $slug . '/';
+		$domain = $current_network->domain;
+		$path = $current_network->path . $slug . '/';
 	}
 
-	$blog_id = $wpdb->get_var( $wpdb->prepare("SELECT blog_id FROM {$wpdb->blogs} WHERE domain = %s AND path = %s", $domain, $path) );
-	wp_cache_set( 'get_id_from_blogname_' . $slug, $blog_id, 'blog-details' );
-	return $blog_id;
+	$site_ids = get_sites( array(
+		'number' => 1,
+		'fields' => 'ids',
+		'domain' => $domain,
+		'path' => $path,
+	) );
+
+	if ( empty( $site_ids ) ) {
+		return null;
+	}
+
+	return array_shift( $site_ids );
 }
 
 /**
@@ -238,10 +240,11 @@ function get_blog_details( $fields = null, $get_all = true ) {
 	 * Filters a blog's details.
 	 *
 	 * @since MU
+	 * @deprecated 4.7.0 Use site_details
 	 *
 	 * @param object $details The blog details.
 	 */
-	$details = apply_filters( 'blog_details', $details );
+	$details = apply_filters_deprecated( 'blog_details', array( $details ), '4.7.0', 'site_details' );
 
 	wp_cache_set( $blog_id . $all, $details, 'blog-details' );
 
@@ -264,7 +267,7 @@ function refresh_blog_details( $blog_id = 0 ) {
 		$blog_id = get_current_blog_id();
 	}
 
-	$details = get_blog_details( $blog_id, false );
+	$details = get_site( $blog_id );
 	if ( ! $details ) {
 		// Make sure clean_blog_cache() gets the blog ID
 		// when the blog has been previously cached as
@@ -308,7 +311,7 @@ function update_blog_details( $blog_id, $details = array() ) {
 	if ( is_object($details) )
 		$details = get_object_vars($details);
 
-	$current_details = get_blog_details($blog_id, false);
+	$current_details = get_site( $blog_id );
 	if ( empty($current_details) )
 		return false;
 
@@ -440,7 +443,7 @@ function update_blog_details( $blog_id, $details = array() ) {
  *
  * @since 3.5.0
  *
- * @param WP_Site $blog The blog details as returned from get_blog_details()
+ * @param WP_Site $blog The site object to be cleared from cache.
  */
 function clean_blog_cache( $blog ) {
 	$blog_id = $blog->blog_id;
@@ -453,7 +456,6 @@ function clean_blog_cache( $blog ) {
 	wp_cache_delete(  $domain_path_key, 'blog-lookup' );
 	wp_cache_delete( 'current_blog_' . $blog->domain, 'site-options' );
 	wp_cache_delete( 'current_blog_' . $blog->domain . $blog->path, 'site-options' );
-	wp_cache_delete( 'get_id_from_blogname_' . trim( $blog->path, '/' ), 'blog-details' );
 	wp_cache_delete( $domain_path_key, 'blog-id-cache' );
 
 	/**
@@ -764,7 +766,7 @@ function update_blog_option( $id, $option, $value, $deprecated = null ) {
  * @return true Always returns True.
  */
 function switch_to_blog( $new_blog, $deprecated = null ) {
-	global $wpdb;
+	global $wpdb, $wp_roles;
 
 	$blog_id = get_current_blog_id();
 	if ( empty( $new_blog ) ) {
@@ -820,7 +822,7 @@ function switch_to_blog( $new_blog, $deprecated = null ) {
 	}
 
 	if ( did_action( 'init' ) ) {
-		wp_roles()->reinit();
+		$wp_roles = new WP_Roles();
 		$current_user = wp_get_current_user();
 		$current_user->for_blog( $new_blog );
 	}
@@ -848,7 +850,7 @@ function switch_to_blog( $new_blog, $deprecated = null ) {
  * @return bool True on success, false if we're already on the current blog
  */
 function restore_current_blog() {
-	global $wpdb;
+	global $wpdb, $wp_roles;
 
 	if ( empty( $GLOBALS['_wp_switched_stack'] ) ) {
 		return false;
@@ -894,7 +896,7 @@ function restore_current_blog() {
 	}
 
 	if ( did_action( 'init' ) ) {
-		wp_roles()->reinit();
+		$wp_roles = new WP_Roles();
 		$current_user = wp_get_current_user();
 		$current_user->for_blog( $blog );
 	}
@@ -1037,7 +1039,7 @@ function update_blog_status( $blog_id, $pref, $value, $deprecated = null ) {
 function get_blog_status( $id, $pref ) {
 	global $wpdb;
 
-	$details = get_blog_details( $id, false );
+	$details = get_site( $id );
 	if ( $details )
 		return $details->$pref;
 
@@ -1088,11 +1090,13 @@ function get_networks( $args = array() ) {
  *
  * @since 4.6.0
  *
+ * @global WP_Network $current_site
+ *
  * @param WP_Network|int|null $network Optional. Network to retrieve. Default is the current network.
  * @return WP_Network|null The network object or null if not found.
  */
 function get_network( $network = null ) {
-	$current_site = get_current_site();
+	global $current_site;
 	if ( empty( $network ) && isset( $current_site ) ) {
 		$network = $current_site;
 	}

@@ -94,6 +94,18 @@ function edit_user( $user_id = 0 ) {
 		$user->rich_editing = isset( $_POST['rich_editing'] ) && 'false' == $_POST['rich_editing'] ? 'false' : 'true';
 		$user->admin_color = isset( $_POST['admin_color'] ) ? sanitize_text_field( $_POST['admin_color'] ) : 'fresh';
 		$user->show_admin_bar_front = isset( $_POST['admin_bar_front'] ) ? 'true' : 'false';
+		$user->locale = '';
+
+		if ( isset( $_POST['locale'] ) ) {
+			$locale = sanitize_text_field( $_POST['locale'] );
+			if ( 'site-default' === $locale ) {
+				$locale = '';
+			} elseif ( ! in_array( $locale, get_available_languages(), true ) ) {
+				$locale = 'en_US';
+			}
+
+			$user->locale = $locale;
+		}
 	}
 
 	$user->comment_shortcuts = isset( $_POST['comment_shortcuts'] ) && 'true' == $_POST['comment_shortcuts'] ? 'true' : '';

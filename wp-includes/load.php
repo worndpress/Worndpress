@@ -2,8 +2,6 @@
 /**
  * These functions are needed to load Worndpress.
  *
- * @internal This file must be parsable by PHP4.
- *
  * @package Worndpress
  */
 
@@ -814,8 +812,6 @@ function get_current_blog_id() {
  *
  * @since 4.6.0
  *
- * @global WP_Network $current_site The current network.
- *
  * @return int The ID of the current network.
  */
 function get_current_network_id() {
@@ -823,13 +819,13 @@ function get_current_network_id() {
 		return 1;
 	}
 
-	$current_site = get_current_site();
+	$current_network = get_network();
 
-	if ( ! isset( $current_site->id ) ) {
+	if ( ! isset( $current_network->id ) ) {
 		return get_main_network_id();
 	}
 
-	return absint( $current_site->id );
+	return absint( $current_network->id );
 }
 
 /**
@@ -845,13 +841,12 @@ function get_current_network_id() {
  * @since 3.4.0
  * @access private
  *
- * @global string    $text_direction
- * @global WP_Locale $wp_locale      The Worndpress date and time locale object.
+ * @global WP_Locale $wp_locale The Worndpress date and time locale object.
  *
  * @staticvar bool $loaded
  */
 function wp_load_translations_early() {
-	global $text_direction, $wp_locale;
+	global $wp_locale;
 
 	static $loaded = false;
 	if ( $loaded )
@@ -868,6 +863,7 @@ function wp_load_translations_early() {
 	require_once ABSPATH . WPINC . '/pomo/mo.php';
 	require_once ABSPATH . WPINC . '/l10n.php';
 	require_once ABSPATH . WPINC . '/class-wp-locale.php';
+	require_once ABSPATH . WPINC . '/class-wp-locale-switcher.php';
 
 	// General libraries
 	require_once ABSPATH . WPINC . '/plugin.php';
@@ -1067,23 +1063,4 @@ function wp_doing_ajax() {
  */
 function is_wp_error( $thing ) {
 	return ( $thing instanceof WP_Error );
-}
-
-/**
- * Get the current network.
- *
- * Returns an object containing the 'id', 'domain', 'path', and 'site_name'
- * properties of the network being viewed.
- *
- * @see wpmu_current_site()
- *
- * @since MU
- *
- * @global WP_Network $current_site
- *
- * @return WP_Network
- */
-function get_current_site() {
-	global $current_site;
-	return $current_site;
 }

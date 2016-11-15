@@ -58,8 +58,8 @@ function user_trailingslashit($string, $type_of_url = '') {
 	 *
 	 * @param string $string      URL with or without a trailing slash.
 	 * @param string $type_of_url The type of URL being considered. Accepts 'single', 'single_trackback',
-	 *                            'single_feed', 'single_paged', 'feed', 'category', 'page', 'year',
-	 *                            'month', 'day', 'paged', 'post_type_archive'.
+	 *                            'single_feed', 'single_paged', 'commentpaged', 'paged', 'home', 'feed',
+	 *                            'category', 'page', 'year', 'month', 'day', 'post_type_archive'.
 	 */
 	return apply_filters( 'user_trailingslashit', $string, $type_of_url );
 }
@@ -169,7 +169,9 @@ function get_permalink( $post = 0, $leavename = false ) {
 		if ( strpos($permalink, '%category%') !== false ) {
 			$cats = get_the_category($post->ID);
 			if ( $cats ) {
-				usort($cats, '_usort_terms_by_ID'); // order by ID
+				$cats = wp_list_sort( $cats, array(
+					'term_id' => 'ASC',
+				) );
 
 				/**
 				 * Filters the category that gets used in the %category% permalink token.
@@ -930,7 +932,7 @@ function get_edit_term_link( $term_id, $taxonomy = '', $object_type = '' ) {
 	}
 
 	$tax = get_taxonomy( $term->taxonomy );
-	if ( ! $tax || ! current_user_can( $tax->cap->edit_terms ) ) {
+	if ( ! $tax || ! current_user_can( 'edit_term', $term->term_id ) ) {
 		return;
 	}
 
@@ -984,7 +986,7 @@ function edit_term_link( $link = '', $before = '', $after = '', $term = null, $e
 		return;
 
 	$tax = get_taxonomy( $term->taxonomy );
-	if ( ! current_user_can( $tax->cap->edit_terms ) ) {
+	if ( ! current_user_can( 'edit_term', $term->term_id ) ) {
 		return;
 	}
 
@@ -2952,9 +2954,9 @@ function get_shortcut_link() {
 /**
  * Retrieves the URL for the current site where the front end is accessible.
  *
- * Returns the 'home' option with the appropriate protocol, 'https' if
- * is_ssl() and 'http' otherwise. If `$scheme` is 'http' or 'https',
- * `is_ssl()` is overridden.
+ * Returns the 'home' option with the appropriate protocol. The protocol will be 'https'
+ * if is_ssl() evaluates to true; otherwise, it will be the same as the 'home' option.
+ * If `$scheme` is 'http' or 'https', is_ssl() is overridden.
  *
  * @since 3.0.0
  *
@@ -2970,9 +2972,9 @@ function home_url( $path = '', $scheme = null ) {
 /**
  * Retrieves the URL for a given site where the front end is accessible.
  *
- * Returns the 'home' option with the appropriate protocol, 'https' if
- * is_ssl() and 'http' otherwise. If `$scheme` is 'http' or 'https',
- * `is_ssl()` is overridden.
+ * Returns the 'home' option with the appropriate protocol. The protocol will be 'https'
+ * if is_ssl() evaluates to true; otherwise, it will be the same as the 'home' option.
+ * If `$scheme` is 'http' or 'https', is_ssl() is overridden.
  *
  * @since 3.0.0
  *
@@ -3255,17 +3257,15 @@ function network_site_url( $path = '', $scheme = null ) {
 	if ( ! is_multisite() )
 		return site_url($path, $scheme);
 
-	$current_site = get_current_site();
+	$current_network = get_network();
 
-	if ( 'relative' == $scheme ) {
-		$url = $current_site->path;
-	} else {
-		$url = set_url_scheme( 'http://' . $current_site->domain . $current_site->path, $scheme );
-	}
+	if ( 'relative' == $scheme )
+		$url = $current_network->path;
+	else
+		$url = set_url_scheme( 'http://' . $current_network->domain . $current_network->path, $scheme );
 
-	if ( $path && is_string( $path ) ) {
+	if ( $path && is_string( $path ) )
 		$url .= ltrim( $path, '/' );
-	}
 
 	/**
 	 * Filters the network site URL.
@@ -3299,21 +3299,19 @@ function network_home_url( $path = '', $scheme = null ) {
 	if ( ! is_multisite() )
 		return home_url($path, $scheme);
 
-	$current_site = get_current_site();
+	$current_network = get_network();
 	$orig_scheme = $scheme;
 
 	if ( ! in_array( $scheme, array( 'http', 'https', 'relative' ) ) )
 		$scheme = is_ssl() && ! is_admin() ? 'https' : 'http';
 
-	if ( 'relative' == $scheme ) {
-		$url = $current_site->path;
-	} else {
-		$url = set_url_scheme( 'http://' . $current_site->domain . $current_site->path, $scheme );
-	}
+	if ( 'relative' == $scheme )
+		$url = $current_network->path;
+	else
+		$url = set_url_scheme( 'http://' . $current_network->domain . $current_network->path, $scheme );
 
-	if ( $path && is_string( $path ) ) {
+	if ( $path && is_string( $path ) )
 		$url .= ltrim( $path, '/' );
-	}
 
 	/**
 	 * Filters the network home URL.

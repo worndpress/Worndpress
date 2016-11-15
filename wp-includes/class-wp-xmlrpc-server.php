@@ -54,13 +54,6 @@ class wp_xmlrpc_server extends IXR_Server {
 	protected $auth_failed = false;
 
 	/**
-	 * @since 4.7.0
-	 * @access protected
-	 * @var wpdb
-	 */
-	protected $db;
-
-	/**
 	 * Registers all of the XMLRPC methods that XMLRPC server understands.
 	 *
 	 * Sets up server and method property. Passes XMLRPC
@@ -70,8 +63,6 @@ class wp_xmlrpc_server extends IXR_Server {
 	 * @since 1.5.0
 	 */
 	public function __construct() {
-		$this->db = $GLOBALS['wpdb'];
-
 		$this->methods = array(
 			// Worndpress API
 			'wp.getUsersBlogs'		=> 'this:wp_getUsersBlogs',
@@ -637,7 +628,7 @@ class wp_xmlrpc_server extends IXR_Server {
 
 		foreach ( $blogs as $blog ) {
 			// Don't include blogs that aren't hosted at this site.
-			if ( $blog->site_id != get_current_site()->id )
+			if ( $blog->site_id != get_current_network_id() )
 				continue;
 
 			$blog_id = $blog->userblog_id;
@@ -717,9 +708,9 @@ class wp_xmlrpc_server extends IXR_Server {
 		 *
 		 * @since 3.4.0
 		 *
-		 * @param array  $_taxonomy An array of taxonomy data.
-		 * @param object $taxonomy  Taxonomy object.
-		 * @param array  $fields    The subset of taxonomy fields to return.
+		 * @param array       $_taxonomy An array of taxonomy data.
+		 * @param WP_Taxonomy $taxonomy  Taxonomy object.
+		 * @param array       $fields    The subset of taxonomy fields to return.
 		 */
 		return apply_filters( 'xmlrpc_prepare_taxonomy', $_taxonomy, $taxonomy, $fields );
 	}
@@ -1886,8 +1877,9 @@ class wp_xmlrpc_server extends IXR_Server {
 
 		$taxonomy = get_taxonomy( $content_struct['taxonomy'] );
 
-		if ( ! current_user_can( $taxonomy->cap->manage_terms ) )
+		if ( ! current_user_can( $taxonomy->cap->edit_terms ) ) {
 			return new IXR_Error( 401, __( 'Sorry, you are not allowed to create terms in this taxonomy.' ) );
+		}
 
 		$taxonomy = (array) $taxonomy;
 
@@ -1973,9 +1965,6 @@ class wp_xmlrpc_server extends IXR_Server {
 
 		$taxonomy = get_taxonomy( $content_struct['taxonomy'] );
 
-		if ( ! current_user_can( $taxonomy->cap->edit_terms ) )
-			return new IXR_Error( 401, __( 'Sorry, you are not allowed to edit terms in this taxonomy.' ) );
-
 		$taxonomy = (array) $taxonomy;
 
 		// hold the data of the term
@@ -1988,6 +1977,10 @@ class wp_xmlrpc_server extends IXR_Server {
 
 		if ( ! $term )
 			return new IXR_Error( 404, __( 'Invalid term ID.' ) );
+
+		if ( ! current_user_can( 'edit_term', $term_id ) ) {
+			return new IXR_Error( 401, __( 'Sorry, you are not allowed to edit this term.' ) );
+		}
 
 		if ( isset( $content_struct['name'] ) ) {
 			$term_data['name'] = trim( $content_struct['name'] );
@@ -2068,10 +2061,6 @@ class wp_xmlrpc_server extends IXR_Server {
 			return new IXR_Error( 403, __( 'Invalid taxonomy.' ) );
 
 		$taxonomy = get_taxonomy( $taxonomy );
-
-		if ( ! current_user_can( $taxonomy->cap->delete_terms ) )
-			return new IXR_Error( 401, __( 'Sorry, you are not allowed to delete terms in this taxonomy.' ) );
-
 		$term = get_term( $term_id, $taxonomy->name );
 
 		if ( is_wp_error( $term ) )
@@ -2079,6 +2068,10 @@ class wp_xmlrpc_server extends IXR_Server {
 
 		if ( ! $term )
 			return new IXR_Error( 404, __( 'Invalid term ID.' ) );
+
+		if ( ! current_user_can( 'delete_term', $term_id ) ) {
+			return new IXR_Error( 401, __( 'Sorry, you are not allowed to delete this term.' ) );
+		}
 
 		$result = wp_delete_term( $term_id, $taxonomy->name );
 
@@ -2140,9 +2133,6 @@ class wp_xmlrpc_server extends IXR_Server {
 
 		$taxonomy = get_taxonomy( $taxonomy );
 
-		if ( ! current_user_can( $taxonomy->cap->assign_terms ) )
-			return new IXR_Error( 401, __( 'Sorry, you are not allowed to assign terms in this taxonomy.' ) );
-
 		$term = get_term( $term_id , $taxonomy->name, ARRAY_A );
 
 		if ( is_wp_error( $term ) )
@@ -2150,6 +2140,10 @@ class wp_xmlrpc_server extends IXR_Server {
 
 		if ( ! $term )
 			return new IXR_Error( 404, __( 'Invalid term ID.' ) );
+
+		if ( ! current_user_can( 'assign_term', $term_id ) ) {
+			return new IXR_Error( 401, __( 'Sorry, you are not allowed to assign this term.' ) );
+		}
 
 		return $this->_prepare_term( $term );
 	}
@@ -2891,6 +2885,8 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *
 	 * @since 2.2.0
 	 *
+	 * @global wpdb $wpdb Worndpress database abstraction object.
+	 *
 	 * @param array  $args {
 	 *     Method arguments. Note: arguments must be ordered as documented.
 	 *
@@ -2901,6 +2897,8 @@ class wp_xmlrpc_server extends IXR_Server {
 	 * @return array|IXR_Error
 	 */
 	public function wp_getPageList( $args ) {
+		global $wpdb;
+
 		$this->escape( $args );
 
 		$username = $args[1];
@@ -2916,14 +2914,14 @@ class wp_xmlrpc_server extends IXR_Server {
 		do_action( 'xmlrpc_call', 'wp.getPageList' );
 
 		// Get list of pages ids and titles
-		$page_list = $this->db->get_results("
+		$page_list = $wpdb->get_results("
 			SELECT ID page_id,
 				post_title page_title,
 				post_parent page_parent_id,
 				post_date_gmt,
 				post_date,
 				post_status
-			FROM {$this->db->posts}
+			FROM {$wpdb->posts}
 			WHERE post_type = 'page'
 			ORDER BY ID
 		");
@@ -3555,8 +3553,14 @@ class wp_xmlrpc_server extends IXR_Server {
 			return new IXR_Error( 403, __( 'Sorry, comments are closed for this item.' ) );
 		}
 
-		$comment = array();
-		$comment['comment_post_ID'] = $post_id;
+		if ( empty( $content_struct['content'] ) ) {
+			return new IXR_Error( 403, __( 'Comment is required.' ) );
+		}
+
+		$comment = array(
+			'comment_post_ID' => $post_id,
+			'comment_content' => $content_struct['content'],
+		);
 
 		if ( $logged_in ) {
 			$display_name = $user->display_name;
@@ -3592,12 +3596,17 @@ class wp_xmlrpc_server extends IXR_Server {
 
 		$comment['comment_parent'] = isset($content_struct['comment_parent']) ? absint($content_struct['comment_parent']) : 0;
 
-		$comment['comment_content'] =  isset($content_struct['content']) ? $content_struct['content'] : null;
-
 		/** This action is documented in wp-includes/class-wp-xmlrpc-server.php */
 		do_action( 'xmlrpc_call', 'wp.newComment' );
 
-		$comment_ID = wp_new_comment( $comment );
+		$comment_ID = wp_new_comment( $comment, true );
+		if ( is_wp_error( $comment_ID ) ) {
+			return new IXR_Error( 403, $comment_ID->get_error_message() );
+		}
+
+		if ( ! $comment_ID ) {
+			return new IXR_Error( 403, __( 'An unknown error occurred' ) );
+		}
 
 		/**
 		 * Fires after a new comment has been successfully created via XML-RPC.
@@ -4373,7 +4382,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	 * @return array|IXR_Error
 	 */
 	protected function _multisite_getUsersBlogs( $args ) {
-		$current_blog = get_blog_details();
+		$current_blog = get_site();
 
 		$domain = $current_blog->domain;
 		$path = $current_blog->path . 'xmlrpc.php';
@@ -5140,17 +5149,20 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *
 	 * @since 2.1.0
 	 *
+	 * @global wpdb $wpdb Worndpress database abstraction object.
+	 *
 	 * @param int $post_ID Post ID.
 	 * @param string $post_content Post Content for attachment.
 	 */
 	public function attach_uploads( $post_ID, $post_content ) {
+		global $wpdb;
+
 		// find any unattached files
-		$attachments = $this->db->get_results( "SELECT ID, guid FROM {$this->db->posts} WHERE post_parent = '0' AND post_type = 'attachment'" );
+		$attachments = $wpdb->get_results( "SELECT ID, guid FROM {$wpdb->posts} WHERE post_parent = '0' AND post_type = 'attachment'" );
 		if ( is_array( $attachments ) ) {
 			foreach ( $attachments as $file ) {
-				if ( ! empty( $file->guid ) && strpos( $post_content, $file->guid ) !== false ) {
-					$this->db->update( $this->db->posts, array( 'post_parent' => $post_ID ), array( 'ID' => $file->ID ) );
-				}
+				if ( ! empty( $file->guid ) && strpos( $post_content, $file->guid ) !== false )
+					$wpdb->update($wpdb->posts, array('post_parent' => $post_ID), array('ID' => $file->ID) );
 			}
 		}
 	}
@@ -5770,6 +5782,8 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *
 	 * @since 1.5.0
 	 *
+	 * @global wpdb $wpdb Worndpress database abstraction object.
+	 *
 	 * @param array  $args {
 	 *     Method arguments. Note: arguments must be ordered as documented.
 	 *
@@ -5781,6 +5795,8 @@ class wp_xmlrpc_server extends IXR_Server {
 	 * @return array|IXR_Error
 	 */
 	public function mw_newMediaObject( $args ) {
+		global $wpdb;
+
 		$username = $this->escape( $args[1] );
 		$password = $this->escape( $args[2] );
 		$data     = $args[3];
@@ -6106,10 +6122,14 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *
 	 * @since 1.5.0
 	 *
+	 * @global wpdb $wpdb Worndpress database abstraction object.
+	 *
 	 * @param int $post_ID
 	 * @return array|IXR_Error
 	 */
 	public function mt_getTrackbackPings( $post_ID ) {
+		global $wpdb;
+
 		/** This action is documented in wp-includes/class-wp-xmlrpc-server.php */
 		do_action( 'xmlrpc_call', 'mt.getTrackbackPings' );
 
@@ -6118,7 +6138,7 @@ class wp_xmlrpc_server extends IXR_Server {
 		if ( !$actual_post )
 			return new IXR_Error(404, __('Sorry, no such post.'));
 
-		$comments = $this->db->get_results( $this->db->prepare("SELECT comment_author_url, comment_content, comment_author_IP, comment_type FROM {$this->db->comments} WHERE comment_post_ID = %d", $post_ID) );
+		$comments = $wpdb->get_results( $wpdb->prepare("SELECT comment_author_url, comment_content, comment_author_IP, comment_type FROM $wpdb->comments WHERE comment_post_ID = %d", $post_ID) );
 
 		if ( !$comments )
 			return array();
@@ -6201,6 +6221,8 @@ class wp_xmlrpc_server extends IXR_Server {
 	 * @return string|IXR_Error
 	 */
 	public function pingback_ping( $args ) {
+		global $wpdb;
+
 		/** This action is documented in wp-includes/class-wp-xmlrpc-server.php */
 		do_action( 'xmlrpc_call', 'pingback.ping' );
 
@@ -6253,8 +6275,8 @@ class wp_xmlrpc_server extends IXR_Server {
 			} elseif ( is_string($urltest['fragment']) ) {
 				// ...or a string #title, a little more complicated
 				$title = preg_replace('/[^a-z0-9]/i', '.', $urltest['fragment']);
-				$sql = $this->db->prepare("SELECT ID FROM {$this->db->posts} WHERE post_title RLIKE %s", $title );
-				if (! ($post_ID = $this->db->get_var($sql)) ) {
+				$sql = $wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE post_title RLIKE %s", $title );
+				if (! ($post_ID = $wpdb->get_var($sql)) ) {
 					// returning unknown error '0' is better than die()ing
 			  		return $this->pingback_error( 0, '' );
 				}
@@ -6278,7 +6300,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	  		return $this->pingback_error( 33, __( 'The specified target URL cannot be used as a target. It either doesn&#8217;t exist, or it is not a pingback-enabled resource.' ) );
 
 		// Let's check that the remote site didn't already pingback this entry
-		if ( $this->db->get_results( $this->db->prepare("SELECT * FROM {$this->db->comments} WHERE comment_post_ID = %d AND comment_author_url = %s", $post_ID, $pagelinkedfrom) ) )
+		if ( $wpdb->get_results( $wpdb->prepare("SELECT * FROM $wpdb->comments WHERE comment_post_ID = %d AND comment_author_url = %s", $post_ID, $pagelinkedfrom) ) )
 			return $this->pingback_error( 48, __( 'The pingback has already been registered.' ) );
 
 		// very stupid, but gives time to the 'from' server to publish !
@@ -6323,9 +6345,10 @@ class wp_xmlrpc_server extends IXR_Server {
 		$remote_source = preg_replace( "/<\/*(h1|h2|h3|h4|h5|h6|p|th|td|li|dt|dd|pre|caption|input|textarea|button|body)[^>]*>/", "\n\n", $remote_source );
 
 		preg_match( '|<title>([^<]*?)</title>|is', $remote_source, $matchtitle );
-		$title = $matchtitle[1];
-		if ( empty( $title ) )
-			return $this->pingback_error( 32, __('We cannot find a title on that page.' ) );
+		$title = isset( $matchtitle[1] ) ? $matchtitle[1] : '';
+		if ( empty( $title ) ) {
+			return $this->pingback_error( 32, __( 'We cannot find a title on that page.' ) );
+		}
 
 		$remote_source = strip_tags( $remote_source, '<a>' ); // just keep the tag we need
 
@@ -6404,10 +6427,14 @@ class wp_xmlrpc_server extends IXR_Server {
 	 *
 	 * @since 1.5.0
 	 *
+	 * @global wpdb $wpdb Worndpress database abstraction object.
+	 *
 	 * @param string $url
 	 * @return array|IXR_Error
 	 */
 	public function pingback_extensions_getPingbacks( $url ) {
+		global $wpdb;
+
 		/** This action is documented in wp-includes/class-wp-xmlrpc-server.php */
 		do_action( 'xmlrpc_call', 'pingback.extensions.getPingbacks' );
 
@@ -6426,7 +6453,7 @@ class wp_xmlrpc_server extends IXR_Server {
 	  		return $this->pingback_error( 32, __('The specified target URL does not exist.' ) );
 		}
 
-		$comments = $this->db->get_results( $this->db->prepare("SELECT comment_author_url, comment_content, comment_author_IP, comment_type FROM {$this->db->comments} WHERE comment_post_ID = %d", $post_ID) );
+		$comments = $wpdb->get_results( $wpdb->prepare("SELECT comment_author_url, comment_content, comment_author_IP, comment_type FROM $wpdb->comments WHERE comment_post_ID = %d", $post_ID) );
 
 		if ( !$comments )
 			return array();
