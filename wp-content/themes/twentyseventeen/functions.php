@@ -117,15 +117,39 @@ function twentyseventeen_setup() {
 
 			'sidebar-3' => array(
 				'text_about',
+				'search',
 			),
 		),
 
 		'posts' => array(
 			'home',
-			'about-us',
-			'contact-us',
-			'blog',
-			'homepage-section',
+			'about' => array(
+				'thumbnail' => '{{image-sandwich}}',
+			),
+			'contact' => array(
+				'thumbnail' => '{{image-espresso}}',
+			),
+			'blog' => array(
+				'thumbnail' => '{{image-coffee}}',
+			),
+			'homepage-section' => array(
+				'thumbnail' => '{{image-espresso}}',
+			),
+		),
+
+		'attachments' => array(
+			'image-espresso' => array(
+				'post_title' => _x( 'Espresso', 'Theme starter content', 'twentyseventeen' ),
+				'file' => 'assets/images/espresso.jpg',
+			),
+			'image-sandwich' => array(
+				'post_title' => _x( 'Sandwich', 'Theme starter content', 'twentyseventeen' ),
+				'file' => 'assets/images/sandwich.jpg',
+			),
+			'image-coffee' => array(
+				'post_title' => _x( 'Coffee', 'Theme starter content', 'twentyseventeen' ),
+				'file' => 'assets/images/coffee.jpg',
+			),
 		),
 
 		'options' => array(
@@ -136,14 +160,14 @@ function twentyseventeen_setup() {
 
 		'theme_mods' => array(
 			'panel_1' => '{{homepage-section}}',
-			'panel_2' => '{{about-us}}',
+			'panel_2' => '{{about}}',
 			'panel_3' => '{{blog}}',
-			'panel_4' => '{{contact-us}}',
+			'panel_4' => '{{contact}}',
 		),
 
 		'nav_menus' => array(
 			'top' => array(
-				'name' => __( 'Top', 'twentyseventeen' ),
+				'name' => __( 'Top Menu', 'twentyseventeen' ),
 				'items' => array(
 					'page_home',
 					'page_about',
@@ -152,7 +176,7 @@ function twentyseventeen_setup() {
 				),
 			),
 			'social' => array(
-				'name' => __( 'Social', 'twentyseventeen' ),
+				'name' => __( 'Social Links Menu', 'twentyseventeen' ),
 				'items' => array(
 					'link_yelp',
 					'link_facebook',
@@ -422,6 +446,24 @@ function twentyseventeen_content_image_sizes_attr( $sizes, $size ) {
 	return $sizes;
 }
 add_filter( 'wp_calculate_image_sizes', 'twentyseventeen_content_image_sizes_attr', 10, 2 );
+
+/**
+ * Filter the `sizes` value in the header image markup.
+ *
+ * @since Twenty Seventeen 1.0
+ *
+ * @param string $html   The HTML image tag markup being filtered.
+ * @param object $header The custom header object returned by 'get_custom_header()'.
+ * @param array  $attr   Array of the attributes for the image tag.
+ * @return string The filtered header image HTML.
+ */
+function twentyseventeen_header_image_tag( $html, $header, $attr ) {
+	if ( isset( $attr['sizes'] ) ) {
+		$html = str_replace( $attr['sizes'], '100vw', $html );
+	}
+	return $html;
+}
+add_filter( 'get_header_image_tag', 'twentyseventeen_header_image_tag', 10, 3 );
 
 /**
  * Add custom image sizes attribute to enhance responsive image functionality

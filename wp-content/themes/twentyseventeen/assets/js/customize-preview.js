@@ -8,6 +8,10 @@
 
 	// Collect information from customize-controls.js about which panels are opening.
 	wp.customize.bind( 'preview-ready', function() {
+
+		// Initially hide the theme option placeholders on load
+		$( '.panel-placeholder' ).hide();
+
 		wp.customize.preview.bind( 'section-highlight', function( data ) {
 
 			// Only on the front page.
@@ -54,8 +58,14 @@
 					clip: 'rect(1px, 1px, 1px, 1px)',
 					position: 'absolute'
 				});
+				// Add class for different logo styles if title and description are hidden.
 				$( 'body' ).addClass( 'title-tagline-hidden' );
 			} else {
+
+				// Check if the text color has been removed and use default colors in theme stylesheet.
+				if ( ! to.length ) {
+					$( '#twentyseventeen-custom-header-styles' ).remove();
+				}
 				$( '.site-title, .site-description' ).css({
 					clip: 'auto',
 					position: 'relative'
@@ -63,6 +73,7 @@
 				$( '.site-branding, .site-branding a, .site-description, .site-description a' ).css({
 					color: to
 				});
+				// Add class for different logo styles if title and description are visible.
 				$( 'body' ).removeClass( 'title-tagline-hidden' );
 			}
 		});
@@ -123,10 +134,14 @@
 	$.each( [ 'external_header_video', 'header_image', 'header_video' ], function( index, settingId ) {
 		wp.customize( settingId, function( setting ) {
 			setting.bind(function() {
-				if ( hasHeaderImage() || ( hasHeaderVideo() && $( 'body' ).hasClass( 'twentyseventeen-front-page' ) ) ) {
+				if ( hasHeaderImage() ) {
 					$( document.body ).addClass( 'has-header-image' );
 				} else {
 					$( document.body ).removeClass( 'has-header-image' );
+				}
+
+				if ( ! hasHeaderVideo() ) {
+					$( document.body ).removeClass( 'has-header-video' );
 				}
 			} );
 		} );

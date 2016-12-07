@@ -949,9 +949,8 @@ body.folded .theme-browser ~ .theme-overlay .theme-wrap {
 		float: none;
 		clear: both;
 		left: 0;
-		top: 0;
 		right: 0;
-		margin: 10px 0;
+		margin: -5px 0 20px 0;
 		width: 100%;
 		max-width: 280px;
 	}
@@ -1641,6 +1640,9 @@ body.full-overlay-active {
 	box-shadow: none;
 	border-top: 1px solid transparent;
 	border-bottom: 4px solid transparent;
+	-webkit-transition: .15s color ease-in-out,
+	            .15s background-color ease-in-out,
+	            .15s border-color ease-in-out;
 	transition: .15s color ease-in-out,
 	            .15s background-color ease-in-out,
 	            .15s border-color ease-in-out;

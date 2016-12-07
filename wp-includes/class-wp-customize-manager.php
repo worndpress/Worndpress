@@ -794,7 +794,7 @@ final class WP_Customize_Manager {
 			'post_type' => 'customize_changeset',
 			'post_status' => get_post_stati(),
 			'name' => $uuid,
-			'number' => 1,
+			'posts_per_page' => 1,
 			'no_found_rows' => true,
 			'cache_results' => true,
 			'update_post_meta_cache' => false,
@@ -895,7 +895,7 @@ final class WP_Customize_Manager {
 	 * @access private
 	 * @var array
 	 */
-	protected $starter_content_settings_ids = array();
+	protected $pending_starter_content_settings_ids = array();
 
 	/**
 	 * Import theme starter content into the customized state.
@@ -916,6 +916,7 @@ final class WP_Customize_Manager {
 		}
 
 		$sidebars_widgets = isset( $starter_content['widgets'] ) && ! empty( $this->widgets ) ? $starter_content['widgets'] : array();
+		$attachments = isset( $starter_content['attachments'] ) && ! empty( $this->nav_menus ) ? $starter_content['attachments'] : array();
 		$posts = isset( $starter_content['posts'] ) && ! empty( $this->nav_menus ) ? $starter_content['posts'] : array();
 		$options = isset( $starter_content['options'] ) ? $starter_content['options'] : array();
 		$nav_menus = isset( $starter_content['nav_menus'] ) && ! empty( $this->nav_menus ) ? $starter_content['nav_menus'] : array();
@@ -953,7 +954,7 @@ final class WP_Customize_Manager {
 				$setting_value = $this->widgets->sanitize_widget_js_instance( $instance );
 				if ( empty( $changeset_data[ $setting_id ] ) || ! empty( $changeset_data[ $setting_id ]['starter_content'] ) ) {
 					$this->set_post_value( $setting_id, $setting_value );
-					$this->starter_content_settings_ids[] = $setting_id;
+					$this->pending_starter_content_settings_ids[] = $setting_id;
 				}
 				$sidebar_widget_ids[] = $widget_id;
 			}
@@ -961,32 +962,145 @@ final class WP_Customize_Manager {
 			$setting_id = sprintf( 'sidebars_widgets[%s]', $sidebar_id );
 			if ( empty( $changeset_data[ $setting_id ] ) || ! empty( $changeset_data[ $setting_id ]['starter_content'] ) ) {
 				$this->set_post_value( $setting_id, $sidebar_widget_ids );
-				$this->starter_content_settings_ids[] = $setting_id;
+				$this->pending_starter_content_settings_ids[] = $setting_id;
 			}
+		}
+
+		$starter_content_auto_draft_post_ids = array();
+		if ( ! empty( $changeset_data['nav_menus_created_posts']['value'] ) ) {
+			$starter_content_auto_draft_post_ids = array_merge( $starter_content_auto_draft_post_ids, $changeset_data['nav_menus_created_posts']['value'] );
+		}
+
+		// Make an index of all the posts needed and what their slugs are.
+		$needed_posts = array();
+		$attachments = $this->prepare_starter_content_attachments( $attachments );
+		foreach ( $attachments as $attachment ) {
+			$key = 'attachment:' . $attachment['post_name'];
+			$needed_posts[ $key ] = true;
+		}
+		foreach ( array_keys( $posts ) as $post_symbol ) {
+			if ( empty( $posts[ $post_symbol ]['post_name'] ) && empty( $posts[ $post_symbol ]['post_title'] ) ) {
+				unset( $posts[ $post_symbol ] );
+				continue;
+			}
+			if ( empty( $posts[ $post_symbol ]['post_name'] ) ) {
+				$posts[ $post_symbol ]['post_name'] = sanitize_title( $posts[ $post_symbol ]['post_title'] );
+			}
+			if ( empty( $posts[ $post_symbol ]['post_type'] ) ) {
+				$posts[ $post_symbol ]['post_type'] = 'post';
+			}
+			$needed_posts[ $posts[ $post_symbol ]['post_type'] . ':' . $posts[ $post_symbol ]['post_name'] ] = true;
+		}
+		$all_post_slugs = array_merge(
+			wp_list_pluck( $attachments, 'post_name' ),
+			wp_list_pluck( $posts, 'post_name' )
+		);
+
+		// Re-use auto-draft starter content posts referenced in the current customized state.
+		$existing_starter_content_posts = array();
+		if ( ! empty( $starter_content_auto_draft_post_ids ) ) {
+			$existing_posts_query = new WP_Query( array(
+				'post__in' => $starter_content_auto_draft_post_ids,
+				'post_status' => 'auto-draft',
+				'post_type' => 'any',
+				'posts_per_page' => -1,
+			) );
+			foreach ( $existing_posts_query->posts as $existing_post ) {
+				$post_name = $existing_post->post_name;
+				if ( empty( $post_name ) ) {
+					$post_name = get_post_meta( $existing_post->ID, '_customize_draft_post_name', true );
+				}
+				$existing_starter_content_posts[ $existing_post->post_type . ':' . $post_name ] = $existing_post;
+			}
+		}
+
+		// Re-use non-auto-draft posts.
+		if ( ! empty( $all_post_slugs ) ) {
+			$existing_posts_query = new WP_Query( array(
+				'post_name__in' => $all_post_slugs,
+				'post_status' => array_diff( get_post_stati(), array( 'auto-draft' ) ),
+				'post_type' => 'any',
+				'posts_per_page' => -1,
+			) );
+			foreach ( $existing_posts_query->posts as $existing_post ) {
+				$key = $existing_post->post_type . ':' . $existing_post->post_name;
+				if ( isset( $needed_posts[ $key ] ) && ! isset( $existing_starter_content_posts[ $key ] ) ) {
+					$existing_starter_content_posts[ $key ] = $existing_post;
+				}
+			}
+		}
+
+		// Attachments are technically posts but handled differently.
+		if ( ! empty( $attachments ) ) {
+
+			$attachment_ids = array();
+
+			foreach ( $attachments as $symbol => $attachment ) {
+				$file_array = array(
+					'name' => $attachment['file_name'],
+				);
+				$file_path = $attachment['file_path'];
+				$attachment_id = null;
+				$attached_file = null;
+				if ( isset( $existing_starter_content_posts[ 'attachment:' . $attachment['post_name'] ] ) ) {
+					$attachment_post = $existing_starter_content_posts[ 'attachment:' . $attachment['post_name'] ];
+					$attachment_id = $attachment_post->ID;
+					$attached_file = get_attached_file( $attachment_id );
+					if ( empty( $attached_file ) || ! file_exists( $attached_file ) ) {
+						$attachment_id = null;
+						$attached_file = null;
+					} elseif ( $this->get_stylesheet() !== get_post_meta( $attachment_post->ID, '_starter_content_theme', true ) ) {
+
+						// Re-generate attachment metadata since it was previously generated for a different theme.
+						$metadata = wp_generate_attachment_metadata( $attachment_post->ID, $attached_file );
+						wp_update_attachment_metadata( $attachment_id, $metadata );
+						update_post_meta( $attachment_id, '_starter_content_theme', $this->get_stylesheet() );
+					}
+				}
+
+				// Insert the attachment auto-draft because it doesn't yet exist or the attached file is gone.
+				if ( ! $attachment_id ) {
+
+					// Copy file to temp location so that original file won't get deleted from theme after sideloading.
+					$temp_file_name = wp_tempnam( basename( $file_path ) );
+					if ( $temp_file_name && copy( $file_path, $temp_file_name ) ) {
+						$file_array['tmp_name'] = $temp_file_name;
+					}
+					if ( empty( $file_array['tmp_name'] ) ) {
+						continue;
+					}
+
+					$attachment_post_data = array_merge(
+						wp_array_slice_assoc( $attachment, array( 'post_title', 'post_content', 'post_excerpt' ) ),
+						array(
+							'post_status' => 'auto-draft', // So attachment will be garbage collected in a week if changeset is never published.
+						)
+					);
+
+					// In PHP < 5.6 filesize() returns 0 for the temp files unless we clear the file status cache.
+					// Technically, PHP < 5.6.0 || < 5.5.13 || < 5.4.29 but no need to be so targeted.
+					// See https://bugs.php.net/bug.php?id=65701
+					if ( version_compare( PHP_VERSION, '5.6', '<' ) ) {
+						clearstatcache();
+					}
+
+					$attachment_id = media_handle_sideload( $file_array, 0, null, $attachment_post_data );
+					if ( is_wp_error( $attachment_id ) ) {
+						continue;
+					}
+					update_post_meta( $attachment_id, '_starter_content_theme', $this->get_stylesheet() );
+					update_post_meta( $attachment_id, '_customize_draft_post_name', $attachment['post_name'] );
+				}
+
+				$attachment_ids[ $symbol ] = $attachment_id;
+			}
+			$starter_content_auto_draft_post_ids = array_merge( $starter_content_auto_draft_post_ids, array_values( $attachment_ids ) );
 		}
 
 		// Posts & pages.
 		if ( ! empty( $posts ) ) {
-			$nav_menus_created_posts = array();
-			if ( ! empty( $changeset_data['nav_menus_created_posts']['value'] ) ) {
-				$nav_menus_created_posts = $changeset_data['nav_menus_created_posts']['value'];
-			}
-
-			$existing_posts = array();
-			if ( ! empty( $nav_menus_created_posts ) ) {
-				$existing_posts_query = new WP_Query( array(
-					'post__in' => $nav_menus_created_posts,
-					'post_status' => 'auto-draft',
-					'post_type' => 'any',
-					'number' => -1,
-				) );
-				foreach ( $existing_posts_query->posts as $existing_post ) {
-					$existing_posts[ $existing_post->post_type . ':' . $existing_post->post_name ] = $existing_post;
-				}
-			}
-
 			foreach ( array_keys( $posts ) as $post_symbol ) {
-				if ( empty( $posts[ $post_symbol ]['post_type'] ) ) {
+				if ( empty( $posts[ $post_symbol ]['post_type'] ) || empty( $posts[ $post_symbol ]['post_name'] ) ) {
 					continue;
 				}
 				$post_type = $posts[ $post_symbol ]['post_type'];
@@ -999,9 +1113,20 @@ final class WP_Customize_Manager {
 				}
 
 				// Use existing auto-draft post if one already exists with the same type and name.
-				if ( isset( $existing_posts[ $post_type . ':' . $post_name ] ) ) {
-					$posts[ $post_symbol ]['ID'] = $existing_posts[ $post_type . ':' . $post_name ]->ID;
+				if ( isset( $existing_starter_content_posts[ $post_type . ':' . $post_name ] ) ) {
+					$posts[ $post_symbol ]['ID'] = $existing_starter_content_posts[ $post_type . ':' . $post_name ]->ID;
 					continue;
+				}
+
+				// Translate the featured image symbol.
+				if ( ! empty( $posts[ $post_symbol ]['thumbnail'] )
+					&& preg_match( '/^{{(?P<symbol>.+)}}$/', $posts[ $post_symbol ]['thumbnail'], $matches )
+					&& isset( $attachment_ids[ $matches['symbol'] ] ) ) {
+					$posts[ $post_symbol ]['meta_input']['_thumbnail_id'] = $attachment_ids[ $matches['symbol'] ];
+				}
+
+				if ( ! empty( $posts[ $post_symbol ]['template'] ) ) {
+					$posts[ $post_symbol ]['meta_input']['_wp_page_template'] = $posts[ $post_symbol ]['template'];
 				}
 
 				$r = $this->nav_menus->insert_auto_draft_post( $posts[ $post_symbol ] );
@@ -1010,13 +1135,14 @@ final class WP_Customize_Manager {
 				}
 			}
 
-			// The nav_menus_created_posts setting is why nav_menus component is dependency for adding posts.
+			$starter_content_auto_draft_post_ids = array_merge( $starter_content_auto_draft_post_ids, wp_list_pluck( $posts, 'ID' ) );
+		}
+
+		// The nav_menus_created_posts setting is why nav_menus component is dependency for adding posts.
+		if ( ! empty( $this->nav_menus ) && ! empty( $starter_content_auto_draft_post_ids ) ) {
 			$setting_id = 'nav_menus_created_posts';
-			if ( empty( $changeset_data[ $setting_id ] ) || ! empty( $changeset_data[ $setting_id ]['starter_content'] ) ) {
-				$nav_menus_created_posts = array_unique( array_merge( $nav_menus_created_posts, wp_list_pluck( $posts, 'ID' ) ) );
-				$this->set_post_value( $setting_id, array_values( $nav_menus_created_posts ) );
-				$this->starter_content_settings_ids[] = $setting_id;
-			}
+			$this->set_post_value( $setting_id, array_unique( array_values( $starter_content_auto_draft_post_ids ) ) );
+			$this->pending_starter_content_settings_ids[] = $setting_id;
 		}
 
 		// Nav menus.
@@ -1056,7 +1182,7 @@ final class WP_Customize_Manager {
 			$this->set_post_value( $nav_menu_setting_id, array(
 				'name' => isset( $nav_menu['name'] ) ? $nav_menu['name'] : $nav_menu_location,
 			) );
-			$this->starter_content_settings_ids[] = $nav_menu_setting_id;
+			$this->pending_starter_content_settings_ids[] = $nav_menu_setting_id;
 
 			// @todo Add support for menu_item_parent.
 			$position = 0;
@@ -1083,48 +1209,140 @@ final class WP_Customize_Manager {
 
 				if ( empty( $changeset_data[ $nav_menu_item_setting_id ] ) || ! empty( $changeset_data[ $nav_menu_item_setting_id ]['starter_content'] ) ) {
 					$this->set_post_value( $nav_menu_item_setting_id, $nav_menu_item );
-					$this->starter_content_settings_ids[] = $nav_menu_item_setting_id;
+					$this->pending_starter_content_settings_ids[] = $nav_menu_item_setting_id;
 				}
 			}
 
 			$setting_id = sprintf( 'nav_menu_locations[%s]', $nav_menu_location );
 			if ( empty( $changeset_data[ $setting_id ] ) || ! empty( $changeset_data[ $setting_id ]['starter_content'] ) ) {
 				$this->set_post_value( $setting_id, $nav_menu_term_id );
-				$this->starter_content_settings_ids[] = $setting_id;
+				$this->pending_starter_content_settings_ids[] = $setting_id;
 			}
 		}
 
 		// Options.
 		foreach ( $options as $name => $value ) {
-			if ( preg_match( '/^{{(?P<symbol>.+)}}$/', $value, $matches ) && isset( $posts[ $matches['symbol'] ] ) ) {
-				$value = $posts[ $matches['symbol'] ]['ID'];
+			if ( preg_match( '/^{{(?P<symbol>.+)}}$/', $value, $matches ) ) {
+				if ( isset( $posts[ $matches['symbol'] ] ) ) {
+					$value = $posts[ $matches['symbol'] ]['ID'];
+				} elseif ( isset( $attachment_ids[ $matches['symbol'] ] ) ) {
+					$value = $attachment_ids[ $matches['symbol'] ];
+				} else {
+					continue;
+				}
 			}
 
 			if ( empty( $changeset_data[ $name ] ) || ! empty( $changeset_data[ $name ]['starter_content'] ) ) {
 				$this->set_post_value( $name, $value );
-				$this->starter_content_settings_ids[] = $name;
+				$this->pending_starter_content_settings_ids[] = $name;
 			}
 		}
 
 		// Theme mods.
 		foreach ( $theme_mods as $name => $value ) {
-			if ( preg_match( '/^{{(?P<symbol>.+)}}$/', $value, $matches ) && isset( $posts[ $matches['symbol'] ] ) ) {
-				$value = $posts[ $matches['symbol'] ]['ID'];
+			if ( preg_match( '/^{{(?P<symbol>.+)}}$/', $value, $matches ) ) {
+				if ( isset( $posts[ $matches['symbol'] ] ) ) {
+					$value = $posts[ $matches['symbol'] ]['ID'];
+				} elseif ( isset( $attachment_ids[ $matches['symbol'] ] ) ) {
+					$value = $attachment_ids[ $matches['symbol'] ];
+				} else {
+					continue;
+				}
+			}
+
+			// Handle header image as special case since setting has a legacy format.
+			if ( 'header_image' === $name ) {
+				$name = 'header_image_data';
+				$metadata = wp_get_attachment_metadata( $value );
+				if ( empty( $metadata ) ) {
+					continue;
+				}
+				$value = array(
+					'attachment_id' => $value,
+					'url' => wp_get_attachment_url( $value ),
+					'height' => $metadata['height'],
+					'width' => $metadata['width'],
+				);
+			} elseif ( 'background_image' === $name ) {
+				$value = wp_get_attachment_url( $value );
 			}
 
 			if ( empty( $changeset_data[ $name ] ) || ! empty( $changeset_data[ $name ]['starter_content'] ) ) {
 				$this->set_post_value( $name, $value );
-				$this->starter_content_settings_ids[] = $name;
+				$this->pending_starter_content_settings_ids[] = $name;
 			}
 		}
 
-		if ( ! empty( $this->starter_content_settings_ids ) ) {
+		if ( ! empty( $this->pending_starter_content_settings_ids ) ) {
 			if ( did_action( 'customize_register' ) ) {
 				$this->_save_starter_content_changeset();
 			} else {
 				add_action( 'customize_register', array( $this, '_save_starter_content_changeset' ), 1000 );
 			}
 		}
+	}
+
+	/**
+	 * Prepare starter content attachments.
+	 *
+	 * Ensure that the attachments are valid and that they have slugs and file name/path.
+	 *
+	 * @since 4.7.0
+	 * @access private
+	 *
+	 * @param array $attachments Attachments.
+	 * @return array Prepared attachments.
+	 */
+	protected function prepare_starter_content_attachments( $attachments ) {
+		$prepared_attachments = array();
+		if ( empty( $attachments ) ) {
+			return $prepared_attachments;
+		}
+
+		// Such is The Worndpress Way.
+		require_once( ABSPATH . 'wp-admin/includes/file.php' );
+		require_once( ABSPATH . 'wp-admin/includes/media.php' );
+		require_once( ABSPATH . 'wp-admin/includes/image.php' );
+
+		foreach ( $attachments as $symbol => $attachment ) {
+
+			// A file is required and URLs to files are not currently allowed.
+			if ( empty( $attachment['file'] ) || preg_match( '#^https?://$#', $attachment['file'] ) ) {
+				continue;
+			}
+
+			$file_path = null;
+			if ( file_exists( $attachment['file'] ) ) {
+				$file_path = $attachment['file']; // Could be absolute path to file in plugin.
+			} elseif ( is_child_theme() && file_exists( get_stylesheet_directory() . '/' . $attachment['file'] ) ) {
+				$file_path = get_stylesheet_directory() . '/' . $attachment['file'];
+			} elseif ( file_exists( get_template_directory() . '/' . $attachment['file'] ) ) {
+				$file_path = get_template_directory() . '/' . $attachment['file'];
+			} else {
+				continue;
+			}
+			$file_name = basename( $attachment['file'] );
+
+			// Skip file types that are not recognized.
+			$checked_filetype = wp_check_filetype( $file_name );
+			if ( empty( $checked_filetype['type'] ) ) {
+				continue;
+			}
+
+			// Ensure post_name is set since not automatically derived from post_title for new auto-draft posts.
+			if ( empty( $attachment['post_name'] ) ) {
+				if ( ! empty( $attachment['post_title'] ) ) {
+					$attachment['post_name'] = sanitize_title( $attachment['post_title'] );
+				} else {
+					$attachment['post_name'] = sanitize_title( preg_replace( '/\.\w+$/', '', $file_name ) );
+				}
+			}
+
+			$attachment['file_name'] = $file_name;
+			$attachment['file_path'] = $file_path;
+			$prepared_attachments[ $symbol ] = $attachment;
+		}
+		return $prepared_attachments;
 	}
 
 	/**
@@ -1135,14 +1353,16 @@ final class WP_Customize_Manager {
 	 */
 	public function _save_starter_content_changeset() {
 
-		if ( empty( $this->starter_content_settings_ids ) ) {
+		if ( empty( $this->pending_starter_content_settings_ids ) ) {
 			return;
 		}
 
 		$this->save_changeset_post( array(
-			'data' => array_fill_keys( $this->starter_content_settings_ids, array( 'starter_content' => true ) ),
+			'data' => array_fill_keys( $this->pending_starter_content_settings_ids, array( 'starter_content' => true ) ),
 			'starter_content' => true,
 		) );
+
+		$this->pending_starter_content_settings_ids = array();
 	}
 
 	/**
@@ -1351,6 +1571,7 @@ final class WP_Customize_Manager {
 
 		wp_enqueue_script( 'customize-preview' );
 		add_action( 'wp_head', array( $this, 'customize_preview_loading_style' ) );
+		add_action( 'wp_head', array( $this, 'remove_frameless_preview_messenger_channel' ) );
 		add_action( 'wp_footer', array( $this, 'customize_preview_settings' ), 20 );
 		add_filter( 'get_edit_post_link', '__return_empty_string' );
 
@@ -1483,6 +1704,44 @@ final class WP_Customize_Manager {
 				cursor: not-allowed !important;
 			}
 		</style><?php
+	}
+
+	/**
+	 * Remove customize_messenger_channel query parameter from the preview window when it is not in an iframe.
+	 *
+	 * This ensures that the admin bar will be shown. It also ensures that link navigation will
+	 * work as expected since the parent frame is not being sent the URL to navigate to.
+	 *
+	 * @since 4.7.0
+	 * @access public
+	 */
+	public function remove_frameless_preview_messenger_channel() {
+		if ( ! $this->messenger_channel ) {
+			return;
+		}
+		?>
+		<script>
+		( function() {
+			var urlParser, oldQueryParams, newQueryParams, i;
+			if ( parent !== window ) {
+				return;
+			}
+			urlParser = document.createElement( 'a' );
+			urlParser.href = location.href;
+			oldQueryParams = urlParser.search.substr( 1 ).split( /&/ );
+			newQueryParams = [];
+			for ( i = 0; i < oldQueryParams.length; i += 1 ) {
+				if ( ! /^customize_messenger_channel=/.test( oldQueryParams[ i ] ) ) {
+					newQueryParams.push( oldQueryParams[ i ] );
+				}
+			}
+			urlParser.search = newQueryParams.join( '&' );
+			if ( urlParser.search !== location.search ) {
+				location.replace( urlParser.href );
+			}
+		} )();
+		</script>
+		<?php
 	}
 
 	/**
@@ -1726,12 +1985,12 @@ final class WP_Customize_Manager {
 				}
 				continue;
 			}
-			if ( is_null( $unsanitized_value ) ) {
-				continue;
-			}
 			if ( $options['validate_capability'] && ! current_user_can( $setting->capability ) ) {
 				$validity = new WP_Error( 'unauthorized', __( 'Unauthorized to modify setting due to capability.' ) );
 			} else {
+				if ( is_null( $unsanitized_value ) ) {
+					continue;
+				}
 				$validity = $setting->validate( $unsanitized_value );
 			}
 			if ( ! is_wp_error( $validity ) ) {
@@ -1807,10 +2066,6 @@ final class WP_Customize_Manager {
 		}
 
 		$changeset_post_id = $this->changeset_post_id();
-		if ( $changeset_post_id && in_array( get_post_status( $changeset_post_id ), array( 'publish', 'trash' ) ) ) {
-			wp_send_json_error( 'changeset_already_published' );
-		}
-
 		if ( empty( $changeset_post_id ) ) {
 			if ( ! current_user_can( get_post_type_object( 'customize_changeset' )->cap->create_posts ) ) {
 				wp_send_json_error( 'cannot_create_changeset_post' );
@@ -1845,13 +2100,8 @@ final class WP_Customize_Manager {
 				wp_send_json_error( 'bad_customize_changeset_status', 400 );
 			}
 			$is_publish = ( 'publish' === $changeset_status || 'future' === $changeset_status );
-			if ( $is_publish ) {
-				if ( ! current_user_can( get_post_type_object( 'customize_changeset' )->cap->publish_posts ) ) {
-					wp_send_json_error( 'changeset_publish_unauthorized', 403 );
-				}
-				if ( false === has_action( 'transition_post_status', '_wp_customize_publish_changeset' ) ) {
-					wp_send_json_error( 'missing_publish_callback', 500 );
-				}
+			if ( $is_publish && ! current_user_can( get_post_type_object( 'customize_changeset' )->cap->publish_posts ) ) {
+				wp_send_json_error( 'changeset_publish_unauthorized', 403 );
 			}
 		}
 
@@ -1880,20 +2130,6 @@ final class WP_Customize_Manager {
 				}
 				$changeset_date_gmt = gmdate( 'Y-m-d H:i:s', $timestamp );
 			}
-			$now = gmdate( 'Y-m-d H:i:59' );
-
-			$is_future_dated = ( mysql2date( 'U', $changeset_date_gmt, false ) > mysql2date( 'U', $now, false ) );
-			if ( ! $is_future_dated ) {
-				wp_send_json_error( 'not_future_date', 400 ); // Only future dates are allowed.
-			}
-
-			if ( ! $this->is_theme_active() && ( 'future' === $changeset_status || $is_future_dated ) ) {
-				wp_send_json_error( 'cannot_schedule_theme_switches', 400 ); // This should be allowed in the future, when theme is a regular setting.
-			}
-			$will_remain_auto_draft = ( ! $changeset_status && ( ! $changeset_post_id || 'auto-draft' === get_post_status( $changeset_post_id ) ) );
-			if ( $changeset_date && $will_remain_auto_draft ) {
-				wp_send_json_error( 'cannot_supply_date_for_auto_draft_changeset', 400 );
-			}
 		}
 
 		$r = $this->save_changeset_post( array(
@@ -1903,7 +2139,15 @@ final class WP_Customize_Manager {
 			'data' => $input_changeset_data,
 		) );
 		if ( is_wp_error( $r ) ) {
-			$response = $r->get_error_data();
+			$response = array(
+				'message' => $r->get_error_message(),
+				'code' => $r->get_error_code(),
+			);
+			if ( is_array( $r->get_error_data() ) ) {
+				$response = array_merge( $response, $r->get_error_data() );
+			} else {
+				$response['data'] = $r->get_error_data();
+			}
 		} else {
 			$response = $r;
 
@@ -1978,7 +2222,41 @@ final class WP_Customize_Manager {
 		$changeset_post_id = $this->changeset_post_id();
 		$existing_changeset_data = array();
 		if ( $changeset_post_id ) {
+			$existing_status = get_post_status( $changeset_post_id );
+			if ( 'publish' === $existing_status || 'trash' === $existing_status ) {
+				return new WP_Error( 'changeset_already_published' );
+			}
+
 			$existing_changeset_data = $this->get_changeset_post_data( $changeset_post_id );
+		}
+
+		// Fail if attempting to publish but publish hook is missing.
+		if ( 'publish' === $args['status'] && false === has_action( 'transition_post_status', '_wp_customize_publish_changeset' ) ) {
+			return new WP_Error( 'missing_publish_callback' );
+		}
+
+		// Validate date.
+		$now = gmdate( 'Y-m-d H:i:59' );
+		if ( $args['date_gmt'] ) {
+			$is_future_dated = ( mysql2date( 'U', $args['date_gmt'], false ) > mysql2date( 'U', $now, false ) );
+			if ( ! $is_future_dated ) {
+				return new WP_Error( 'not_future_date' ); // Only future dates are allowed.
+			}
+
+			if ( ! $this->is_theme_active() && ( 'future' === $args['status'] || $is_future_dated ) ) {
+				return new WP_Error( 'cannot_schedule_theme_switches' ); // This should be allowed in the future, when theme is a regular setting.
+			}
+			$will_remain_auto_draft = ( ! $args['status'] && ( ! $changeset_post_id || 'auto-draft' === get_post_status( $changeset_post_id ) ) );
+			if ( $will_remain_auto_draft ) {
+				return new WP_Error( 'cannot_supply_date_for_auto_draft_changeset' );
+			}
+		} elseif ( $changeset_post_id && 'future' === $args['status'] ) {
+
+			// Fail if the new status is future but the existing post's date is not in the future.
+			$changeset_post = get_post( $changeset_post_id );
+			if ( mysql2date( 'U', $changeset_post->post_date_gmt, false ) <= mysql2date( 'U', $now, false ) ) {
+				return new WP_Error( 'not_future_date' );
+			}
 		}
 
 		// The request was made via wp.customize.previewer.save().
@@ -2028,7 +2306,6 @@ final class WP_Customize_Manager {
 				$changed_setting_ids[] = $setting_id;
 			}
 		}
-		$post_values = wp_array_slice_assoc( $post_values, $changed_setting_ids );
 
 		/**
 		 * Fires before save validation happens.
@@ -2044,7 +2321,11 @@ final class WP_Customize_Manager {
 		do_action( 'customize_save_validation_before', $this );
 
 		// Validate settings.
-		$setting_validities = $this->validate_setting_values( $post_values, array(
+		$validated_values = array_merge(
+			array_fill_keys( array_keys( $args['data'] ), null ), // Make sure existence/capability checks are done on value-less setting updates.
+			$post_values
+		);
+		$setting_validities = $this->validate_setting_values( $validated_values, array(
 			'validate_capability' => true,
 			'validate_existence' => true,
 		) );
@@ -2061,10 +2342,6 @@ final class WP_Customize_Manager {
 			);
 			return new WP_Error( 'transaction_fail', '', $response );
 		}
-
-		$response = array(
-			'setting_validities' => $setting_validities,
-		);
 
 		// Obtain/merge data for changeset.
 		$original_changeset_data = $this->get_changeset_post_data( $changeset_post_id );
@@ -2103,14 +2380,21 @@ final class WP_Customize_Manager {
 				// Remove setting from changeset entirely.
 				unset( $data[ $changeset_setting_id ] );
 			} else {
-				// Merge any additional setting params that have been supplied with the existing params.
+
 				if ( ! isset( $data[ $changeset_setting_id ] ) ) {
 					$data[ $changeset_setting_id ] = array();
 				}
 
+				// Merge any additional setting params that have been supplied with the existing params.
+				$merged_setting_params = array_merge( $data[ $changeset_setting_id ], $setting_params );
+
+				// Skip updating setting params if unchanged (ensuring the user_id is not overwritten).
+				if ( $data[ $changeset_setting_id ] === $merged_setting_params ) {
+					continue;
+				}
+
 				$data[ $changeset_setting_id ] = array_merge(
-					$data[ $changeset_setting_id ],
-					$setting_params,
+					$merged_setting_params,
 					array(
 						'type' => $setting->type,
 						'user_id' => $args['user_id'],
@@ -2187,7 +2471,12 @@ final class WP_Customize_Manager {
 		if ( $args['status'] ) {
 			$post_array['post_status'] = $args['status'];
 		}
-		if ( $args['date_gmt'] ) {
+
+		// Reset post date to now if we are publishing, otherwise pass post_date_gmt and translate for post_date.
+		if ( 'publish' === $args['status'] ) {
+			$post_array['post_date_gmt'] = '0000-00-00 00:00:00';
+			$post_array['post_date'] = '0000-00-00 00:00:00';
+		} elseif ( $args['date_gmt'] ) {
 			$post_array['post_date_gmt'] = $args['date_gmt'];
 			$post_array['post_date'] = get_date_from_gmt( $args['date_gmt'] );
 		}
@@ -2217,6 +2506,10 @@ final class WP_Customize_Manager {
 		$this->_changeset_data = null; // Reset so WP_Customize_Manager::changeset_data() will re-populate with updated contents.
 
 		remove_filter( 'wp_save_post_revision_post_has_changed', array( $this, '_filter_revision_post_has_changed' ) );
+
+		$response = array(
+			'setting_validities' => $setting_validities,
+		);
 
 		if ( is_wp_error( $r ) ) {
 			$response['changeset_post_save_failure'] = $r->get_error_code();
@@ -3596,7 +3889,7 @@ final class WP_Customize_Manager {
 		$this->add_setting( 'external_header_video', array(
 			'theme_supports'    => array( 'custom-header', 'video' ),
 			'transport'         => 'postMessage',
-			'sanitize_callback' => 'esc_url',
+			'sanitize_callback' => 'esc_url_raw',
 			'validate_callback' => array( $this, '_validate_external_header_video' ),
 		) );
 
@@ -3824,7 +4117,7 @@ final class WP_Customize_Manager {
 			'description_hidden' => true,
 			'description'        => sprintf( '%s<br /><a href="%s" class="external-link" target="_blank">%s<span class="screen-reader-text">%s</span></a>',
 				__( 'CSS allows you to customize the appearance and layout of your site with code. Separate CSS is saved for each of your themes. In the editing area the Tab key enters a tab character. To move below this area by pressing Tab, press the Esc key followed by the Tab key.' ),
-				'https://codex.wordpress.org/Know_Your_Sources#CSS',
+				esc_url( __( 'https://codex.wordpress.org/CSS' ) ),
 				__( 'Learn more about CSS' ),
 				__( '(link opens in a new window)' )
 			),
@@ -3840,6 +4133,9 @@ final class WP_Customize_Manager {
 			'type'     => 'textarea',
 			'section'  => 'custom_css',
 			'settings' => array( 'default' => $custom_css_setting->id ),
+			'input_attrs' => array(
+				'class' => 'code', // Ensures contents displayed as LTR instead of RTL.
+			),
 		) );
 	}
 
@@ -3916,27 +4212,27 @@ final class WP_Customize_Manager {
 			if ( ! in_array( $value, array( 'repeat-x', 'repeat-y', 'repeat', 'no-repeat' ) ) ) {
 				return new WP_Error( 'invalid_value', __( 'Invalid value for background repeat.' ) );
 			}
-		} else if ( 'background_attachment' === $setting->id ) {
+		} elseif ( 'background_attachment' === $setting->id ) {
 			if ( ! in_array( $value, array( 'fixed', 'scroll' ) ) ) {
 				return new WP_Error( 'invalid_value', __( 'Invalid value for background attachment.' ) );
 			}
-		} else if ( 'background_position_x' === $setting->id ) {
+		} elseif ( 'background_position_x' === $setting->id ) {
 			if ( ! in_array( $value, array( 'left', 'center', 'right' ), true ) ) {
 				return new WP_Error( 'invalid_value', __( 'Invalid value for background position X.' ) );
 			}
-		} else if ( 'background_position_y' === $setting->id ) {
+		} elseif ( 'background_position_y' === $setting->id ) {
 			if ( ! in_array( $value, array( 'top', 'center', 'bottom' ), true ) ) {
 				return new WP_Error( 'invalid_value', __( 'Invalid value for background position Y.' ) );
 			}
-		} else if ( 'background_size' === $setting->id ) {
+		} elseif ( 'background_size' === $setting->id ) {
 			if ( ! in_array( $value, array( 'auto', 'contain', 'cover' ), true ) ) {
 				return new WP_Error( 'invalid_value', __( 'Invalid value for background size.' ) );
 			}
-		} else if ( 'background_preset' === $setting->id ) {
+		} elseif ( 'background_preset' === $setting->id ) {
 			if ( ! in_array( $value, array( 'default', 'fill', 'fit', 'repeat', 'custom' ), true ) ) {
 				return new WP_Error( 'invalid_value', __( 'Invalid value for background size.' ) );
 			}
-		} else if ( 'background_image' === $setting->id || 'background_image_thumb' === $setting->id ) {
+		} elseif ( 'background_image' === $setting->id || 'background_image_thumb' === $setting->id ) {
 			$value = empty( $value ) ? '' : esc_url_raw( $value );
 		} else {
 			return new WP_Error( 'unrecognized_setting', __( 'Unrecognized background setting.' ) );

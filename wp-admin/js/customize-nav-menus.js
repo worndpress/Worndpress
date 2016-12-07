@@ -80,10 +80,11 @@
 	});
 	api.Menus.availableMenuItems = new api.Menus.AvailableItemCollection( api.Menus.data.availableMenuItems );
 
-	api.Menus.insertedAutoDrafts = [];
-
 	/**
 	 * Insert a new `auto-draft` post.
+	 *
+	 * @since 4.7.0
+	 * @access public
 	 *
 	 * @param {object} params - Parameters for the draft post to create.
 	 * @param {string} params.post_type - Post type to add.
@@ -101,8 +102,9 @@
 
 		request.done( function( response ) {
 			if ( response.post_id ) {
-				api.Menus.insertedAutoDrafts.push( response.post_id );
-				api( 'nav_menus_created_posts' ).set( _.clone( api.Menus.insertedAutoDrafts ) );
+				api( 'nav_menus_created_posts' ).set(
+					api( 'nav_menus_created_posts' ).get().concat( [ response.post_id ] )
+				);
 
 				if ( 'page' === params.post_type ) {
 
@@ -562,7 +564,15 @@
 			itemName.val( '' );
 		},
 
-		// Submit handler for keypress (enter) on field and click on button.
+		/**
+		 * Submit handler for keypress (enter) on field and click on button.
+		 *
+		 * @since 4.7.0
+		 * @private
+		 *
+		 * @param {jQuery.Event} event Event.
+		 * @returns {void}
+		 */
 		_submitNew: function( event ) {
 			var container;
 
@@ -580,7 +590,15 @@
 			this.submitNew( container );
 		},
 
-		// Creates a new object and adds an associated menu item to the menu.
+		/**
+		 * Creates a new object and adds an associated menu item to the menu.
+		 *
+		 * @since 4.7.0
+		 * @private
+		 *
+		 * @param {jQuery} container
+		 * @returns {void}
+		 */
 		submitNew: function( container ) {
 			var panel = this,
 				itemName = container.find( '.create-item-input' ),
@@ -767,30 +785,23 @@
 		},
 
 		/**
-		 * Show/hide/save screen options (columns). From common.js.
+		 * Update field visibility when clicking on the field toggles.
 		 */
 		ready: function() {
 			var panel = this;
-			this.container.find( '.hide-column-tog' ).click( function() {
-				var $t = $( this ), column = $t.val();
-				if ( $t.prop( 'checked' ) ) {
-					panel.checked( column );
-				} else {
-					panel.unchecked( column );
-				}
-
+			panel.container.find( '.hide-column-tog' ).click( function() {
 				panel.saveManageColumnsState();
-			});
-			this.container.find( '.hide-column-tog' ).each( function() {
-			var $t = $( this ), column = $t.val();
-				if ( $t.prop( 'checked' ) ) {
-					panel.checked( column );
-				} else {
-					panel.unchecked( column );
-				}
 			});
 		},
 
+		/**
+		 * Save hidden column states.
+		 *
+		 * @since 4.3.0
+		 * @private
+		 *
+		 * @returns {void}
+		 */
 		saveManageColumnsState: _.debounce( function() {
 			var panel = this;
 			if ( panel._updateHiddenColumnsRequest ) {
@@ -807,14 +818,24 @@
 			} );
 		}, 2000 ),
 
-		checked: function( column ) {
-			this.container.addClass( 'field-' + column + '-active' );
-		},
+		/**
+		 * @deprecated Since 4.7.0 now that the nav_menu sections are responsible for toggling the classes on their own containers.
+		 */
+		checked: function() {},
 
-		unchecked: function( column ) {
-			this.container.removeClass( 'field-' + column + '-active' );
-		},
+		/**
+		 * @deprecated Since 4.7.0 now that the nav_menu sections are responsible for toggling the classes on their own containers.
+		 */
+		unchecked: function() {},
 
+		/**
+		 * Get hidden fields.
+		 *
+		 * @since 4.3.0
+		 * @private
+		 *
+		 * @returns {Array} Fields (columns) that are hidden.
+		 */
 		hidden: function() {
 			return $( '.hide-column-tog' ).not( ':checked' ).map( function() {
 				var id = this.id;
@@ -852,7 +873,7 @@
 		 * Ready.
 		 */
 		ready: function() {
-			var section = this;
+			var section = this, fieldActiveToggles, handleFieldActiveToggle;
 
 			if ( 'undefined' === typeof section.params.menu_id ) {
 				throw new Error( 'params.menu_id was not defined' );
@@ -904,6 +925,20 @@
 				section.container.find( '.menu-item.move-left-disabled .menus-move-left' ).attr({ 'tabindex': '-1', 'aria-hidden': 'true' });
 				section.container.find( '.menu-item.move-right-disabled .menus-move-right' ).attr({ 'tabindex': '-1', 'aria-hidden': 'true' });
 			} );
+
+			/**
+			 * Update the active field class for the content container for a given checkbox toggle.
+			 *
+			 * @this {jQuery}
+			 * @returns {void}
+			 */
+			handleFieldActiveToggle = function() {
+				var className = 'field-' + $( this ).val() + '-active';
+				section.contentContainer.toggleClass( className, $( this ).prop( 'checked' ) );
+			};
+			fieldActiveToggles = api.panel( 'nav_menus' ).contentContainer.find( '.metabox-prefs:first' ).find( '.hide-column-tog' );
+			fieldActiveToggles.each( handleFieldActiveToggle );
+			fieldActiveToggles.on( 'click', handleFieldActiveToggle );
 		},
 
 		populateControls: function() {
@@ -1010,7 +1045,7 @@
 		},
 
 		onChangeExpanded: function( expanded, args ) {
-			var section = this;
+			var section = this, completeCallback;
 
 			if ( expanded ) {
 				wpNavMenu.menuList = section.contentContainer;
@@ -1026,13 +1061,22 @@
 					}
 				} );
 
-				if ( 'resolved' !== section.deferred.initSortables.state() ) {
-					wpNavMenu.initSortables(); // Depends on menu-to-edit ID being set above.
-					section.deferred.initSortables.resolve( wpNavMenu.menuList ); // Now MenuControl can extend the sortable.
-
-					// @todo Note that wp.customize.reflowPaneContents() is debounced, so this immediate change will show a slight flicker while priorities get updated.
-					api.control( 'nav_menu[' + String( section.params.menu_id ) + ']' ).reflowMenuItems();
+				// Make sure Sortables is initialized after the section has been expanded to prevent `offset` issues.
+				if ( args.completeCallback ) {
+					completeCallback = args.completeCallback;
 				}
+				args.completeCallback = function() {
+					if ( 'resolved' !== section.deferred.initSortables.state() ) {
+						wpNavMenu.initSortables(); // Depends on menu-to-edit ID being set above.
+						section.deferred.initSortables.resolve( wpNavMenu.menuList ); // Now MenuControl can extend the sortable.
+
+						// @todo Note that wp.customize.reflowPaneContents() is debounced, so this immediate change will show a slight flicker while priorities get updated.
+						api.control( 'nav_menu[' + String( section.params.menu_id ) + ']' ).reflowMenuItems();
+					}
+					if ( _.isFunction( completeCallback ) ) {
+						completeCallback();
+					}
+				};
 			}
 			api.Section.prototype.onChangeExpanded.call( section, expanded, args );
 		}
@@ -2752,9 +2796,17 @@
 			if ( data.nav_menu_updates || data.nav_menu_item_updates ) {
 				api.Menus.applySavedData( data );
 			}
+		} );
 
-			// Reset list of inserted auto draft post IDs.
-			api.Menus.insertedAutoDrafts = [];
+		/*
+		 * Reset the list of posts created in the customizer once published.
+		 * The setting is updated quietly (bypassing events being triggered)
+		 * so that the customized state doesn't become immediately dirty.
+		 */
+		api.state( 'changesetStatus' ).bind( function( status ) {
+			if ( 'publish' === status ) {
+				api( 'nav_menus_created_posts' )._value = [];
+			}
 		} );
 
 		// Open and focus menu control.

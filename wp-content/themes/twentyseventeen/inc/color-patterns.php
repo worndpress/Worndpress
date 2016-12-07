@@ -443,8 +443,11 @@ body.colors-custom,
 .colors-custom .next.page-numbers:focus,
 .colors-custom .next.page-numbers:hover,
 .colors-custom.has-header-image .site-title,
+.colors-custom.has-header-video .site-title,
 .colors-custom.has-header-image .site-title a,
-.colors-custom.has-header-image .site-description {
+.colors-custom.has-header-video .site-title a,
+.colors-custom.has-header-image .site-description,
+.colors-custom.has-header-video .site-description {
 	color: hsl( ' . $hue . ', ' . $saturation . ', 100% ); /* base: #fff; */
 }
 
@@ -557,5 +560,15 @@ body.colors-custom,
 	}
 }';
 
-	return $css;
+
+	/**
+	 * Filters Twenty Seventeen custom colors CSS.
+	 *
+	 * @since Twenty Seventeen 1.0
+	 *
+	 * @param $css        string Base theme colors CSS.
+	 * @param $hue        int    The user's selected color hue.
+	 * @param $saturation string Filtered theme color saturation level.
+	 */
+	return apply_filters( 'twentyseventeen_custom_colors_css', $css, $hue, $saturation );
 }

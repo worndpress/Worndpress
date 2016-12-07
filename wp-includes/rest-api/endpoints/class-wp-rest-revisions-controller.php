@@ -11,7 +11,7 @@
  * Core class used to access revisions via the REST API.
  *
  * @since 4.7.0
- *
+ *0
  * @see WP_REST_Controller
  */
 class WP_REST_Revisions_Controller extends WP_REST_Controller {
@@ -97,7 +97,7 @@ class WP_REST_Revisions_Controller extends WP_REST_Controller {
 					'force' => array(
 						'type'        => 'boolean',
 						'default'     => false,
-						'description' => __( 'Required to be true, as resource does not support trashing.' ),
+						'description' => __( 'Required to be true, as revisions do not support trashing.' ),
 					),
 				),
 			),
@@ -123,7 +123,7 @@ class WP_REST_Revisions_Controller extends WP_REST_Controller {
 		}
 		$parent_post_type_obj = get_post_type_object( $parent->post_type );
 		if ( ! current_user_can( $parent_post_type_obj->cap->edit_post, $parent->ID ) ) {
-			return new WP_Error( 'rest_cannot_read', __( 'Sorry, you cannot view revisions of this post.' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'rest_cannot_read', __( 'Sorry, you are not allowed to view revisions of this post.' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return true;
@@ -141,7 +141,7 @@ class WP_REST_Revisions_Controller extends WP_REST_Controller {
 	public function get_items( $request ) {
 		$parent = get_post( $request['parent'] );
 		if ( ! $request['parent'] || ! $parent || $this->parent_post_type !== $parent->post_type ) {
-			return new WP_Error( 'rest_post_invalid_parent', __( 'Invalid post parent id.' ), array( 'status' => 404 ) );
+			return new WP_Error( 'rest_post_invalid_parent', __( 'Invalid post parent ID.' ), array( 'status' => 404 ) );
 		}
 
 		$revisions = wp_get_post_revisions( $request['parent'] );
@@ -179,12 +179,12 @@ class WP_REST_Revisions_Controller extends WP_REST_Controller {
 	public function get_item( $request ) {
 		$parent = get_post( $request['parent'] );
 		if ( ! $request['parent'] || ! $parent || $this->parent_post_type !== $parent->post_type ) {
-			return new WP_Error( 'rest_post_invalid_parent', __( 'Invalid post parent id.' ), array( 'status' => 404 ) );
+			return new WP_Error( 'rest_post_invalid_parent', __( 'Invalid post parent ID.' ), array( 'status' => 404 ) );
 		}
 
 		$revision = get_post( $request['id'] );
 		if ( ! $revision || 'revision' !== $revision->post_type ) {
-			return new WP_Error( 'rest_post_invalid_id', __( 'Invalid revision id.' ), array( 'status' => 404 ) );
+			return new WP_Error( 'rest_post_invalid_id', __( 'Invalid revision ID.' ), array( 'status' => 404 ) );
 		}
 
 		$response = $this->prepare_item_for_response( $revision, $request );
@@ -209,7 +209,7 @@ class WP_REST_Revisions_Controller extends WP_REST_Controller {
 
 		$post = get_post( $request['id'] );
 		if ( ! $post ) {
-			return new WP_Error( 'rest_post_invalid_id', __( 'Invalid revision id.' ), array( 'status' => 404 ) );
+			return new WP_Error( 'rest_post_invalid_id', __( 'Invalid revision ID.' ), array( 'status' => 404 ) );
 		}
 		$post_type = get_post_type_object( 'revision' );
 		return current_user_can( $post_type->cap->delete_post, $post->ID );
@@ -227,7 +227,7 @@ class WP_REST_Revisions_Controller extends WP_REST_Controller {
 	public function delete_item( $request ) {
 		$force = isset( $request['force'] ) ? (bool) $request['force'] : false;
 
-		// We don't support trashing for this resource type.
+		// We don't support trashing for revisions.
 		if ( ! $force ) {
 			return new WP_Error( 'rest_trash_not_supported', __( 'Revisions do not support trashing. Set force=true to delete.' ), array( 'status' => 501 ) );
 		}
@@ -399,12 +399,12 @@ class WP_REST_Revisions_Controller extends WP_REST_Controller {
 			// Base properties for every Revision.
 			'properties' => array(
 				'author'          => array(
-					'description' => __( 'The id for the author of the object.' ),
+					'description' => __( 'The ID for the author of the object.' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit', 'embed' ),
 				),
 				'date'            => array(
-					'description' => __( 'The date the object was published.' ),
+					'description' => __( "The date the object was published, in the site's timezone." ),
 					'type'        => 'string',
 					'format'      => 'date-time',
 					'context'     => array( 'view', 'edit', 'embed' ),
@@ -426,7 +426,7 @@ class WP_REST_Revisions_Controller extends WP_REST_Controller {
 					'context'     => array( 'view', 'edit', 'embed' ),
 				),
 				'modified'        => array(
-					'description' => __( 'The date the object was last modified.' ),
+					'description' => __( "The date the object was last modified, in the site's timezone." ),
 					'type'        => 'string',
 					'format'      => 'date-time',
 					'context'     => array( 'view', 'edit' ),
@@ -438,7 +438,7 @@ class WP_REST_Revisions_Controller extends WP_REST_Controller {
 					'context'     => array( 'view', 'edit' ),
 				),
 				'parent'          => array(
-					'description' => __( 'The id for the parent of the object.' ),
+					'description' => __( 'The ID for the parent of the object.' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit', 'embed' ),
 					),

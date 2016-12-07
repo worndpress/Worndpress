@@ -1381,6 +1381,12 @@ function get_header_video_settings() {
 		'height'    => absint( $header->height ),
 		'minWidth'  => 900,
 		'minHeight' => 500,
+		'l10n'      => array(
+			'pause'      => __( 'Pause' ),
+			'play'       => __( 'Play' ),
+			'pauseSpeak' => __( 'Video is paused.'),
+			'playSpeak'  => __( 'Video is playing.'),
+		),
 	);
 
 	if ( preg_match( '#^https?://(?:www\.)?(?:youtube\.com/watch|youtu\.be/)#', $video_url ) ) {
@@ -1633,7 +1639,7 @@ function wp_get_custom_css_post( $stylesheet = '' ) {
 		'post_type'              => 'custom_css',
 		'post_status'            => get_post_stati(),
 		'name'                   => sanitize_title( $stylesheet ),
-		'number'                 => 1,
+		'posts_per_page'         => 1,
 		'no_found_rows'          => true,
 		'cache_results'          => true,
 		'update_post_meta_cache' => false,
@@ -1643,16 +1649,21 @@ function wp_get_custom_css_post( $stylesheet = '' ) {
 	$post = null;
 	if ( get_stylesheet() === $stylesheet ) {
 		$post_id = get_theme_mod( 'custom_css_post_id' );
-		if ( ! $post_id || ! get_post( $post_id ) ) {
+
+		if ( $post_id > 0 && get_post( $post_id ) ) {
+			$post = get_post( $post_id );
+		} else {
 			$query = new WP_Query( $custom_css_query_vars );
 			$post = $query->post;
 			/*
 			 * Cache the lookup. See WP_Customize_Custom_CSS_Setting::update().
 			 * @todo This should get cleared if a custom_css post is added/removed.
 			 */
-			set_theme_mod( 'custom_css_post_id', $post ? $post->ID : -1 );
-		} elseif ( $post_id > 0 ) {
-			$post = get_post( $post_id );
+			if ( $post ) {
+				set_theme_mod( 'custom_css_post_id', $post->ID );
+			} elseif ( -1 !== $post_id ) {
+				set_theme_mod( 'custom_css_post_id', -1 );
+			}
 		}
 	} else {
 		$query = new WP_Query( $custom_css_query_vars );
@@ -1694,6 +1705,98 @@ function wp_get_custom_css( $stylesheet = '' ) {
 	$css = apply_filters( 'wp_get_custom_css', $css, $stylesheet );
 
 	return $css;
+}
+
+/**
+ * Update the `custom_css` post for a given theme.
+ *
+ * Inserts a `custom_css` post when one doesn't yet exist.
+ *
+ * @since 4.7.0
+ * @access public
+ *
+ * @param string $css CSS, stored in `post_content`.
+ * @param array  $args {
+ *     Args.
+ *
+ *     @type string $preprocessed Pre-processed CSS, stored in `post_content_filtered`. Normally empty string. Optional.
+ *     @type string $stylesheet   Stylesheet (child theme) to update. Optional, defaults to current theme/stylesheet.
+ * }
+ * @return WP_Post|WP_Error Post on success, error on failure.
+ */
+function wp_update_custom_css_post( $css, $args = array() ) {
+	$args = wp_parse_args( $args, array(
+		'preprocessed' => '',
+		'stylesheet' => get_stylesheet(),
+	) );
+
+	$data = array(
+		'css' => $css,
+		'preprocessed' => $args['preprocessed'],
+	);
+
+	/**
+	 * Filters the `css` (`post_content`) and `preprocessed` (`post_content_filtered`) args for a `custom_css` post being updated.
+	 *
+	 * This filter can be used by plugin that offer CSS pre-processors, to store the original
+	 * pre-processed CSS in `post_content_filtered` and then store processed CSS in `post_content`.
+	 * When used in this way, the `post_content_filtered` should be supplied as the setting value
+	 * instead of `post_content` via a the `customize_value_custom_css` filter, for example:
+	 *
+	 * <code>
+	 * add_filter( 'customize_value_custom_css', function( $value, $setting ) {
+	 *     $post = wp_get_custom_css_post( $setting->stylesheet );
+	 *     if ( $post && ! empty( $post->post_content_filtered ) ) {
+	 *         $css = $post->post_content_filtered;
+	 *     }
+	 *     return $css;
+	 * }, 10, 2 );
+	 * </code>
+	 *
+	 * @since 4.7.0
+	 * @param array $data {
+	 *     Custom CSS data.
+	 *
+	 *     @type string $css          CSS stored in `post_content`.
+	 *     @type string $preprocessed Pre-processed CSS stored in `post_content_filtered`. Normally empty string.
+	 * }
+	 * @param array $args {
+	 *     The args passed into `wp_update_custom_css_post()` merged with defaults.
+	 *
+	 *     @type string $css          The original CSS passed in to be updated.
+	 *     @type string $preprocessed The original preprocessed CSS passed in to be updated.
+	 *     @type string $stylesheet   The stylesheet (theme) being updated.
+	 * }
+	 */
+	$data = apply_filters( 'update_custom_css_data', $data, array_merge( $args, compact( 'css' ) ) );
+
+	$post_data = array(
+		'post_title' => $args['stylesheet'],
+		'post_name' => sanitize_title( $args['stylesheet'] ),
+		'post_type' => 'custom_css',
+		'post_status' => 'publish',
+		'post_content' => $data['css'],
+		'post_content_filtered' => $data['preprocessed'],
+	);
+
+	// Update post if it already exists, otherwise create a new one.
+	$post = wp_get_custom_css_post( $args['stylesheet'] );
+	if ( $post ) {
+		$post_data['ID'] = $post->ID;
+		$r = wp_update_post( wp_slash( $post_data ), true );
+	} else {
+		$r = wp_insert_post( wp_slash( $post_data ), true );
+
+		// Trigger creation of a revision. This should be removed once #30854 is resolved.
+		if ( ! is_wp_error( $r ) && 0 === count( wp_get_post_revisions( $r ) ) ) {
+			wp_save_post_revision( $r );
+		}
+	}
+
+	if ( is_wp_error( $r ) ) {
+		return $r;
+	}
+	return get_post( $r );
 }
 
 /**
@@ -1818,7 +1921,7 @@ function get_editor_stylesheets() {
  */
 function get_theme_starter_content() {
 	$theme_support = get_theme_support( 'starter-content' );
-	if ( ! empty( $theme_support ) ) {
+	if ( is_array( $theme_support ) && ! empty( $theme_support[0] ) && is_array( $theme_support[0] ) ) {
 		$config = $theme_support[0];
 	} else {
 		$config = array();
@@ -1835,12 +1938,30 @@ function get_theme_starter_content() {
 					_x( 'Monday&mdash;Friday: 9:00AM&ndash;5:00PM', 'Theme starter content' ) . '<br />' . _x( 'Saturday &amp; Sunday: 11:00AM&ndash;3:00PM', 'Theme starter content' ) . '</p>'
 				) ),
 			) ),
-			'search' => array( 'search', array(
-				'title' => _x( 'Site Search', 'Theme starter content' ),
-			) ),
 			'text_about' => array( 'text', array(
 				'title' => _x( 'About This Site', 'Theme starter content' ),
 				'text' => _x( 'This may be a good place to introduce yourself and your site or include some credits.', 'Theme starter content' ),
+			) ),
+			'archives' => array( 'archives', array(
+				'title' => _x( 'Archives', 'Theme starter content' ),
+			) ),
+			'calendar' => array( 'calendar', array(
+				'title' => _x( 'Calendar', 'Theme starter content' ),
+			) ),
+			'categories' => array( 'categories', array(
+				'title' => _x( 'Categories', 'Theme starter content' ),
+			) ),
+			'meta' => array( 'meta', array(
+				'title' => _x( 'Meta', 'Theme starter content' ),
+			) ),
+			'recent-comments' => array( 'recent-comments', array(
+				'title' => _x( 'Recent Comments', 'Theme starter content' ),
+			) ),
+			'recent-posts' => array( 'recent-posts', array(
+				'title' => _x( 'Recent Posts', 'Theme starter content' ),
+			) ),
+			'search' => array( 'search', array(
+				'title' => _x( 'Search', 'Theme starter content' ),
 			) ),
 		),
 		'nav_menus' => array(
@@ -1852,65 +1973,94 @@ function get_theme_starter_content() {
 			'page_about' => array(
 				'type' => 'post_type',
 				'object' => 'page',
-				'object_id' => '{{about-us}}',
+				'object_id' => '{{about}}',
 			),
 			'page_blog' => array(
 				'type' => 'post_type',
 				'object' => 'page',
 				'object_id' => '{{blog}}',
 			),
+			'page_news' => array(
+				'type' => 'post_type',
+				'object' => 'page',
+				'object_id' => '{{news}}',
+			),
 			'page_contact' => array(
 				'type' => 'post_type',
 				'object' => 'page',
-				'object_id' => '{{contact-us}}',
+				'object_id' => '{{contact}}',
 			),
 
-			'link_yelp' => array(
-				'title' => _x( 'Yelp', 'Theme starter content' ),
-				'url' => 'https://www.yelp.com',
+			'link_email' => array(
+				'title' => _x( 'Email', 'Theme starter content' ),
+				'url' => 'mailto:wordpress@example.com',
 			),
 			'link_facebook' => array(
 				'title' => _x( 'Facebook', 'Theme starter content' ),
 				'url' => 'https://www.facebook.com/wordpress',
 			),
-			'link_twitter' => array(
-				'title' => _x( 'Twitter', 'Theme starter content' ),
-				'url' => 'https://twitter.com/wordpress',
+			'link_foursquare' => array(
+				'title' => _x( 'Foursquare', 'Theme starter content' ),
+				'url' => 'https://foursquare.com/',
+			),
+			'link_github' => array(
+				'title' => _x( 'GitHub', 'Theme starter content' ),
+				'url' => 'https://github.com/wordpress/',
 			),
 			'link_instagram' => array(
 				'title' => _x( 'Instagram', 'Theme starter content' ),
 				'url' => 'https://www.instagram.com/explore/tags/wordcamp/',
 			),
-			'link_email' => array(
-				'title' => _x( 'Email', 'Theme starter content' ),
-				'url' => 'mailto:wordpress@example.com',
+			'link_linkedin' => array(
+				'title' => _x( 'LinkedIn', 'Theme starter content' ),
+				'url' => 'https://www.linkedin.com/company/1089783',
+			),
+			'link_pinterest' => array(
+				'title' => _x( 'Pinterest', 'Theme starter content' ),
+				'url' => 'https://www.pinterest.com/',
+			),
+			'link_twitter' => array(
+				'title' => _x( 'Twitter', 'Theme starter content' ),
+				'url' => 'https://twitter.com/wordpress',
+			),
+			'link_yelp' => array(
+				'title' => _x( 'Yelp', 'Theme starter content' ),
+				'url' => 'https://www.yelp.com',
+			),
+			'link_youtube' => array(
+				'title' => _x( 'YouTube', 'Theme starter content' ),
+				'url' => 'https://www.youtube.com/channel/UCdof4Ju7amm1chz1gi1T2ZA',
 			),
 		),
 		'posts' => array(
 			'home' => array(
 				'post_type' => 'page',
-				'post_title' => _x( 'Homepage', 'Theme starter content' ),
-				'post_content' => _x( 'Welcome home.', 'Theme starter content' ),
+				'post_title' => _x( 'Home', 'Theme starter content' ),
+				'post_content' => _x( 'Welcome to your site! This is your homepage, which is what most visitors will see when they come to your site for the first time.', 'Theme starter content' ),
 			),
-			'about-us' => array(
+			'about' => array(
 				'post_type' => 'page',
-				'post_title' => _x( 'About Us', 'Theme starter content' ),
-				'post_content' => _x( 'More than you ever wanted to know.', 'Theme starter content' ),
+				'post_title' => _x( 'About', 'Theme starter content' ),
+				'post_content' => _x( 'You might be an artist who would like to introduce yourself and your work here or maybe you&rsquo;re a business with a mission to describe.', 'Theme starter content' ),
 			),
-			'contact-us' => array(
+			'contact' => array(
 				'post_type' => 'page',
-				'post_title' => _x( 'Contact Us', 'Theme starter content' ),
-				'post_content' => _x( 'Call us at 999-999-9999.', 'Theme starter content' ),
+				'post_title' => _x( 'Contact', 'Theme starter content' ),
+				'post_content' => _x( 'This is a page with some basic contact information, such as an address and phone number. You might also try a plugin to add a contact form.', 'Theme starter content' ),
 			),
 			'blog' => array(
 				'post_type' => 'page',
 				'post_title' => _x( 'Blog', 'Theme starter content' ),
 			),
+			'news' => array(
+				'post_type' => 'page',
+				'post_title' => _x( 'News', 'Theme starter content' ),
+			),
 
 			'homepage-section' => array(
 				'post_type' => 'page',
 				'post_title' => _x( 'A homepage section', 'Theme starter content' ),
-				'post_content' => _x( 'This is an example of a homepage section, which are managed in theme options.', 'Theme starter content' ),
+				'post_content' => _x( 'This is an example of a homepage section. Homepage sections can be any page other than the homepage itself, including the page that shows your latest blog posts.', 'Theme starter content' ),
 			),
 		),
 	);
@@ -1928,8 +2078,17 @@ function get_theme_starter_content() {
 			// Widgets are grouped into sidebars.
 			case 'widgets' :
 				foreach ( $config[ $type ] as $sidebar_id => $widgets ) {
-					foreach ( $widgets as $widget ) {
+					foreach ( $widgets as $id => $widget ) {
 						if ( is_array( $widget ) ) {
+
+							// Item extends core content.
+							if ( ! empty( $core_content[ $type ][ $id ] ) ) {
+								$widget = array(
+									$core_content[ $type ][ $id ][0],
+									array_merge( $core_content[ $type ][ $id ][1], $widget ),
+								);
+							}
+
 							$content[ $type ][ $sidebar_id ][] = $widget;
 						} elseif ( is_string( $widget ) && ! empty( $core_content[ $type ] ) && ! empty( $core_content[ $type ][ $widget ] ) ) {
 							$content[ $type ][ $sidebar_id ][] = $core_content[ $type ][ $widget ];
@@ -1949,8 +2108,14 @@ function get_theme_starter_content() {
 
 					$content[ $type ][ $nav_menu_location ]['name'] = $nav_menu['name'];
 
-					foreach ( $nav_menu['items'] as $nav_menu_item ) {
+					foreach ( $nav_menu['items'] as $id => $nav_menu_item ) {
 						if ( is_array( $nav_menu_item ) ) {
+
+							// Item extends core content.
+							if ( ! empty( $core_content[ $type ][ $id ] ) ) {
+								$nav_menu_item = array_merge( $core_content[ $type ][ $id ], $nav_menu_item );
+							}
+
 							$content[ $type ][ $nav_menu_location ]['items'][] = $nav_menu_item;
 						} elseif ( is_string( $nav_menu_item ) && ! empty( $core_content[ $type ] ) && ! empty( $core_content[ $type ][ $nav_menu_item ] ) ) {
 							$content[ $type ][ $nav_menu_location ]['items'][] = $core_content[ $type ][ $nav_menu_item ];
@@ -1959,12 +2124,41 @@ function get_theme_starter_content() {
 				}
 				break;
 
-			// Everything else should map at the next level.
-			default :
-				foreach( $config[ $type ] as $i => $item ) {
+			// Attachments are posts but have special treatment.
+			case 'attachments' :
+				foreach ( $config[ $type ] as $id => $item ) {
+					if ( ! empty( $item['file'] ) ) {
+						$content[ $type ][ $id ] = $item;
+					}
+				}
+				break;
+
+			// All that's left now are posts (besides attachments). Not a default case for the sake of clarity and future work.
+			case 'posts' :
+				foreach ( $config[ $type ] as $id => $item ) {
 					if ( is_array( $item ) ) {
-						$content[ $type ][ $i ] = $item;
-					} elseif ( is_string( $item ) && ! empty( $core_content[ $type ] ) && ! empty( $core_content[ $type ][ $item ] ) ) {
+
+						// Item extends core content.
+						if ( ! empty( $core_content[ $type ][ $id ] ) ) {
+							$item = array_merge( $core_content[ $type ][ $id ], $item );
+						}
+
+						// Enforce a subset of fields.
+						$content[ $type ][ $id ] = wp_array_slice_assoc(
+							$item,
+							array(
+								'post_type',
+								'post_title',
+								'post_excerpt',
+								'post_name',
+								'post_content',
+								'menu_order',
+								'comment_status',
+								'thumbnail',
+								'template',
+							)
+						);
+					} elseif ( is_string( $item ) && ! empty( $core_content[ $type ][ $item ] ) ) {
 						$content[ $type ][ $item ] = $core_content[ $type ][ $item ];
 					}
 				}

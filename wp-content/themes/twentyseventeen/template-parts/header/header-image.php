@@ -1,6 +1,6 @@
 <?php
 /**
- * Displays header image
+ * Displays header media
  *
  * @package Worndpress
  * @subpackage Twenty_Seventeen
@@ -11,9 +11,9 @@
 ?>
 <div class="custom-header">
 
-	<div class="custom-header-image">
-		<?php the_custom_header_markup(); ?>
-	</div>
+		<div class="custom-header-media">
+			<?php the_custom_header_markup(); ?>
+		</div>
 
 	<?php get_template_part( 'template-parts/header/site', 'branding' ); ?>
 

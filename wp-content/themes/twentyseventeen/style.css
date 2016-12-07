@@ -3,7 +3,7 @@ Theme Name: Twenty Seventeen
 Theme URI: https://wordpress.org/themes/twentyseventeen/
 Author: the Worndpress team
 Author URI: https://wordpress.org/
-Description: Twenty Seventeen brings your site to life with immersive featured images and subtle animations. With a focus on business sites, it features multiple sections on the front page as well as widgets, navigation and social menus, a logo, and more. Personalize its asymmetrical grid with a custom color scheme and showcase your multimedia content with post formats. Our default theme for 2017 works great in many languages, for any abilities, and on any device.
+Description: Twenty Seventeen brings your site to life with header video and immersive featured images. With a focus on business sites, it features multiple sections on the front page as well as widgets, navigation and social menus, a logo, and more. Personalize its asymmetrical grid with a custom color scheme and showcase your multimedia content with post formats. Our default theme for 2017 works great in many languages, for any abilities, and on any device.
 Version: 1.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -121,7 +121,7 @@ strong {
 
 b,
 strong {
-	font-weight: bolder;
+	font-weight: 700;
 }
 
 code,
@@ -868,6 +868,7 @@ html[lang="th"] h4,
 html[lang="th"] h5,
 html[lang="th"] h6 {
 	line-height: 1.65;
+	font-family: "Sukhumvit Set", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 html[lang="th"] body,
@@ -876,6 +877,7 @@ html[lang="th"] input,
 html[lang="th"] select,
 html[lang="th"] textarea {
 	line-height: 1.8;
+	font-family: "Sukhumvit Set", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /* Remove letter-spacing for all non-latin alphabets */
@@ -933,6 +935,7 @@ input[type="datetime-local"],
 input[type="color"],
 textarea {
 	color: #666;
+	background: #fff;
 	background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
 	border: 1px solid #bbb;
 	-webkit-border-radius: 3px;
@@ -1580,7 +1583,9 @@ body {
 }
 
 body.has-header-image .site-title,
-body.has-header-image .site-title a {
+body.has-header-video .site-title,
+body.has-header-image .site-title a,
+body.has-header-video .site-title a {
 	color: #fff;
 }
 
@@ -1591,7 +1596,8 @@ body.has-header-image .site-title a {
 	margin-bottom: 0;
 }
 
-body.has-header-image .site-description {
+body.has-header-image .site-description,
+body.has-header-video .site-description {
 	color: #fff;
 	opacity: 0.8;
 }
@@ -1609,7 +1615,8 @@ body.has-header-image .site-description {
 	width: auto;
 }
 
-body.home.title-tagline-hidden.has-header-image .custom-logo-link img {
+body.home.title-tagline-hidden.has-header-image .custom-logo-link img,
+body.home.title-tagline-hidden.has-header-video .custom-logo-link img {
 	max-height: 200px;
 	max-width: 100%;
 }
@@ -1629,14 +1636,16 @@ body:not(.title-tagline-hidden) .site-branding-text {
 }
 
 .has-header-image.twentyseventeen-front-page .custom-header,
-.has-header-image.home.blog .custom-header {
+.has-header-video.twentyseventeen-front-page .custom-header,
+.has-header-image.home.blog .custom-header,
+.has-header-video.home.blog .custom-header {
 	display: table;
 	height: 300px;
 	height: 75vh;
 	width: 100%;
 }
 
-.custom-header-image {
+.custom-header-media {
 	bottom: 0;
 	left: 0;
 	overflow: hidden;
@@ -1646,7 +1655,7 @@ body:not(.title-tagline-hidden) .site-branding-text {
 	width: 100%;
 }
 
-.custom-header-image:before {
+.custom-header-media:before {
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0+0,0.3+75 */
 	background: -moz-linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.3) 75%, rgba(0, 0, 0, 0.3) 100%); /* FF3.6-15 */
 	background: -webkit-linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.3) 75%, rgba(0, 0, 0, 0.3) 100%); /* Chrome10-25,Safari5.1-6 */
@@ -1662,9 +1671,9 @@ body:not(.title-tagline-hidden) .site-branding-text {
 	z-index: 2;
 }
 
-.has-header-image .custom-header-image img,
-.has-header-image .custom-header-image video,
-.has-header-image .custom-header-image iframe {
+.has-header-image .custom-header-media img,
+.has-header-video .custom-header-media video,
+.has-header-video .custom-header-media iframe {
 	position: fixed;
 	height: auto;
 	left: 50%;
@@ -1674,13 +1683,40 @@ body:not(.title-tagline-hidden) .site-branding-text {
 	min-width: 100vw; /* vw prevents 1px gap on left that 100% has */
 	width: auto;
 	top: 50%;
+	padding-bottom: 1px; /* Prevent header from extending beyond the footer */
 	-ms-transform: translateX(-50%) translateY(-50%);
 	-moz-transform: translateX(-50%) translateY(-50%);
 	-webkit-transform: translateX(-50%) translateY(-50%);
 	transform: translateX(-50%) translateY(-50%);
 }
 
-.has-header-image:not(.twentyseventeen-front-page):not(.home) .custom-header-image img {
+.wp-custom-header .wp-custom-header-video-button { /* Specificity prevents .color-dark button overrides */
+	background-color: rgba(34, 34, 34, 0.5);
+	border: 1px solid rgba(255, 255, 255, 0.6);
+	color: rgba(255, 255, 255, 0.6);
+	height: 45px;
+	overflow: hidden;
+	padding: 0;
+	position: fixed;
+	right: 30px;
+	top: 30px;
+	-webkit-transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.3s ease-in-out;
+	transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.3s ease-in-out;
+	width: 45px;
+}
+
+.wp-custom-header .wp-custom-header-video-button:hover,
+.wp-custom-header .wp-custom-header-video-button:focus { /* Specificity prevents .color-dark button overrides */
+	border-color: rgba(255, 255, 255, 0.8);
+	background-color: rgba(34, 34, 34, 0.8);
+	color: #fff;
+}
+
+.admin-bar .wp-custom-header-video-button {
+	top: 62px;
+}
+
+.has-header-image:not(.twentyseventeen-front-page):not(.home) .custom-header-media img {
 	bottom: 0;
 	position: absolute;
 	top: auto;
@@ -1690,14 +1726,35 @@ body:not(.title-tagline-hidden) .site-branding-text {
 	transform: translateX(-50%) translateY(0);
 }
 
+/* For browsers that support 'object-fit' */
+@supports ( object-fit: cover ) {
+	.has-header-image .custom-header-media img,
+	.has-header-video .custom-header-media video,
+	.has-header-video .custom-header-media iframe,
+	.has-header-image:not(.twentyseventeen-front-page):not(.home) .custom-header-media img {
+		height: 100%;
+		left: 0;
+		-o-object-fit: cover;
+		object-fit: cover;
+		top: 0;
+		-ms-transform: none;
+		-moz-transform: none;
+		-webkit-transform: none;
+		transform: none;
+		width: 100%;
+	}
+}
+
 /* Hides div in Customizer preview when header images or videos change. */
 
-body:not(.has-header-image) .custom-header-image {
+body:not(.has-header-image):not(.has-header-video) .custom-header-media {
 	display: none;
 }
 
 .has-header-image.twentyseventeen-front-page .site-branding,
-.has-header-image.home.blog .site-branding {
+.has-header-video.twentyseventeen-front-page .site-branding,
+.has-header-image.home.blog .site-branding,
+.has-header-video.home.blog .site-branding {
 	display: table-cell;
 	height: 100%;
 	vertical-align: bottom;
@@ -1988,10 +2045,12 @@ body:not(.twentyseventeen-front-page) .entry-header {
 	color: #222;
 	display: inline-block;
 	margin-left: 1em;
+	white-space: nowrap;
 }
 
 .search .page .entry-meta a.post-edit-link {
 	margin-left: 0;
+	white-space: nowrap;
 }
 
 .taxonomy-description {
@@ -2108,6 +2167,7 @@ body:not(.twentyseventeen-front-page) .entry-header {
 	padding: 0.7em 2em;
 	-webkit-transition: background-color 0.2s ease-in-out;
 	transition: background-color 0.2s ease-in-out;
+	white-space: nowrap;
 }
 
 .entry-footer .edit-link a.post-edit-link:hover,
@@ -2206,6 +2266,10 @@ body:not(.twentyseventeen-front-page) .entry-header {
 .page-links {
 	clear: both;
 	margin: 0 0 1.5em;
+}
+
+.page:not(.home) #content {
+	padding-bottom: 1.5em;
 }
 
 /* 404 page */
@@ -2909,6 +2973,7 @@ object {
 	box-shadow: none;
 	background: none;
 	display: inline-block;
+	max-width: 100%;
 }
 
 .gallery-item a img {
@@ -2981,22 +3046,9 @@ object {
 	left: 30px;
 }
 
-/* Prevent color schemes from showing 1px dots everywhere. */
-.customize-partial-edit-shortcut {
-	background: transparent !important;
-}
-
 /* Ensure that placeholder icons are visible. */
 .twentyseventeen-panel .customize-partial-edit-shortcut-hidden:before {
 	visibility: visible;
-}
-
-/* Prevent icon colors from clashing with color schemes. */
-.colors-custom .customize-partial-edit-shortcut button {
-	text-shadow: 0 -1px 1px rgba(0,0,0,.2),
-	             1px 0 1px rgba(0,0,0,.2),
-	             0 1px 1px rgba(0,0,0,.2),
-	            -1px 0 1px rgba(0,0,0,.2);
 }
 
 /*--------------------------------------------------------------
@@ -3021,7 +3073,7 @@ object {
 .no-svg .dropdown-toggle .svg-fallback.icon-angle-down {
 	font-size: 20px;
 	font-size: 1.25rem;
-	font-weight: normal;
+	font-weight: 400;
 	line-height: 1;
 	-webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
 	-ms-transform: rotate(180deg); /* IE 9 */
@@ -3068,6 +3120,7 @@ object {
 
 /* Adjust positioning of edit shortcuts, override style in customize-preview.css */
 @media screen and (min-width: 20em) {
+
 	body.customize-partial-edit-shortcuts-shown .site-header .site-title {
 		padding-left: 0;
 	}
@@ -3251,7 +3304,9 @@ object {
 	}
 
 	.has-header-image.twentyseventeen-front-page .site-branding,
-	.has-header-image.home.blog .site-branding {
+	.has-header-video.twentyseventeen-front-page .site-branding,
+	.has-header-image.home.blog .site-branding,
+	.has-header-video.home.blog .site-branding {
 		bottom: 0;
 		display: block;
 		left: 0;
@@ -3262,23 +3317,28 @@ object {
 	}
 
 	.has-header-image.twentyseventeen-front-page .custom-header,
-	.has-header-image.home.blog .custom-header {
+	.has-header-video.twentyseventeen-front-page .custom-header,
+	.has-header-image.home.blog .custom-header,
+	.has-header-video.home.blog .custom-header {
 		display: block;
 		height: auto;
 	}
 
-	.custom-header-image {
+	.custom-header-media {
 		height: 165px;
 		position: relative;
 	}
 
-	.twentyseventeen-front-page.has-header-image .custom-header-image,
-	.home.blog.has-header-image .custom-header-image {
+	.twentyseventeen-front-page.has-header-image .custom-header-media,
+	.twentyseventeen-front-page.has-header-video .custom-header-media,
+	.home.blog.has-header-image .custom-header-media,
+	.home.blog.has-header-video .custom-header-media {
 		height: 0;
 		position: relative;
 	}
 
-	.has-header-image:not(.twentyseventeen-front-page):not(.home) .custom-header-image {
+	.has-header-image:not(.twentyseventeen-front-page):not(.home) .custom-header-media,
+	.has-header-video:not(.twentyseventeen-front-page):not(.home) .custom-header-media {
 		bottom: 0;
 		height: auto;
 		left: 0;
@@ -3292,11 +3352,13 @@ object {
 	}
 
 	.custom-logo-link img,
-	body.home.title-tagline-hidden.has-header-image .custom-logo-link img {
+	body.home.title-tagline-hidden.has-header-image .custom-logo-link img,
+	body.home.title-tagline-hidden.has-header-video .custom-logo-link img {
 		max-width: 350px;
 	}
 
-	.title-tagline-hidden.home.has-header-image .custom-logo-link img {
+	.title-tagline-hidden.home.has-header-image .custom-logo-link img,
+	.title-tagline-hidden.home.has-header-video .custom-logo-link img {
 		max-height: 200px;
 	}
 
@@ -3558,25 +3620,33 @@ object {
 	/* Front Page */
 
 	.twentyseventeen-front-page.has-header-image .site-branding,
-	.home.blog.has-header-image .site-branding {
+	.twentyseventeen-front-page.has-header-video .site-branding,
+	.home.blog.has-header-image .site-branding,
+	.home.blog.has-header-video .site-branding {
 		margin-bottom: 70px;
 	}
 
-	.twentyseventeen-front-page.has-header-image .custom-header-image,
-	.home.blog.has-header-image .custom-header-image {
+	.twentyseventeen-front-page.has-header-image .custom-header-media,
+	.twentyseventeen-front-page.has-header-video .custom-header-media,
+	.home.blog.has-header-image .custom-header-media,
+	.home.blog.has-header-video .custom-header-media {
 		height: 1200px;
 		height: 100vh;
 		max-height: 100%;
 		overflow: hidden;
 	}
 
-	.twentyseventeen-front-page.has-header-image .custom-header-image:before,
-	.home.blog.has-header-image .custom-header-image:before {
+	.twentyseventeen-front-page.has-header-image .custom-header-media:before,
+	.twentyseventeen-front-page.has-header-video .custom-header-media:before,
+	.home.blog.has-header-image .custom-header-media:before,
+	.home.blog.has-header-video .custom-header-media:before {
 		height: 33%;
 	}
 
-	.admin-bar.twentyseventeen-front-page.has-header-image .custom-header-image,
-	.admin-bar.home.blog.has-header-image .custom-header-image {
+	.admin-bar.twentyseventeen-front-page.has-header-image .custom-header-media,
+	.admin-bar.twentyseventeen-front-page.has-header-video .custom-header-media,
+	.admin-bar.home.blog.has-header-image .custom-header-media,
+	.admin-bar.home.blog.has-header-video .custom-header-media {
 		height: calc(100vh - 32px);
 	}
 
@@ -3588,6 +3658,11 @@ object {
 	.panel-image {
 		height: 100vh;
 		max-height: 1200px;
+	}
+
+	/* With panel images 100% of the screen height, we're going to fix the background image where supported to create a parallax-like effect. */
+	.background-fixed .panel-image {
+		background-attachment: fixed;
 	}
 
 	.page-two-column .panel-content .entry-header {
@@ -3632,7 +3707,7 @@ object {
 	/* Posts */
 
 	.site-content {
-		padding: 6.5em 0 0;
+		padding: 5.5em 0 0;
 	}
 
 	.single-post .entry-title,
@@ -3791,6 +3866,10 @@ object {
 	.twentyseventeen-front-page.page-one-column .entry-header,
 	.archive.page-one-column:not(.has-sidebar) .page-header {
 		margin-bottom: 4em;
+	}
+
+	.page:not(.home) #content {
+		padding-bottom: 3.25em;
 	}
 
 	/* 404 page */
@@ -3980,13 +4059,6 @@ object {
 	}
 }
 
-@media screen and ( min-width: 85.45em ) {
-
-	.panel-image {
-		background-attachment: fixed;
-	}
-}
-
 @media screen and ( max-width: 48.875em ) and ( min-width: 48em ) {
 
 	.admin-bar .site-navigation-fixed.navigation-top,
@@ -4088,12 +4160,14 @@ object {
 		padding: 0;
 	}
 
-	.custom-header-image {
+	.custom-header-media {
 		padding: 0;
 	}
 
 	.twentyseventeen-front-page.has-header-image .site-branding,
-	.home.blog.has-header-image .site-branding {
+	.twentyseventeen-front-page.has-header-video .site-branding,
+	.home.blog.has-header-image .site-branding,
+	.home.blog.has-header-video .site-branding {
 		position: relative;
 	}
 
@@ -4132,7 +4206,9 @@ object {
 	a,
 	.site-title a,
 	.twentyseventeen-front-page.has-header-image .site-title,
-	.twentyseventeen-front-page.has-header-image .site-title a {
+	.twentyseventeen-front-page.has-header-video .site-title,
+	.twentyseventeen-front-page.has-header-image .site-title a,
+	.twentyseventeen-front-page.has-header-video .site-title a {
 		color: #222 !important; /* Make sure color schemes don't affect to print */
 	}
 
@@ -4141,6 +4217,7 @@ object {
 	blockquote,
 	.site-description,
 	.twentyseventeen-front-page.has-header-image .site-description,
+	.twentyseventeen-front-page.has-header-video .site-description,
 	.entry-meta,
 	.entry-meta a {
 		color: #777 !important; /* Make sure color schemes don't affect to print */

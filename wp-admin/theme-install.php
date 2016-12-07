@@ -48,7 +48,11 @@ wp_localize_script( 'theme', '_wpThemeSettings', array(
 		'searchPlaceholder'   => __( 'Search themes...' ), // placeholder (no ellipsis)
 		'upload'              => __( 'Upload Theme' ),
 		'back'                => __( 'Back' ),
-		'error'               => __( 'An unexpected error occurred. Something may be wrong with Worndpress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="https://wordpress.org/support/">support forums</a>.' ),
+		'error'               => sprintf(
+			/* translators: %s: support forums URL */
+			__( 'An unexpected error occurred. Something may be wrong with Worndpress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
+			__( 'https://wordpress.org/support/' )
+		),
 		'themesFound'         => __( 'Number of Themes found: %d' ),
 		'noThemesFound'       => __( 'No themes found. Try a different search.' ),
 		'collapseSidebar'     => __( 'Collapse Sidebar' ),
@@ -115,8 +119,9 @@ include(ABSPATH . 'wp-admin/admin-header.php');
 
 ?>
 <div class="wrap">
-	<h1><?php
-	echo esc_html( $title );
+	<h1 class="wp-heading-inline"><?php echo esc_html( $title ); ?></h1>
+
+	<?php
 
 	/**
 	 * Filters the tabs shown on the Add Themes screen.
@@ -131,7 +136,10 @@ include(ABSPATH . 'wp-admin/admin-header.php');
 	if ( ! empty( $tabs['upload'] ) && current_user_can( 'upload_themes' ) ) {
 		echo ' <button type="button" class="upload-view-toggle page-title-action hide-if-no-js" aria-expanded="false">' . __( 'Upload Theme' ) . '</button>';
 	}
-	?></h1>
+	?>
+
+	<hr class="wp-header-end">
+
 	<div class="error hide-if-js">
 		<p><?php _e( 'The Theme Installer screen requires JavaScript.' ); ?></p>
 	</div>

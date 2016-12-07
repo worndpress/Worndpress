@@ -4,7 +4,6 @@
 	// Variables and DOM Caching.
 	var $body = $( 'body' ),
 		$customHeader = $body.find( '.custom-header' ),
-		$customHeaderImage = $customHeader.find( '.custom-header-image' ),
 		$branding = $customHeader.find( '.site-branding' ),
 		$navigation = $body.find( '.navigation-top' ),
 		$navWrap = $navigation.find( '.wrap' ),
@@ -64,8 +63,8 @@
 			// Make sure the nav isn't taller than two rows.
 			if ( navIsNotTooTall ) {
 
-				// When there's a custom header image, the header offset includes the height of the navigation.
-				if ( isFrontPage && $customHeaderImage.length ) {
+				// When there's a custom header image or video, the header offset includes the height of the navigation.
+				if ( isFrontPage && ( $body.hasClass( 'has-header-image' ) || $body.hasClass( 'has-header-video' ) ) ) {
 					headerOffset = $customHeader.innerHeight() - navigationOuterHeight;
 				} else {
 					headerOffset = $customHeader.innerHeight();
@@ -148,6 +147,34 @@
 		return 'http://www.w3.org/2000/svg' === ( 'undefined' !== typeof SVGRect && div.firstChild && div.firstChild.namespaceURI );
 	}
 
+	/**
+	 * Test if an iOS device.
+	*/
+	function checkiOS() {
+		return /iPad|iPhone|iPod/.test(navigator.userAgent) && ! window.MSStream;
+	}
+
+	/*
+	 * Test if background-attachment: fixed is supported.
+	 * @link http://stackoverflow.com/questions/14115080/detect-support-for-background-attachment-fixed
+	 */
+	function supportsFixedBackground() {
+		var el = document.createElement('div'),
+			isSupported;
+
+		try {
+			if ( ! ( 'backgroundAttachment' in el.style ) || checkiOS() ) {
+				return false;
+			}
+			el.style.backgroundAttachment = 'fixed';
+			isSupported = ( 'fixed' === el.style.backgroundAttachment );
+			return isSupported;
+		}
+		catch (e) {
+			return false;
+		}
+	}
+
 	// Fire on document ready.
 	$( document ).ready( function() {
 
@@ -184,6 +211,10 @@
 		if ( true === supportsInlineSVG() ) {
 			document.documentElement.className = document.documentElement.className.replace( /(\s*)no-svg(\s*)/, '$1svg$2' );
 		}
+
+		if ( true === supportsFixedBackground() ) {
+			document.documentElement.className += ' background-fixed';
+		}
 	});
 
 	// If navigation menu is present on page, adjust it on scroll and screen resize.
@@ -208,6 +239,11 @@
 			belowEntryMetaClass( 'blockquote.alignleft, blockquote.alignright' );
 		}, 300 );
 		setTimeout( adjustHeaderHeight, 1000 );
+	});
+
+	// Add header video class after the video is loaded.
+	$( document ).on( 'wp-custom-header-video-loaded', function() {
+		$body.addClass( 'has-header-video' );
 	});
 
 })( jQuery );
