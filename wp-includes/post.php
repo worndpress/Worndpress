@@ -1355,7 +1355,7 @@ function _post_type_meta_capabilities( $capabilities = null ) {
  * @since 3.0.0
  * @since 4.3.0 Added the `featured_image`, `set_featured_image`, `remove_featured_image`,
  *              and `use_featured_image` labels.
- * @since 4.4.0 Added the `insert_into_item`, `uploaded_to_this_item`, `filter_items_list`,
+ * @since 4.4.0 Added the `archives`, `insert_into_item`, `uploaded_to_this_item`, `filter_items_list`,
  *              `items_list_navigation`, and `items_list` labels.
  * @since 4.6.0 Converted the `$post_type` parameter to accept a WP_Post_Type object.
  * @since 4.7.0 Added the `view_items` and `attributes` labels.
@@ -1384,10 +1384,10 @@ function get_post_type_labels( $post_type_object ) {
 		'attributes' => array( __( 'Post Attributes' ), __( 'Page Attributes' ) ),
 		'insert_into_item' => array( __( 'Insert into post' ), __( 'Insert into page' ) ),
 		'uploaded_to_this_item' => array( __( 'Uploaded to this post' ), __( 'Uploaded to this page' ) ),
-		'featured_image' => array( __( 'Featured Image' ), __( 'Featured Image' ) ),
-		'set_featured_image' => array( __( 'Set featured image' ), __( 'Set featured image' ) ),
-		'remove_featured_image' => array( __( 'Remove featured image' ), __( 'Remove featured image' ) ),
-		'use_featured_image' => array( __( 'Use as featured image' ), __( 'Use as featured image' ) ),
+		'featured_image' => array( _x( 'Featured Image', 'post' ), _x( 'Featured Image', 'page' ) ),
+		'set_featured_image' => array( _x( 'Set featured image', 'post' ), _x( 'Set featured image', 'page' ) ),
+		'remove_featured_image' => array( _x( 'Remove featured image', 'post' ), _x( 'Remove featured image', 'page' ) ),
+		'use_featured_image' => array( _x( 'Use as featured image', 'post' ), _x( 'Use as featured image', 'page' ) ),
 		'filter_items_list' => array( __( 'Filter posts list' ), __( 'Filter pages list' ) ),
 		'items_list_navigation' => array( __( 'Posts list navigation' ), __( 'Pages list navigation' ) ),
 		'items_list' => array( __( 'Posts list' ), __( 'Pages list' ) ),
