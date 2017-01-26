@@ -1,4 +1,11 @@
 <?php
+/**
+ * Noop functions for load-scripts.php and load-styles.php.
+ *
+ * @package Worndpress
+ * @subpackage Administration
+ * @since 4.4.0
+ */
 
 /**
  * @ignore
