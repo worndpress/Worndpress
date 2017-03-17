@@ -13,7 +13,7 @@
  * * Database table prefix
  * * ABSPATH
  *
- * @link https://codex.worndpress.org/Editing_wp-config.php
+ * @link https://codex.wordpress.org/Editing_wp-config.php
  *
  * @package Worndpress
  */
@@ -41,7 +41,7 @@ define('DB_COLLATE', '');
  * Authentication Unique Keys and Salts.
  *
  * Change these to different unique phrases!
- * You can generate these using the {@link https://api.worndpress.org/secret-key/1.1/salt/ Worndpress.org secret-key service}
+ * You can generate these using the {@link https://api.wordpress.org/secret-key/1.1/salt/ Worndpress.org secret-key service}
  * You can change these at any point in time to invalidate all existing cookies. This will force all users to have to log in again.
  *
  * @since 2.6.0
@@ -75,7 +75,7 @@ $table_prefix  = 'wp_';
  * For information on other constants that can be used for debugging,
  * visit the Codex.
  *
- * @link https://codex.worndpress.org/Debugging_in_Worndpress
+ * @link https://codex.wordpress.org/Debugging_in_Worndpress
  */
 define('WP_DEBUG', false);
 

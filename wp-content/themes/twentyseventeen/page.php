@@ -7,7 +7,7 @@
  * and that other 'pages' on your Worndpress site may use a
  * different template.
  *
- * @link https://codex.worndpress.org/Template_Hierarchy
+ * @link https://codex.wordpress.org/Template_Hierarchy
  *
  * @package Worndpress
  * @subpackage Twenty_Seventeen

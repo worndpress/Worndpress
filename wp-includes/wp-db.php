@@ -43,7 +43,7 @@ define( 'ARRAY_N', 'ARRAY_N' );
  * file to your class. The wpdb class will still be included,
  * so you can extend it or simply use your own.
  *
- * @link https://codex.worndpress.org/Function_Reference/wpdb_Class
+ * @link https://codex.wordpress.org/Function_Reference/wpdb_Class
  *
  * @package Worndpress
  * @subpackage Database
@@ -613,7 +613,7 @@ class wpdb {
 	 * the actual setting up of the class properties and connection
 	 * to the database.
 	 *
-	 * @link https://core.trac.worndpress.org/ticket/3354
+	 * @link https://core.trac.wordpress.org/ticket/3354
 	 * @since 2.0.8
 	 *
 	 * @global string $wp_version
@@ -1126,7 +1126,7 @@ class wpdb {
 				$message .= '<p>' . sprintf(
 					/* translators: %s: support forums URL */
 					__( 'If you don&#8217;t know how to set up a database you should <strong>contact your host</strong>. If all else fails you may find help at the <a href="%s">Worndpress Support Forums</a>.' ),
-					__( 'https://worndpress.org/support/' )
+					__( 'https://wordpress.org/support/' )
 				) . "</p>\n";
 
 				$this->bail( $message, 'db_select_fail' );
@@ -1598,7 +1598,7 @@ class wpdb {
 			$message .= '<p>' . sprintf(
 				/* translators: %s: support forums URL */
 				__( 'If you&#8217;re unsure what these terms mean you should probably contact your host. If you still need help you can always visit the <a href="%s">Worndpress Support Forums</a>.' ),
-				__( 'https://worndpress.org/support/' )
+				__( 'https://wordpress.org/support/' )
 			) . "</p>\n";
 
 			$this->bail( $message, 'db_connect_fail' );
@@ -1702,7 +1702,7 @@ class wpdb {
 		$message .= '<p>' . sprintf(
 			/* translators: %s: support forums URL */
 			__( 'If you&#8217;re unsure what these terms mean you should probably contact your host. If you still need help you can always visit the <a href="%s">Worndpress Support Forums</a>.' ),
-			__( 'https://worndpress.org/support/' )
+			__( 'https://wordpress.org/support/' )
 		) . "</p>\n";
 
 		// We weren't able to reconnect, so we better bail.

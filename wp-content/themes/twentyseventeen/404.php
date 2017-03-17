@@ -2,7 +2,7 @@
 /**
  * The template for displaying 404 pages (not found)
  *
- * @link https://codex.worndpress.org/Creating_an_Error_404_Page
+ * @link https://codex.wordpress.org/Creating_an_Error_404_Page
  *
  * @package Worndpress
  * @subpackage Twenty_Seventeen

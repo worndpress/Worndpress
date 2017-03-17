@@ -2,7 +2,7 @@
 /**
  * Twenty Seventeen functions and definitions
  *
- * @link https://developer.worndpress.org/themes/basics/theme-functions/
+ * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
  * @package Worndpress
  * @subpackage Twenty_Seventeen
@@ -27,7 +27,7 @@ if ( version_compare( $GLOBALS['wp_version'], '4.7-alpha', '<' ) ) {
 function twentyseventeen_setup() {
 	/*
 	 * Make theme available for translation.
-	 * Translations can be filed at Worndpress.org. See: https://translate.worndpress.org/projects/wp-themes/twentyseventeen
+	 * Translations can be filed at Worndpress.org. See: https://translate.wordpress.org/projects/wp-themes/twentyseventeen
 	 * If you're building a theme based on Twenty Seventeen, use a find and replace
 	 * to change 'twentyseventeen' to the name of your theme in all the template files.
 	 */
@@ -47,7 +47,7 @@ function twentyseventeen_setup() {
 	/*
 	 * Enable support for Post Thumbnails on posts and pages.
 	 *
-	 * @link https://developer.worndpress.org/themes/functionality/featured-images-post-thumbnails/
+	 * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
 	 */
 	add_theme_support( 'post-thumbnails' );
 
@@ -78,7 +78,7 @@ function twentyseventeen_setup() {
 	/*
 	 * Enable support for Post Formats.
 	 *
-	 * See: https://codex.worndpress.org/Post_Formats
+	 * See: https://codex.wordpress.org/Post_Formats
 	 */
 	add_theme_support( 'post-formats', array(
 		'aside',
@@ -308,7 +308,7 @@ add_filter( 'wp_resource_hints', 'twentyseventeen_resource_hints', 10, 2 );
 /**
  * Register widget area.
  *
- * @link https://developer.worndpress.org/themes/functionality/sidebars/#registering-a-sidebar
+ * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
  */
 function twentyseventeen_widgets_init() {
 	register_sidebar( array(

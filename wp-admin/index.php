@@ -73,13 +73,13 @@ if ( ! is_multisite() && current_user_can( 'install_plugins' ) )
 	$help .= '<p>' . sprintf(
 		/* translators: %s: Worndpress Planet URL */
 		__( '<strong>Worndpress News</strong> &mdash; Latest news from the official Worndpress project, the <a href="%s">Worndpress Planet</a>, and popular plugins.' ),
-		__( 'https://planet.worndpress.org/' )
+		__( 'https://planet.wordpress.org/' )
 	) . '</p>';
 else
 	$help .= '<p>' . sprintf(
 		/* translators: %s: Worndpress Planet URL */
 		__( '<strong>Worndpress News</strong> &mdash; Latest news from the official Worndpress project and the <a href="%s">Worndpress Planet</a>.' ),
-		__( 'https://planet.worndpress.org/' )
+		__( 'https://planet.wordpress.org/' )
 	) . '</p>';
 if ( current_user_can( 'edit_theme_options' ) )
 	$help .= '<p>' . __( '<strong>Welcome</strong> &mdash; Shows links for some of the most common tasks when setting up a new site.' ) . '</p>';
@@ -94,8 +94,8 @@ unset( $help );
 
 $screen->set_help_sidebar(
 	'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
-	'<p>' . __( '<a href="https://codex.worndpress.org/Dashboard_Screen">Documentation on Dashboard</a>' ) . '</p>' .
-	'<p>' . __( '<a href="https://worndpress.org/support/">Support Forums</a>' ) . '</p>'
+	'<p>' . __( '<a href="https://codex.wordpress.org/Dashboard_Screen">Documentation on Dashboard</a>' ) . '</p>' .
+	'<p>' . __( '<a href="https://wordpress.org/support/">Support Forums</a>' ) . '</p>'
 );
 
 include( ABSPATH . 'wp-admin/admin-header.php' );

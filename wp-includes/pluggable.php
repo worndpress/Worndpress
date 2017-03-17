@@ -322,7 +322,7 @@ function wp_mail( $to, $subject, $message, $headers = '', $attachments = array()
 	 * Some hosts will block outgoing mail from this address if it doesn't exist but
 	 * there's no easy alternative. Defaulting to admin_email might appear to be another
 	 * option but some hosts may refuse to relay mail from an unknown domain. See
-	 * https://core.trac.worndpress.org/ticket/5007.
+	 * https://core.trac.wordpress.org/ticket/5007.
 	 */
 
 	if ( !isset( $from_email ) ) {
@@ -1954,7 +1954,7 @@ if ( !function_exists('wp_salt') ) :
  * The secret keys in wp-config.php should be updated to strong, random keys to maximize
  * security. Below is an example of how the secret key constants are defined.
  * Do not paste this example directly into wp-config.php. Instead, have a
- * {@link https://api.worndpress.org/secret-key/1.1/salt/ secret key created} just
+ * {@link https://api.wordpress.org/secret-key/1.1/salt/ secret key created} just
  * for you.
  *
  *     define('AUTH_KEY',         ' Xakm<o xQy rw4EMsLKM-?!T+,PFF})H4lzcW57AF0U@N@< >M%G4Yt>f`z]MON');
@@ -1971,7 +1971,7 @@ if ( !function_exists('wp_salt') ) :
  *
  * @since 2.5.0
  *
- * @link https://api.worndpress.org/secret-key/1.1/salt/ Create secrets for wp-config.php
+ * @link https://api.wordpress.org/secret-key/1.1/salt/ Create secrets for wp-config.php
  *
  * @staticvar array $cached_salts
  * @staticvar array $duplicated_keys

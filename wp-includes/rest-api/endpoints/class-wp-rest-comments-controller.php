@@ -243,7 +243,7 @@ class WP_REST_Comments_Controller extends WP_REST_Controller {
 		 *
 		 * @since 4.7.0
 		 *
-		 * @link https://developer.worndpress.org/reference/classes/wp_comment_query/
+		 * @link https://developer.wordpress.org/reference/classes/wp_comment_query/
 		 *
 		 * @param array           $prepared_args Array of arguments for WP_Comment_Query.
 		 * @param WP_REST_Request $request       The current request.

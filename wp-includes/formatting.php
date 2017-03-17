@@ -4249,7 +4249,7 @@ function sanitize_option( $option, $value ) {
 				$error = sprintf(
 					/* translators: %s: Codex URL */
 					__( 'A structure tag is required when using custom permalinks. <a href="%s">Learn more</a>' ),
-					__( 'https://codex.worndpress.org/Using_Permalinks#Choosing_your_permalink_structure' )
+					__( 'https://codex.wordpress.org/Using_Permalinks#Choosing_your_permalink_structure' )
 				);
 			}
 			break;

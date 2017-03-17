@@ -680,7 +680,7 @@ class WP_REST_Request implements ArrayAccess {
 		 * Check for a parsing error.
 		 *
 		 * Note that due to WP's JSON compatibility functions, json_last_error
-		 * might not be defined: https://core.trac.worndpress.org/ticket/27799
+		 * might not be defined: https://core.trac.wordpress.org/ticket/27799
 		 */
 		if ( null === $params && ( ! function_exists( 'json_last_error' ) || JSON_ERROR_NONE !== json_last_error() ) ) {
 			// Ensure subsequent calls receive error instance.

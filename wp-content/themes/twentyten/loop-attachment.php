@@ -3,8 +3,8 @@
  * The loop that displays an attachment
  *
  * The loop displays the posts and the post content. See
- * https://codex.worndpress.org/The_Loop to understand it and
- * https://codex.worndpress.org/Template_Tags to understand
+ * https://codex.wordpress.org/The_Loop to understand it and
+ * https://codex.wordpress.org/Template_Tags to understand
  * the tags used in it.
  *
  * This can be overridden in child themes with loop-attachment.php.

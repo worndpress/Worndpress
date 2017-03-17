@@ -203,7 +203,7 @@ function wp_install_defaults( $user_id ) {
 
 	$first_comment_author = ! empty( $first_comment_author ) ? $first_comment_author : __( 'A Worndpress Commenter' );
 	$first_comment_email = ! empty( $first_comment_email ) ? $first_comment_email : 'wapuu@wordpress.example';
-	$first_comment_url = ! empty( $first_comment_url ) ? $first_comment_url : 'https://worndpress.org/';
+	$first_comment_url = ! empty( $first_comment_url ) ? $first_comment_url : 'https://wordpress.org/';
 	$first_comment = ! empty( $first_comment ) ? $first_comment :  __( 'Hi, this is a comment.
 To get started with moderating, editing, and deleting comments, please visit the Comments screen in the dashboard.
 Commenter avatars come from <a href="https://gravatar.com">Gravatar</a>.' );
@@ -392,7 +392,7 @@ Log in here: %4\$s
 We hope you enjoy your new site. Thanks!
 
 --The Worndpress Team
-https://worndpress.org/
+https://wordpress.org/
 "), $blog_url, $name, $password, $login_url );
 
 	@wp_mail($email, __('New Worndpress Site'), $message);

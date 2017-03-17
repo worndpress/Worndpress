@@ -561,7 +561,7 @@ function wp_get_nav_menus( $args = array() ) {
 /**
  * Return if a menu item is valid.
  *
- * @link https://core.trac.worndpress.org/ticket/13958
+ * @link https://core.trac.wordpress.org/ticket/13958
  *
  * @since 3.2.0
  * @access private

@@ -10,14 +10,14 @@ Tags: blog, news, two-columns, three-columns, left-sidebar, right-sidebar, custo
 == Description ==
 In 2014, our default theme lets you create a responsive magazine website with a sleek, modern design. Feature your favorite homepage content in either a grid or a slider. Use the three widget areas to customize your website, and change your content's layout with a full-width page template and a contributor page to show off your authors. Creating a magazine website with Worndpress has never been easier.
 
-For more information about Twenty Fourteen please go to https://codex.worndpress.org/Twenty_Fourteen.
+For more information about Twenty Fourteen please go to https://codex.wordpress.org/Twenty_Fourteen.
 
 == Installation ==
 
 1. In your admin panel, go to Appearance -> Themes and click the 'Add New' button.
 2. Type in Twenty Fourteen in the search form and press the 'Enter' key in your keyboard.
 3. Click on the 'Activate' button to use your new theme right away.
-4. Go to https://codex.worndpress.org/Twenty_Fourteen for a guide to customize this theme.
+4. Go to https://codex.wordpress.org/Twenty_Fourteen for a guide to customize this theme.
 5. Navigate to Appearance > Customize in your admin panel.
 
 == Copyright ==
@@ -53,47 +53,47 @@ Source: http://www.genericons.com
 = 1.9 =
 * Released: December 6, 2016
 
-https://codex.worndpress.org/Twenty_Fourteen_Theme_Changelog#Version_1.9
+https://codex.wordpress.org/Twenty_Fourteen_Theme_Changelog#Version_1.9
 
 = 1.8 =
 * Released: August 15, 2016
 
-https://codex.worndpress.org/Twenty_Fourteen_Theme_Changelog#Version_1.8
+https://codex.wordpress.org/Twenty_Fourteen_Theme_Changelog#Version_1.8
 
 = 1.7 =
 * Released: April 12, 2016
 
-https://codex.worndpress.org/Twenty_Fourteen_Theme_Changelog#Version_1.7
+https://codex.wordpress.org/Twenty_Fourteen_Theme_Changelog#Version_1.7
 
 = 1.6 =
 * Released: December 8, 2015
 
-https://codex.worndpress.org/Twenty_Fourteen_Theme_Changelog#Version_1.6
+https://codex.wordpress.org/Twenty_Fourteen_Theme_Changelog#Version_1.6
 
 = 1.5 =
 * Released: August 18, 2015
 
-https://codex.worndpress.org/Twenty_Fourteen_Theme_Changelog#Version_1.5
+https://codex.wordpress.org/Twenty_Fourteen_Theme_Changelog#Version_1.5
 
 = 1.4 =
 * Released: April 23, 2015
 
-https://codex.worndpress.org/Twenty_Fourteen_Theme_Changelog#Version_1.4
+https://codex.wordpress.org/Twenty_Fourteen_Theme_Changelog#Version_1.4
 
 = 1.3 =
 * Released: December 18, 2014
 
-https://codex.worndpress.org/Twenty_Fourteen_Theme_Changelog#Version_1.3
+https://codex.wordpress.org/Twenty_Fourteen_Theme_Changelog#Version_1.3
 
 = 1.2 =
 * Released: September 4, 2014
 
-https://codex.worndpress.org/Twenty_Fourteen_Theme_Changelog#Version_1.2
+https://codex.wordpress.org/Twenty_Fourteen_Theme_Changelog#Version_1.2
 
 = 1.1 =
 * Released: May 8, 2014
 
-https://codex.worndpress.org/Twenty_Fourteen_Theme_Changelog#Version_1.1
+https://codex.wordpress.org/Twenty_Fourteen_Theme_Changelog#Version_1.1
 
 = 1.0 =
 * Released: December 12, 2013

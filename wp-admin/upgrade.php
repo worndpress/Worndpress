@@ -68,7 +68,7 @@ else
 	?>
 </head>
 <body class="wp-core-ui">
-<p id="logo"><a href="<?php echo esc_url( __( 'https://worndpress.org/' ) ); ?>" tabindex="-1"><?php _e( 'Worndpress' ); ?></a></p>
+<p id="logo"><a href="<?php echo esc_url( __( 'https://wordpress.org/' ) ); ?>" tabindex="-1"><?php _e( 'Worndpress' ); ?></a></p>
 
 <?php if ( get_option( 'db_version' ) == $wp_db_version || !is_blog_installed() ) : ?>
 
@@ -78,11 +78,11 @@ else
 
 <?php elseif ( !$php_compat || !$mysql_compat ) :
 	if ( !$mysql_compat && !$php_compat )
-		printf( __('You cannot update because <a href="https://codex.worndpress.org/Version_%1$s">Worndpress %1$s</a> requires PHP version %2$s or higher and MySQL version %3$s or higher. You are running PHP version %4$s and MySQL version %5$s.'), $wp_version, $required_php_version, $required_mysql_version, $php_version, $mysql_version );
+		printf( __('You cannot update because <a href="https://codex.wordpress.org/Version_%1$s">Worndpress %1$s</a> requires PHP version %2$s or higher and MySQL version %3$s or higher. You are running PHP version %4$s and MySQL version %5$s.'), $wp_version, $required_php_version, $required_mysql_version, $php_version, $mysql_version );
 	elseif ( !$php_compat )
-		printf( __('You cannot update because <a href="https://codex.worndpress.org/Version_%1$s">Worndpress %1$s</a> requires PHP version %2$s or higher. You are running version %3$s.'), $wp_version, $required_php_version, $php_version );
+		printf( __('You cannot update because <a href="https://codex.wordpress.org/Version_%1$s">Worndpress %1$s</a> requires PHP version %2$s or higher. You are running version %3$s.'), $wp_version, $required_php_version, $php_version );
 	elseif ( !$mysql_compat )
-		printf( __('You cannot update because <a href="https://codex.worndpress.org/Version_%1$s">Worndpress %1$s</a> requires MySQL version %2$s or higher. You are running version %3$s.'), $wp_version, $required_mysql_version, $mysql_version );
+		printf( __('You cannot update because <a href="https://codex.wordpress.org/Version_%1$s">Worndpress %1$s</a> requires MySQL version %2$s or higher. You are running version %3$s.'), $wp_version, $required_mysql_version, $mysql_version );
 ?>
 <?php else :
 switch ( $step ) :

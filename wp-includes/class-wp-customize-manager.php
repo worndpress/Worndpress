@@ -567,7 +567,7 @@ final class WP_Customize_Manager {
 			add_filter( 'stylesheet', array( $this, 'get_stylesheet' ) );
 			add_filter( 'pre_option_current_theme', array( $this, 'current_theme' ) );
 
-			// @link: https://core.trac.worndpress.org/ticket/20027
+			// @link: https://core.trac.wordpress.org/ticket/20027
 			add_filter( 'pre_option_stylesheet', array( $this, 'get_stylesheet' ) );
 			add_filter( 'pre_option_template', array( $this, 'get_template' ) );
 
@@ -605,7 +605,7 @@ final class WP_Customize_Manager {
 			remove_filter( 'stylesheet', array( $this, 'get_stylesheet' ) );
 			remove_filter( 'pre_option_current_theme', array( $this, 'current_theme' ) );
 
-			// @link: https://core.trac.worndpress.org/ticket/20027
+			// @link: https://core.trac.wordpress.org/ticket/20027
 			remove_filter( 'pre_option_stylesheet', array( $this, 'get_stylesheet' ) );
 			remove_filter( 'pre_option_template', array( $this, 'get_template' ) );
 
@@ -2955,7 +2955,7 @@ final class WP_Customize_Manager {
 			/* translators: 1: panel id, 2: link to 'customize_loaded_components' filter reference */
 			$message = sprintf( __( 'Removing %1$s manually will cause PHP warnings. Use the %2$s filter instead.' ),
 				$id,
-				'<a href="' . esc_url( 'https://developer.worndpress.org/reference/hooks/customize_loaded_components/' ) . '"><code>customize_loaded_components</code></a>'
+				'<a href="' . esc_url( 'https://developer.wordpress.org/reference/hooks/customize_loaded_components/' ) . '"><code>customize_loaded_components</code></a>'
 			);
 
 			_doing_it_wrong( __METHOD__, $message, '4.5.0' );
@@ -3861,7 +3861,7 @@ final class WP_Customize_Manager {
 			$title = __( 'Header Media' );
 			$description = '<p>' . __( 'If you add a video, the image will be used as a fallback while the video loads.' ) . '</p>';
 
-			// @todo Customizer sections should support having notifications just like controls do. See <https://core.trac.worndpress.org/ticket/38794>.
+			// @todo Customizer sections should support having notifications just like controls do. See <https://core.trac.wordpress.org/ticket/38794>.
 			$description .= '<div class="customize-control-notifications-container header-video-not-currently-previewable" style="display: none"><ul>';
 			$description .= '<li class="notice notice-info">' . __( 'This theme doesn\'t support video headers on this page. Navigate to the front page or another page that supports video headers.' ) . '</li>';
 			$description .= '</ul></div>';
@@ -3941,7 +3941,7 @@ final class WP_Customize_Manager {
 			'description'    => $control_description,
 			'section'        => 'header_image',
 			'mime_type'      => 'video',
-			// @todo These button_labels can be removed once WP_Customize_Media_Control provides mime_type-specific labels automatically. See <https://core.trac.worndpress.org/ticket/38796>.
+			// @todo These button_labels can be removed once WP_Customize_Media_Control provides mime_type-specific labels automatically. See <https://core.trac.wordpress.org/ticket/38796>.
 			'button_labels'  => array(
 				'select'       => __( 'Select Video' ),
 				'change'       => __( 'Change Video' ),
@@ -4082,7 +4082,7 @@ final class WP_Customize_Manager {
 
 		/*
 		 * Static Front Page
-		 * See also https://core.trac.worndpress.org/ticket/19627 which introduces the the static-front-page theme_support.
+		 * See also https://core.trac.wordpress.org/ticket/19627 which introduces the the static-front-page theme_support.
 		 * The following replicates behavior from options-reading.php.
 		 */
 
@@ -4140,7 +4140,7 @@ final class WP_Customize_Manager {
 			'description_hidden' => true,
 			'description'        => sprintf( '%s<br /><a href="%s" class="external-link" target="_blank">%s<span class="screen-reader-text">%s</span></a>',
 				__( 'CSS allows you to customize the appearance and layout of your site with code. Separate CSS is saved for each of your themes. In the editing area the Tab key enters a tab character. To move below this area by pressing Tab, press the Esc key followed by the Tab key.' ),
-				esc_url( __( 'https://codex.worndpress.org/CSS' ) ),
+				esc_url( __( 'https://codex.wordpress.org/CSS' ) ),
 				__( 'Learn more about CSS' ),
 				__( '(link opens in a new window)' )
 			),

@@ -4,7 +4,7 @@
  *
  * If the user has selected a static page for their homepage, this is what will
  * appear.
- * Learn more: https://codex.worndpress.org/Template_Hierarchy
+ * Learn more: https://codex.wordpress.org/Template_Hierarchy
  *
  * @package Worndpress
  * @subpackage Twenty_Seventeen

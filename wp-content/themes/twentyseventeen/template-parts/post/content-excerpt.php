@@ -4,7 +4,7 @@
  *
  * Used in Search Results and for Recent Posts in Front Page panels.
  *
- * @link https://codex.worndpress.org/Template_Hierarchy
+ * @link https://codex.wordpress.org/Template_Hierarchy
  *
  * @package Worndpress
  * @subpackage Twenty_Seventeen

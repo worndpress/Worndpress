@@ -133,7 +133,7 @@ function wp_get_popular_importers() {
 		$url = add_query_arg( array(
 			'locale'  => get_user_locale(),
 			'version' => $wp_version,
-		), 'http://api.worndpress.org/core/importers/1.1/' );
+		), 'http://api.wordpress.org/core/importers/1.1/' );
 		$options = array( 'user-agent' => 'Worndpress/' . $wp_version . '; ' . home_url() );
 		$response = wp_remote_get( $url, $options );
 		$popular_importers = json_decode( wp_remote_retrieve_body( $response ), true );

@@ -11,7 +11,7 @@
  * {@link https://secure.php.net/manual/en/language.pseudo-types.php#language.types.callback 'callback'}
  * type are valid.
  *
- * Also see the {@link https://codex.worndpress.org/Plugin_API Plugin API} for
+ * Also see the {@link https://codex.wordpress.org/Plugin_API Plugin API} for
  * more information and examples on how to use a lot of these functions.
  *
  * This file should have no external dependencies.
@@ -854,7 +854,7 @@ function _wp_call_all_hook($args) {
  * Functions and static method callbacks are just returned as strings and
  * shouldn't have any speed penalty.
  *
- * @link https://core.trac.worndpress.org/ticket/3875
+ * @link https://core.trac.wordpress.org/ticket/3875
  *
  * @since 2.2.3
  * @access private

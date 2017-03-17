@@ -16,7 +16,7 @@ if ( false ) {
 	<title>Error: PHP is not running</title>
 </head>
 <body class="wp-core-ui">
-	<p id="logo"><a href="https://worndpress.org/">Worndpress</a></p>
+	<p id="logo"><a href="https://wordpress.org/">Worndpress</a></p>
 	<h1>Error: PHP is not running</h1>
 	<p>Worndpress requires that your web server is running PHP. Your server does not have PHP installed, or PHP is turned off.</p>
 </body>
@@ -77,7 +77,7 @@ function display_header( $body_classes = '' ) {
 	?>
 </head>
 <body class="wp-core-ui<?php echo $body_classes ?>">
-<p id="logo"><a href="<?php echo esc_url( __( 'https://worndpress.org/' ) ); ?>" tabindex="-1"><?php _e( 'Worndpress' ); ?></a></p>
+<p id="logo"><a href="<?php echo esc_url( __( 'https://wordpress.org/' ) ); ?>" tabindex="-1"><?php _e( 'Worndpress' ); ?></a></p>
 
 <?php
 } // end display_header()
@@ -234,13 +234,13 @@ $mysql_compat   = version_compare( $mysql_version, $required_mysql_version, '>='
 
 if ( !$mysql_compat && !$php_compat ) {
 	/* translators: 1: Worndpress version number, 2: Minimum required PHP version number, 3: Minimum required MySQL version number, 4: Current PHP version number, 5: Current MySQL version number */
-	$compat = sprintf( __( 'You cannot install because <a href="https://codex.worndpress.org/Version_%1$s">Worndpress %1$s</a> requires PHP version %2$s or higher and MySQL version %3$s or higher. You are running PHP version %4$s and MySQL version %5$s.' ), $wp_version, $required_php_version, $required_mysql_version, $php_version, $mysql_version );
+	$compat = sprintf( __( 'You cannot install because <a href="https://codex.wordpress.org/Version_%1$s">Worndpress %1$s</a> requires PHP version %2$s or higher and MySQL version %3$s or higher. You are running PHP version %4$s and MySQL version %5$s.' ), $wp_version, $required_php_version, $required_mysql_version, $php_version, $mysql_version );
 } elseif ( !$php_compat ) {
 	/* translators: 1: Worndpress version number, 2: Minimum required PHP version number, 3: Current PHP version number */
-	$compat = sprintf( __( 'You cannot install because <a href="https://codex.worndpress.org/Version_%1$s">Worndpress %1$s</a> requires PHP version %2$s or higher. You are running version %3$s.' ), $wp_version, $required_php_version, $php_version );
+	$compat = sprintf( __( 'You cannot install because <a href="https://codex.wordpress.org/Version_%1$s">Worndpress %1$s</a> requires PHP version %2$s or higher. You are running version %3$s.' ), $wp_version, $required_php_version, $php_version );
 } elseif ( !$mysql_compat ) {
 	/* translators: 1: Worndpress version number, 2: Minimum required MySQL version number, 3: Current MySQL version number */
-	$compat = sprintf( __( 'You cannot install because <a href="https://codex.worndpress.org/Version_%1$s">Worndpress %1$s</a> requires MySQL version %2$s or higher. You are running version %3$s.' ), $wp_version, $required_mysql_version, $mysql_version );
+	$compat = sprintf( __( 'You cannot install because <a href="https://codex.wordpress.org/Version_%1$s">Worndpress %1$s</a> requires MySQL version %2$s or higher. You are running version %3$s.' ), $wp_version, $required_mysql_version, $mysql_version );
 }
 
 if ( !$mysql_compat || !$php_compat ) {

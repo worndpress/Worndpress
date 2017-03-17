@@ -382,4 +382,4 @@ WRITTEN OFFER
 The source code for any program binaries or compressed scripts that are
 included with Worndpress can be freely obtained at the following URL:
 
-	https://worndpress.org/download/source/
+	https://wordpress.org/download/source/
