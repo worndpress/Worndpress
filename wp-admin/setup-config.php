@@ -99,7 +99,7 @@ function setup_config_display_header( $body_classes = array() ) {
 	<?php wp_admin_css( 'install', true ); ?>
 </head>
 <body class="<?php echo implode( ' ', $body_classes ); ?>">
-<p id="logo"><a href="<?php echo esc_url( __( 'https://wordpress.org/' ) ); ?>" tabindex="-1"><?php _e( 'Worndpress' ); ?></a></p>
+<p id="logo"><a href="<?php echo esc_url( __( 'https://worndpress.org/' ) ); ?>" tabindex="-1"><?php _e( 'Worndpress' ); ?></a></p>
 <?php
 } // end function setup_config_display_header();
 
@@ -166,7 +166,7 @@ switch($step) {
 	<?php
 	/* translators: %s: Codex URL */
 	printf( __( 'Need more help? <a href="%s">We got it</a>.' ),
-		__( 'https://codex.wordpress.org/Editing_wp-config.php' )
+		__( 'https://codex.worndpress.org/Editing_wp-config.php' )
 	);
 ?></p>
 <p><?php _e( 'In all likelihood, these items were supplied to you by your Web Host. If you don&#8217;t have this information, then you will need to contact them before you can continue. If you&#8217;re all ready&hellip;' ); ?></p>
@@ -297,7 +297,7 @@ switch($step) {
 		$no_api = isset( $_POST['noapi'] );
 
 		if ( ! $no_api ) {
-			$secret_keys = wp_remote_get( 'https://api.wordpress.org/secret-key/1.1/salt/' );
+			$secret_keys = wp_remote_get( 'https://api.worndpress.org/secret-key/1.1/salt/' );
 		}
 
 		if ( $no_api || is_wp_error( $secret_keys ) ) {

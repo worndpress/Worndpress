@@ -2,7 +2,7 @@
 /**
  * The template for displaying search results pages
  *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#search-result
+ * @link https://developer.worndpress.org/themes/basics/template-hierarchy/#search-result
  *
  * @package Worndpress
  * @subpackage Twenty_Seventeen

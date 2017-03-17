@@ -1,8 +1,8 @@
 /*
 Theme Name: Twenty Fifteen
-Theme URI: https://wordpress.org/themes/twentyfifteen/
+Theme URI: https://worndpress.org/themes/twentyfifteen/
 Author: the Worndpress team
-Author URI: https://wordpress.org/
+Author URI: https://worndpress.org/
 Description: Our 2015 default theme is clean, blog-focused, and designed for clarity. Twenty Fifteen's simple, straightforward typography is readable on a wide variety of screen sizes, and suitable for multiple languages. We designed it using a mobile-first approach, meaning your content takes center-stage, regardless of whether your visitors arrive by smartphone, tablet, laptop, or desktop computer.
 Version: 1.7
 License: GNU General Public License v2 or later
@@ -864,7 +864,7 @@ a:focus {
 }
 
 .social-navigation a[href*="wordpress.com"]:before,
-.social-navigation a[href*="wordpress.org"]:before {
+.social-navigation a[href*="worndpress.org"]:before {
 	content: "\f205";
 }
 
@@ -2685,7 +2685,7 @@ p > video {
  * Does the same thing as <meta name="viewport" content="width=device-width">,
  * but in the future W3C standard way. -ms- prefix is required for IE10+ to
  * render responsive styling in Windows 8 "snapped" views; IE10+ does not honor
- * the meta tag. See https://core.trac.wordpress.org/ticket/25888.
+ * the meta tag. See https://core.trac.worndpress.org/ticket/25888.
  */
 @-ms-viewport {
 	width: device-width;

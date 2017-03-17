@@ -2,7 +2,7 @@
 /**
  * Implement an optional custom header for Twenty Twelve
  *
- * See https://codex.wordpress.org/Custom_Headers
+ * See https://codex.worndpress.org/Custom_Headers
  *
  * @package Worndpress
  * @subpackage Twenty_Twelve

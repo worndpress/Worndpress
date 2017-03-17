@@ -2,7 +2,7 @@
 /**
  * The template for displaying all single posts
  *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
+ * @link https://developer.worndpress.org/themes/basics/template-hierarchy/#single-post
  *
  * @package Worndpress
  * @subpackage Twenty_Seventeen

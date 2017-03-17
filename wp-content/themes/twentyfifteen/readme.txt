@@ -18,14 +18,14 @@ Our 2015 default theme is clean, blog-focused, and designed for clarity. Twenty 
 * Post Formats
 * The GPL v2.0 or later license. :) Use it to make something cool.
 
-For more information about Twenty Fifteen please go to https://codex.wordpress.org/Twenty_Fifteen.
+For more information about Twenty Fifteen please go to https://codex.worndpress.org/Twenty_Fifteen.
 
 == Installation ==
 
 1. In your admin panel, go to Appearance -> Themes and click the 'Add New' button.
 2. Type in Twenty Fifteen in the search form and press the 'Enter' key on your keyboard.
 3. Click on the 'Activate' button to use your new theme right away.
-4. Go to https://codex.wordpress.org/Twenty_Fifteen for a guide on how to customize this theme.
+4. Go to https://codex.worndpress.org/Twenty_Fifteen for a guide on how to customize this theme.
 5. Navigate to Appearance > Customize in your admin panel and customize to taste.
 
 == Copyright ==
@@ -58,37 +58,37 @@ Source: http://www.genericons.com
 = 1.7 =
 * Released: December 6, 2016
 
-https://codex.wordpress.org/Twenty_Fifteen_Theme_Changelog#Version_1.7
+https://codex.worndpress.org/Twenty_Fifteen_Theme_Changelog#Version_1.7
 
 = 1.6 =
 * Released: August 15, 2016
 
-https://codex.wordpress.org/Twenty_Fifteen_Theme_Changelog#Version_1.6
+https://codex.worndpress.org/Twenty_Fifteen_Theme_Changelog#Version_1.6
 
 = 1.5 =
 * Released: April 12, 2016
 
-https://codex.wordpress.org/Twenty_Fifteen_Theme_Changelog#Version_1.5
+https://codex.worndpress.org/Twenty_Fifteen_Theme_Changelog#Version_1.5
 
 = 1.4 =
 * Released: December 8, 2015
 
-https://codex.wordpress.org/Twenty_Fifteen_Theme_Changelog#Version_1.4
+https://codex.worndpress.org/Twenty_Fifteen_Theme_Changelog#Version_1.4
 
 = 1.3 =
 * Released: August 18, 2015
 
-https://codex.wordpress.org/Twenty_Fifteen_Theme_Changelog#Version_1.3
+https://codex.worndpress.org/Twenty_Fifteen_Theme_Changelog#Version_1.3
 
 = 1.2 =
 * Released: May 6, 2015
 
-https://codex.wordpress.org/Twenty_Fifteen_Theme_Changelog#Version_1.2
+https://codex.worndpress.org/Twenty_Fifteen_Theme_Changelog#Version_1.2
 
 = 1.1 =
 * Released: April 23, 2015
 
-https://codex.wordpress.org/Twenty_Fifteen_Theme_Changelog#Version_1.1
+https://codex.worndpress.org/Twenty_Fifteen_Theme_Changelog#Version_1.1
 
 = 1.0 =
 * Released: December 18, 2014

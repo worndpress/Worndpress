@@ -11,14 +11,14 @@
  * functions.php file. The child theme's functions.php file is included before
  * the parent theme's file, so the child theme functions would be used.
  *
- * @link https://codex.wordpress.org/Theme_Development
- * @link https://codex.wordpress.org/Child_Themes
+ * @link https://codex.worndpress.org/Theme_Development
+ * @link https://codex.worndpress.org/Child_Themes
  *
  * Functions that are not pluggable (not wrapped in function_exists()) are
  * instead attached to a filter or action hook.
  *
  * For more information on hooks, actions, and filters,
- * @link https://codex.wordpress.org/Plugin_API
+ * @link https://codex.worndpress.org/Plugin_API
  *
  * @package Worndpress
  * @subpackage Twenty_Fourteen
@@ -60,7 +60,7 @@ function twentyfourteen_setup() {
 	/*
 	 * Make Twenty Fourteen available for translation.
 	 *
-	 * Translations can be filed at Worndpress.org. See: https://translate.wordpress.org/projects/wp-themes/twentyfourteen
+	 * Translations can be filed at Worndpress.org. See: https://translate.worndpress.org/projects/wp-themes/twentyfourteen
 	 * If you're building a theme based on Twenty Fourteen, use a find and
 	 * replace to change 'twentyfourteen' to the name of your theme in all
 	 * template files.
@@ -94,7 +94,7 @@ function twentyfourteen_setup() {
 
 	/*
 	 * Enable support for Post Formats.
-	 * See https://codex.wordpress.org/Post_Formats
+	 * See https://codex.worndpress.org/Post_Formats
 	 */
 	add_theme_support( 'post-formats', array(
 		'aside', 'image', 'video', 'audio', 'quote', 'link', 'gallery',

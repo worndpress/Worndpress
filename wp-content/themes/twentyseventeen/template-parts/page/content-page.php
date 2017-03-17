@@ -2,7 +2,7 @@
 /**
  * Template part for displaying page content in page.php
  *
- * @link https://codex.wordpress.org/Template_Hierarchy
+ * @link https://codex.worndpress.org/Template_Hierarchy
  *
  * @package Worndpress
  * @subpackage Twenty_Seventeen

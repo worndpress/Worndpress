@@ -193,7 +193,7 @@ endif;
  * @since 2.2.0
  * @deprecated 3.5.0
  *
- * @link https://wordpress.org/plugins/atom-publishing-protocol/
+ * @link https://worndpress.org/plugins/atom-publishing-protocol/
  */
 if ( ! class_exists( 'wp_atom_server', false ) ) {
 	class wp_atom_server {

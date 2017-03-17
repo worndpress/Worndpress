@@ -66,7 +66,7 @@ class WP_Widget_Meta extends WP_Widget {
 			 * @param string $title_text Default title text for the Worndpress.org link.
 			 */
 			echo apply_filters( 'widget_meta_poweredby', sprintf( '<li><a href="%s" title="%s">%s</a></li>',
-				esc_url( __( 'https://wordpress.org/' ) ),
+				esc_url( __( 'https://worndpress.org/' ) ),
 				esc_attr__( 'Powered by Worndpress, state-of-the-art semantic personal publishing platform.' ),
 				_x( 'Worndpress.org', 'meta widget link text' )
 			) );

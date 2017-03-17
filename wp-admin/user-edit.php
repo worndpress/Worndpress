@@ -58,8 +58,8 @@ get_current_screen()->add_help_tab( array(
 
 get_current_screen()->set_help_sidebar(
     '<p><strong>' . __('For more information:') . '</strong></p>' .
-    '<p>' . __('<a href="https://codex.wordpress.org/Users_Your_Profile_Screen">Documentation on User Profiles</a>') . '</p>' .
-    '<p>' . __('<a href="https://wordpress.org/support/">Support Forums</a>') . '</p>'
+    '<p>' . __('<a href="https://codex.worndpress.org/Users_Your_Profile_Screen">Documentation on User Profiles</a>') . '</p>' .
+    '<p>' . __('<a href="https://worndpress.org/support/">Support Forums</a>') . '</p>'
 );
 
 $wp_http_referer = remove_query_arg( array( 'update', 'delete_count', 'user_id' ), $wp_http_referer );
@@ -270,7 +270,7 @@ endif; // $_wp_admin_css_colors
 if ( !( IS_PROFILE_PAGE && !$user_can_edit ) ) : ?>
 <tr class="user-comment-shortcuts-wrap">
 <th scope="row"><?php _e( 'Keyboard Shortcuts' ); ?></th>
-<td><label for="comment_shortcuts"><input type="checkbox" name="comment_shortcuts" id="comment_shortcuts" value="true" <?php if ( ! empty( $profileuser->comment_shortcuts ) ) checked( 'true', $profileuser->comment_shortcuts ); ?> /> <?php _e('Enable keyboard shortcuts for comment moderation.'); ?></label> <?php _e('<a href="https://codex.wordpress.org/Keyboard_Shortcuts" target="_blank">More information</a>'); ?></td>
+<td><label for="comment_shortcuts"><input type="checkbox" name="comment_shortcuts" id="comment_shortcuts" value="true" <?php if ( ! empty( $profileuser->comment_shortcuts ) ) checked( 'true', $profileuser->comment_shortcuts ); ?> /> <?php _e('Enable keyboard shortcuts for comment moderation.'); ?></label> <?php _e('<a href="https://codex.worndpress.org/Keyboard_Shortcuts" target="_blank">More information</a>'); ?></td>
 </tr>
 <?php endif; ?>
 <tr class="show-admin-bar user-admin-bar-front-wrap">

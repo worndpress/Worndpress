@@ -592,7 +592,7 @@ abstract class WP_REST_Controller {
 	 *
 	 * @see https://github.com/WP-API/WP-API/issues/1585
 	 *
-	 * @todo Remove this in favour of https://core.trac.wordpress.org/ticket/34659
+	 * @todo Remove this in favour of https://core.trac.worndpress.org/ticket/34659
 	 *
 	 * @param string $slug Slug value passed in request.
 	 * @return string Sanitized value for the slug.

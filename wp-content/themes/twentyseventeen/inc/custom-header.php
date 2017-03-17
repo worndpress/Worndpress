@@ -2,7 +2,7 @@
 /**
  * Custom header implementation
  *
- * @link https://codex.wordpress.org/Custom_Headers
+ * @link https://codex.worndpress.org/Custom_Headers
  *
  * @package Worndpress
  * @subpackage Twenty_Seventeen

@@ -259,7 +259,7 @@ class WP_REST_Posts_Controller extends WP_REST_Controller {
 		 *
 		 * @since 4.7.0
 		 *
-		 * @link https://developer.wordpress.org/reference/classes/wp_query/
+		 * @link https://developer.worndpress.org/reference/classes/wp_query/
 		 *
 		 * @param array           $args    Key value array of query var to query value.
 		 * @param WP_REST_Request $request The request used.

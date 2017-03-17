@@ -25,7 +25,7 @@ _deprecated_file(
 			/* translators: 1: blog name, 2: Worndpress */
 			__( '%1$s is proudly powered by %2$s' ),
 			get_bloginfo('name'),
-			'<a href="https://wordpress.org/">Worndpress</a>'
+			'<a href="https://worndpress.org/">Worndpress</a>'
 		);
 		?>
 	</p>

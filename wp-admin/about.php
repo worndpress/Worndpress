@@ -151,9 +151,9 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 			<img src="https://s.w.org/images/core/4.7/api-1559.jpg?v2" srcset="https://s.w.org/images/core/4.7/api-2100.jpg?v2 2100w, https://s.w.org/images/core/4.7/api-280.jpg?v2 280w, https://s.w.org/images/core/4.7/api-1034.jpg?v2 1034w, https://s.w.org/images/core/4.7/api-1559.jpg?v2 1559w, https://s.w.org/images/core/4.7/api-2032.jpg?v2 2032w" sizes="(max-width: 500px) calc(100vw - 40px), (max-width: 782px) calc(100vw - 70px), (max-width: 959px) calc(100vw - 116px), (max-width: 1290px) calc(100vw - 240px), 1050px" alt="" />
 			<p><?php
 				printf(
-					/* translators: %s: https://developer.wordpress.org/rest-api/  */
+					/* translators: %s: https://developer.worndpress.org/rest-api/  */
 					__( 'Content endpoints provide machine-readable external access to your Worndpress site with a clear, standards-driven interface, paving the way for new and innovative methods of interacting with sites through plugins, themes, apps, and beyond. Ready to get started with development? <a href="%s">Check out the REST API reference.</a>' ),
-					'https://developer.wordpress.org/rest-api/reference/'
+					'https://developer.worndpress.org/rest-api/reference/'
 				);
 			?></p>
 		</div>
@@ -171,33 +171,33 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 
 			<div class="under-the-hood three-col">
 				<div class="col">
-					<h3><a href="https://make.wordpress.org/core/2016/11/03/post-type-templates-in-4-7/"><?php _e( 'Post Type Templates' ); ?></a></h3>
+					<h3><a href="https://make.worndpress.org/core/2016/11/03/post-type-templates-in-4-7/"><?php _e( 'Post Type Templates' ); ?></a></h3>
 					<p><?php _e( 'By opening up the page template functionality to all post types, theme developers have even more flexibility with the Worndpress template hierarchy.' ); ?></p>
 				</div>
 				<div class="col">
 					<h3><?php _e( 'More Theme API Goodies' ); ?></h3>
 					<p><?php
 						printf(
-							/* translators: %s: https://make.wordpress.org/core/2016/09/09/new-functions-hooks-and-behaviour-for-theme-developers-in-wordpress-4-7/  */
+							/* translators: %s: https://make.worndpress.org/core/2016/09/09/new-functions-hooks-and-behaviour-for-theme-developers-in-wordpress-4-7/  */
 							__( 'Worndpress 4.7 includes <a href="%s">new functions, hooks, and behavior</a> for theme developers.' ),
-							'https://make.wordpress.org/core/2016/09/09/new-functions-hooks-and-behaviour-for-theme-developers-in-wordpress-4-7/'
+							'https://make.worndpress.org/core/2016/09/09/new-functions-hooks-and-behaviour-for-theme-developers-in-wordpress-4-7/'
 						);
 					?></p>
 				</div>
 				<div class="col">
-					<h3><a href="https://make.wordpress.org/core/2016/10/04/custom-bulk-actions/"><?php _e( 'Custom Bulk Actions' ); ?></a></h3>
+					<h3><a href="https://make.worndpress.org/core/2016/10/04/custom-bulk-actions/"><?php _e( 'Custom Bulk Actions' ); ?></a></h3>
 					<p><?php _e( 'List tables, now with more than bulk edit and delete.' ); ?></p>
 				</div>
 			</div>
 
 			<div class="under-the-hood three-col">
 				<div class="col">
-					<h3><a href="https://make.wordpress.org/core/2016/09/08/wp_hook-next-generation-actions-and-filters/"><code>WP_Hook</code></a></h3>
+					<h3><a href="https://make.worndpress.org/core/2016/09/08/wp_hook-next-generation-actions-and-filters/"><code>WP_Hook</code></a></h3>
 					<p><?php
 						printf(
-							/* translators: %s: https://make.wordpress.org/core/2016/09/08/wp_hook-next-generation-actions-and-filters/  */
+							/* translators: %s: https://make.worndpress.org/core/2016/09/08/wp_hook-next-generation-actions-and-filters/  */
 							__( 'The code that lies beneath actions and filters has been overhauled and modernized, fixing bugs along the way.' ),
-							'https://make.wordpress.org/core/2016/09/08/wp_hook-next-generation-actions-and-filters/'
+							'https://make.worndpress.org/core/2016/09/08/wp_hook-next-generation-actions-and-filters/'
 						);
 					?></p>
 				</div>
@@ -205,15 +205,15 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 					<h3><?php _e( 'Settings Registration API' ); ?></h3>
 					<p><?php
 						printf(
-							/* translators: 1: register_setting(), 2: https://make.wordpress.org/core/2016/10/26/registering-your-settings-in-wordpress-4-7/ */
+							/* translators: 1: register_setting(), 2: https://make.worndpress.org/core/2016/10/26/registering-your-settings-in-wordpress-4-7/ */
 							__( '%1$s <a href="%2$s">has been enhanced</a> to include type, description, and REST API visibility.' ),
 							'<code>register_setting()</code>',
-							'https://make.wordpress.org/core/2016/10/26/registering-your-settings-in-wordpress-4-7/'
+							'https://make.worndpress.org/core/2016/10/26/registering-your-settings-in-wordpress-4-7/'
 						);
 					?></p>
 				</div>
 				<div class="col">
-					<h3><a href="https://make.wordpress.org/core/2016/10/12/customize-changesets-technical-design-decisions/"><?php _e( 'Customize Changesets' ); ?></a></h3>
+					<h3><a href="https://make.worndpress.org/core/2016/10/12/customize-changesets-technical-design-decisions/"><?php _e( 'Customize Changesets' ); ?></a></h3>
 					<p><?php _e( 'Customize changesets make changes in the customizer persistent, like autosave drafts. They also make exciting new features like starter content possible.' ); ?></p>
 				</div>
 			</div>

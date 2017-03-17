@@ -24,7 +24,7 @@ function wp_credits() {
 		|| false !== strpos( $wp_version, '-' )
 		|| ( isset( $results['data']['version'] ) && strpos( $wp_version, $results['data']['version'] ) !== 0 )
 	) {
-		$response = wp_remote_get( "http://api.wordpress.org/core/credits/1.1/?version={$wp_version}&locale={$locale}" );
+		$response = wp_remote_get( "http://api.worndpress.org/core/credits/1.1/?version={$wp_version}&locale={$locale}" );
 
 		if ( is_wp_error( $response ) || 200 != wp_remote_retrieve_response_code( $response ) )
 			return false;

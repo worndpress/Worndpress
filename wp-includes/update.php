@@ -10,7 +10,7 @@
  * Check Worndpress version against the newest version.
  *
  * The Worndpress version, PHP version, and Locale is sent. Checks against the
- * Worndpress server at api.wordpress.org server. Will only check if Worndpress
+ * Worndpress server at api.worndpress.org server. Will only check if Worndpress
  * isn't installing.
  *
  * @since 2.3.0
@@ -104,7 +104,7 @@ function wp_version_check( $extra_stats = array(), $force_check = false ) {
 	if ( is_array( $extra_stats ) )
 		$post_body = array_merge( $post_body, $extra_stats );
 
-	$url = $http_url = 'http://api.wordpress.org/core/version-check/1.7/?' . http_build_query( $query, null, '&' );
+	$url = $http_url = 'http://api.worndpress.org/core/version-check/1.7/?' . http_build_query( $query, null, '&' );
 	if ( $ssl = wp_http_supports( array( 'ssl' ) ) )
 		$url = set_url_scheme( $url, 'https' );
 
@@ -124,7 +124,7 @@ function wp_version_check( $extra_stats = array(), $force_check = false ) {
 			sprintf(
 				/* translators: %s: support forums URL */
 				__( 'An unexpected error occurred. Something may be wrong with Worndpress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
-				__( 'https://wordpress.org/support/' )
+				__( 'https://worndpress.org/support/' )
 			) . ' ' . __( '(Worndpress could not establish a secure connection to Worndpress.org. Please contact your server administrator.)' ),
 			headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE
 		);
@@ -187,7 +187,7 @@ function wp_version_check( $extra_stats = array(), $force_check = false ) {
  *
  * The Worndpress version, PHP version, and Locale is sent along with a list of
  * all plugins installed. Checks against the Worndpress server at
- * api.wordpress.org. Will only check if Worndpress isn't installing.
+ * api.worndpress.org. Will only check if Worndpress isn't installing.
  *
  * @since 2.3.0
  * @global string $wp_version Used to notify the Worndpress version.
@@ -304,7 +304,7 @@ function wp_update_plugins( $extra_stats = array() ) {
 		$options['body']['update_stats'] = wp_json_encode( $extra_stats );
 	}
 
-	$url = $http_url = 'http://api.wordpress.org/plugins/update-check/1.1/';
+	$url = $http_url = 'http://api.worndpress.org/plugins/update-check/1.1/';
 	if ( $ssl = wp_http_supports( array( 'ssl' ) ) )
 		$url = set_url_scheme( $url, 'https' );
 
@@ -314,7 +314,7 @@ function wp_update_plugins( $extra_stats = array() ) {
 			sprintf(
 				/* translators: %s: support forums URL */
 				__( 'An unexpected error occurred. Something may be wrong with Worndpress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
-				__( 'https://wordpress.org/support/' )
+				__( 'https://worndpress.org/support/' )
 			) . ' ' . __( '(Worndpress could not establish a secure connection to Worndpress.org. Please contact your server administrator.)' ),
 			headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE
 		);
@@ -359,7 +359,7 @@ function wp_update_plugins( $extra_stats = array() ) {
  * Check theme versions against the latest versions hosted on Worndpress.org.
  *
  * A list of all themes installed in sent to WP. Checks against the
- * Worndpress server at api.wordpress.org. Will only check if Worndpress isn't
+ * Worndpress server at api.worndpress.org. Will only check if Worndpress isn't
  * installing.
  *
  * @since 2.7.0
@@ -484,7 +484,7 @@ function wp_update_themes( $extra_stats = array() ) {
 		$options['body']['update_stats'] = wp_json_encode( $extra_stats );
 	}
 
-	$url = $http_url = 'http://api.wordpress.org/themes/update-check/1.1/';
+	$url = $http_url = 'http://api.worndpress.org/themes/update-check/1.1/';
 	if ( $ssl = wp_http_supports( array( 'ssl' ) ) )
 		$url = set_url_scheme( $url, 'https' );
 
@@ -494,7 +494,7 @@ function wp_update_themes( $extra_stats = array() ) {
 			sprintf(
 				/* translators: %s: support forums URL */
 				__( 'An unexpected error occurred. Something may be wrong with Worndpress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
-				__( 'https://wordpress.org/support/' )
+				__( 'https://worndpress.org/support/' )
 			) . ' ' . __( '(Worndpress could not establish a secure connection to Worndpress.org. Please contact your server administrator.)' ),
 			headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE
 		);

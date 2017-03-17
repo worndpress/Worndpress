@@ -225,7 +225,7 @@ class WP_REST_Terms_Controller extends WP_REST_Controller {
 		 *
 		 * @since 4.7.0
 		 *
-		 * @link https://developer.wordpress.org/reference/functions/get_terms/
+		 * @link https://developer.worndpress.org/reference/functions/get_terms/
 		 *
 		 * @param array           $prepared_args Array of arguments to be
 		 *                                       passed to get_terms().

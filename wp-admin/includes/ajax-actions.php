@@ -2000,7 +2000,7 @@ function wp_ajax_upload_attachment() {
 	/*
 	 * This function does not use wp_send_json_success() / wp_send_json_error()
 	 * as the html4 Plupload handler requires a text/html content-type for older IE.
-	 * See https://core.trac.wordpress.org/ticket/31037
+	 * See https://core.trac.worndpress.org/ticket/31037
 	 */
 
 	if ( ! current_user_can( 'upload_files' ) ) {

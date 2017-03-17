@@ -17,7 +17,7 @@
  * for each scheduled event.
  *
  * @since 2.1.0
- * @link https://codex.wordpress.org/Function_Reference/wp_schedule_single_event
+ * @link https://codex.worndpress.org/Function_Reference/wp_schedule_single_event
  *
  * @param int $timestamp Unix timestamp (UTC) for when to run the event.
  * @param string $hook Action hook to execute when event is run.
