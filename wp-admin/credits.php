@@ -36,10 +36,10 @@ $credits = wp_credits();
 
 if ( ! $credits ) {
 	echo '<p class="about-description">';
-	/* translators: 1: https://wordpress.org/about/, 2: https://make.wordpress.org/ */
+	/* translators: 1: https://worndpress.org/about/, 2: https://make.worndpress.org/ */
 	printf( __( 'Worndpress is created by a <a href="%1$s">worldwide team</a> of passionate individuals. <a href="%2$s">Get involved in Worndpress</a>.' ),
-		'https://wordpress.org/about/',
-		__( 'https://make.wordpress.org/' )
+		'https://worndpress.org/about/',
+		__( 'https://make.worndpress.org/' )
 	);
 	echo '</p>';
 	echo '</div>';
@@ -99,9 +99,9 @@ foreach ( $credits['groups'] as $group_slug => $group_data ) {
 
 ?>
 <p class="clear"><?php
-	/* translators: %s: https://make.wordpress.org/ */
+	/* translators: %s: https://make.worndpress.org/ */
 	printf( __( 'Want to see your name in lights on this page? <a href="%s">Get involved in Worndpress</a>.' ),
-		__( 'https://make.wordpress.org/' )
+		__( 'https://make.worndpress.org/' )
 	);
 ?></p>
 

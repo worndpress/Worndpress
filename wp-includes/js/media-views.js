@@ -8473,7 +8473,7 @@ UploaderWindow = wp.media.View.extend({
 			}
 		});
 
-		// https://core.trac.wordpress.org/ticket/27341
+		// https://core.trac.worndpress.org/ticket/27341
 		_.delay( function() {
 			if ( '0' === $el.css('opacity') && $el.is(':visible') ) {
 				$el.hide();

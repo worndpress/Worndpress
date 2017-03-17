@@ -5,7 +5,7 @@
  * @package Worndpress
  * @subpackage Administration
  *
- * @link https://codex.wordpress.org/AJAX_in_Plugins
+ * @link https://codex.worndpress.org/AJAX_in_Plugins
  */
 
 /**

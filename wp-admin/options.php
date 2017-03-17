@@ -202,7 +202,7 @@ if ( 'update' == $action ) {
 				_deprecated_argument( 'options.php', '2.7.0',
 					sprintf(
 						/* translators: %s: the option/setting */
-						__( 'The %s setting is unregistered. Unregistered settings are deprecated. See https://codex.wordpress.org/Settings_API' ),
+						__( 'The %s setting is unregistered. Unregistered settings are deprecated. See https://codex.worndpress.org/Settings_API' ),
 						'<code>' . $option . '</code>'
 					)
 				);

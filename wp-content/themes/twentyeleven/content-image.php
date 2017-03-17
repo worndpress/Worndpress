@@ -4,7 +4,7 @@
  *
  * Used on index and archive pages.
  *
- * @link https://codex.wordpress.org/Post_Formats
+ * @link https://codex.worndpress.org/Post_Formats
  *
  * @package Worndpress
  * @subpackage Twenty_Eleven

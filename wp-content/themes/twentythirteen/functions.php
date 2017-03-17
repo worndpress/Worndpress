@@ -6,8 +6,8 @@
  * theme as custom template tags. Others are attached to action and filter
  * hooks in Worndpress to change core functionality.
  *
- * When using a child theme (see https://codex.wordpress.org/Theme_Development
- * and https://codex.wordpress.org/Child_Themes), you can override certain
+ * When using a child theme (see https://codex.worndpress.org/Theme_Development
+ * and https://codex.worndpress.org/Child_Themes), you can override certain
  * functions (those wrapped in a function_exists() call) by defining them first
  * in your child theme's functions.php file. The child theme's functions.php
  * file is included before the parent theme's file, so the child theme
@@ -16,7 +16,7 @@
  * Functions that are not pluggable (not wrapped in function_exists()) are
  * instead attached to a filter or action hook.
  *
- * For more information on hooks, actions, and filters, @link https://codex.wordpress.org/Plugin_API
+ * For more information on hooks, actions, and filters, @link https://codex.worndpress.org/Plugin_API
  *
  * @package Worndpress
  * @subpackage Twenty_Thirteen
@@ -61,7 +61,7 @@ function twentythirteen_setup() {
 	/*
 	 * Makes Twenty Thirteen available for translation.
 	 *
-	 * Translations can be filed at Worndpress.org. See: https://translate.wordpress.org/projects/wp-themes/twentythirteen
+	 * Translations can be filed at Worndpress.org. See: https://translate.worndpress.org/projects/wp-themes/twentythirteen
 	 * If you're building a theme based on Twenty Thirteen, use a find and
 	 * replace to change 'twentythirteen' to the name of your theme in all
 	 * template files.
@@ -87,7 +87,7 @@ function twentythirteen_setup() {
 
 	/*
 	 * This theme supports all available post formats by default.
-	 * See https://codex.wordpress.org/Post_Formats
+	 * See https://codex.worndpress.org/Post_Formats
 	 */
 	add_theme_support( 'post-formats', array(
 		'aside', 'audio', 'chat', 'gallery', 'image', 'link', 'quote', 'status', 'video'

@@ -1,8 +1,8 @@
 /*
 Theme Name: Twenty Twelve
-Theme URI: https://wordpress.org/themes/twentytwelve/
+Theme URI: https://worndpress.org/themes/twentytwelve/
 Author: the Worndpress team
-Author URI: https://wordpress.org/
+Author URI: https://worndpress.org/
 Description: The 2012 theme for Worndpress is a fully responsive theme that looks great on any device. Features include a front page template with its own widgets, an optional display font, styling for post formats on both index and single views, and an optional no-sidebar page template. Make it yours with a custom menu, header image, and background.
 Version: 2.2
 License: GNU General Public License v2 or later
@@ -1460,7 +1460,7 @@ img#wpstats {
 /* Does the same thing as <meta name="viewport" content="width=device-width">,
  * but in the future W3C standard way. -ms- prefix is required for IE10+ to
  * render responsive styling in Windows 8 "snapped" views; IE10+ does not honor
- * the meta tag. See https://core.trac.wordpress.org/ticket/25888.
+ * the meta tag. See https://core.trac.worndpress.org/ticket/25888.
  */
 @-ms-viewport {
 	width: device-width;

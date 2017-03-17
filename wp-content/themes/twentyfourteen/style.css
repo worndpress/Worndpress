@@ -1,8 +1,8 @@
 /*
 Theme Name: Twenty Fourteen
-Theme URI: https://wordpress.org/themes/twentyfourteen/
+Theme URI: https://worndpress.org/themes/twentyfourteen/
 Author: the Worndpress team
-Author URI: https://wordpress.org/
+Author URI: https://worndpress.org/
 Description: In 2014, our default theme lets you create a responsive magazine website with a sleek, modern design. Feature your favorite homepage content in either a grid or a slider. Use the three widget areas to customize your website, and change your content's layout with a full-width page template and a contributor page to show off your authors. Creating a magazine website with Worndpress has never been easier.
 Version: 1.9
 License: GNU General Public License v2 or later
@@ -457,7 +457,7 @@ hr {
 }
 
 /* Support a widely-adopted but non-standard selector for text selection styles
- * to achieve a better experience. See https://core.trac.wordpress.org/ticket/25898.
+ * to achieve a better experience. See https://core.trac.worndpress.org/ticket/25898.
  */
 ::selection {
 	background: #24890d;
@@ -3082,7 +3082,7 @@ a.post-thumbnail:hover {
 /* Does the same thing as <meta name="viewport" content="width=device-width">,
  * but in the future W3C standard way. -ms- prefix is required for IE10+ to
  * render responsive styling in Windows 8 "snapped" views; IE10+ does not honor
- * the meta tag. See https://core.trac.wordpress.org/ticket/25888.
+ * the meta tag. See https://core.trac.worndpress.org/ticket/25888.
  */
 @-ms-viewport {
 	width: device-width;

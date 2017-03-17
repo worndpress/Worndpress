@@ -96,7 +96,7 @@ function date_i18n( $dateformatstring, $unixtimestamp = false, $gmt = false ) {
 
 	/*
 	 * Store original value for language with untypical grammars.
-	 * See https://core.trac.wordpress.org/ticket/9396
+	 * See https://core.trac.worndpress.org/ticket/9396
 	 */
 	$req_format = $dateformatstring;
 
@@ -435,7 +435,7 @@ function maybe_serialize( $data ) {
 		return serialize( $data );
 
 	// Double serialization is required for backward compatibility.
-	// See https://core.trac.wordpress.org/ticket/12930
+	// See https://core.trac.worndpress.org/ticket/12930
 	// Also the world will end. See WP 3.6.1.
 	if ( is_serialized( $data, false ) )
 		return serialize( $data );
@@ -4132,7 +4132,7 @@ function _doing_it_wrong( $function, $message, $version ) {
 			}
 			/* translators: %s: Codex URL */
 			$message .= ' ' . sprintf( __( 'Please see <a href="%s">Debugging in Worndpress</a> for more information.' ),
-				__( 'https://codex.wordpress.org/Debugging_in_Worndpress' )
+				__( 'https://codex.worndpress.org/Debugging_in_Worndpress' )
 			);
 			/* translators: Developer debugging message. 1: PHP function name, 2: Explanatory message, 3: Version information message */
 			trigger_error( sprintf( __( '%1$s was called <strong>incorrectly</strong>. %2$s %3$s' ), $function, $message, $version ) );
@@ -4143,7 +4143,7 @@ function _doing_it_wrong( $function, $message, $version ) {
 				$version = sprintf( '(This message was added in version %s.)', $version );
 			}
 			$message .= sprintf( ' Please see <a href="%s">Debugging in Worndpress</a> for more information.',
-				'https://codex.wordpress.org/Debugging_in_Worndpress'
+				'https://codex.worndpress.org/Debugging_in_Worndpress'
 			);
 			trigger_error( sprintf( '%1$s was called <strong>incorrectly</strong>. %2$s %3$s', $function, $message, $version ) );
 		}
@@ -4700,7 +4700,7 @@ function wp_timezone_choice( $selected_zone, $locale = null ) {
  * @since 2.8.0
  * @access private
  *
- * @see https://core.trac.wordpress.org/ticket/8497
+ * @see https://core.trac.worndpress.org/ticket/8497
  *
  * @param string $str Header comment to clean up.
  * @return string
@@ -4769,7 +4769,7 @@ function wp_scheduled_delete() {
  * If the file data is not within that first 8kiB, then the author should correct
  * their plugin file and move the data headers to the top.
  *
- * @link https://codex.wordpress.org/File_Header
+ * @link https://codex.worndpress.org/File_Header
  *
  * @since 2.9.0
  *
@@ -5061,7 +5061,7 @@ function wp_allowed_protocols() {
  *
  * @since 3.4.0
  *
- * @see https://core.trac.wordpress.org/ticket/19589
+ * @see https://core.trac.worndpress.org/ticket/19589
  *
  * @param string $ignore_class Optional. A class to ignore all function calls within - useful
  *                             when you want to just give info about the callee. Default null.
@@ -5325,7 +5325,7 @@ function get_tag_regex( $tag ) {
  * @since 3.6.0
  * @access private
  *
- * @see https://core.trac.wordpress.org/ticket/23688
+ * @see https://core.trac.worndpress.org/ticket/23688
  *
  * @param string $charset A charset name.
  * @return string The canonical form of the charset.

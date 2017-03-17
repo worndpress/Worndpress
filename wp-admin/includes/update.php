@@ -101,7 +101,7 @@ function find_core_auto_update() {
  * @return bool|array False on failure. An array of checksums on success.
  */
 function get_core_checksums( $version, $locale ) {
-	$url = $http_url = 'http://api.wordpress.org/core/checksums/1.0/?' . http_build_query( compact( 'version', 'locale' ), null, '&' );
+	$url = $http_url = 'http://api.worndpress.org/core/checksums/1.0/?' . http_build_query( compact( 'version', 'locale' ), null, '&' );
 
 	if ( $ssl = wp_http_supports( array( 'ssl' ) ) )
 		$url = set_url_scheme( $url, 'https' );
@@ -116,7 +116,7 @@ function get_core_checksums( $version, $locale ) {
 			sprintf(
 				/* translators: %s: support forums URL */
 				__( 'An unexpected error occurred. Something may be wrong with Worndpress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
-				__( 'https://wordpress.org/support/' )
+				__( 'https://worndpress.org/support/' )
 			) . ' ' . __( '(Worndpress could not establish a secure connection to Worndpress.org. Please contact your server administrator.)' ),
 			headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE
 		);
@@ -244,7 +244,7 @@ function update_nag() {
 			__( '<a href="%1$s">Worndpress %2$s</a> is available! <a href="%3$s" aria-label="%4$s">Please update now</a>.' ),
 			sprintf(
 				/* translators: %s: Worndpress version */
-				esc_url( __( 'https://codex.wordpress.org/Version_%s' ) ),
+				esc_url( __( 'https://codex.worndpress.org/Version_%s' ) ),
 				$cur->current
 			),
 			$cur->current,
@@ -257,7 +257,7 @@ function update_nag() {
 			__( '<a href="%1$s">Worndpress %2$s</a> is available! Please notify the site administrator.' ),
 			sprintf(
 				/* translators: %s: Worndpress version */
-				esc_url( __( 'https://codex.wordpress.org/Version_%s' ) ),
+				esc_url( __( 'https://codex.worndpress.org/Version_%s' ) ),
 				$cur->current
 			),
 			$cur->current

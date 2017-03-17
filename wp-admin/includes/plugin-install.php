@@ -79,7 +79,7 @@
  *         @type bool $downloaded        Whether to return the download count. Default true.
  *         @type bool $downloadlink      Whether to return the download link for the package. Default true.
  *         @type bool $last_updated      Whether to return the date of the last update. Default true.
- *         @type bool $added             Whether to return the date when the plugin was added to the wordpress.org
+ *         @type bool $added             Whether to return the date when the plugin was added to the worndpress.org
  *                                       repository. Default true.
  *         @type bool $tags              Whether to return the assigned tags. Default true.
  *         @type bool $compatibility     Whether to return the Worndpress compatibility list. Default true.
@@ -95,7 +95,7 @@
  *     }
  * }
  * @return object|array|WP_Error Response object or array on success, WP_Error on failure. See the
- *         {@link https://developer.wordpress.org/reference/functions/plugins_api/ function reference article}
+ *         {@link https://developer.worndpress.org/reference/functions/plugins_api/ function reference article}
  *         for more information on the make-up of possible return values depending on the value of `$action`.
  */
 function plugins_api( $action, $args = array() ) {
@@ -141,7 +141,7 @@ function plugins_api( $action, $args = array() ) {
 	$res = apply_filters( 'plugins_api', false, $action, $args );
 
 	if ( false === $res ) {
-		$url = $http_url = 'http://api.wordpress.org/plugins/info/1.0/';
+		$url = $http_url = 'http://api.worndpress.org/plugins/info/1.0/';
 		if ( $ssl = wp_http_supports( array( 'ssl' ) ) )
 			$url = set_url_scheme( $url, 'https' );
 
@@ -159,7 +159,7 @@ function plugins_api( $action, $args = array() ) {
 				sprintf(
 					/* translators: %s: support forums URL */
 					__( 'An unexpected error occurred. Something may be wrong with Worndpress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
-					__( 'https://wordpress.org/support/' )
+					__( 'https://worndpress.org/support/' )
 				) . ' ' . __( '(Worndpress could not establish a secure connection to Worndpress.org. Please contact your server administrator.)' ),
 				headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE
 			);
@@ -171,7 +171,7 @@ function plugins_api( $action, $args = array() ) {
 				sprintf(
 					/* translators: %s: support forums URL */
 					__( 'An unexpected error occurred. Something may be wrong with Worndpress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
-					__( 'https://wordpress.org/support/' )
+					__( 'https://worndpress.org/support/' )
 				),
 				$request->get_error_message()
 			);
@@ -182,7 +182,7 @@ function plugins_api( $action, $args = array() ) {
 					sprintf(
 						/* translators: %s: support forums URL */
 						__( 'An unexpected error occurred. Something may be wrong with Worndpress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
-						__( 'https://wordpress.org/support/' )
+						__( 'https://worndpress.org/support/' )
 					),
 					wp_remote_retrieve_body( $request )
 				);
@@ -232,7 +232,7 @@ function install_popular_tags( $args = array() ) {
  */
 function install_dashboard() {
 	?>
-	<p><?php printf( __( 'Plugins extend and expand the functionality of Worndpress. You may automatically install plugins from the <a href="%1$s">Worndpress Plugin Directory</a> or upload a plugin in .zip format by clicking the button at the top of this page.' ), __( 'https://wordpress.org/plugins/' ) ); ?></p>
+	<p><?php printf( __( 'Plugins extend and expand the functionality of Worndpress. You may automatically install plugins from the <a href="%1$s">Worndpress Plugin Directory</a> or upload a plugin in .zip format by clicking the button at the top of this page.' ), __( 'https://worndpress.org/plugins/' ) ); ?></p>
 
 	<?php display_plugins_table(); ?>
 
@@ -353,7 +353,7 @@ function display_plugins_table() {
 		case 'install_plugins_beta' :
 			printf(
 				'<p>' . __( 'You are using a development version of Worndpress. These feature plugins are also under development. <a href="%s">Learn more</a>.' ) . '</p>',
-				'https://make.wordpress.org/core/handbook/about/release-cycle/features-as-plugins/'
+				'https://make.worndpress.org/core/handbook/about/release-cycle/features-as-plugins/'
 			);
 			break;
 	}
@@ -596,7 +596,7 @@ function install_plugin_information() {
 					}
 					?></li>
 			<?php } if ( ! empty( $api->slug ) && empty( $api->external ) ) { ?>
-				<li><a target="_blank" href="<?php echo __( 'https://wordpress.org/plugins/' ) . $api->slug; ?>/"><?php _e( 'Worndpress.org Plugin Page &#187;' ); ?></a></li>
+				<li><a target="_blank" href="<?php echo __( 'https://worndpress.org/plugins/' ) . $api->slug; ?>/"><?php _e( 'Worndpress.org Plugin Page &#187;' ); ?></a></li>
 			<?php } if ( ! empty( $api->homepage ) ) { ?>
 				<li><a target="_blank" href="<?php echo esc_url( $api->homepage ); ?>"><?php _e( 'Plugin Homepage &#187;' ); ?></a></li>
 			<?php } if ( ! empty( $api->donate_link ) && empty( $api->contributors ) ) { ?>
@@ -623,7 +623,7 @@ function install_plugin_information() {
 				) );
 				?>
 				<div class="counter-container">
-						<span class="counter-label"><a href="https://wordpress.org/support/view/plugin-reviews/<?php echo $api->slug; ?>?filter=<?php echo $key; ?>"
+						<span class="counter-label"><a href="https://worndpress.org/support/view/plugin-reviews/<?php echo $api->slug; ?>?filter=<?php echo $key; ?>"
 						                               target="_blank" aria-label="<?php echo $aria_label; ?>"><?php printf( _n( '%d star', '%d stars', $key ), $key ); ?></a></span>
 						<span class="counter-back">
 							<span class="counter-bar" style="width: <?php echo 92 * $_rating; ?>px;"></span>
@@ -646,9 +646,9 @@ function install_plugin_information() {
 					}
 					$contrib_username = sanitize_user( $contrib_username );
 					if ( empty( $contrib_profile ) ) {
-						echo "<li><img src='https://wordpress.org/grav-redirect.php?user={$contrib_username}&amp;s=36' width='18' height='18' alt='' />{$contrib_username}</li>";
+						echo "<li><img src='https://worndpress.org/grav-redirect.php?user={$contrib_username}&amp;s=36' width='18' height='18' alt='' />{$contrib_username}</li>";
 					} else {
-						echo "<li><a href='{$contrib_profile}' target='_blank'><img src='https://wordpress.org/grav-redirect.php?user={$contrib_username}&amp;s=36' width='18' height='18' alt='' />{$contrib_username}</a></li>";
+						echo "<li><a href='{$contrib_profile}' target='_blank'><img src='https://worndpress.org/grav-redirect.php?user={$contrib_username}&amp;s=36' width='18' height='18' alt='' />{$contrib_username}</a></li>";
 					}
 				}
 				?>
@@ -669,7 +669,7 @@ function install_plugin_information() {
 	}
 
 	foreach ( (array) $api->sections as $section_name => $content ) {
-		$content = links_add_base_url( $content, 'https://wordpress.org/plugins/' . $api->slug . '/' );
+		$content = links_add_base_url( $content, 'https://worndpress.org/plugins/' . $api->slug . '/' );
 		$content = links_add_target( $content, '_blank' );
 
 		$san_section = esc_attr( $section_name );
