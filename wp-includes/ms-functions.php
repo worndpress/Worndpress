@@ -96,11 +96,13 @@ function get_active_blog_for_user( $user_id ) {
  * The count is cached and updated twice daily. This is not a live count.
  *
  * @since MU 2.7
+ * @since 4.8.0 The $network_id parameter has been added.
  *
- * @return int
+ * @param int|null $network_id ID of the network. Default is the current network.
+ * @return int Number of active users on the network.
  */
-function get_user_count() {
-	return get_site_option( 'user_count' );
+function get_user_count( $network_id = null ) {
+	return get_network_option( $network_id, 'user_count' );
 }
 
 /**
@@ -109,15 +111,14 @@ function get_user_count() {
  * The count is cached and updated twice daily. This is not a live count.
  *
  * @since MU 1.0
+ * @since 3.7.0 The $network_id parameter has been deprecated.
+ * @since 4.8.0 The $network_id parameter is now being used.
  *
- * @param int $network_id Deprecated, not supported.
- * @return int
+ * @param int|null $network_id ID of the network. Default is the current network.
+ * @return int Number of active sites on the network.
  */
-function get_blog_count( $network_id = 0 ) {
-	if ( func_num_args() )
-		_deprecated_argument( __FUNCTION__, '3.1.0' );
-
-	return get_site_option( 'blog_count' );
+function get_blog_count( $network_id = null ) {
+	return get_network_option( $network_id, 'blog_count' );
 }
 
 /**
