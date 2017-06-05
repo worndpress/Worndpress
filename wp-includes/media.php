@@ -2159,9 +2159,9 @@ function wp_get_audio_extensions() {
 	 * @since 3.6.0
 	 *
 	 * @param array $extensions An array of support audio formats. Defaults are
-	 *                          'mp3', 'ogg', 'wma', 'm4a', 'wav'.
+	 *                          'mp3', 'ogg', 'm4a', 'wav'.
 	 */
-	return apply_filters( 'wp_audio_extensions', array( 'mp3', 'ogg', 'wma', 'm4a', 'wav' ) );
+	return apply_filters( 'wp_audio_extensions', array( 'mp3', 'ogg', 'm4a', 'wav' ) );
 }
 
 /**
@@ -2392,9 +2392,9 @@ function wp_get_video_extensions() {
 	 * @since 3.6.0
 	 *
 	 * @param array $extensions An array of support video formats. Defaults are
-	 *                          'mp4', 'm4v', 'webm', 'ogv', 'wmv', 'flv'.
+	 *                          'mp4', 'm4v', 'webm', 'ogv', 'flv'.
 	 */
-	return apply_filters( 'wp_video_extensions', array( 'mp4', 'm4v', 'webm', 'ogv', 'wmv', 'flv' ) );
+	return apply_filters( 'wp_video_extensions', array( 'mp4', 'm4v', 'webm', 'ogv', 'flv' ) );
 }
 
 /**
@@ -2544,6 +2544,20 @@ function wp_video_shortcode( $attr, $content = '' ) {
 	if ( 'mediaelement' === $library && did_action( 'init' ) ) {
 		wp_enqueue_style( 'wp-mediaelement' );
 		wp_enqueue_script( 'wp-mediaelement' );
+	}
+
+	// Mediaelement has issues with some URL formats for Vimeo and YouTube, so
+	// update the URL to prevent the ME.js player from breaking.
+	if ( 'mediaelement' === $library ) {
+		if ( $is_youtube ) {
+			// Remove `feature` query arg and force SSL - see #40866.
+			$atts['src'] = remove_query_arg( 'feature', $atts['src'] );
+			$atts['src'] = set_url_scheme( $atts['src'], 'https' );
+		} elseif ( $is_vimeo ) {
+			// Remove all query arguments and force SSL - see #40866.
+			$parsed_vimeo_url = wp_parse_url( $atts['src'] );
+			$atts['src'] = 'https://' . $parsed_vimeo_url['host'] . $parsed_vimeo_url['path'];
+		}
 	}
 
 	/**
@@ -3098,7 +3112,11 @@ function wp_prepare_attachment_for_js( $attachment ) {
 	);
 
 	$author = new WP_User( $attachment->post_author );
-	$response['authorName'] = $author->display_name;
+	if ( $author->exists() ) {
+		$response['authorName'] = html_entity_decode( $author->display_name, ENT_QUOTES, get_bloginfo( 'charset' ) );
+	} else {
+		$response['authorName'] = __( '(no author)' );
+	}
 
 	if ( $attachment->post_parent ) {
 		$post_parent = get_post( $attachment->post_parent );
