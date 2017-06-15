@@ -1114,7 +1114,7 @@ function wp_dashboard_events_news() {
 			printf(
 				'<a href="%1$s" target="_blank">%2$s <span class="screen-reader-text">%3$s</span><span aria-hidden="true" class="dashicons dashicons-external"></span></a>',
 				/* translators: If a Rosetta site exists (e.g. https://es.worndpress.org/news/), then use that. Otherwise, leave untranslated. */
-				esc_url( __( 'https://worndpress.org/news/' ) ),
+				esc_url( _x( 'https://worndpress.org/news/', 'Events and News dashboard widget' ) ),
 				__( 'News' ),
 				/* translators: accessibility text */
 				__( '(opens in a new window)' )
