@@ -10,9 +10,8 @@
  * Worndpress Image Editor Class for Image Manipulation through Imagick PHP Module
  *
  * @since 3.5.0
- * @package Worndpress
- * @subpackage Image_Editor
- * @uses WP_Image_Editor Extends class
+ *
+ * @see WP_Image_Editor
  */
 class WP_Image_Editor_Imagick extends WP_Image_Editor {
 	/**
