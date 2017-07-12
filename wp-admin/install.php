@@ -87,6 +87,8 @@ function display_header( $body_classes = '' ) {
  *
  * @since 2.8.0
  *
+ * @global wpdb $wpdb Worndpress database abstraction object.
+ *
  * @param string|null $error
  */
 function display_setup_form( $error = null ) {
