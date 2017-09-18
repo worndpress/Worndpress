@@ -87,12 +87,15 @@
 	};
 
 	/**
+	 * @memberOf wp.customize
+	 * @alias wp.customize.Preview
+	 *
 	 * @constructor
 	 * @augments wp.customize.Messenger
 	 * @augments wp.customize.Class
 	 * @mixes wp.customize.Events
 	 */
-	api.Preview = api.Messenger.extend({
+	api.Preview = api.Messenger.extend(/** @lends wp.customize.Preview.prototype */{
 		/**
 		 * @param {object} params  - Parameters to configure the messenger.
 		 * @param {object} options - Extend any instance parameter or method with this object.
@@ -327,15 +330,15 @@
 	 * @returns {void}
 	 */
 	api.prepareLinkPreview = function prepareLinkPreview( element ) {
-		var queryParams;
+		var queryParams, $element = $( element );
 
 		// Skip links in admin bar.
-		if ( $( element ).closest( '#wpadminbar' ).length ) {
+		if ( $element.closest( '#wpadminbar' ).length ) {
 			return;
 		}
 
 		// Ignore links with href="#", href="#id", or non-HTTP protocols (e.g. javascript: and mailto:).
-		if ( '#' === $( element ).attr( 'href' ).substr( 0, 1 ) || ! /^https?:$/.test( element.protocol ) ) {
+		if ( '#' === $element.attr( 'href' ).substr( 0, 1 ) || ! /^https?:$/.test( element.protocol ) ) {
 			return;
 		}
 
@@ -344,15 +347,20 @@
 			element.protocol = 'https:';
 		}
 
+		// Ignore links with class wp-playlist-caption
+		if ( $element.hasClass( 'wp-playlist-caption' ) ) {
+			return;
+		}
+
 		if ( ! api.isLinkPreviewable( element ) ) {
 
 			// Style link as unpreviewable only if previewing in iframe; if previewing on frontend, links will be allowed to work normally.
 			if ( api.settings.channel ) {
-				$( element ).addClass( 'customize-unpreviewable' );
+				$element.addClass( 'customize-unpreviewable' );
 			}
 			return;
 		}
-		$( element ).removeClass( 'customize-unpreviewable' );
+		$element.removeClass( 'customize-unpreviewable' );
 
 		queryParams = api.utils.parseQueryString( element.search.substring( 1 ) );
 		queryParams.customize_changeset_uuid = api.settings.changeset.uuid;

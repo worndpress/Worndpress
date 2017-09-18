@@ -2753,8 +2753,6 @@ function _default_wp_die_handler( $message, $title = '', $args = array() ) {
 			$text_direction = 'rtl';
 ?>
 <!DOCTYPE html>
-<!-- Ticket #11289, IE bug fix: always pad the error page with enough characters such that it is greater than 512 bytes, even after gzip compression abcdefghijklmnopqrstuvwxyz1234567890aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz11223344556677889900abacbcbdcdcededfefegfgfhghgihihjijikjkjlklkmlmlnmnmononpopoqpqprqrqsrsrtstsubcbcdcdedefefgfabcadefbghicjkldmnoepqrfstugvwxhyz1i234j567k890laabmbccnddeoeffpgghqhiirjjksklltmmnunoovppqwqrrxsstytuuzvvw0wxx1yyz2z113223434455666777889890091abc2def3ghi4jkl5mno6pqr7stu8vwx9yz11aab2bcc3dd4ee5ff6gg7hh8ii9j0jk1kl2lmm3nnoo4p5pq6qrr7ss8tt9uuvv0wwx1x2yyzz13aba4cbcb5dcdc6dedfef8egf9gfh0ghg1ihi2hji3jik4jkj5lkl6kml7mln8mnm9ono
--->
 <html xmlns="http://www.w3.org/1999/xhtml" <?php if ( function_exists( 'language_attributes' ) && function_exists( 'is_rtl' ) ) language_attributes(); else echo "dir='$text_direction'"; ?>>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -4392,19 +4390,92 @@ function wp_suspend_cache_invalidation( $suspend = true ) {
  * Determine whether a site is the main site of the current network.
  *
  * @since 3.0.0
+ * @since 4.9.0 The $network_id parameter has been added.
  *
- * @param int $site_id Optional. Site ID to test. Defaults to current site.
+ * @param int $site_id    Optional. Site ID to test. Defaults to current site.
+ * @param int $network_id Optional. Network ID of the network to check for.
+ *                        Defaults to current network.
  * @return bool True if $site_id is the main site of the network, or if not
  *              running Multisite.
  */
-function is_main_site( $site_id = null ) {
-	if ( ! is_multisite() )
+function is_main_site( $site_id = null, $network_id = null ) {
+	if ( ! is_multisite() ) {
 		return true;
+	}
 
-	if ( ! $site_id )
+	if ( ! $site_id ) {
 		$site_id = get_current_blog_id();
+	}
 
-	return (int) $site_id === (int) get_network()->site_id;
+	$site_id = (int) $site_id;
+
+	return $site_id === get_main_site_id( $network_id );
+}
+
+/**
+ * Gets the main site ID.
+ *
+ * @since 4.9.0
+ *
+ * @param int $network_id Optional. The ID of the network for which to get the main site.
+ *                        Defaults to the current network.
+ * @return int The ID of the main site.
+ */
+function get_main_site_id( $network_id = null ) {
+	if ( ! is_multisite() ) {
+		return 1;
+	}
+
+	$network = get_network( $network_id );
+	if ( ! $network ) {
+		return 0;
+	}
+
+	/**
+	 * Filters the main site ID.
+	 *
+	 * Returning anything other than null will effectively short-circuit the function, returning
+	 * the result parsed as an integer immediately.
+	 *
+	 * @since 4.9.0
+	 *
+	 * @param int|null $main_site_id If anything other than null is returned, it is interpreted as the main site ID.
+	 * @param int $network_id The ID of the network for which the main site was detected.
+	 */
+	$main_site_id = apply_filters( 'pre_get_main_site_id', null, $network->id );
+	if ( null !== $main_site_id ) {
+		return (int) $main_site_id;
+	}
+
+	if ( ( defined( 'DOMAIN_CURRENT_SITE' ) && defined( 'PATH_CURRENT_SITE' ) && $network->domain === DOMAIN_CURRENT_SITE && $network->path === PATH_CURRENT_SITE )
+	     || ( defined( 'SITE_ID_CURRENT_SITE' ) && $network->id == SITE_ID_CURRENT_SITE ) ) {
+		if ( defined( 'BLOG_ID_CURRENT_SITE' ) ) {
+			return BLOG_ID_CURRENT_SITE;
+		} elseif ( defined( 'BLOGID_CURRENT_SITE' ) ) { // deprecated.
+			return BLOGID_CURRENT_SITE;
+		}
+	}
+
+	$site = get_site();
+	if ( $site->domain === $network->domain && $site->path === $network->path ) {
+		$main_site_id = (int) $site->id;
+	} else {
+		$main_site_id = wp_cache_get( 'network:' . $network->id . ':main_site', 'site-options' );
+		if ( false === $main_site_id ) {
+			$_sites = get_sites( array(
+				'fields'     => 'ids',
+				'number'     => 1,
+				'domain'     => $network->domain,
+				'path'       => $network->path,
+				'network_id' => $network->id,
+			) );
+			$main_site_id = ! empty( $_sites ) ? array_shift( $_sites ) : 0;
+
+			wp_cache_add( 'network:' . $network->id . ':main_site', $main_site_id, 'site-options' );
+		}
+	}
+
+	return (int) $main_site_id;
 }
 
 /**

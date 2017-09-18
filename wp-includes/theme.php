@@ -2904,7 +2904,7 @@ function _wp_customize_publish_changeset( $new_status, $old_status, $changeset_p
 		/*
 		 * The following re-formulates the logic from wp_trash_post() as done in
 		 * wp_publish_post(). The reason for bypassing wp_trash_post() is that it
-		 * will mutate the the post_content and the post_name when they should be
+		 * will mutate the post_content and the post_name when they should be
 		 * untouched.
 		 */
 		if ( ! EMPTY_TRASH_DAYS ) {
@@ -3134,7 +3134,7 @@ function _wp_keep_alive_customize_changeset_dependent_auto_drafts( $new_status, 
 		}
 		$wpdb->update(
 			$wpdb->posts,
-			array( 'post_date' => $new_post_date ), // Note wp_delete_auto_drafts() only looks at this this date.
+			array( 'post_date' => $new_post_date ), // Note wp_delete_auto_drafts() only looks at this date.
 			array( 'ID' => $post_id )
 		);
 		clean_post_cache( $post_id );

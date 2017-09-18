@@ -550,6 +550,20 @@ p.customize-section-description {
 	margin-top: 22px;
 	margin-bottom: 0;
 }
+.customize-section-description ul {
+	margin-right: 1em;
+}
+.customize-section-description ul > li {
+	list-style: disc;
+}
+.section-description-buttons {
+	text-align: left;
+}
+
+.section-description-buttons button.button-link {
+	color: #0073aa;
+	text-decoration: underline;
+}
 
 .customize-control {
 	width: 100%;
@@ -766,7 +780,6 @@ p.customize-section-description {
 #customize-controls .customize-control-notifications-container { /* Scoped to #customize-controls for specificity over notification styles in common.css. */
 	margin: 4px 0 8px 0;
 	padding: 0;
-	display: none;
 	cursor: default;
 }
 
@@ -796,6 +809,33 @@ p.customize-section-description {
 
 .customize-control-text.has-error input {
 	outline: 2px solid #dc3232;
+}
+
+#customize-controls #customize-notifications-area {
+	position: absolute;
+	top: 46px;
+	width: 100%;
+	max-height: 210px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	border-bottom: 1px solid #ddd;
+	display: block;
+	padding: 0;
+	margin: 0;
+}
+
+#customize-controls #customize-notifications-area > ul,
+#customize-controls #customize-notifications-area .notice {
+	margin: 0;
+}
+#customize-controls #customize-notifications-area .notice {
+	padding: 9px 14px;
+}
+#customize-controls #customize-notifications-area .notice.is-dismissible {
+	padding-left: 38px;
+}
+#customize-controls #customize-notifications-area .notice + .notice {
+	margin-top: 1px;
 }
 
 /* Style for custom settings */
@@ -856,15 +896,6 @@ p.customize-section-description {
 	background: #eee;
 	display: none;
 	max-width: 112px;
-}
-
-/* Color Picker */
-.customize-control-color .color-picker-hex {
-	display: none;
-}
-
-.customize-control-color.open .color-picker-hex {
-	display: block;
 }
 
 .customize-control-color .dropdown {
@@ -1137,6 +1168,19 @@ p.customize-section-description {
 	margin-bottom: -12px;
 }
 
+.customize-section-description-container + #customize-control-custom_css:last-child .CodeMirror {
+	height: calc( 100vh - 185px );
+}
+.CodeMirror-lint-tooltip,
+.CodeMirror-hints {
+	z-index: 500000 !important;
+}
+
+.customize-section-description-container + #customize-control-custom_css:last-child .customize-control-notifications-container {
+	margin-right: 12px;
+	margin-left: 12px;
+}
+
 @media screen and ( max-width: 640px ) {
 	.customize-section-description-container + #customize-control-custom_css:last-child {
 		margin-left: 0;
@@ -1176,6 +1220,21 @@ p.customize-section-description {
 	border-bottom: 1px solid #ddd;
 	border-right: none;
 	margin-top: 0;
+}
+#customize-theme-controls .control-section-themes .customize-section-back {
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 80px;
+	border-right: 1px solid #ddd;
+	border-left: 4px solid #fff;
+}
+#customize-theme-controls .control-section-themes .customize-section-back:before {
+	content: "\f341";
+}
+#customize-theme-controls .control-section-themes .customize-section-back:hover,
+#customize-theme-controls .control-section-themes .customize-section-back:focus {
+	border-left-color: #0073aa;
 }
 
 #customize-theme-controls .control-section-themes .customize-themes-panel .accordion-section-title:first-child:hover, /* Not a focusable element. */

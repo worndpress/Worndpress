@@ -74,7 +74,6 @@ class WP_oEmbed {
 			'#https?://(www\.)?twitter\.com/\w{1,15}/lists/.*#i'       => array( 'https://publish.twitter.com/oembed',                        true  ),
 			'#https?://(www\.)?twitter\.com/\w{1,15}/timelines/.*#i'   => array( 'https://publish.twitter.com/oembed',                        true  ),
 			'#https?://(www\.)?twitter\.com/i/moments/.*#i'            => array( 'https://publish.twitter.com/oembed',                        true  ),
-			'#https?://vine\.co/v/.*#i'                                => array( 'https://vine.co/oembed.{format}',                           true  ),
 			'#https?://(www\.)?soundcloud\.com/.*#i'                   => array( 'https://soundcloud.com/oembed',                             true  ),
 			'#https?://(.+?\.)?slideshare\.net/.*#i'                   => array( 'https://www.slideshare.net/api/oembed/2',                   true  ),
 			'#https?://(www\.)?instagr(\.am|am\.com)/p/.*#i'           => array( 'https://api.instagram.com/oembed',                          true  ),
@@ -163,7 +162,6 @@ class WP_oEmbed {
 		 * | Polldaddy    | poll.fm               |      Yes       | 4.0.0     |
 		 * | TED          | ted.com               |      Yes       | 4.0.0     |
 		 * | YouTube      | youtube.com/playlist  |      Yes       | 4.0.0     |
-		 * | Vine         | vine.co               |      Yes       | 4.1.0     |
 		 * | Tumblr       | tumblr.com            |      Yes       | 4.2.0     |
 		 * | Kickstarter  | kickstarter.com       |      Yes       | 4.2.0     |
 		 * | Kickstarter  | kck.st                |      Yes       | 4.2.0     |
@@ -190,6 +188,7 @@ class WP_oEmbed {
 		 * | Blip         | blip.tv              |      No        | 2.9.0     | 4.4.0     |
 		 * | Rdio         | rdio.com             |      Yes       | 3.6.0     | 4.4.1     |
 		 * | Rdio         | rd.io                |      Yes       | 3.6.0     | 4.4.1     |
+		 * | Vine         | vine.co              |      Yes       | 4.1.0     | 4.9.0     |
 		 *
 		 * @see wp_oembed_add_provider()
 		 *
@@ -490,11 +489,13 @@ class WP_oEmbed {
 		$provider = add_query_arg( 'maxwidth', (int) $args['width'], $provider );
 		$provider = add_query_arg( 'maxheight', (int) $args['height'], $provider );
 		$provider = add_query_arg( 'url', urlencode($url), $provider );
+		$provider = add_query_arg( 'dnt', 1, $provider );
 
 		/**
 		 * Filters the oEmbed URL to be fetched.
 		 *
 		 * @since 2.9.0
+		 * @since 4.9.0 The `dnt` (Do Not Track) query parameter was added to all oEmbed provider URLs.
 		 *
 		 * @param string $provider URL of the oEmbed provider.
 		 * @param string $url      URL of the content to be embedded.

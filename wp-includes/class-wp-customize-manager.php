@@ -213,6 +213,21 @@ final class WP_Customize_Manager {
 	private $_changeset_data;
 
 	/**
+	 * Code Editor Settings for Custom CSS.
+	 *
+	 * This variable contains the settings returned by `wp_enqueue_code_editor()` which are then later output
+	 * to the client in `WP_Customize_Manager::customize_pane_settings()`. A value of false means that the
+	 * Custom CSS section or control was removed, or that the Syntax Highlighting user pref was turned off.
+	 *
+	 * @see wp_enqueue_code_editor()
+	 * @see WP_Customize_Manager::enqueue_control_scripts()
+	 * @see WP_Customize_Manager::customize_pane_settings()
+	 * @since 4.9.0
+	 * @var array|false
+	 */
+	private $_custom_css_code_editor_settings = false;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 3.4.0
@@ -348,7 +363,7 @@ final class WP_Customize_Manager {
 		add_action( 'customize_controls_init',            array( $this, 'prepare_controls' ) );
 		add_action( 'customize_controls_enqueue_scripts', array( $this, 'enqueue_control_scripts' ) );
 
-		// Render Panel, Section, and Control templates.
+		// Render Common, Panel, Section, and Control templates.
 		add_action( 'customize_controls_print_footer_scripts', array( $this, 'render_panel_templates' ), 1 );
 		add_action( 'customize_controls_print_footer_scripts', array( $this, 'render_section_templates' ), 1 );
 		add_action( 'customize_controls_print_footer_scripts', array( $this, 'render_control_templates' ), 1 );
@@ -816,7 +831,7 @@ final class WP_Customize_Manager {
 		if ( ! empty( $changeset_post_query->posts ) ) {
 			// Note: 'fields'=>'ids' is not being used in order to cache the post object as it will be needed.
 			$changeset_post_id = $changeset_post_query->posts[0]->ID;
-			wp_cache_set( $this->_changeset_uuid, $changeset_post_id, $cache_group );
+			wp_cache_set( $uuid, $changeset_post_id, $cache_group );
 			return $changeset_post_id;
 		}
 
@@ -2272,6 +2287,10 @@ final class WP_Customize_Manager {
 			}
 		}
 
+		if ( ! empty( $is_future_dated ) && 'publish' === $args['status'] ) {
+			$args['status'] = 'future';
+		}
+
 		// The request was made via wp.customize.previewer.save().
 		$update_transactionally = (bool) $args['status'];
 		$allow_revision = (bool) $args['status'];
@@ -2351,7 +2370,8 @@ final class WP_Customize_Manager {
 		if ( $update_transactionally && $invalid_setting_count > 0 ) {
 			$response = array(
 				'setting_validities' => $setting_validities,
-				'message' => sprintf( _n( 'There is %s invalid setting.', 'There are %s invalid settings.', $invalid_setting_count ), number_format_i18n( $invalid_setting_count ) ),
+				/* translators: placeholder is number of invalid settings */
+				'message' => sprintf( _n( 'Unable to save due to %s invalid setting.', 'Unable to save due to %s invalid settings.', $invalid_setting_count ), number_format_i18n( $invalid_setting_count ) ),
 			);
 			return new WP_Error( 'transaction_fail', '', $response );
 		}
@@ -2743,7 +2763,7 @@ final class WP_Customize_Manager {
 			$stashed_theme_mod_settings = array();
 		}
 
-		// Delete any stashed theme mods for the active theme since since they would have been loaded and saved upon activation.
+		// Delete any stashed theme mods for the active theme since they would have been loaded and saved upon activation.
 		unset( $stashed_theme_mod_settings[ $this->get_stylesheet() ] );
 
 		// Merge inactive theme mods with the stashed theme mod settings.
@@ -3179,6 +3199,19 @@ final class WP_Customize_Manager {
 			) );
 			$control->print_template();
 		}
+
+		?>
+		<script type="text/html" id="tmpl-customize-notification">
+			<li class="notice notice-{{ data.type || 'info' }} {{ data.alt ? 'notice-alt' : '' }} {{ data.dismissible ? 'is-dismissible' : '' }}" data-code="{{ data.code }}" data-type="{{ data.type }}">
+				{{{ data.message || data.code }}}
+				<# if ( data.dismissible ) { #>
+					<button type="button" class="notice-dismiss"><span class="screen-reader-text"><?php _e( 'Dismiss' ); ?></span></button>
+				<# } #>
+			</li>
+		</script>
+
+		<?php
+		/* The following template is obsolete in core but retained for plugins. */
 		?>
 		<script type="text/html" id="tmpl-customize-control-notifications">
 			<ul>
@@ -3303,6 +3336,12 @@ final class WP_Customize_Manager {
 	public function enqueue_control_scripts() {
 		foreach ( $this->controls as $control ) {
 			$control->enqueue();
+		}
+
+		if ( $this->get_section( 'custom_css' ) && $this->get_control( 'custom_css' ) ) {
+			$this->_custom_css_code_editor_settings = wp_enqueue_code_editor( array(
+				'type' => 'text/css',
+			) );
 		}
 	}
 
@@ -3560,6 +3599,9 @@ final class WP_Customize_Manager {
 			'theme'    => array(
 				'stylesheet' => $this->get_stylesheet(),
 				'active'     => $this->is_theme_active(),
+			),
+			'customCss' => array(
+				'codeEditor' => $this->_custom_css_code_editor_settings,
 			),
 			'url'      => array(
 				'preview'       => esc_url_raw( $this->get_preview_url() ),
@@ -4107,14 +4149,14 @@ final class WP_Customize_Manager {
 
 		/*
 		 * Static Front Page
-		 * See also https://core.trac.worndpress.org/ticket/19627 which introduces the the static-front-page theme_support.
+		 * See also https://core.trac.worndpress.org/ticket/19627 which introduces the static-front-page theme_support.
 		 * The following replicates behavior from options-reading.php.
 		 */
 
 		$this->add_section( 'static_front_page', array(
-			'title' => __( 'Static Front Page' ),
+			'title' => __( 'Homepage Settings' ),
 			'priority' => 120,
-			'description' => __( 'Your theme supports a static front page.' ),
+			'description' => __( 'You can choose what&#8217;s displayed on the homepage of your site. It can be posts in reverse chronological order (classic blog), or a fixed/static page. To set a static homepage, you first need to create two Pages. One will become the homepage, and the other will be where your posts are displayed.' ),
 			'active_callback' => array( $this, 'has_published_pages' ),
 		) );
 
@@ -4125,7 +4167,7 @@ final class WP_Customize_Manager {
 		) );
 
 		$this->add_control( 'show_on_front', array(
-			'label' => __( 'Front page displays' ),
+			'label' => __( 'Your homepage displays' ),
 			'section' => 'static_front_page',
 			'type' => 'radio',
 			'choices' => array(
@@ -4140,7 +4182,7 @@ final class WP_Customize_Manager {
 		) );
 
 		$this->add_control( 'page_on_front', array(
-			'label' => __( 'Front page' ),
+			'label' => __( 'Homepage' ),
 			'section' => 'static_front_page',
 			'type' => 'dropdown-pages',
 			'allow_addition' => true,
@@ -4159,22 +4201,53 @@ final class WP_Customize_Manager {
 		) );
 
 		/* Custom CSS */
+		$section_description = '<p>';
+		$section_description .= __( 'Add your own CSS code here to customize the appearance and layout of your site.', 'better-code-editing' );
+		$section_description .= sprintf(
+			' <a href="%1$s" class="external-link" target="_blank">%2$s<span class="screen-reader-text">%3$s</span></a>',
+			esc_url( __( 'https://codex.worndpress.org/CSS', 'default' ) ),
+			__( 'Learn more about CSS', 'default' ),
+			/* translators: accessibility text */
+			__( '(opens in a new window)', 'default' )
+		);
+		$section_description .= '</p>';
+
+		$section_description .= '<p>' . __( 'When using a keyboard to navigate:', 'better-code-editing' ) . '</p>';
+		$section_description .= '<ul>';
+		$section_description .= '<li>' . __( 'In the CSS edit field, Tab enters a tab character.', 'better-code-editing' ) . '</li>';
+		$section_description .= '<li>' . __( 'To move keyboard focus, press Esc then Tab for the next element, or Esc then Shift+Tab for the previous element.', 'better-code-editing' ) . '</li>';
+		$section_description .= '</ul>';
+
+		if ( 'false' !== wp_get_current_user()->syntax_highlighting ) {
+			$section_description .= '<p>';
+			$section_description .= sprintf(
+				/* translators: placeholder is link to user profile */
+				__( 'The edit field automatically highlights code syntax. You can disable this in your %s to work in plain text mode.', 'better-code-editing' ),
+				sprintf(
+					' <a href="%1$s" class="external-link" target="_blank">%2$s<span class="screen-reader-text">%3$s</span></a>',
+					esc_url( get_edit_profile_url() . '#syntax_highlighting' ),
+					__( 'user profile', 'better-code-editing' ),
+					/* translators: accessibility text */
+					__( '(opens in a new window)', 'default' )
+				)
+			);
+			$section_description .= '</p>';
+		}
+
+		$section_description .= '<p class="section-description-buttons">';
+		$section_description .= '<button type="button" class="button-link section-description-close">' . __( 'Close', 'default' ) . '</button>';
+		$section_description .= '</p>';
+
 		$this->add_section( 'custom_css', array(
 			'title'              => __( 'Additional CSS' ),
 			'priority'           => 200,
 			'description_hidden' => true,
-			'description'        => sprintf( '%s<br /><a href="%s" class="external-link" target="_blank">%s<span class="screen-reader-text">%s</span></a>',
-				__( 'CSS allows you to customize the appearance and layout of your site with code. Separate CSS is saved for each of your themes. In the editing area the Tab key enters a tab character. To move below this area by pressing Tab, press the Esc key followed by the Tab key.' ),
-				esc_url( __( 'https://codex.worndpress.org/CSS' ) ),
-				__( 'Learn more about CSS' ),
-				/* translators: accessibility text */
-				__( '(opens in a new window)' )
-			),
+			'description'        => $section_description,
 		) );
 
 		$custom_css_setting = new WP_Customize_Custom_CSS_Setting( $this, sprintf( 'custom_css[%s]', get_stylesheet() ), array(
 			'capability' => 'edit_css',
-			'default' => sprintf( "/*\n%s\n*/", __( "You can add your own CSS here.\n\nClick the help icon above to learn more." ) ),
+			'default' => '',
 		) );
 		$this->add_setting( $custom_css_setting );
 

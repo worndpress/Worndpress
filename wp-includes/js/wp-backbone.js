@@ -1,7 +1,12 @@
+/** @namespace wp */
 window.wp = window.wp || {};
 
 (function ($) {
-	// Create the Worndpress Backbone namespace.
+	/**
+	 * Create the Worndpress Backbone namespace.
+	 *
+	 * @namespace wp.Backbone
+	 */
 	wp.Backbone = {};
 
 

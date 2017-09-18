@@ -85,6 +85,8 @@ function wp_default_scripts( &$scripts ) {
 
 	$scripts->add( 'wp-a11y', "/wp-includes/js/wp-a11y$suffix.js", array( 'jquery' ), false, 1 );
 
+	$scripts->add( 'wp-hooks', "/wp-includes/js/wp-hooks$suffix.js", array(), false, 1 );
+
 	$scripts->add( 'sack', "/wp-includes/js/tw-sack$suffix.js", array(), '1.6.1', 1 );
 
 	$scripts->add( 'quicktags', "/wp-includes/js/quicktags$suffix.js", array(), false, 1 );
@@ -354,7 +356,7 @@ function wp_default_scripts( &$scripts ) {
 
 	$scripts->add( 'imgareaselect', "/wp-includes/js/imgareaselect/jquery.imgareaselect$suffix.js", array('jquery'), false, 1 );
 
-	$scripts->add( 'mediaelement', "/wp-includes/js/mediaelement/mediaelement-and-player.min.js", array('jquery'), '4.2.5', 1 );
+	$scripts->add( 'mediaelement', "/wp-includes/js/mediaelement/mediaelement-and-player.min.js", array('jquery'), '4.2.5-74e01a40', 1 );
 	did_action( 'init' ) && $scripts->localize( 'mediaelement', 'mejsL10n', array(
 		'language' => get_bloginfo( 'language' ),
 		'strings'  => array(
@@ -446,7 +448,7 @@ function wp_default_scripts( &$scripts ) {
 		) );
 
 
-	$scripts->add( 'mediaelement-vimeo', "/wp-includes/js/mediaelement/renderers/vimeo.min.js", array('mediaelement'), '4.2.5', 1 );
+	$scripts->add( 'mediaelement-vimeo', "/wp-includes/js/mediaelement/renderers/vimeo.min.js", array('mediaelement'), '4.2.5-74e01a40', 1 );
 	$scripts->add( 'wp-mediaelement', "/wp-includes/js/mediaelement/wp-mediaelement$suffix.js", array('mediaelement'), false, 1 );
 	$mejs_settings = array(
 		'pluginPath'    => includes_url( 'js/mediaelement/', 'relative' ),
@@ -463,6 +465,20 @@ function wp_default_scripts( &$scripts ) {
 		 */
 		apply_filters( 'mejs_settings', $mejs_settings )
 	);
+
+	$scripts->add( 'codemirror', '/wp-includes/js/codemirror/codemirror.min.js', array(), '5.29.1-alpha-ee20357' );
+	$scripts->add( 'csslint', '/wp-includes/js/codemirror/csslint.js', array(), '1.0.5' );
+	$scripts->add( 'jshint', '/wp-includes/js/codemirror/jshint.js', array(), '2.9.5' );
+	$scripts->add( 'jsonlint', '/wp-includes/js/codemirror/jsonlint.js', array(), '1.6.2' );
+	$scripts->add( 'htmlhint', '/wp-includes/js/codemirror/htmlhint.js', array(), '0.9.14-xwp' );
+	$scripts->add( 'htmlhint-kses', '/wp-includes/js/codemirror/htmlhint-kses.js', array( 'htmlhint' ) );
+	$scripts->add( 'code-editor', "/wp-admin/js/code-editor$suffix.js", array( 'jquery', 'codemirror' ) );
+	$scripts->add( 'wp-theme-plugin-editor', "/wp-admin/js/theme-plugin-editor$suffix.js", array( 'code-editor', 'jquery', 'jquery-ui-core', 'wp-a11y', 'underscore' ) );
+	did_action( 'init' ) && $scripts->add_inline_script( 'wp-theme-plugin-editor', sprintf( 'wp.themePluginEditor.l10n = %s;', wp_json_encode( wp_array_slice_assoc(
+		/* translators: placeholder is error count */
+		_n_noop( 'There is %d error which must be fixed before you can save.', 'There are %d errors which must be fixed before you can save.' ),
+		array( 'singular', 'plural' )
+	) ) ) );
 
 	$scripts->add( 'wp-playlist', "/wp-includes/js/mediaelement/wp-playlist$suffix.js", array( 'wp-util', 'backbone', 'mediaelement' ), false, 1 );
 
@@ -546,8 +562,14 @@ function wp_default_scripts( &$scripts ) {
 		'collapseSidebar'    => _x( 'Hide Controls', 'label for hide controls button without length constraints' ),
 		'expandSidebar'      => _x( 'Show Controls', 'label for hide controls button without length constraints' ),
 		'untitledBlogName'   => __( '(Untitled)' ),
+		'serverSaveError'    => __( 'Failed connecting to the server. Please try saving again.' ),
 		// Used for overriding the file types allowed in plupload.
 		'allowedFiles'       => __( 'Allowed Files' ),
+		'customCssError'     => wp_array_slice_assoc(
+			/* translators: placeholder is error count */
+			_n_noop( 'There is %d error which must be fixed before you can save.', 'There are %d errors which must be fixed before you can save.' ),
+			array( 'singular', 'plural' )
+		),
 	) );
 	$scripts->add( 'customize-selective-refresh', "/wp-includes/js/customize-selective-refresh$suffix.js", array( 'jquery', 'wp-util', 'customize-preview' ), false, 1 );
 
@@ -672,6 +694,12 @@ function wp_default_scripts( &$scripts ) {
 		$scripts->add( 'admin-gallery', "/wp-admin/js/gallery$suffix.js", array( 'jquery-ui-sortable' ) );
 
 		$scripts->add( 'admin-widgets', "/wp-admin/js/widgets$suffix.js", array( 'jquery-ui-sortable', 'jquery-ui-draggable', 'jquery-ui-droppable' ), false, 1 );
+		did_action( 'init' ) && $scripts->add_inline_script( 'admin-widgets', sprintf( 'wpWidgets.l10n = %s;', wp_json_encode( array(
+			'save' => __( 'Save' ),
+			'saved' => __( 'Saved' ),
+			'saveAlert' => __( 'The changes you made will be lost if you navigate away from this page.' ),
+		) ) ) );
+
 		$scripts->add( 'media-widgets', "/wp-admin/js/widgets/media-widgets$suffix.js", array( 'jquery', 'media-models', 'media-views', 'wp-api-request' ) );
 		$scripts->add_inline_script( 'media-widgets', 'wp.mediaWidgets.init();', 'after' );
 
@@ -679,7 +707,7 @@ function wp_default_scripts( &$scripts ) {
 		$scripts->add( 'media-image-widget', "/wp-admin/js/widgets/media-image-widget$suffix.js", array( 'media-widgets' ) );
 		$scripts->add( 'media-video-widget', "/wp-admin/js/widgets/media-video-widget$suffix.js", array( 'media-widgets', 'media-audiovideo', 'wp-api-request' ) );
 		$scripts->add( 'text-widgets', "/wp-admin/js/widgets/text-widgets$suffix.js", array( 'jquery', 'backbone', 'editor', 'wp-util', 'wp-a11y' ) );
-		$scripts->add_inline_script( 'text-widgets', 'wp.textWidgets.init();', 'after' );
+		$scripts->add( 'custom-html-widgets', "/wp-admin/js/widgets/custom-html-widgets$suffix.js", array( 'code-editor', 'jquery', 'backbone', 'wp-util', 'jquery-ui-core', 'wp-a11y' ) );
 
 		$scripts->add( 'theme', "/wp-admin/js/theme$suffix.js", array( 'wp-backbone', 'wp-a11y' ), false, 1 );
 
@@ -796,10 +824,12 @@ function wp_default_scripts( &$scripts ) {
 		$scripts->add( 'iris', '/wp-admin/js/iris.min.js', array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ), '1.0.7', 1 );
 		$scripts->add( 'wp-color-picker', "/wp-admin/js/color-picker$suffix.js", array( 'iris' ), false, 1 );
 		did_action( 'init' ) && $scripts->localize( 'wp-color-picker', 'wpColorPickerL10n', array(
-			'clear' => __( 'Clear' ),
-			'defaultString' => __( 'Default' ),
-			'pick' => __( 'Select Color' ),
-			'current' => __( 'Current Color' ),
+			'clear'            => __( 'Clear' ),
+			'clearAriaLabel'   => __( 'Clear color' ),
+			'defaultString'    => __( 'Default' ),
+			'defaultAriaLabel' => __( 'Select default color' ),
+			'pick'             => __( 'Select Color' ),
+			'defaultLabel'     => __( 'Color value' ),
 		) );
 
 		$scripts->add( 'dashboard', "/wp-admin/js/dashboard$suffix.js", array( 'jquery', 'admin-comments', 'postbox', 'wp-util', 'wp-a11y' ), false, 1 );
@@ -918,6 +948,7 @@ function wp_default_styles( &$styles ) {
 	$styles->add( 'widgets',             "/wp-admin/css/widgets$suffix.css", array( 'wp-pointer' ) );
 	$styles->add( 'site-icon',           "/wp-admin/css/site-icon$suffix.css" );
 	$styles->add( 'l10n',                "/wp-admin/css/l10n$suffix.css" );
+	$styles->add( 'code-editor',         "/wp-admin/css/code-editor$suffix.css", array( 'codemirror' ) );
 
 	$styles->add( 'wp-admin', false, array( 'dashicons', 'common', 'forms', 'admin-menu', 'dashboard', 'list-tables', 'edit', 'revisions', 'media', 'themes', 'about', 'nav-menus', 'widgets', 'site-icon', 'l10n' ) );
 
@@ -949,9 +980,10 @@ function wp_default_styles( &$styles ) {
 	// External libraries and friends
 	$styles->add( 'imgareaselect',       '/wp-includes/js/imgareaselect/imgareaselect.css', array(), '0.9.8' );
 	$styles->add( 'wp-jquery-ui-dialog', "/wp-includes/css/jquery-ui-dialog$suffix.css", array( 'dashicons' ) );
-	$styles->add( 'mediaelement',        "/wp-includes/js/mediaelement/mediaelementplayer-legacy.min.css", array(), '4.2.5' );
+	$styles->add( 'mediaelement',        "/wp-includes/js/mediaelement/mediaelementplayer-legacy.min.css", array(), '4.2.5-74e01a40' );
 	$styles->add( 'wp-mediaelement',     "/wp-includes/js/mediaelement/wp-mediaelement$suffix.css", array( 'mediaelement' ) );
 	$styles->add( 'thickbox',            '/wp-includes/js/thickbox/thickbox.css', array( 'dashicons' ) );
+	$styles->add( 'codemirror',          '/wp-includes/js/codemirror/codemirror.min.css', array(), '5.29.1-alpha-ee20357' );
 
 	// Deprecated CSS
 	$styles->add( 'deprecated-media', "/wp-admin/css/deprecated-media$suffix.css" );
