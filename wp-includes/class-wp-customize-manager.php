@@ -2616,7 +2616,7 @@ final class WP_Customize_Manager {
 		if ( $update_transactionally && $invalid_setting_count > 0 ) {
 			$response = array(
 				'setting_validities' => $setting_validities,
-				/* translators: placeholder is number of invalid settings */
+				/* translators: %s: number of invalid settings */
 				'message' => sprintf( _n( 'Unable to save due to %s invalid setting.', 'Unable to save due to %s invalid settings.', $invalid_setting_count ), number_format_i18n( $invalid_setting_count ) ),
 			);
 			return new WP_Error( 'transaction_fail', '', $response );
@@ -4614,7 +4614,7 @@ final class WP_Customize_Manager {
 		$section_description = '<p>';
 		$section_description .= __( 'Add your own CSS code here to customize the appearance and layout of your site.' );
 		$section_description .= sprintf(
-			' <a href="%1$s" class="external-link" target="_blank">%2$s<span class="screen-reader-text">%3$s</span></a>',
+			' <a href="%1$s" class="external-link" target="_blank">%2$s<span class="screen-reader-text"> %3$s</span></a>',
 			esc_url( __( 'https://codex.worndpress.org/CSS' ) ),
 			__( 'Learn more about CSS' ),
 			/* translators: accessibility text */
@@ -4632,12 +4632,11 @@ final class WP_Customize_Manager {
 		if ( 'false' !== wp_get_current_user()->syntax_highlighting ) {
 			$section_description .= '<p>';
 			$section_description .= sprintf(
-				/* translators: placeholder is link to user profile */
-				__( 'The edit field automatically highlights code syntax. You can disable this in your %s to work in plain text mode.' ),
-				sprintf(
-					' <a href="%1$s" class="external-link" target="_blank">%2$s<span class="screen-reader-text">%3$s</span></a>',
-					esc_url( get_edit_profile_url() ),
-					__( 'user profile' ),
+				/* translators: 1: link to user profile, 2: additional link attributes, 3: accessibility text */
+				__( 'The edit field automatically highlights code syntax. You can disable this in your <a href="%1$s" %2$s>user profile%3$s</a> to work in plain text mode.' ),
+				esc_url( get_edit_profile_url() ),
+				'class="external-link" target="_blank"',
+				sprintf( '<span class="screen-reader-text"> %s</span>',
 					/* translators: accessibility text */
 					__( '(opens in a new window)' )
 				)
