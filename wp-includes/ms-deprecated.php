@@ -429,10 +429,17 @@ function get_admin_users_for_domain( $domain = '', $path = '' ) {
 
 	global $wpdb;
 
-	if ( ! $domain )
+	if ( ! $domain ) {
 		$network_id = get_current_network_id();
-	else
-		$network_id = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM $wpdb->site WHERE domain = %s AND path = %s", $domain, $path ) );
+	} else {
+		$_networks  = get_networks( array(
+			'fields' => 'ids',
+			'number' => 1,
+			'domain' => $domain,
+			'path'   => $path,
+		) );
+		$network_id = ! empty( $_networks ) ? array_shift( $_networks ) : 0;
+	}
 
 	if ( $network_id )
 		return $wpdb->get_results( $wpdb->prepare( "SELECT u.ID, u.user_login, u.user_pass FROM $wpdb->users AS u, $wpdb->sitemeta AS sm WHERE sm.meta_key = 'admin_user_id' AND u.ID = sm.meta_value AND sm.site_id = %d", $network_id ), ARRAY_A );
@@ -511,4 +518,31 @@ function wp_get_sites( $args = array() ) {
 	}
 
 	return $results;
+}
+
+/**
+ * Check whether a usermeta key has to do with the current blog.
+ *
+ * @since MU (3.0.0)
+ * @deprecated 4.9.0
+ *
+ * @global wpdb $wpdb Worndpress database abstraction object.
+ *
+ * @param string $key
+ * @param int    $user_id Optional. Defaults to current user.
+ * @param int    $blog_id Optional. Defaults to current blog.
+ * @return bool
+ */
+function is_user_option_local( $key, $user_id = 0, $blog_id = 0 ) {
+	global $wpdb;
+
+	_deprecated_function( __FUNCTION__, '4.9.0' );
+
+	$current_user = wp_get_current_user();
+	if ( $blog_id == 0 ) {
+		$blog_id = get_current_blog_id();
+	}
+	$local_key = $wpdb->get_blog_prefix( $blog_id ) . $key;
+
+	return isset( $current_user->$local_key );
 }
