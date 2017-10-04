@@ -342,6 +342,7 @@ function get_blog_id_from_url( $domain, $path = '/' ) {
 		'domain' => $domain,
 		'path' => $path,
 		'fields' => 'ids',
+		'number' => 1,
 	);
 	$result = get_sites( $args );
 	$id = array_shift( $result );
@@ -1361,6 +1362,7 @@ function domain_exists( $domain, $path, $network_id = 1 ) {
 		'domain'     => $domain,
 		'path'       => $path,
 		'fields'     => 'ids',
+		'number'     => 1,
 	);
 	$result = get_sites( $args );
 	$result = array_shift( $result );
