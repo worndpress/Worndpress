@@ -1234,8 +1234,21 @@
 		 * @param {object}         [options.params] - Deprecated wrapper for the above properties.
 		 */
 		initialize: function ( id, options ) {
-			var section = this;
-			Container.prototype.initialize.call( section, id, options );
+			var section = this, params;
+			params = options.params || options;
+
+			// Look up the type if one was not supplied.
+			if ( ! params.type ) {
+				_.find( api.sectionConstructor, function( Constructor, type ) {
+					if ( Constructor === section.constructor ) {
+						params.type = type;
+						return true;
+					}
+					return false;
+				} );
+			}
+
+			Container.prototype.initialize.call( section, id, params );
 
 			section.id = id;
 			section.panel = new api.Value();
@@ -2507,8 +2520,22 @@
 		 * @param {object}         [options.params] - Deprecated wrapper for the above properties.
 		 */
 		initialize: function ( id, options ) {
-			var panel = this;
-			Container.prototype.initialize.call( panel, id, options );
+			var panel = this, params;
+			params = options.params || options;
+
+			// Look up the type if one was not supplied.
+			if ( ! params.type ) {
+				_.find( api.panelConstructor, function( Constructor, type ) {
+					if ( Constructor === panel.constructor ) {
+						params.type = type;
+						return true;
+					}
+					return false;
+				} );
+			}
+
+			Container.prototype.initialize.call( panel, id, params );
+
 			panel.embed();
 			panel.deferred.embedded.done( function () {
 				panel.ready();
@@ -3095,7 +3122,7 @@
 	 * @param {string} [options.active=true]    - Whether the control is active.
 	 * @param {string} options.section          - The ID of the section the control belongs to.
 	 * @param {mixed}  [options.setting]        - The ID of the main setting or an instance of this setting.
-	 * @param {mixed}  options.settings         - An object with keys (e.g. default) that maps to setting IDs or Setting/Value objects, or an array of setting IDs or Setting/Value objects.    
+	 * @param {mixed}  options.settings         - An object with keys (e.g. default) that maps to setting IDs or Setting/Value objects, or an array of setting IDs or Setting/Value objects.
 	 * @param {mixed}  options.settings.default - The ID of the setting the control relates to.
 	 * @param {string} options.settings.data    - @todo Is this used?
 	 * @param {string} options.label            - Label.
@@ -3107,12 +3134,14 @@
 		defaultActiveArguments: { duration: 'fast', completeCallback: $.noop },
 
 		defaults: {
+			label: '',
+			description: '',
 			active: true,
 			priority: 10
 		},
 
 		initialize: function( id, options ) {
-			var control = this, deferredSettingIds = [], settings, gatherSettings;
+			var control = this, deferredSettingIds = [], settings, gatherSettings, standardTypes;
 
 			control.params = _.extend( {}, control.defaults );
 
@@ -3145,11 +3174,39 @@
 
 			control.id = id;
 			control.selector = '#customize-control-' + id.replace( /\]/g, '' ).replace( /\[/g, '-' ); // Deprecated, likely dead code from time before #28709.
-			control.templateSelector = control.params.templateId || 'customize-control-' + control.params.type + '-content';
 			if ( control.params.content ) {
 				control.container = $( control.params.content );
 			} else {
 				control.container = $( control.selector ); // Likely dead, per above. See #28709.
+			}
+
+			standardTypes = [
+				'button',
+				'checkbox',
+				'color',
+				'date',
+				'datetime-local',
+				'email',
+				'month',
+				'number',
+				'password',
+				'radio',
+				'range',
+				'search',
+				'select',
+				'tel',
+				'time',
+				'text',
+				'textarea',
+				'week',
+				'url'
+			];
+			if ( control.params.templateId ) {
+				control.templateSelector = control.params.templateId;
+			} else if ( _.contains( standardTypes, control.params.type ) && control.container.is( ':empty' ) ) {
+				control.templateSelector = 'customize-control-default-content';
+			} else {
+				control.templateSelector = 'customize-control-' + control.params.type + '-content';
 			}
 
 			control.deferred = {
@@ -6417,11 +6474,14 @@
 				type: 'button',
 				section: section.id,
 				priority: 30,
-				templateId: 'customize-trash-changeset-control'
+				inputAttrs: {
+					'class': 'button-link button-link-delete',
+					value: api.l10n.discardChanges
+				}
 			} );
 			api.control.add( trashControl );
 			trashControl.deferred.embedded.done( function() {
-				trashControl.container.find( 'button' ).on( 'click', function() {
+				trashControl.container.find( '.button-link' ).on( 'click', function() {
 					if ( confirm( api.l10n.trashConfirm ) ) {
 						wp.customize.previewer.trash();
 					}
