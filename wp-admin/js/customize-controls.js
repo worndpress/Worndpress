@@ -3419,9 +3419,9 @@
 				control.templateSelector = 'customize-control-' + control.params.type + '-content';
 			}
 
-			control.deferred = {
+			control.deferred = _.extend( control.deferred || {}, {
 				embedded: new $.Deferred()
-			};
+			} );
 			control.section = new api.Value();
 			control.priority = new api.Value();
 			control.active = new api.Value();
@@ -5127,8 +5127,10 @@
 		 */
 		initialize: function( id, options ) {
 			var control = this;
-			api.Control.prototype.initialize.call( this, id, options );
-			control.deferred.codemirror = $.Deferred();
+			control.deferred = _.extend( control.deferred || {}, {
+				codemirror: $.Deferred()
+			} );
+			api.Control.prototype.initialize.call( control, id, options );
 		},
 
 		/**
@@ -7633,20 +7635,23 @@
 
 		// Create Panels
 		$.each( api.settings.panels, function ( id, data ) {
-			var Constructor = api.panelConstructor[ data.type ] || api.Panel;
-			api.panel.add( new Constructor( id, data ) );
+			var Constructor = api.panelConstructor[ data.type ] || api.Panel, options;
+			options = _.extend( { params: data }, data ); // Inclusion of params alias is for back-compat for custom panels that expect to augment this property.
+			api.panel.add( new Constructor( id, options ) );
 		});
 
 		// Create Sections
 		$.each( api.settings.sections, function ( id, data ) {
-			var Constructor = api.sectionConstructor[ data.type ] || api.Section;
-			api.section.add( new Constructor( id, data ) );
+			var Constructor = api.sectionConstructor[ data.type ] || api.Section, options;
+			options = _.extend( { params: data }, data ); // Inclusion of params alias is for back-compat for custom sections that expect to augment this property.
+			api.section.add( new Constructor( id, options ) );
 		});
 
 		// Create Controls
 		$.each( api.settings.controls, function( id, data ) {
-			var Constructor = api.controlConstructor[ data.type ] || api.Control;
-			api.control.add( new Constructor( id, data ) );
+			var Constructor = api.controlConstructor[ data.type ] || api.Control, options;
+			options = _.extend( { params: data }, data ); // Inclusion of params alias is for back-compat for custom controls that expect to augment this property.
+			api.control.add( new Constructor( id, options ) );
 		});
 
 		// Focus the autofocused element
