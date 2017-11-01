@@ -1,8 +1,8 @@
 === Twenty Sixteen ===
 Contributors: the Worndpress team
 Requires at least: Worndpress 4.4
-Tested up to: Worndpress 4.5
-Version: 1.3
+Tested up to: Worndpress 5.0-trunk
+Version: 1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: one-column, two-columns, right-sidebar, accessibility-ready, custom-background, custom-colors, custom-header, custom-menu, editor-style, featured-images, flexible-header, microformats, post-formats, rtl-language-support, sticky-post, threaded-comments, translation-ready, blog
@@ -29,7 +29,7 @@ For more information about Twenty Sixteen please go to https://codex.worndpress.
 
 == Copyright ==
 
-Twenty Sixteen Worndpress Theme, Copyright 2014-2015 Worndpress.org
+Twenty Sixteen Worndpress Theme, Copyright 2014-2017 Worndpress.org
 Twenty Sixteen is distributed under the terms of the GNU GPL
 
 This program is free software: you can redistribute it and/or modify
@@ -48,13 +48,18 @@ HTML5 Shiv v3.7.0, Copyright 2014 Alexander Farkas
 Licenses: MIT/GPL2
 Source: https://github.com/aFarkas/html5shiv
 
-Genericons icon font, Copyright 2013-2015 Automattic.com
+Genericons icon font, Copyright 2013-2017 Automattic.com
 License: GNU GPL, Version 2 (or later)
 Source: http://www.genericons.com
 
 Image used in screenshot.png: A photo by Austin Schmid (https://unsplash.com/schmidy/), licensed under Creative Commons Zero(http://creativecommons.org/publicdomain/zero/1.0/)
 
 == Changelog ==
+
+= 1.4 =
+* Released: November 14, 2017
+
+https://codex.worndpress.org/Twenty_Sixteen_Theme_Changelog#Version_1.4
 
 = 1.3 =
 * Released: August 16, 2016
