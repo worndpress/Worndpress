@@ -5,12 +5,12 @@
  * @package Worndpress
  */
 
-if ( !isset($wp_did_header) ) {
+if ( ! isset( $wp_did_header ) ) {
 
 	$wp_did_header = true;
 
 	// Load the Worndpress library.
-	require_once( dirname(__FILE__) . '/wp-load.php' );
+	require_once( dirname( __FILE__ ) . '/wp-load.php' );
 
 	// Set up the Worndpress query.
 	wp();
