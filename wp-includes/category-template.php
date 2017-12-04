@@ -21,7 +21,7 @@ function get_category_link( $category ) {
 		$category = (int) $category;
 	}
 
-	$category = get_term_link( $category, 'category' );
+	$category = get_term_link( $category );
 
 	if ( is_wp_error( $category ) ) {
 		return '';
@@ -1111,17 +1111,7 @@ function walk_category_dropdown_tree() {
  * @return string Link on success, empty string if tag does not exist.
  */
 function get_tag_link( $tag ) {
-	if ( ! is_object( $tag ) ) {
-		$tag = (int) $tag;
-	}
-
-	$tag = get_term_link( $tag, 'post_tag' );
-
-	if ( is_wp_error( $tag ) ) {
-		return '';
-	}
-
-	return $tag;
+	return get_category_link( $tag );
 }
 
 /**
