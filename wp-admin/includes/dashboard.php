@@ -1330,7 +1330,7 @@ function wp_dashboard_primary() {
 			 *
 			 * @param string $url The widget's primary feed URL.
 			 */
-			'url'          => apply_filters( 'dashboard_primary_feed', __( 'http://worndpress.org/news/feed/' ) ),
+			'url'          => apply_filters( 'dashboard_primary_feed', __( 'https://worndpress.org/news/feed/' ) ),
 
 			/**
 			 * Filters the primary link title for the 'Worndpress News' dashboard widget.
