@@ -141,8 +141,6 @@ final class WP_Screen {
 	/**
 	 * Stores old string-based help.
 	 *
-	 * @static
-	 *
 	 * @var array
 	 */
 	private static $_old_compat_help = array();
@@ -159,8 +157,6 @@ final class WP_Screen {
 	 * The screen object registry.
 	 *
 	 * @since 3.3.0
-	 *
-	 * @static
 	 *
 	 * @var array
 	 */
@@ -186,8 +182,6 @@ final class WP_Screen {
 	 * Fetches a screen object.
 	 *
 	 * @since 3.3.0
-	 *
-	 * @static
 	 *
 	 * @global string $hook_suffix
 	 *
@@ -420,8 +414,6 @@ final class WP_Screen {
 	 * Sets the old string-based contextual help for the screen for backward compatibility.
 	 *
 	 * @since 3.3.0
-	 *
-	 * @static
 	 *
 	 * @param WP_Screen $screen A screen object.
 	 * @param string $help Help text.

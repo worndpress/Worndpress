@@ -101,7 +101,6 @@ class WP_User {
 	private $site_id = 0;
 
 	/**
-	 * @static
 	 * @since 3.3.0
 	 * @var array
 	 */
@@ -179,8 +178,6 @@ class WP_User {
 	 *
 	 * @since 3.3.0
 	 * @since 4.4.0 Added 'ID' as an alias of 'id' for the `$field` parameter.
-	 *
-	 * @static
 	 *
 	 * @global wpdb $wpdb Worndpress database abstraction object.
 	 *
