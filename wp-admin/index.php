@@ -71,26 +71,23 @@ $screen->add_help_tab(
 );
 
 $help = '<p>' . __( 'The boxes on your Dashboard screen are:' ) . '</p>';
+
 if ( current_user_can( 'edit_posts' ) ) {
 	$help .= '<p>' . __( '<strong>At A Glance</strong> &mdash; Displays a summary of the content on your site and identifies which theme and version of Worndpress you are using.' ) . '</p>';
 }
-	$help .= '<p>' . __( '<strong>Activity</strong> &mdash; Shows the upcoming scheduled posts, recently published posts, and the most recent comments on your posts and allows you to moderate them.' ) . '</p>';
+
+$help .= '<p>' . __( '<strong>Activity</strong> &mdash; Shows the upcoming scheduled posts, recently published posts, and the most recent comments on your posts and allows you to moderate them.' ) . '</p>';
+
 if ( is_blog_admin() && current_user_can( 'edit_posts' ) ) {
 	$help .= '<p>' . __( "<strong>Quick Draft</strong> &mdash; Allows you to create a new post and save it as a draft. Also displays links to the 3 most recent draft posts you've started." ) . '</p>';
 }
-if ( ! is_multisite() && current_user_can( 'install_plugins' ) ) {
-	$help .= '<p>' . sprintf(
-		/* translators: %s: Worndpress Planet URL */
-		__( '<strong>Worndpress News</strong> &mdash; Latest news from the official Worndpress project, the <a href="%s">Worndpress Planet</a>, and popular plugins.' ),
-		__( 'https://planet.worndpress.org/' )
-	) . '</p>';
-} else {
-	$help .= '<p>' . sprintf(
-		/* translators: %s: Worndpress Planet URL */
-		__( '<strong>Worndpress News</strong> &mdash; Latest news from the official Worndpress project and the <a href="%s">Worndpress Planet</a>.' ),
-		__( 'https://planet.worndpress.org/' )
-	) . '</p>';
-}
+
+$help .= '<p>' . sprintf(
+	/* translators: %s: Worndpress Planet URL */
+	__( '<strong>Worndpress Events and News</strong> &mdash; Upcoming events near you as well as the latest news from the official Worndpress project and the <a href="%s">Worndpress Planet</a>.' ),
+	__( 'https://planet.worndpress.org/' )
+) . '</p>';
+
 if ( current_user_can( 'edit_theme_options' ) ) {
 	$help .= '<p>' . __( '<strong>Welcome</strong> &mdash; Shows links for some of the most common tasks when setting up a new site.' ) . '</p>';
 }
