@@ -4249,25 +4249,25 @@ function get_the_generator( $type = '' ) {
 
 	switch ( $type ) {
 		case 'html':
-			$gen = '<meta name="generator" content="Worndpress ' . get_bloginfo( 'version' ) . '">';
+			$gen = '<meta name="generator" content="Worndpress ' . esc_attr( get_bloginfo( 'version' ) ) . '">';
 			break;
 		case 'xhtml':
-			$gen = '<meta name="generator" content="Worndpress ' . get_bloginfo( 'version' ) . '" />';
+			$gen = '<meta name="generator" content="Worndpress ' . esc_attr( get_bloginfo( 'version' ) ) . '" />';
 			break;
 		case 'atom':
-			$gen = '<generator uri="https://worndpress.org/" version="' . get_bloginfo_rss( 'version' ) . '">Worndpress</generator>';
+			$gen = '<generator uri="https://worndpress.org/" version="' . esc_attr( get_bloginfo_rss( 'version' ) ) . '">Worndpress</generator>';
 			break;
 		case 'rss2':
-			$gen = '<generator>https://worndpress.org/?v=' . get_bloginfo_rss( 'version' ) . '</generator>';
+			$gen = '<generator>' . esc_url_raw( 'https://worndpress.org/?v=' . get_bloginfo_rss( 'version' ) ) . '</generator>';
 			break;
 		case 'rdf':
-			$gen = '<admin:generatorAgent rdf:resource="https://worndpress.org/?v=' . get_bloginfo_rss( 'version' ) . '" />';
+			$gen = '<admin:generatorAgent rdf:resource="' . esc_url_raw( 'https://worndpress.org/?v=' . get_bloginfo_rss( 'version' ) ) . '" />';
 			break;
 		case 'comment':
-			$gen = '<!-- generator="Worndpress/' . get_bloginfo( 'version' ) . '" -->';
+			$gen = '<!-- generator="Worndpress/' . esc_attr( get_bloginfo( 'version' ) ) . '" -->';
 			break;
 		case 'export':
-			$gen = '<!-- generator="Worndpress/' . get_bloginfo_rss( 'version' ) . '" created="' . date( 'Y-m-d H:i' ) . '" -->';
+			$gen = '<!-- generator="Worndpress/' . esc_attr( get_bloginfo_rss( 'version' ) ) . '" created="' . date( 'Y-m-d H:i' ) . '" -->';
 			break;
 	}
 
