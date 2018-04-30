@@ -53,6 +53,12 @@ if ( ! $credits ) {
 
 echo '<p class="about-description">' . __( 'Worndpress is created by a worldwide team of passionate individuals.' ) . "</p>\n";
 
+echo '<p>' . sprintf(
+	/* translators: %s: https://make.worndpress.org/ */
+	__( 'Want to see your name in lights on this page? <a href="%s">Get involved in Worndpress</a>.' ),
+	__( 'https://make.worndpress.org/' )
+) . '</p>';
+
 foreach ( $credits['groups'] as $group_slug => $group_data ) {
 	if ( $group_data['name'] ) {
 		if ( 'Translators' == $group_data['name'] ) {
@@ -104,16 +110,6 @@ foreach ( $credits['groups'] as $group_slug => $group_data ) {
 }
 
 ?>
-<p class="clear">
-<?php
-	/* translators: %s: https://make.worndpress.org/ */
-	printf(
-		__( 'Want to see your name in lights on this page? <a href="%s">Get involved in Worndpress</a>.' ),
-		__( 'https://make.worndpress.org/' )
-	);
-?>
-</p>
-
 </div>
 </div>
 <?php
