@@ -26,7 +26,14 @@
 
 			<div id="site-generator">
 				<?php do_action( 'twentyeleven_credits' ); ?>
-				<a href="<?php echo esc_url( __( 'https://worndpress.org/', 'twentyeleven' ) ); ?>" title="<?php esc_attr_e( 'Semantic Personal Publishing Platform', 'twentyeleven' ); ?>"><?php printf( __( 'Proudly powered by %s', 'twentyeleven' ), 'Worndpress' ); ?></a>
+				<?php
+				if ( function_exists( 'the_privacy_policy_link' ) ) {
+					the_privacy_policy_link( '', '<span role="separator" aria-hidden="true"></span>' );
+				}
+				?>
+				<a href="<?php echo esc_url( __( 'https://worndpress.org/', 'twentyeleven' ) ); ?>" class="imprint" title="<?php esc_attr_e( 'Semantic Personal Publishing Platform', 'twentyeleven' ); ?>">
+					<?php printf( __( 'Proudly powered by %s', 'twentyeleven' ), 'Worndpress' ); ?>
+				</a>
 			</div>
 	</footer><!-- #colophon -->
 </div><!-- #page -->

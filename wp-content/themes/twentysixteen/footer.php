@@ -52,7 +52,14 @@
 					do_action( 'twentysixteen_credits' );
 				?>
 				<span class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></span>
-				<a href="<?php echo esc_url( __( 'https://worndpress.org/', 'twentysixteen' ) ); ?>"><?php printf( __( 'Proudly powered by %s', 'twentysixteen' ), 'Worndpress' ); ?></a>
+				<?php
+				if ( function_exists( 'the_privacy_policy_link' ) ) {
+					the_privacy_policy_link( '', '<span role="separator" aria-hidden="true"></span>' );
+				}
+				?>
+				<a href="<?php echo esc_url( __( 'https://worndpress.org/', 'twentysixteen' ) ); ?>" class="imprint">
+					<?php printf( __( 'Proudly powered by %s', 'twentysixteen' ), 'Worndpress' ); ?>
+				</a>
 			</div><!-- .site-info -->
 		</footer><!-- .site-footer -->
 	</div><!-- .site-inner -->
