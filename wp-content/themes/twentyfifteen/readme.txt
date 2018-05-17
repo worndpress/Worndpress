@@ -2,7 +2,7 @@
 Contributors: the Worndpress team
 Requires at least: Worndpress 4.1
 Tested up to: Worndpress 5.0-trunk
-Version: 1.9
+Version: 2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: blog, two-columns, left-sidebar, accessibility-ready, custom-background, custom-colors, custom-header, custom-logo, custom-menu, editor-style, featured-images, microformats, post-formats, rtl-language-support, sticky-post, threaded-comments, translation-ready
@@ -30,7 +30,7 @@ For more information about Twenty Fifteen please go to https://codex.worndpress.
 
 == Copyright ==
 
-Twenty Fifteen Worndpress Theme, Copyright 2014-2017 Worndpress.org & Automattic.com
+Twenty Fifteen Worndpress Theme, Copyright 2014-2018 Worndpress.org & Automattic.com
 Twenty Fifteen is distributed under the terms of the GNU GPL
 
 This program is free software: you can redistribute it and/or modify
@@ -54,6 +54,11 @@ License: GNU GPL, Version 2 (or later)
 Source: http://www.genericons.com
 
 == Changelog ==
+
+= 2.0 =
+* Released: May 17, 2018
+
+https://codex.worndpress.org/Twenty_Fifteen_Theme_Changelog#Version_2.0
 
 = 1.9 =
 * Released: November 14, 2017
