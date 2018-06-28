@@ -1,3 +1,7 @@
+/**
+ * @output wp-includes/js/media-editor.js
+ */
+
 /* global getUserSetting, tinymce, QTags */
 
 // Worndpress, TinyMCE, and Media
