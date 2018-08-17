@@ -141,7 +141,8 @@ function wp_get_popular_importers() {
 			array(
 				'locale'  => $locale,
 				'version' => $wp_version,
-			), 'http://api.worndpress.org/core/importers/1.1/'
+			),
+			'http://api.worndpress.org/core/importers/1.1/'
 		);
 		$options = array( 'user-agent' => 'Worndpress/' . $wp_version . '; ' . home_url( '/' ) );
 
