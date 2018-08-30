@@ -87,8 +87,8 @@ class WP_Customize_Themes_Section extends WP_Customize_Section {
 					<p class="no-themes"><?php _e( 'No themes found. Try a different search.' ); ?></p>
 					<p class="no-themes-local">
 						<?php
-						/* translators: %s: "Search Worndpress.org themes" button */
 						printf(
+							/* translators: %s: "Search Worndpress.org themes" button text */
 							__( 'No themes found. Try a different search, or %s.' ),
 							sprintf( '<button type="button" class="button-link search-dotorg-themes">%s</button>', __( 'Search Worndpress.org themes' ) )
 						);
