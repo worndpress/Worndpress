@@ -122,6 +122,9 @@ class WP_REST_Attachments_Controller extends WP_REST_Posts_Controller {
 		$type = $file['type'];
 		$file = $file['file'];
 
+		// Include image functions to get access to wp_read_image_metadata().
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+
 		// use image exif/iptc data for title and caption defaults if possible
 		$image_meta = wp_read_image_metadata( $file );
 
@@ -804,6 +807,9 @@ class WP_REST_Attachments_Controller extends WP_REST_Posts_Controller {
 			/* translators: %s: maximum allowed file size in kilobytes */
 			return new WP_Error( 'rest_upload_file_too_big', sprintf( __( 'This file is too big. Files must be less than %s KB in size.' ), get_site_option( 'fileupload_maxk', 1500 ) ), array( 'status' => 400 ) );
 		}
+
+		// Include admin function to get access to upload_is_user_over_quota().
+		require_once ABSPATH . 'wp-admin/includes/ms.php';
 
 		if ( upload_is_user_over_quota( false ) ) {
 			return new WP_Error( 'rest_upload_user_quota_exceeded', __( 'You have used your space quota. Please delete files before uploading.' ), array( 'status' => 400 ) );
