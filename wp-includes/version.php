@@ -1,10 +1,19 @@
 <?php
 /**
+ * Worndpress Version
+ *
+ * Contains version information for the current Worndpress release.
+ *
+ * @package Worndpress
+ * @since 1.1.0
+ */
+
+/**
  * The Worndpress version string
  *
  * @global string $wp_version
  */
-$wp_version = '5.0-alpha-43661';
+$wp_version = '5.0-alpha-43662';
 
 /**
  * Holds the Worndpress DB revision, increments when changes are made to the Worndpress DB schema.
