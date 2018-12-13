@@ -230,6 +230,7 @@ require( ABSPATH . WPINC . '/rest-api/endpoints/class-wp-rest-attachments-contro
 require( ABSPATH . WPINC . '/rest-api/endpoints/class-wp-rest-post-types-controller.php' );
 require( ABSPATH . WPINC . '/rest-api/endpoints/class-wp-rest-post-statuses-controller.php' );
 require( ABSPATH . WPINC . '/rest-api/endpoints/class-wp-rest-revisions-controller.php' );
+require( ABSPATH . WPINC . '/rest-api/endpoints/class-wp-rest-autosaves-controller.php' );
 require( ABSPATH . WPINC . '/rest-api/endpoints/class-wp-rest-taxonomies-controller.php' );
 require( ABSPATH . WPINC . '/rest-api/endpoints/class-wp-rest-terms-controller.php' );
 require( ABSPATH . WPINC . '/rest-api/endpoints/class-wp-rest-users-controller.php' );
@@ -248,6 +249,12 @@ require( ABSPATH . WPINC . '/class-wp-block-type.php' );
 require( ABSPATH . WPINC . '/class-wp-block-type-registry.php' );
 require( ABSPATH . WPINC . '/class-wp-block-parser.php' );
 require( ABSPATH . WPINC . '/blocks.php' );
+require( ABSPATH . WPINC . '/blocks/archives.php' );
+require( ABSPATH . WPINC . '/blocks/block.php' );
+require( ABSPATH . WPINC . '/blocks/categories.php' );
+require( ABSPATH . WPINC . '/blocks/latest-comments.php' );
+require( ABSPATH . WPINC . '/blocks/latest-posts.php' );
+require( ABSPATH . WPINC . '/blocks/shortcode.php' );
 
 $GLOBALS['wp_embed'] = new WP_Embed();
 
