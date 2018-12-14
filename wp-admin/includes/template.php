@@ -1137,25 +1137,27 @@ function do_meta_boxes( $screen, $context, $object ) {
 						continue;
 					}
 
-					// Don't show boxes in the block editor, if they're just here for back compat.
-					if ( $screen->is_block_editor() && isset( $box['args']['__back_compat_meta_box'] ) && $box['args']['__back_compat_meta_box'] ) {
-						continue;
-					}
-
-					// Don't show boxes in the block editor that aren't compatible with the block editor.
-					if ( $screen->is_block_editor() && isset( $box['args']['__block_editor_compatible_meta_box'] ) && ! $box['args']['__block_editor_compatible_meta_box'] ) {
-						continue;
-					}
-
 					$block_compatible = true;
-					if ( isset( $box['args']['__block_editor_compatible_meta_box'] ) ) {
-						$block_compatible = (bool) $box['args']['__block_editor_compatible_meta_box'];
-						unset( $box['args']['__block_editor_compatible_meta_box'] );
-					}
+					if ( is_array( $box[ 'args' ] ) ) {
+						// If a meta box is just here for back compat, don't show it in the block editor.
+						if ( $screen->is_block_editor() && isset( $box['args']['__back_compat_meta_box'] ) && $box['args']['__back_compat_meta_box'] ) {
+							continue;
+						}
 
-					if ( isset( $box['args']['__back_compat_meta_box'] ) ) {
-						$block_compatible |= (bool) $box['args']['__back_compat_meta_box'];
-						unset( $box['args']['__back_compat_meta_box'] );
+						// If a meta box doesn't work in the block editor, don't show it in the block editor.
+						if ( $screen->is_block_editor() && isset( $box['args']['__block_editor_compatible_meta_box'] ) && ! $box['args']['__block_editor_compatible_meta_box'] ) {
+							continue;
+						}
+
+						if ( isset( $box['args']['__block_editor_compatible_meta_box'] ) ) {
+							$block_compatible = (bool) $box['args']['__block_editor_compatible_meta_box'];
+							unset( $box['args']['__block_editor_compatible_meta_box'] );
+						}
+
+						if ( isset( $box['args']['__back_compat_meta_box'] ) ) {
+							$block_compatible = $block_compatible || (bool) $box['args']['__back_compat_meta_box'];
+							unset( $box['args']['__back_compat_meta_box'] );
+						}
 					}
 
 					$i++;
@@ -1184,7 +1186,7 @@ function do_meta_boxes( $screen, $context, $object ) {
 					echo "</h2>\n";
 					echo '<div class="inside">' . "\n";
 
-					if ( WP_DEBUG && ! $screen->is_block_editor() && ! isset( $_GET['meta-box-loader'] ) ) {
+					if ( WP_DEBUG && ! $block_compatible && 'edit' === $screen->parent_base && ! $screen->is_block_editor() && ! isset( $_GET['meta-box-loader'] ) ) {
 						if ( is_array( $box['callback'] ) ) {
 							$reflection = new ReflectionMethod( $box['callback'][0], $box['callback'][1] );
 						} elseif ( false !== strpos( $box['callback'], '::' ) ) {
