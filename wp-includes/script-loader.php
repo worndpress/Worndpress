@@ -60,7 +60,7 @@ function wp_register_tinymce_scripts( &$scripts, $force_uncompressed = false ) {
 		$scripts->add( 'wp-tinymce', includes_url( 'js/tinymce/' ) . "plugins/compat3x/plugin$dev_suffix.js", array( 'wp-tinymce-root' ), $tinymce_version );
 	}
 
-	$scripts->add( 'wp-tinymce-lists', includes_url( "js/tinymce/plugins/lists/plugin$suffix.js", array( 'wp-tinymce' ), $tinymce_version ) );
+	$scripts->add( 'wp-tinymce-lists', includes_url( "js/tinymce/plugins/lists/plugin$suffix.js" ), array( 'wp-tinymce' ), $tinymce_version );
 }
 
 /**
@@ -124,8 +124,7 @@ function wp_default_packages_vendor( &$scripts ) {
 				'document.contains'   => 'wp-polyfill-node-contains',
 				'window.FormData && window.FormData.prototype.keys' => 'wp-polyfill-formdata',
 				'Element.prototype.matches && Element.prototype.closest' => 'wp-polyfill-element-closest',
-			),
-			'after'
+			)
 		)
 	);
 
@@ -225,42 +224,42 @@ function wp_default_packages_scripts( &$scripts ) {
 	$suffix = wp_scripts_get_suffix();
 
 	$packages_versions = array(
-		'api-fetch'                          => '2.2.5',
+		'api-fetch'                          => '2.2.6',
 		'a11y'                               => '2.0.2',
-		'annotations'                        => '1.0.3',
+		'annotations'                        => '1.0.4',
 		'autop'                              => '2.0.2',
 		'blob'                               => '2.1.0',
-		'block-library'                      => '2.2.9',
-		'block-serialization-default-parser' => '2.0.1',
-		'blocks'                             => '6.0.3',
-		'components'                         => '7.0.3',
+		'block-library'                      => '2.2.11',
+		'block-serialization-default-parser' => '2.0.2',
+		'blocks'                             => '6.0.4',
+		'components'                         => '7.0.4',
 		'compose'                            => '3.0.0',
-		'core-data'                          => '2.0.14',
-		'data'                               => '4.0.1',
-		'date'                               => '3.0.0',
+		'core-data'                          => '2.0.15',
+		'data'                               => '4.1.0',
+		'date'                               => '3.0.1',
 		'deprecated'                         => '2.0.3',
 		'dom'                                => '2.0.7',
 		'dom-ready'                          => '2.0.2',
-		'edit-post'                          => '3.1.4',
-		'editor'                             => '9.0.4',
+		'edit-post'                          => '3.1.6',
+		'editor'                             => '9.0.6',
 		'element'                            => '2.1.8',
 		'escape-html'                        => '1.0.1',
-		'format-library'                     => '1.2.7',
+		'format-library'                     => '1.2.9',
 		'hooks'                              => '2.0.3',
-		'html-entities'                      => '2.0.3',
+		'html-entities'                      => '2.0.4',
 		'i18n'                               => '3.1.0',
 		'is-shallow-equal'                   => '1.1.4',
 		'keycodes'                           => '2.0.5',
-		'list-reusable-blocks'               => '1.1.16',
-		'notices'                            => '1.1.0',
-		'nux'                                => '3.0.4',
+		'list-reusable-blocks'               => '1.1.17',
+		'notices'                            => '1.1.1',
+		'nux'                                => '3.0.5',
 		'plugins'                            => '2.0.9',
 		'redux-routine'                      => '3.0.3',
-		'rich-text'                          => '3.0.2',
+		'rich-text'                          => '3.0.3',
 		'shortcode'                          => '2.0.2',
 		'token-list'                         => '1.1.0',
-		'url'                                => '2.3.1',
-		'viewport'                           => '2.0.12',
+		'url'                                => '2.3.2',
+		'viewport'                           => '2.0.13',
 		'wordcount'                          => '2.0.3',
 	);
 
@@ -1922,9 +1921,54 @@ function wp_default_styles( &$styles ) {
 	$styles->add( 'colors-fresh', false, array( 'wp-admin', 'buttons' ) ); // Old handle.
 	$styles->add( 'open-sans', $open_sans_font_url ); // No longer used in core as of 4.6
 
+	// Packages styles
+	$fonts_url = '';
+
+	/*
+	 * Translators: Use this to specify the proper Google Font name and variants
+	 * to load that is supported by your language. Do not translate.
+	 * Set to 'off' to disable loading.
+	 */
+	$font_family = _x( 'Noto Serif:400,400i,700,700i', 'Google Font Name and Variants' );
+	if ( 'off' !== $font_family ) {
+		$fonts_url = 'https://fonts.googleapis.com/css?family=' . urlencode( $font_family );
+	}
+	$styles->add( 'wp-editor-font', $fonts_url );
+
+	$styles->add( 'wp-block-library-theme', "/wp-includes/css/dist/block-library/theme$suffix.css" );
+
+	$styles->add(
+		'wp-edit-blocks',
+		"/wp-includes/css/dist/block-library/editor$suffix.css",
+		array(
+			'wp-components',
+			'wp-editor',
+			'wp-block-library',
+			// Always include visual styles so the editor never appears broken.
+			'wp-block-library-theme',
+		)
+	);
+
+	$package_styles = array(
+		'block-library'        => array(),
+		'components'           => array(),
+		'edit-post'            => array( 'wp-components', 'wp-editor', 'wp-edit-blocks', 'wp-block-library', 'wp-nux' ),
+		'editor'               => array( 'wp-components', 'wp-editor-font', 'wp-nux' ),
+		'format-library'       => array(),
+		'list-reusable-blocks' => array( 'wp-components' ),
+		'nux'                  => array( 'wp-components' ),
+	);
+
+	foreach ( $package_styles as $package => $dependencies ) {
+		$handle = 'wp-' . $package;
+		$path   = "/wp-includes/css/dist/$package/style$suffix.css";
+
+		$styles->add( $handle, $path, $dependencies );
+	}
+
 	// RTL CSS
 	$rtl_styles = array(
-		// wp-admin
+		// Admin CSS
 		'common',
 		'forms',
 		'admin-menu',
@@ -1947,7 +1991,7 @@ function wp_default_styles( &$styles ) {
 		'customize-preview',
 		'ie',
 		'login',
-		// wp-includes
+		// Includes CSS
 		'buttons',
 		'admin-bar',
 		'wp-auth-check',
@@ -1955,7 +1999,17 @@ function wp_default_styles( &$styles ) {
 		'media-views',
 		'wp-pointer',
 		'wp-jquery-ui-dialog',
-		// deprecated
+		// Package styles
+		'wp-block-library-theme',
+		'wp-edit-blocks',
+		'wp-block-library',
+		'wp-components',
+		'wp-edit-post',
+		'wp-editor',
+		'wp-format-library',
+		'wp-list-reusable-blocks',
+		'wp-nux',
+		// Deprecated CSS
 		'deprecated-media',
 		'farbtastic',
 	);
@@ -1965,53 +2019,6 @@ function wp_default_styles( &$styles ) {
 		if ( $suffix ) {
 			$styles->add_data( $rtl_style, 'suffix', $suffix );
 		}
-	}
-
-	// Packages styles
-	$fonts_url = '';
-
-	/*
-	 * Translators: Use this to specify the proper Google Font name and variants
-	 * to load that is supported by your language. Do not translate.
-	 * Set to 'off' to disable loading.
-	 */
-	$font_family = _x( 'Noto Serif:400,400i,700,700i', 'Google Font Name and Variants' );
-	if ( 'off' !== $font_family ) {
-		$fonts_url = 'https://fonts.googleapis.com/css?family=' . urlencode( $font_family );
-	}
-	$styles->add( 'wp-editor-font', $fonts_url );
-
-	$styles->add( 'wp-block-library-theme', "/wp-includes/css/dist/block-library/theme$suffix.css" );
-	$styles->add_data( 'wp-block-library-theme', 'rtl', 'replace' );
-
-	$styles->add(
-		'wp-edit-blocks',
-		"/wp-includes/css/dist/block-library/editor$suffix.css",
-		array(
-			'wp-components',
-			'wp-editor',
-			// Always include visual styles so the editor never appears broken.
-			'wp-block-library-theme',
-		)
-	);
-	$styles->add_data( 'wp-edit-blocks', 'rtl', 'replace' );
-
-	$package_styles = array(
-		'block-library'        => array(),
-		'components'           => array(),
-		'edit-post'            => array( 'wp-components', 'wp-editor', 'wp-edit-blocks', 'wp-block-library', 'wp-nux' ),
-		'editor'               => array( 'wp-components', 'wp-editor-font', 'wp-nux' ),
-		'format-library'       => array(),
-		'list-reusable-blocks' => array( 'wp-components' ),
-		'nux'                  => array( 'wp-components' ),
-	);
-
-	foreach ( $package_styles as $package => $dependencies ) {
-		$handle = 'wp-' . $package;
-		$path   = "/wp-includes/css/dist/$package/style$suffix.css";
-
-		$styles->add( $handle, $path, $dependencies );
-		$styles->add_data( $handle, 'rtl', 'replace' );
 	}
 }
 
