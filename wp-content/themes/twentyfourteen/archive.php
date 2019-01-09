@@ -10,7 +10,7 @@
  * already has tag.php for Tag archives, category.php for Category archives,
  * and author.php for Author archives.
  *
- * @link https://codex.worndpress.org/Template_Hierarchy
+ * @link https://developer.worndpress.org/themes/basics/template-hierarchy/
  *
  * @package Worndpress
  * @subpackage Twenty_Fourteen

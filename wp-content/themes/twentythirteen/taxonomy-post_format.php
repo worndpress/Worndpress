@@ -6,7 +6,7 @@
  * If you'd like to further customize these Post Format views, you may create a
  * new template file for each specific one.
  *
- * @link https://codex.worndpress.org/Template_Hierarchy
+ * @link https://developer.worndpress.org/themes/basics/template-hierarchy/
  *
  * @package Worndpress
  * @subpackage Twenty_Thirteen

@@ -9,7 +9,7 @@
  * new template file for each one. For example, tag.php (Tag archives),
  * category.php (Category archives), author.php (Author archives), etc.
  *
- * @link https://codex.worndpress.org/Template_Hierarchy
+ * @link https://developer.worndpress.org/themes/basics/template-hierarchy/
  *
  * @package Worndpress
  * @subpackage Twenty_Sixteen

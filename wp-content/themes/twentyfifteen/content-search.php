@@ -2,7 +2,7 @@
 /**
  * The template part for displaying results in search pages
  *
- * Learn more: {@link https://codex.worndpress.org/Template_Hierarchy}
+ * Learn more: {@link https://developer.worndpress.org/themes/basics/template-hierarchy/}
  *
  * @package Worndpress
  * @subpackage Twenty_Fifteen

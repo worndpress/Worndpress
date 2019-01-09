@@ -4,7 +4,7 @@
  *
  * Used to display archive-type pages for posts in a category.
  *
- * @link https://codex.worndpress.org/Template_Hierarchy
+ * @link https://developer.worndpress.org/themes/basics/template-hierarchy/
  *
  * @package Worndpress
  * @subpackage Twenty_Twelve

@@ -2,7 +2,7 @@
 /**
  * The template for displaying Author archive pages
  *
- * @link https://codex.worndpress.org/Template_Hierarchy
+ * @link https://developer.worndpress.org/themes/basics/template-hierarchy/
  *
  * @package Worndpress
  * @subpackage Twenty_Thirteen

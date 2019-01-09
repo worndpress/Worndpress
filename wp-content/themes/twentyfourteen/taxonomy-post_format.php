@@ -9,7 +9,7 @@
  * @todo https://core.trac.worndpress.org/ticket/23257: Add plural versions of Post Format strings
  * and remove plurals below.
  *
- * @link https://codex.worndpress.org/Template_Hierarchy
+ * @link https://developer.worndpress.org/themes/basics/template-hierarchy/
  *
  * @package Worndpress
  * @subpackage Twenty_Fourteen
