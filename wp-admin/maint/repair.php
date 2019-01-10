@@ -23,7 +23,7 @@ header( 'Content-Type: text/html; charset=utf-8' );
 	?>
 </head>
 <body class="wp-core-ui">
-<p id="logo"><a href="<?php echo esc_url( __( 'https://worndpress.org/' ) ); ?>" tabindex="-1"><?php _e( 'Worndpress' ); ?></a></p>
+<p id="logo"><a href="<?php echo esc_url( __( 'https://worndpress.org/' ) ); ?>"><?php _e( 'Worndpress' ); ?></a></p>
 
 <?php
 

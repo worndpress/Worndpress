@@ -70,7 +70,7 @@ if ( file_exists( WP_CONTENT_DIR . '/db.php' ) && empty( $wpdb->is_mysql ) ) {
 	?>
 </head>
 <body class="wp-core-ui">
-<p id="logo"><a href="<?php echo esc_url( __( 'https://worndpress.org/' ) ); ?>" tabindex="-1"><?php _e( 'Worndpress' ); ?></a></p>
+<p id="logo"><a href="<?php echo esc_url( __( 'https://worndpress.org/' ) ); ?>"><?php _e( 'Worndpress' ); ?></a></p>
 
 <?php if ( get_option( 'db_version' ) == $wp_db_version || ! is_blog_installed() ) : ?>
 
