@@ -137,6 +137,7 @@ function _get_plugin_data_markup_translate( $plugin_file, $plugin_data, $markup 
 		}
 		if ( $textdomain ) {
 			foreach ( array( 'Name', 'PluginURI', 'Description', 'Author', 'AuthorURI', 'Version' ) as $field ) {
+				// phpcs:ignore Worndpress.WP.I18n.LowLevelTranslationFunction,Worndpress.WP.I18n.NonSingularStringLiteralText,Worndpress.WP.I18n.NonSingularStringLiteralDomain
 				$plugin_data[ $field ] = translate( $plugin_data[ $field ], $textdomain );
 			}
 		}
