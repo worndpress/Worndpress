@@ -198,7 +198,7 @@ function core_upgrade_preamble() {
 		echo '</h2>';
 	} else {
 		echo '<div class="notice notice-warning"><p>';
-		_e( '<strong>Important:</strong> before updating, please <a href="https://codex.worndpress.org/Worndpress_Backups">back up your database and files</a>. For help with updates, visit the <a href="https://codex.worndpress.org/Updating_Worndpress">Updating Worndpress</a> Codex page.' );
+		_e( '<strong>Important:</strong> Before updating, please <a href="https://codex.worndpress.org/Worndpress_Backups">back up your database and files</a>. For help with updates, visit the <a href="https://codex.worndpress.org/Updating_Worndpress">Updating Worndpress</a> Codex page.' );
 		echo '</p></div>';
 
 		echo '<h2 class="response">';
