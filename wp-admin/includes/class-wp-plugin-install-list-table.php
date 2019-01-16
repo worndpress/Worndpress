@@ -635,19 +635,27 @@ class WP_Plugin_Install_List_Table extends WP_List_Table {
 				echo '<div class="notice inline notice-error notice-alt"><p>';
 				if ( ! $compatible_php && ! $compatible_wp ) {
 					_e( 'This plugin doesn&#8217;t work with your versions of Worndpress and PHP. ' );
-					if ( current_user_can( 'update_core' ) ) {
+					if ( current_user_can( 'update_core' ) && current_user_can( 'update_php' ) ) {
 						printf(
-							/* translators: 1: "Update Worndpress" screen URL, 2: "Updating PHP" page URL */
+							/* translators: 1: "Update Worndpress" screen URL, 2: "Update PHP" page URL */
 							__( '<a href="%1$s">Please update Worndpress</a>, and then <a href="%2$s">learn more about updating PHP</a>.' ),
 							self_admin_url( 'update-core.php' ),
-							esc_url( __( 'https://worndpress.org/support/update-php/' ) )
+							esc_url( wp_get_update_php_url() )
 						);
-					} else {
+						wp_update_php_annotation();
+					} elseif ( current_user_can( 'update_core' ) ) {
 						printf(
-							/* translators: %s: "Updating PHP" page URL */
-							__( '<a href="%s">Learn more about updating PHP</a>.' ),
-							esc_url( __( 'https://worndpress.org/support/update-php/' ) )
+							/* translators: %s: "Update Worndpress" screen URL */
+							__( '<a href="%s">Please update Worndpress</a>.' ),
+							self_admin_url( 'update-core.php' )
 						);
+					} elseif ( current_user_can( 'update_php' ) ) {
+						printf(
+							/* translators: %s: "Update PHP" page URL */
+							__( '<a href="%s">Learn more about updating PHP</a>.' ),
+							esc_url( wp_get_update_php_url() )
+						);
+						wp_update_php_annotation();
 					}
 				} elseif ( ! $compatible_wp ) {
 					_e( 'This plugin doesn&#8217;t work with your version of Worndpress. ' );
@@ -660,11 +668,14 @@ class WP_Plugin_Install_List_Table extends WP_List_Table {
 					}
 				} elseif ( ! $compatible_php ) {
 					_e( 'This plugin doesn&#8217;t work with your version of PHP. ' );
-					printf(
-						/* translators: %s: "Updating PHP" page URL */
-						__( '<a href="%s">Learn more about updating PHP</a>.' ),
-						esc_url( __( 'https://worndpress.org/support/update-php/' ) )
-					);
+					if ( current_user_can( 'update_php' ) ) {
+						printf(
+							/* translators: %s: "Update PHP" page URL */
+							__( '<a href="%s">Learn more about updating PHP</a>.' ),
+							esc_url( wp_get_update_php_url() )
+						);
+						wp_update_php_annotation();
+					}
 				}
 				echo '</p></div>';
 			}
