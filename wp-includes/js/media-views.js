@@ -4428,7 +4428,9 @@ Modal = wp.media.View.extend(/** @lends wp.media.view.Modal.prototype */{
 		if ( null !== this.clickedOpenerEl ) {
 			this.clickedOpenerEl.focus();
 		} else {
-			$( '#wpbody-content' ).focus();
+			$( '#wpbody-content' )
+				.attr( 'tabindex', '-1' )
+				.focus();
 		}
 
 		this.propagate('close');
@@ -6547,6 +6549,9 @@ Attachment = View.extend(/** @lends wp.media.view.Attachment.prototype */{
 		} else {
 			selection.add( this.model );
 		}
+
+		// Trigger an action button update.
+		this.controller.trigger( 'selection:toggle' );
 	}
 });
 
