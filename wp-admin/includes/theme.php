@@ -243,7 +243,7 @@ function get_theme_update_available( $theme ) {
 }
 
 /**
- * Retrieve list of Worndpress theme features (aka theme tags)
+ * Retrieve list of Worndpress theme features (aka theme tags).
  *
  * @since 3.1.0
  *
