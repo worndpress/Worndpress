@@ -3058,9 +3058,9 @@ function _default_wp_die_handler( $message, $title = '', $args = array() ) {
 
 	if ( ! did_action( 'admin_head' ) ) :
 		if ( ! headers_sent() ) {
+			header( 'Content-Type: text/html; charset=utf-8' );
 			status_header( $r['response'] );
 			nocache_headers();
-			header( 'Content-Type: text/html; charset=utf-8' );
 		}
 
 		$text_direction = $r['text_direction'];
@@ -3238,6 +3238,7 @@ function _json_wp_die_handler( $message, $title = '', $args = array() ) {
 		if ( null !== $r['response'] ) {
 			status_header( $r['response'] );
 		}
+		nocache_headers();
 	}
 
 	echo wp_json_encode( $data );
@@ -3264,6 +3265,10 @@ function _xmlrpc_wp_die_handler( $message, $title = '', $args = array() ) {
 	global $wp_xmlrpc_server;
 
 	list( $message, $title, $r ) = _wp_die_process_input( $message, $title, $args );
+
+	if ( ! headers_sent() ) {
+		nocache_headers();
+	}
 
 	if ( $wp_xmlrpc_server ) {
 		$error = new IXR_Error( $r['response'], $message );
@@ -3295,9 +3300,12 @@ function _ajax_wp_die_handler( $message, $title = '', $args = array() ) {
 
 	list( $message, $title, $r ) = _wp_die_process_input( $message, $title, $args );
 
-	// This is intentional. For backward-compatibility, support passing null here.
-	if ( ! headers_sent() && null !== $args['response'] ) {
-		status_header( $r['response'] );
+	if ( ! headers_sent() ) {
+		// This is intentional. For backward-compatibility, support passing null here.
+		if ( null !== $args['response'] ) {
+			status_header( $r['response'] );
+		}
+		nocache_headers();
 	}
 
 	if ( is_scalar( $message ) ) {
@@ -4248,28 +4256,7 @@ function dead_db() {
 	}
 
 	// Otherwise, be terse.
-	status_header( 500 );
-	nocache_headers();
-	header( 'Content-Type: text/html; charset=utf-8' );
-
-	$dir_attr = '';
-	if ( is_rtl() ) {
-		$dir_attr = ' dir="rtl"';
-	}
-	?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"<?php echo $dir_attr; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title><?php _e( 'Database Error' ); ?></title>
-
-</head>
-<body>
-	<h1><?php _e( 'Error establishing a database connection' ); ?></h1>
-</body>
-</html>
-	<?php
-	die();
+	wp_die( '<h1>' . __( 'Error establishing a database connection' ) . '</h1>', __( 'Database Error' ) );
 }
 
 /**
