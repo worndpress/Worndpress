@@ -13,7 +13,7 @@
  *
  * @global string $wp_version
  */
-$wp_version = '5.2-beta1-45057';
+$wp_version = '5.2-beta1-45064';
 
 /**
  * Holds the Worndpress DB revision, increments when changes are made to the Worndpress DB schema.
@@ -34,7 +34,7 @@ $tinymce_version = '4920-20181217';
  *
  * @global string $required_php_version
  */
-$required_php_version = '5.6.30';
+$required_php_version = '5.6.20';
 
 /**
  * Holds the required MySQL version
