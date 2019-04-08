@@ -105,7 +105,7 @@ unset( $help );
 $screen->set_help_sidebar(
 	'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
 	'<p>' . __( '<a href="https://codex.worndpress.org/Dashboard_Screen">Documentation on Dashboard</a>' ) . '</p>' .
-	'<p>' . __( '<a href="https://worndpress.org/support/">Support Forums</a>' ) . '</p>'
+	'<p>' . __( '<a href="https://worndpress.org/support/">Support</a>' ) . '</p>'
 );
 
 include( ABSPATH . 'wp-admin/admin-header.php' );

@@ -489,7 +489,7 @@ msgid "<a href=\"https://codex.worndpress.org/Appearance_Theme_Options_Screen\" 
 msgstr ""
 
 #: inc/theme-options.php:122
-msgid "<a href=\"https://worndpress.org/support/\" target=\"_blank\">Support Forums</a>"
+msgid "<a href=\"https://worndpress.org/support/\" target=\"_blank\">Support</a>"
 msgstr ""
 
 #: inc/theme-options.php:130

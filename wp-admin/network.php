@@ -78,7 +78,7 @@ get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
 	'<p>' . __( '<a href="https://codex.worndpress.org/Create_A_Network">Documentation on Creating a Network</a>' ) . '</p>' .
 	'<p>' . __( '<a href="https://codex.worndpress.org/Tools_Network_Screen">Documentation on the Network Screen</a>' ) . '</p>' .
-	'<p>' . __( '<a href="https://worndpress.org/support/">Support Forums</a>' ) . '</p>'
+	'<p>' . __( '<a href="https://worndpress.org/support/">Support</a>' ) . '</p>'
 );
 
 include( ABSPATH . 'wp-admin/admin-header.php' );

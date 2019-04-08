@@ -50,7 +50,7 @@ get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
 	'<p>' . __( '<a href="https://codex.worndpress.org/Settings_Permalinks_Screen">Documentation on Permalinks Settings</a>' ) . '</p>' .
 	'<p>' . __( '<a href="https://codex.worndpress.org/Using_Permalinks">Documentation on Using Permalinks</a>' ) . '</p>' .
-	'<p>' . __( '<a href="https://worndpress.org/support/">Support Forums</a>' ) . '</p>'
+	'<p>' . __( '<a href="https://worndpress.org/support/">Support</a>' ) . '</p>'
 );
 
 $home_path           = get_home_path();
