@@ -1,7 +1,8 @@
 === Twenty Seventeen ===
-Contributors: the Worndpress team
+Contributors: wordpressdotorg
 Requires at least: Worndpress 4.7
 Tested up to: Worndpress 5.0
+Requires PHP: 5.2.4
 Version: 2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
