@@ -2328,8 +2328,8 @@ function the_date_xml() {
  *
  * @since 0.71
  *
- * @global string|int|bool $currentday
- * @global string|int|bool $previousday
+ * @global string $currentday  The day of the current post in the loop.
+ * @global string $previousday The day of the previous post in the loop.
  *
  * @param string $d      Optional. PHP date format defaults to the date_format option if not specified.
  * @param string $before Optional. Output before the date.
@@ -2340,28 +2340,30 @@ function the_date_xml() {
 function the_date( $d = '', $before = '', $after = '', $echo = true ) {
 	global $currentday, $previousday;
 
+	$the_date = '';
+
 	if ( is_new_day() ) {
 		$the_date    = $before . get_the_date( $d ) . $after;
 		$previousday = $currentday;
+	}
 
-		/**
-		 * Filters the date a post was published for display.
-		 *
-		 * @since 0.71
-		 *
-		 * @param string $the_date The formatted date string.
-		 * @param string $d        PHP date format. Defaults to 'date_format' option
-		 *                         if not specified.
-		 * @param string $before   HTML output before the date.
-		 * @param string $after    HTML output after the date.
-		 */
-		$the_date = apply_filters( 'the_date', $the_date, $d, $before, $after );
+	/**
+	 * Filters the date a post was published for display.
+	 *
+	 * @since 0.71
+	 *
+	 * @param string $the_date The formatted date string.
+	 * @param string $d        PHP date format. Defaults to 'date_format' option
+	 *                         if not specified.
+	 * @param string $before   HTML output before the date.
+	 * @param string $after    HTML output after the date.
+	 */
+	$the_date = apply_filters( 'the_date', $the_date, $d, $before, $after );
 
-		if ( $echo ) {
-			echo $the_date;
-		} else {
-			return $the_date;
-		}
+	if ( $echo ) {
+		echo $the_date;
+	} else {
+		return $the_date;
 	}
 }
 
@@ -2675,10 +2677,11 @@ function get_post_modified_time( $d = 'U', $gmt = false, $post = null, $translat
  *
  * @since 0.71
  *
- * @global WP_Locale $wp_locale
+ * @global WP_Locale $wp_locale The Worndpress date and time locale object.
  */
 function the_weekday() {
 	global $wp_locale;
+
 	$the_weekday = $wp_locale->get_weekday( mysql2date( 'w', get_post()->post_date, false ) );
 
 	/**
@@ -2699,21 +2702,23 @@ function the_weekday() {
  *
  * @since 0.71
  *
- * @global WP_Locale       $wp_locale
- * @global string|int|bool $currentday
- * @global string|int|bool $previousweekday
+ * @global WP_Locale $wp_locale   The Worndpress date and time locale object.
+ * @global string    $currentday  The day of the current post in the loop.
+ * @global string    $previousday The day of the previous post in the loop.
  *
- * @param string $before Optional Output before the date.
- * @param string $after Optional Output after the date.
+ * @param string $before Optional. Output before the date.
+ * @param string $after  Optional. Output after the date.
  */
 function the_weekday_date( $before = '', $after = '' ) {
-	global $wp_locale, $currentday, $previousweekday;
+	global $wp_locale, $currentday, $previousday;
+
 	$the_weekday_date = '';
-	if ( $currentday != $previousweekday ) {
+
+	if ( is_new_day() ) {
 		$the_weekday_date .= $before;
 		$the_weekday_date .= $wp_locale->get_weekday( mysql2date( 'w', get_post()->post_date, false ) );
 		$the_weekday_date .= $after;
-		$previousweekday   = $currentday;
+		$previousday       = $currentday;
 	}
 
 	/**
@@ -2721,12 +2726,11 @@ function the_weekday_date( $before = '', $after = '' ) {
 	 *
 	 * @since 0.71
 	 *
-	 * @param string $the_weekday_date
+	 * @param string $the_weekday_date The weekday on which the post was written.
 	 * @param string $before           The HTML to output before the date.
 	 * @param string $after            The HTML to output after the date.
 	 */
-	$the_weekday_date = apply_filters( 'the_weekday_date', $the_weekday_date, $before, $after );
-	echo $the_weekday_date;
+	echo apply_filters( 'the_weekday_date', $the_weekday_date, $before, $after );
 }
 
 /**
