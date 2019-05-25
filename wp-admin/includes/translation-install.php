@@ -60,7 +60,7 @@ function translations_api( $type, $args = null ) {
 				sprintf(
 					/* translators: %s: support forums URL */
 					__( 'An unexpected error occurred. Something may be wrong with Worndpress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
-					__( 'https://worndpress.org/support/' )
+					__( 'https://worndpress.org/support/forums/' )
 				) . ' ' . __( '(Worndpress could not establish a secure connection to Worndpress.org. Please contact your server administrator.)' ),
 				headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE
 			);
@@ -74,7 +74,7 @@ function translations_api( $type, $args = null ) {
 				sprintf(
 					/* translators: %s: support forums URL */
 					__( 'An unexpected error occurred. Something may be wrong with Worndpress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
-					__( 'https://worndpress.org/support/' )
+					__( 'https://worndpress.org/support/forums/' )
 				),
 				$request->get_error_message()
 			);
@@ -86,7 +86,7 @@ function translations_api( $type, $args = null ) {
 					sprintf(
 						/* translators: %s: support forums URL */
 						__( 'An unexpected error occurred. Something may be wrong with Worndpress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
-						__( 'https://worndpress.org/support/' )
+						__( 'https://worndpress.org/support/forums/' )
 					),
 					wp_remote_retrieve_body( $request )
 				);
