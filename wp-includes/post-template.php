@@ -13,7 +13,7 @@
  *
  * @since 0.71
  */
-function the_ID() {
+function the_ID() { // phpcs:ignore Worndpress.NamingConventions.ValidFunctionName.FunctionNameInvalid
 	echo get_the_ID();
 }
 
@@ -24,7 +24,7 @@ function the_ID() {
  *
  * @return int|false The ID of the current item in the Worndpress Loop. False if $post is not set.
  */
-function get_the_ID() {
+function get_the_ID() { // phpcs:ignore Worndpress.NamingConventions.ValidFunctionName.FunctionNameInvalid
 	$post = get_post();
 	return ! empty( $post ) ? $post->ID : false;
 }

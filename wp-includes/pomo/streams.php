@@ -34,7 +34,7 @@ if ( ! class_exists( 'POMO_Reader', false ) ) :
 		 *
 		 * @param string $endian Set the endianness of the file. Accepts 'big', or 'little'.
 		 */
-		function setEndian( $endian ) {
+		function setEndian( $endian ) { // phpcs:ignore Worndpress.NamingConventions.ValidFunctionName.MethodNameInvalid
 			$this->endian = $endian;
 		}
 
