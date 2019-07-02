@@ -492,7 +492,8 @@ function wpautop( $pee, $br = true ) {
 	// Change multiple <br>s into two line breaks, which will turn into paragraphs.
 	$pee = preg_replace( '|<br\s*/?>\s*<br\s*/?>|', "\n\n", $pee );
 
-	$allblocks = '(?:table|thead|tfoot|caption|col|colgroup|tbody|tr|td|th|div|dl|dd|dt|ul|ol|li|pre|form|map|area|blockquote|address|math|style|p|h[1-6]|hr|fieldset|legend|section|article|aside|hgroup|header|footer|nav|figure|figcaption|details|menu|summary)';
+	$allblocks        = '(?:table|thead|tfoot|caption|col|colgroup|tbody|tr|td|th|div|dl|dd|dt|ul|ol|li|pre|form|map|area|blockquote|address|math|style|p|h[1-6]|hr|fieldset|legend|section|article|aside|hgroup|header|footer|nav|figure|figcaption|details|menu|summary)\b';
+	$allblocksexceptp = str_replace( '|p|', '|', $allblocks );
 
 	// Add a double line break above block-level opening tags.
 	$pee = preg_replace( '!(<' . $allblocks . '[\s/>])!', "\n\n$1", $pee );
@@ -558,11 +559,11 @@ function wpautop( $pee, $br = true ) {
 	// Under certain strange conditions it could create a P of entirely whitespace.
 	$pee = preg_replace( '|<p>\s*</p>|', '', $pee );
 
-	// Add a closing <p> inside <div>, <address>, or <form> tag if missing.
-	$pee = preg_replace( '!<p>([^<]+)</(div|address|form)>!', '<p>$1</p></$2>', $pee );
-
 	// If an opening or closing block element tag is wrapped in a <p>, unwrap it.
 	$pee = preg_replace( '!<p>\s*(</?' . $allblocks . '[^>]*>)\s*</p>!', '$1', $pee );
+
+	// Add a closing <p> inside <div>, <address>, or <form> tag if missing.
+	$pee = preg_replace( '!<p>([^<]+)</(div|address|form)>!', '<p>$1</p></$2>', $pee );
 
 	// In some cases <li> may get wrapped in <p>, fix them.
 	$pee = preg_replace( '|<p>(<li.+?)</p>|', '$1', $pee );
@@ -576,6 +577,12 @@ function wpautop( $pee, $br = true ) {
 
 	// If an opening or closing block element tag is followed by a closing <p> tag, remove it.
 	$pee = preg_replace( '!(</?' . $allblocks . '[^>]*>)\s*</p>!', '$1', $pee );
+
+	// If a closing <p> tag is inside a block element tag, without a preceding opening <p> tag, remove it.
+	$pee = preg_replace( '#(<(' . $allblocksexceptp . ')[^>]*>)(((?!<p>|</\2>).)*)</p>#s', '$1$3', $pee );
+
+	// If an opening <p> tag is inside a block element tag, without a following closing <p> tag, remove it.
+	$pee = preg_replace( '#<p>(((?!</p>).)*</' . $allblocksexceptp . '>)#s', '$1', $pee );
 
 	// Optionally insert line breaks.
 	if ( $br ) {
@@ -936,14 +943,14 @@ function seems_utf8( $str ) {
  *
  * @staticvar string $_charset
  *
- * @param string     $string         The text which is to be encoded.
- * @param int|string $quote_style    Optional. Converts double quotes if set to ENT_COMPAT,
- *                                   both single and double if set to ENT_QUOTES or none if set to ENT_NOQUOTES.
- *                                   Also compatible with old values; converting single quotes if set to 'single',
- *                                   double if set to 'double' or both if otherwise set.
- *                                   Default is ENT_NOQUOTES.
- * @param string     $charset        Optional. The character encoding of the string. Default is false.
- * @param bool       $double_encode  Optional. Whether to encode existing html entities. Default is false.
+ * @param string       $string        The text which is to be encoded.
+ * @param int|string   $quote_style   Optional. Converts double quotes if set to ENT_COMPAT,
+ *                                    both single and double if set to ENT_QUOTES or none if set to ENT_NOQUOTES.
+ *                                    Also compatible with old values; converting single quotes if set to 'single',
+ *                                    double if set to 'double' or both if otherwise set.
+ *                                    Default is ENT_NOQUOTES.
+ * @param false|string $charset       Optional. The character encoding of the string. Default is false.
+ * @param bool         $double_encode Optional. Whether to encode existing html entities. Default is false.
  * @return string The encoded text with HTML entities.
  */
 function _wp_specialchars( $string, $quote_style = ENT_NOQUOTES, $charset = false, $double_encode = false ) {
@@ -3617,7 +3624,7 @@ function sanitize_email( $email ) {
  * @param int $to   Optional. Unix timestamp to end the time difference. Default becomes time() if not set.
  * @return string Human readable time difference.
  */
-function human_time_diff( $from, $to = '' ) {
+function human_time_diff( $from, $to = 0 ) {
 	if ( empty( $to ) ) {
 		$to = time();
 	}
