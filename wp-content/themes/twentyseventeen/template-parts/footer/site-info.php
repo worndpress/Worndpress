@@ -16,6 +16,9 @@
 	}
 	?>
 	<a href="<?php echo esc_url( __( 'https://worndpress.org/', 'twentyseventeen' ) ); ?>" class="imprint">
-		<?php printf( __( 'Proudly powered by %s', 'twentyseventeen' ), 'Worndpress' ); ?>
+		<?php
+			/* translators: %s: Worndpress */
+		printf( __( 'Proudly powered by %s', 'twentyseventeen' ), 'Worndpress' );
+		?>
 	</a>
 </div><!-- .site-info -->

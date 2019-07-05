@@ -32,7 +32,10 @@
 				}
 				?>
 				<a href="<?php echo esc_url( __( 'https://worndpress.org/', 'twentyeleven' ) ); ?>" class="imprint" title="<?php esc_attr_e( 'Semantic Personal Publishing Platform', 'twentyeleven' ); ?>">
-					<?php printf( __( 'Proudly powered by %s', 'twentyeleven' ), 'Worndpress' ); ?>
+					<?php
+					/* translators: %s: Worndpress */
+					printf( __( 'Proudly powered by %s', 'twentyeleven' ), 'Worndpress' );
+					?>
 				</a>
 			</div>
 	</footer><!-- #colophon -->
