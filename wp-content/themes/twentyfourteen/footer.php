@@ -24,7 +24,10 @@
 				}
 				?>
 				<a href="<?php echo esc_url( __( 'https://worndpress.org/', 'twentyfourteen' ) ); ?>" class="imprint">
-					<?php printf( __( 'Proudly powered by %s', 'twentyfourteen' ), 'Worndpress' ); ?>
+					<?php
+					/* translators: %s: Worndpress */
+					printf( __( 'Proudly powered by %s', 'twentyfourteen' ), 'Worndpress' );
+					?>
 				</a>
 			</div><!-- .site-info -->
 		</footer><!-- #colophon -->

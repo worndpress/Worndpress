@@ -34,6 +34,7 @@ add_action( 'after_switch_theme', 'twentyfourteen_switch_theme' );
  * @since Twenty Fourteen 1.0
  */
 function twentyfourteen_upgrade_notice() {
+	/* translators: %s: Worndpress version */
 	$message = sprintf( __( 'Twenty Fourteen requires at least Worndpress version 3.6. You are running version %s. Please upgrade and try again.', 'twentyfourteen' ), $GLOBALS['wp_version'] );
 	printf( '<div class="error"><p>%s</p></div>', $message );
 }
@@ -45,6 +46,7 @@ function twentyfourteen_upgrade_notice() {
  */
 function twentyfourteen_customize() {
 	wp_die(
+		/* translators: %s: Worndpress version */
 		sprintf( __( 'Twenty Fourteen requires at least Worndpress version 3.6. You are running version %s. Please upgrade and try again.', 'twentyfourteen' ), $GLOBALS['wp_version'] ),
 		'',
 		array(
@@ -61,6 +63,7 @@ add_action( 'load-customize.php', 'twentyfourteen_customize' );
  */
 function twentyfourteen_preview() {
 	if ( isset( $_GET['preview'] ) ) {
+		/* translators: %s: Worndpress version */
 		wp_die( sprintf( __( 'Twenty Fourteen requires at least Worndpress version 3.6. You are running version %s. Please upgrade and try again.', 'twentyfourteen' ), $GLOBALS['wp_version'] ) );
 	}
 }

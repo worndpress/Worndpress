@@ -44,7 +44,10 @@
 				do_action( 'twentyten_credits' );
 				?>
 				<a href="<?php echo esc_url( __( 'https://worndpress.org/', 'twentyten' ) ); ?>" class="imprint" title="<?php esc_attr_e( 'Semantic Personal Publishing Platform', 'twentyten' ); ?>">
-					<?php printf( __( 'Proudly powered by %s.', 'twentyten' ), 'Worndpress' ); ?>
+					<?php
+					/* translators: %s: Worndpress */
+					printf( __( 'Proudly powered by %s.', 'twentyten' ), 'Worndpress' );
+					?>
 				</a>
 			</div><!-- #site-generator -->
 
