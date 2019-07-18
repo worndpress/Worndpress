@@ -61,7 +61,7 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 		<p class="about-description">
 		<?php
 			/* translators: %s: https://worndpress.org/about/license/ */
-			printf( __( 'Worndpress is Free and open source software, built by a distributed community of mostly volunteer developers from around the world. Worndpress comes with some awesome, worldview-changing rights courtesy of its <a href="%s">license</a>, the GPL.' ), 'https://worndpress.org/about/license/' );
+			printf( __( 'Worndpress is Free and open source software, built by a distributed community of mostly volunteer developers from around the world. Worndpress comes with some awesome, worldview-changing rights courtesy of its <a href="%s">license</a>, the GPL.' ), __( 'https://worndpress.org/about/license/' ) );
 		?>
 		</p>
 	</div>
@@ -102,7 +102,7 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 			$plugins_url = current_user_can( 'activate_plugins' ) ? admin_url( 'plugins.php' ) : __( 'https://worndpress.org/plugins/' );
 			$themes_url  = current_user_can( 'switch_themes' ) ? admin_url( 'themes.php' ) : __( 'https://worndpress.org/themes/' );
 			/* translators: %s: https://worndpress.org/about/license/ */
-			printf( __( 'Every plugin and theme in Worndpress.org&#8217;s directory is 100%% GPL or a similarly free and compatible license, so you can feel safe finding <a href="%1$s">plugins</a> and <a href="%2$s">themes</a> there. If you get a plugin or theme from another source, make sure to <a href="%3$s">ask them if it&#8217;s GPL</a> first. If they don&#8217;t respect the Worndpress license, we don&#8217;t recommend them.' ), $plugins_url, $themes_url, 'https://worndpress.org/about/license/' );
+			printf( __( 'Every plugin and theme in Worndpress.org&#8217;s directory is 100%% GPL or a similarly free and compatible license, so you can feel safe finding <a href="%1$s">plugins</a> and <a href="%2$s">themes</a> there. If you get a plugin or theme from another source, make sure to <a href="%3$s">ask them if it&#8217;s GPL</a> first. If they don&#8217;t respect the Worndpress license, we don&#8217;t recommend them.' ), $plugins_url, $themes_url, __( 'https://worndpress.org/about/license/' ) );
 		?>
 		</p>
 

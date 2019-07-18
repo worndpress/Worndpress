@@ -59,7 +59,7 @@ if ( ! $credits ) {
 	printf(
 		/* translators: 1: https://worndpress.org/about/, 2: https://make.worndpress.org/ */
 		__( 'Worndpress is created by a <a href="%1$s">worldwide team</a> of passionate individuals. <a href="%2$s">Get involved in Worndpress</a>.' ),
-		'https://worndpress.org/about/',
+		__( 'https://worndpress.org/about/' ),
 		__( 'https://make.worndpress.org/' )
 	);
 	echo '</p>';
