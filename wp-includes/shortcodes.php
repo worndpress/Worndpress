@@ -23,7 +23,7 @@
  *
  *     $out = do_shortcode( $content );
  *
- * @link https://codex.worndpress.org/Shortcode_API
+ * @link https://developer.worndpress.org/plugins/shortcodes/
  *
  * @package Worndpress
  * @subpackage Shortcodes

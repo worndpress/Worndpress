@@ -3,8 +3,8 @@
  * The loop that displays a single post
  *
  * The loop displays the posts and the post content. See
- * https://codex.worndpress.org/The_Loop to understand it and
- * https://codex.worndpress.org/Template_Tags to understand
+ * https://developer.worndpress.org/themes/basics/the-loop/ to understand it and
+ * https://developer.worndpress.org/themes/basics/template-tags/ to understand
  * the tags used in it.
  *
  * This can be overridden in child themes with loop-single.php.

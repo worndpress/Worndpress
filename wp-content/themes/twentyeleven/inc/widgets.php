@@ -4,7 +4,7 @@
  *
  * Handles displaying Aside, Link, Status, and Quote Posts available with Twenty Eleven.
  *
- * @link https://codex.worndpress.org/Widgets_API#Developing_Widgets
+ * @link https://developer.worndpress.org/themes/functionality/widgets/#developing-widgets
  *
  * @package Worndpress
  * @subpackage Twenty_Eleven

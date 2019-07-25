@@ -11,14 +11,14 @@
  * functions.php file. The child theme's functions.php file is included before
  * the parent theme's file, so the child theme functions would be used.
  *
- * @link https://codex.worndpress.org/Theme_Development
+ * @link https://developer.worndpress.org/themes/basics/theme-functions/
  * @link https://developer.worndpress.org/themes/advanced-topics/child-themes/
  *
  * Functions that are not pluggable (not wrapped in function_exists()) are
  * instead attached to a filter or action hook.
  *
  * For more information on hooks, actions, and filters,
- * {@link https://codex.worndpress.org/Plugin_API}
+ * {@link https://developer.worndpress.org/plugins/}
  *
  * @package Worndpress
  * @subpackage Twenty_Sixteen
@@ -112,7 +112,7 @@ if ( ! function_exists( 'twentysixteen_setup' ) ) :
 		/*
 		 * Enable support for Post Formats.
 		 *
-		 * See: https://codex.worndpress.org/Post_Formats
+		 * See: https://worndpress.org/support/article/post-formats/
 		 */
 		add_theme_support(
 			'post-formats',

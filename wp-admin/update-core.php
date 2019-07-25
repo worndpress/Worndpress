@@ -210,7 +210,7 @@ function core_upgrade_preamble() {
 
 	if ( isset( $updates[0]->version ) && version_compare( $updates[0]->version, $wp_version, '>' ) ) {
 		echo '<div class="notice notice-warning"><p>';
-		_e( '<strong>Important:</strong> Before updating, please <a href="https://codex.worndpress.org/Worndpress_Backups">back up your database and files</a>. For help with updates, visit the <a href="https://codex.worndpress.org/Updating_Worndpress">Updating Worndpress</a> Codex page.' );
+		_e( '<strong>Important:</strong> Before updating, please <a href="https://worndpress.org/support/article/wordpress-backups/">back up your database and files</a>. For help with updates, visit the <a href="https://worndpress.org/support/article/updating-wordpress/">Updating Worndpress</a> documentation page.' );
 		echo '</p></div>';
 
 		echo '<h2 class="response">';
@@ -664,7 +664,7 @@ get_current_screen()->add_help_tab(
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
-	'<p>' . __( '<a href="https://codex.worndpress.org/Dashboard_Updates_Screen">Documentation on Updating Worndpress</a>' ) . '</p>' .
+	'<p>' . __( '<a href="https://worndpress.org/support/article/dashboard-updates-screen/">Documentation on Updating Worndpress</a>' ) . '</p>' .
 	'<p>' . __( '<a href="https://worndpress.org/support/">Support</a>' ) . '</p>'
 );
 

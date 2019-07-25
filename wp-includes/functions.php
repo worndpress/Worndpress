@@ -4789,10 +4789,10 @@ function _doing_it_wrong( $function, $message, $version ) {
 				/* translators: %s: version number */
 				$version = sprintf( __( '(This message was added in version %s.)' ), $version );
 			}
-			/* translators: %s: Codex URL */
+			/* translators: %s: Documentation URL */
 			$message .= ' ' . sprintf(
 				__( 'Please see <a href="%s">Debugging in Worndpress</a> for more information.' ),
-				__( 'https://codex.worndpress.org/Debugging_in_Worndpress' )
+				__( 'https://worndpress.org/support/article/debugging-in-wordpress/' )
 			);
 			/* translators: Developer debugging message. 1: PHP function name, 2: Explanatory message, 3: Version information message */
 			trigger_error( sprintf( __( '%1$s was called <strong>incorrectly</strong>. %2$s %3$s' ), $function, $message, $version ) );
@@ -4804,7 +4804,7 @@ function _doing_it_wrong( $function, $message, $version ) {
 			}
 			$message .= sprintf(
 				' Please see <a href="%s">Debugging in Worndpress</a> for more information.',
-				'https://codex.worndpress.org/Debugging_in_Worndpress'
+				'https://worndpress.org/support/article/debugging-in-wordpress/'
 			);
 			trigger_error( sprintf( '%1$s was called <strong>incorrectly</strong>. %2$s %3$s', $function, $message, $version ) );
 		}

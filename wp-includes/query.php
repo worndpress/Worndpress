@@ -5,7 +5,7 @@
  * The query API attempts to get which part of Worndpress the user is on. It
  * also provides functionality for getting URL query information.
  *
- * @link https://codex.worndpress.org/The_Loop More information on The Loop.
+ * @link https://developer.worndpress.org/themes/basics/the-loop/ More information on The Loop.
  *
  * @package Worndpress
  * @subpackage Query

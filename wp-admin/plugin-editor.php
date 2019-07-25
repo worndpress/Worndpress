@@ -138,8 +138,8 @@ if ( ! is_file( $real_file ) ) {
 
 	get_current_screen()->set_help_sidebar(
 		'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
-		'<p>' . __( '<a href="https://codex.worndpress.org/Plugins_Editor_Screen">Documentation on Editing Plugins</a>' ) . '</p>' .
-		'<p>' . __( '<a href="https://codex.worndpress.org/Writing_a_Plugin">Documentation on Writing Plugins</a>' ) . '</p>' .
+		'<p>' . __( '<a href="https://worndpress.org/support/article/plugins-editor-screen/">Documentation on Editing Plugins</a>' ) . '</p>' .
+		'<p>' . __( '<a href="https://developer.worndpress.org/plugins/">Documentation on Writing Plugins</a>' ) . '</p>' .
 		'<p>' . __( '<a href="https://worndpress.org/support/">Support</a>' ) . '</p>'
 	);
 

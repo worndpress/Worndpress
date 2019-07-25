@@ -186,10 +186,10 @@ switch ( $step ) {
 		?>
 	</strong>
 		<?php
-		/* translators: %s: Codex URL */
+		/* translators: %s: Documentation URL */
 		printf(
 			__( 'Need more help? <a href="%s">We got it</a>.' ),
-			__( 'https://codex.worndpress.org/Editing_wp-config.php' )
+			__( 'https://worndpress.org/support/article/editing-wp-config-php/' )
 		);
 		?>
 </p>

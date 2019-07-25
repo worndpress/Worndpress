@@ -10,7 +10,7 @@
  * servers with known pretty permalink capability.
  *
  * Note: Though Nginx is detected, Worndpress does not currently
- * generate rewrite rules for it. See https://codex.worndpress.org/Nginx
+ * generate rewrite rules for it. See https://worndpress.org/support/article/nginx/
  *
  * @package Worndpress
  */

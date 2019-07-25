@@ -4,7 +4,7 @@
  *
  * Displays posts from Aside, Quote, Video, Audio, Image, Gallery, and Link formats.
  *
- * @link https://codex.worndpress.org/Widgets_API#Developing_Widgets
+ * @link https://developer.worndpress.org/themes/functionality/widgets/#developing-widgets
  *
  * @package Worndpress
  * @subpackage Twenty_Fourteen

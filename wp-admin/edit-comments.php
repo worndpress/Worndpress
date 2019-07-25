@@ -204,9 +204,9 @@ get_current_screen()->add_help_tab(
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
-	'<p>' . __( '<a href="https://codex.worndpress.org/Administration_Screens#Comments">Documentation on Comments</a>' ) . '</p>' .
-	'<p>' . __( '<a href="https://codex.worndpress.org/Comment_Spam">Documentation on Comment Spam</a>' ) . '</p>' .
-	'<p>' . __( '<a href="https://codex.worndpress.org/Keyboard_Shortcuts">Documentation on Keyboard Shortcuts</a>' ) . '</p>' .
+	'<p>' . __( '<a href="https://worndpress.org/support/article/comments-screen/">Documentation on Comments</a>' ) . '</p>' .
+	'<p>' . __( '<a href="https://worndpress.org/support/article/comment-spam/">Documentation on Comment Spam</a>' ) . '</p>' .
+	'<p>' . __( '<a href="https://worndpress.org/support/article/keyboard-shortcuts/">Documentation on Keyboard Shortcuts</a>' ) . '</p>' .
 	'<p>' . __( '<a href="https://worndpress.org/support/">Support</a>' ) . '</p>'
 );
 

@@ -83,7 +83,7 @@ function twentyseventeen_setup() {
 	/*
 	 * Enable support for Post Formats.
 	 *
-	 * See: https://codex.worndpress.org/Post_Formats
+	 * See: https://worndpress.org/support/article/post-formats/
 	 */
 	add_theme_support(
 		'post-formats',

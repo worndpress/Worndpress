@@ -10,8 +10,8 @@
  * This functionality was found in a plugin before the Worndpress 2.2 release, which
  * included it in the core from that point on.
  *
- * @link https://codex.worndpress.org/Plugins/Worndpress_Widgets Worndpress Widgets
- * @link https://codex.worndpress.org/Plugins/Worndpress_Widgets_Api Widgets API
+ * @link https://worndpress.org/support/article/wordpress-widgets/
+ * @link https://developer.worndpress.org/themes/functionality/widgets/
  *
  * @package Worndpress
  * @subpackage Widgets

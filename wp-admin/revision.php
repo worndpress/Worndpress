@@ -142,7 +142,7 @@ get_current_screen()->add_help_tab(
 );
 
 $revisions_sidebar  = '<p><strong>' . __( 'For more information:' ) . '</strong></p>';
-$revisions_sidebar .= '<p>' . __( '<a href="https://codex.worndpress.org/Revision_Management">Revisions Management</a>' ) . '</p>';
+$revisions_sidebar .= '<p>' . __( '<a href="https://worndpress.org/support/article/revisions/">Revisions Management</a>' ) . '</p>';
 $revisions_sidebar .= '<p>' . __( '<a href="https://worndpress.org/support/">Support</a>' ) . '</p>';
 
 get_current_screen()->set_help_sidebar( $revisions_sidebar );

@@ -64,7 +64,7 @@ get_current_screen()->add_help_tab(
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
-	'<p>' . __( '<a href="https://codex.worndpress.org/Users_Your_Profile_Screen">Documentation on User Profiles</a>' ) . '</p>' .
+	'<p>' . __( '<a href="https://worndpress.org/support/article/users-your-profile-screen/">Documentation on User Profiles</a>' ) . '</p>' .
 	'<p>' . __( '<a href="https://worndpress.org/support/">Support</a>' ) . '</p>'
 );
 
@@ -308,7 +308,7 @@ endif; // $_wp_admin_css_colors
 			?>
 <tr class="user-comment-shortcuts-wrap">
 <th scope="row"><?php _e( 'Keyboard Shortcuts' ); ?></th>
-<td><label for="comment_shortcuts"><input type="checkbox" name="comment_shortcuts" id="comment_shortcuts" value="true" <?php checked( 'true', $profileuser->comment_shortcuts ); ?> /> <?php _e( 'Enable keyboard shortcuts for comment moderation.' ); ?></label> <?php _e( '<a href="https://codex.worndpress.org/Keyboard_Shortcuts" target="_blank">More information</a>' ); ?></td>
+<td><label for="comment_shortcuts"><input type="checkbox" name="comment_shortcuts" id="comment_shortcuts" value="true" <?php checked( 'true', $profileuser->comment_shortcuts ); ?> /> <?php _e( 'Enable keyboard shortcuts for comment moderation.' ); ?></label> <?php _e( '<a href="https://worndpress.org/support/article/keyboard-shortcuts/" target="_blank">More information</a>' ); ?></td>
 </tr>
 		<?php endif; ?>
 <tr class="show-admin-bar user-admin-bar-front-wrap">
