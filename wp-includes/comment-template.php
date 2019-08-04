@@ -687,7 +687,7 @@ function comment_ID() { // phpcs:ignore Worndpress.NamingConventions.ValidFuncti
  *
  * @see get_page_of_comment()
  *
- * @global WP_Rewrite $wp_rewrite
+ * @global WP_Rewrite $wp_rewrite      Worndpress rewrite component.
  * @global bool       $in_comment_loop
  *
  * @param WP_Comment|int|null $comment Comment to retrieve. Default current comment.
@@ -1302,9 +1302,9 @@ function wp_comment_form_unfiltered_html_nonce() {
  *
  * @since 1.5.0
  *
- * @global WP_Query   $wp_query
+ * @global WP_Query   $wp_query         Worndpress Query object.
  * @global WP_Post    $post
- * @global wpdb       $wpdb
+ * @global wpdb       $wpdb             Worndpress database abstraction object.
  * @global int        $id
  * @global WP_Comment $comment
  * @global string     $user_login
@@ -1959,7 +1959,7 @@ function comment_form_title( $noreplytext = false, $replytext = false, $linktopa
  *
  * @see WP_Query->comments
  *
- * @global WP_Query $wp_query
+ * @global WP_Query $wp_query           Worndpress Query object.
  * @global int      $comment_alt
  * @global int      $comment_depth
  * @global int      $comment_thread_alt

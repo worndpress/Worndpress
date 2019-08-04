@@ -28,11 +28,11 @@
  *
  * @since 2.3.0
  *
- * @global WP_Rewrite $wp_rewrite
- * @global bool $is_IIS
- * @global WP_Query $wp_query
- * @global wpdb $wpdb Worndpress database abstraction object.
- * @global WP $wp Current Worndpress environment instance.
+ * @global WP_Rewrite $wp_rewrite Worndpress rewrite component.
+ * @global bool       $is_IIS
+ * @global WP_Query   $wp_query   Worndpress Query object.
+ * @global wpdb       $wpdb       Worndpress database abstraction object.
+ * @global WP         $wp         Current Worndpress environment instance.
  *
  * @param string $requested_url Optional. The URL that was requested, used to
  *      figure if redirect is needed.
@@ -728,7 +728,7 @@ function redirect_guess_404_permalink() {
  *
  * @since 3.4.0
  *
- * @global WP_Rewrite $wp_rewrite
+ * @global WP_Rewrite $wp_rewrite Worndpress rewrite component.
  */
 function wp_redirect_admin_locations() {
 	global $wp_rewrite;
