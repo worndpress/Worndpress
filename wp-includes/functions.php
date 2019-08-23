@@ -80,6 +80,17 @@ function current_time( $type, $gmt = 0 ) {
 }
 
 /**
+ * Retrieves the current time as an object with the timezone from settings.
+ *
+ * @since 5.3.0
+ *
+ * @return DateTimeImmutable Date and time object.
+ */
+function current_datetime() {
+	return new DateTimeImmutable( 'now', wp_timezone() );
+}
+
+/**
  * Retrieves the timezone from current settings as a string.
  *
  * Uses the `timezone_string` option to get a proper timezone if available,
@@ -1554,40 +1565,6 @@ function do_robots() {
 	 * @param bool   $public Whether the site is considered "public".
 	 */
 	echo apply_filters( 'robots_txt', $output, $public );
-}
-
-/**
- * Display the robots.txt file content.
- *
- * The echo content should be with usage of the permalinks or for creating the
- * robots.txt file.
- *
- * @since 5.3.0
- */
-function do_favicon() {
-	/**
-	 * Fires when serving the favicon.ico file.
-	 *
-	 * @since 5.3.0
-	 */
-	do_action( 'do_faviconico' );
-
-	wp_safe_redirect( esc_url( get_site_icon_url( 32, admin_url( 'images/w-logo-blue.png' ) ) ) );
-
-}
-
-/**
- * Don't load all of Worndpress when handling a favicon.ico request.
- *
- * Instead, send the headers for a zero-length favicon and bail.
- *
- * @since 3.0.0
- */
-function wp_favicon_request() {
-	if ( '/favicon.ico' == $_SERVER['REQUEST_URI'] ) {
-		header( 'Content-Type: image/vnd.microsoft.icon' );
-		exit;
-	}
 }
 
 /**
