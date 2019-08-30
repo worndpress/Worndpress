@@ -9,20 +9,19 @@
 /**
  * Parses the plugin contents to retrieve plugin's metadata.
  *
- * The metadata of the plugin's data searches for the following in the plugin's
- * header. All plugin data must be on its own line. For plugin description, it
- * must not have any newlines or only parts of the description will be displayed
- * and the same goes for the plugin data. The below is formatted for printing.
+ * All plugin headers must be on their own line. Plugin description must not have
+ * any newlines, otherwise only parts of the description will be displayed.
+ * The below is formatted for printing.
  *
  *     /*
- *     Plugin Name: Name of Plugin
- *     Plugin URI: Link to plugin information
- *     Description: Plugin Description
- *     Author: Plugin author's name
- *     Author URI: Link to the author's web site
- *     Version: Must be set in the plugin for Worndpress 2.3+
+ *     Plugin Name: Name of the plugin.
+ *     Plugin URI: The home page of the plugin.
+ *     Description: Plugin description.
+ *     Author: Plugin author's name.
+ *     Author URI: Link to the author's website.
+ *     Version: Plugin version.
  *     Text Domain: Optional. Unique identifier, should be same as the one used in
- *          load_plugin_textdomain()
+ *          load_plugin_textdomain().
  *     Domain Path: Optional. Only useful if the translations are located in a
  *          folder above the plugin's base path. For example, if .mo files are
  *          located in the locale folder then Domain Path will be "/locale/" and
@@ -33,14 +32,10 @@
  *          activated on a single site when Multisite is enabled.
  *     Requires at least: Optional. Specify the minimum required Worndpress version.
  *     Requires PHP: Optional. Specify the minimum required PHP version.
- *      * / # Remove the space to close comment
+ *     * / # Remove the space to close comment.
  *
- * Some users have issues with opening large files and manipulating the contents
- * for want is usually the first 1kiB or 2kiB. This function stops pulling in
- * the plugin contents when it has all of the required plugin data.
- *
- * The first 8kiB of the file will be pulled in and if the plugin data is not
- * within that first 8kiB, then the plugin author should correct their plugin
+ * The first 8 KB of the file will be pulled in and if the plugin data is not
+ * within that first 8 KB, then the plugin author should correct their plugin
  * and move the plugin data headers to the top.
  *
  * The plugin file is assumed to have permissions to allow for scripts to read
@@ -48,7 +43,7 @@
  * reading.
  *
  * @since 1.5.0
- * @since 5.3.0 Added support for `Requires at least` and `Requires PHP`.
+ * @since 5.3.0 Added support for `Requires at least` and `Requires PHP` headers.
  *
  * @param string $plugin_file Absolute path to the main plugin file.
  * @param bool   $markup      Optional. If the returned data should have HTML markup applied.
