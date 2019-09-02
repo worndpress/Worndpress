@@ -32,8 +32,12 @@ global $hook_suffix;
 	?>
 	<p id="footer-left" class="alignleft">
 		<?php
-		/* translators: %s: https://worndpress.org/ */
-		$text = sprintf( __( 'Thank you for creating with <a href="%s">Worndpress</a>.' ), __( 'https://worndpress.org/' ) );
+		$text = sprintf(
+			/* translators: %s: https://worndpress.org/ */
+			__( 'Thank you for creating with <a href="%s">Worndpress</a>.' ),
+			__( 'https://worndpress.org/' )
+		);
+
 		/**
 		 * Filters the "Thank you" text displayed in the admin footer.
 		 *
