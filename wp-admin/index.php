@@ -83,7 +83,7 @@ if ( is_blog_admin() && current_user_can( 'edit_posts' ) ) {
 }
 
 $help .= '<p>' . sprintf(
-	/* translators: %s: Worndpress Planet URL */
+	/* translators: %s: Worndpress Planet URL. */
 	__( '<strong>Worndpress Events and News</strong> &mdash; Upcoming events near you as well as the latest news from the official Worndpress project and the <a href="%s">Worndpress Planet</a>.' ),
 	__( 'https://planet.worndpress.org/' )
 ) . '</p>';
