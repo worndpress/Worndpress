@@ -734,7 +734,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	 * @param WP_REST_Request $request Full details about the request.
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
 	 */
-	function update_current_item( $request ) {
+	public function update_current_item( $request ) {
 		$request['id'] = get_current_user_id();
 
 		return $this->update_item( $request );
@@ -852,7 +852,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	 * @param WP_REST_Request $request Full details about the request.
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
 	 */
-	function delete_current_item( $request ) {
+	public function delete_current_item( $request ) {
 		$request['id'] = get_current_user_id();
 
 		return $this->delete_item( $request );
@@ -1122,9 +1122,9 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	 *
 	 * @since 4.7.0
 	 *
-	 * @param  mixed            $value   The username submitted in the request.
-	 * @param  WP_REST_Request  $request Full details about the request.
-	 * @param  string           $param   The parameter name.
+	 * @param mixed           $value   The username submitted in the request.
+	 * @param WP_REST_Request $request Full details about the request.
+	 * @param string          $param   The parameter name.
 	 * @return WP_Error|string The sanitized username, if valid, otherwise an error.
 	 */
 	public function check_username( $value, $request, $param ) {
@@ -1151,9 +1151,9 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	 *
 	 * @since 4.7.0
 	 *
-	 * @param  mixed            $value   The password submitted in the request.
-	 * @param  WP_REST_Request  $request Full details about the request.
-	 * @param  string           $param   The parameter name.
+	 * @param mixed           $value   The password submitted in the request.
+	 * @param WP_REST_Request $request Full details about the request.
+	 * @param string          $param   The parameter name.
 	 * @return WP_Error|string The sanitized password, if valid, otherwise an error.
 	 */
 	public function check_user_password( $value, $request, $param ) {
