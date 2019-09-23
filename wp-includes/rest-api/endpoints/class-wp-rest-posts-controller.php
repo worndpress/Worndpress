@@ -1021,19 +1021,31 @@ class WP_REST_Posts_Controller extends WP_REST_Controller {
 
 		// Post date.
 		if ( ! empty( $schema['properties']['date'] ) && ! empty( $request['date'] ) ) {
-			$date_data = rest_get_date_with_gmt( $request['date'] );
+			$current_date = isset( $prepared_post->ID ) ? get_post( $prepared_post->ID )->post_date : false;
+			$date_data    = rest_get_date_with_gmt( $request['date'] );
 
-			if ( ! empty( $date_data ) ) {
+			if ( ! empty( $date_data ) && $current_date !== $date_data[0] ) {
 				list( $prepared_post->post_date, $prepared_post->post_date_gmt ) = $date_data;
 				$prepared_post->edit_date                                        = true;
 			}
 		} elseif ( ! empty( $schema['properties']['date_gmt'] ) && ! empty( $request['date_gmt'] ) ) {
-			$date_data = rest_get_date_with_gmt( $request['date_gmt'], true );
+			$current_date = isset( $prepared_post->ID ) ? get_post( $prepared_post->ID )->post_date_gmt : false;
+			$date_data    = rest_get_date_with_gmt( $request['date_gmt'], true );
 
-			if ( ! empty( $date_data ) ) {
+			if ( ! empty( $date_data ) && $current_date !== $date_data[1] ) {
 				list( $prepared_post->post_date, $prepared_post->post_date_gmt ) = $date_data;
 				$prepared_post->edit_date                                        = true;
 			}
+		}
+
+		// Sending a null date or date_gmt value resets date and date_gmt to their
+		// default values (`0000-00-00 00:00:00`).
+		if (
+			( ! empty( $schema['properties']['date_gmt'] ) && $request->has_param( 'date_gmt' ) && null === $request['date_gmt'] ) ||
+			( ! empty( $schema['properties']['date'] ) && $request->has_param( 'date' ) && null === $request['date'] )
+		) {
+			$prepared_post->post_date_gmt = null;
+			$prepared_post->post_date     = null;
 		}
 
 		// Post slug.
@@ -1891,13 +1903,13 @@ class WP_REST_Posts_Controller extends WP_REST_Controller {
 			'properties' => array(
 				'date'         => array(
 					'description' => __( "The date the object was published, in the site's timezone." ),
-					'type'        => 'string',
+					'type'        => array( 'string', 'null' ),
 					'format'      => 'date-time',
 					'context'     => array( 'view', 'edit', 'embed' ),
 				),
 				'date_gmt'     => array(
 					'description' => __( 'The date the object was published, as GMT.' ),
-					'type'        => 'string',
+					'type'        => array( 'string', 'null' ),
 					'format'      => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 				),
