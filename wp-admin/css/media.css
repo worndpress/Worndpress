@@ -800,11 +800,6 @@ border color while dragging a file over the uploader drop area */
 	margin-bottom: 5px;
 }
 
-.attachment-details .setting + .description a:focus {
-        /* Only visible in Windows High Contrast mode */
-        outline: 1px solid transparent;
-}
-
 .wp_attachment_details .attachment-alt-text-description {
 	margin-top: 5px;
 }
