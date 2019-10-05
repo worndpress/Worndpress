@@ -713,7 +713,7 @@ function validate_file_to_edit( $file, $allowed_files = array() ) {
  * @param string         $time      Time formatted in 'yyyy/mm'.
  * @param string         $action    Expected value for `$_POST['action']`.
  * @return string[] On success, returns an associative array of file attributes. On failure, returns
- *               `$overrides['upload_error_handler'](&$file, $message )` or `array( 'error'=>$message )`.
+ *                  `$overrides['upload_error_handler']( &$file, $message )` or `array( 'error' => $message )`.
  */
 function _wp_handle_upload( &$file, $overrides, $time, $action ) {
 	// The default error handler.
@@ -1705,7 +1705,7 @@ function copy_dir( $from, $to, $skip_list = array() ) {
 	$to   = trailingslashit( $to );
 
 	foreach ( (array) $dirlist as $filename => $fileinfo ) {
-		if ( in_array( $filename, $skip_list ) ) {
+		if ( in_array( $filename, $skip_list, true ) ) {
 			continue;
 		}
 
