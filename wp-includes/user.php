@@ -2273,11 +2273,11 @@ function get_password_reset_key( $user ) {
 	 * Use the {@see 'retrieve_password'} hook instead.
 	 *
 	 * @since 1.5.0
-	 * @deprecated 1.5.1 Misspelled. Use 'retrieve_password' hook instead.
+	 * @deprecated 1.5.1 Misspelled. Use {@see 'retrieve_password'} hook instead.
 	 *
 	 * @param string $user_login The user login name.
 	 */
-	do_action( 'retreive_password', $user->user_login );
+	do_action_deprecated( 'retreive_password', array( $user->user_login ), '1.5.1', 'retrieve_password' );
 
 	/**
 	 * Fires before a new password is retrieved.
