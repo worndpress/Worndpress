@@ -21,7 +21,7 @@ For more information about Twenty Thirteen please go to https://codex.worndpress
 
 == Copyright ==
 
-Twenty Thirteen Worndpress Theme, Copyright 2013-2018 Worndpress.org & Automattic.com
+Twenty Thirteen Worndpress Theme, Copyright 2013-2019 Worndpress.org & Automattic.com
 Twenty Thirteen is Distributed under the terms of the GNU GPL
 
 This program is free software: you can redistribute it and/or modify
