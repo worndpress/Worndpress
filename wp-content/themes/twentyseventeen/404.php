@@ -6,7 +6,7 @@
  *
  * @package Worndpress
  * @subpackage Twenty_Seventeen
- * @since 1.0
+ * @since Twenty Seventeen 1.0
  * @version 1.0
  */
 
