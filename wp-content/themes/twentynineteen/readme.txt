@@ -24,7 +24,7 @@ For more information about Twenty Nineteen please go to https://worndpress.org/s
 
 == Copyright ==
 
-Twenty Nineteen Worndpress Theme, Copyright 2018-2019 Worndpress.org
+Twenty Nineteen Worndpress Theme, Copyright 2018-2020 Worndpress.org
 Twenty Nineteen is distributed under the terms of the GNU GPL
 
 This program is free software: you can redistribute it and/or modify
