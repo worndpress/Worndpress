@@ -1073,7 +1073,8 @@ Library = wp.media.controller.State.extend(/** @lends wp.media.controller.Librar
 	defaultDisplaySettings: function( attachment ) {
 		var settings = _.clone( this._defaultDisplaySettings );
 
-		if ( settings.canEmbed = this.canEmbed( attachment ) ) {
+		settings.canEmbed = this.canEmbed( attachment );
+		if ( settings.canEmbed ) {
 			settings.link = 'embed';
 		} else if ( ! this.isImageAttachment( attachment ) && settings.link === 'none' ) {
 			settings.link = 'file';
@@ -8799,7 +8800,8 @@ Settings = View.extend(/** @lends wp.media.view.Settings.prototype */{
 
 		// If the setting has a corresponding user setting,
 		// update that as well.
-		if ( userSetting = $setting.data('userSetting') ) {
+		userSetting = $setting.data('userSetting');
+		if ( userSetting ) {
 			window.setUserSetting( userSetting, value );
 		}
 	},
