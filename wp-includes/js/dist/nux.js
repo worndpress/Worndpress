@@ -82,7 +82,7 @@ this["wp"] = this["wp"] || {}; this["wp"]["nux"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 382);
+/******/ 	return __webpack_require__(__webpack_require__.s = 384);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -117,7 +117,7 @@ function _arrayWithoutHoles(arr) {
   }
 }
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/iterableToArray.js
-var iterableToArray = __webpack_require__(32);
+var iterableToArray = __webpack_require__(31);
 
 // CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js
 function _nonIterableSpread() {
@@ -147,7 +147,7 @@ function _toConsumableArray(arr) {
 "use strict";
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayWithHoles.js
-var arrayWithHoles = __webpack_require__(33);
+var arrayWithHoles = __webpack_require__(35);
 
 // CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/iterableToArrayLimit.js
 function _iterableToArrayLimit(arr, i) {
@@ -180,7 +180,7 @@ function _iterableToArrayLimit(arr, i) {
   return _arr;
 }
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/nonIterableRest.js
-var nonIterableRest = __webpack_require__(34);
+var nonIterableRest = __webpack_require__(36);
 
 // CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/slicedToArray.js
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _slicedToArray; });
@@ -200,7 +200,7 @@ function _slicedToArray(arr, i) {
 
 /***/ }),
 
-/***/ 32:
+/***/ 31:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -212,28 +212,13 @@ function _iterableToArray(iter) {
 /***/ }),
 
 /***/ 33:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _arrayWithHoles; });
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
+(function() { module.exports = this["wp"]["deprecated"]; }());
 
 /***/ }),
 
 /***/ 34:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _nonIterableRest; });
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance");
-}
-
-/***/ }),
-
-/***/ 38:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -515,7 +500,29 @@ function isShallowEqual( a, b, fromIndex ) {
 
 /***/ }),
 
-/***/ 382:
+/***/ 35:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _arrayWithHoles; });
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+/***/ }),
+
+/***/ 36:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _nonIterableRest; });
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance");
+}
+
+/***/ }),
+
+/***/ 384:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -532,6 +539,10 @@ __webpack_require__.d(selectors_namespaceObject, "getAssociatedGuide", function(
 __webpack_require__.d(selectors_namespaceObject, "isTipVisible", function() { return isTipVisible; });
 __webpack_require__.d(selectors_namespaceObject, "areTipsEnabled", function() { return selectors_areTipsEnabled; });
 
+// EXTERNAL MODULE: external {"this":["wp","deprecated"]}
+var external_this_wp_deprecated_ = __webpack_require__(33);
+var external_this_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external_this_wp_deprecated_);
+
 // EXTERNAL MODULE: external {"this":["wp","data"]}
 var external_this_wp_data_ = __webpack_require__(4);
 
@@ -539,7 +550,7 @@ var external_this_wp_data_ = __webpack_require__(4);
 var defineProperty = __webpack_require__(9);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectSpread.js
-var objectSpread = __webpack_require__(7);
+var objectSpread = __webpack_require__(6);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
 var toConsumableArray = __webpack_require__(18);
@@ -688,7 +699,7 @@ function enableTips() {
 var slicedToArray = __webpack_require__(22);
 
 // EXTERNAL MODULE: ./node_modules/rememo/es/rememo.js
-var rememo = __webpack_require__(38);
+var rememo = __webpack_require__(34);
 
 // EXTERNAL MODULE: external {"this":"lodash"}
 var external_this_lodash_ = __webpack_require__(2);
@@ -892,7 +903,7 @@ function DotTip(_ref) {
   }, Object(external_this_wp_element_["createElement"])("p", null, children), Object(external_this_wp_element_["createElement"])("p", null, Object(external_this_wp_element_["createElement"])(external_this_wp_components_["Button"], {
     isLink: true,
     onClick: onDismiss
-  }, hasNextTip ? Object(external_this_wp_i18n_["__"])('See next tip') : Object(external_this_wp_i18n_["__"])('Got it'))), Object(external_this_wp_element_["createElement"])(external_this_wp_components_["IconButton"], {
+  }, hasNextTip ? Object(external_this_wp_i18n_["__"])('See next tip') : Object(external_this_wp_i18n_["__"])('Got it'))), Object(external_this_wp_element_["createElement"])(external_this_wp_components_["Button"], {
     className: "nux-dot-tip__disable",
     icon: "no-alt",
     label: Object(external_this_wp_i18n_["__"])('Disable tips'),
@@ -931,10 +942,18 @@ function DotTip(_ref) {
 // CONCATENATED MODULE: ./node_modules/@wordpress/nux/build-module/index.js
 /* concated harmony reexport DotTip */__webpack_require__.d(__webpack_exports__, "DotTip", function() { return dot_tip; });
 /**
+ * Worndpress dependencies
+ */
+
+/**
  * Internal dependencies
  */
 
 
+
+external_this_wp_deprecated_default()('wp.nux', {
+  hint: 'wp.components.Guide can be used to show a user guide.'
+});
 
 
 /***/ }),
@@ -946,7 +965,7 @@ function DotTip(_ref) {
 
 /***/ }),
 
-/***/ 7:
+/***/ 6:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -955,8 +974,8 @@ function DotTip(_ref) {
 
 function _objectSpread(target) {
   for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? arguments[i] : {};
-    var ownKeys = Object.keys(Object(source));
+    var source = arguments[i] != null ? Object(arguments[i]) : {};
+    var ownKeys = Object.keys(source);
 
     if (typeof Object.getOwnPropertySymbols === 'function') {
       ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
