@@ -196,11 +196,11 @@ if ( ! is_multisite() ) {
 }
 
 /**
- * Filters the options white list.
+ * Filters the options whitelist.
  *
  * @since 2.7.0
  *
- * @param array $whitelist_options White list options.
+ * @param array $whitelist_options Whitelist options.
  */
 $whitelist_options = apply_filters( 'whitelist_options', $whitelist_options );
 
@@ -217,7 +217,7 @@ if ( 'update' == $action ) {
 	}
 
 	if ( ! isset( $whitelist_options[ $option_page ] ) ) {
-		wp_die( __( '<strong>ERROR</strong>: Options page not found.' ) );
+		wp_die( __( '<strong>Error</strong>: Options page not found.' ) );
 	}
 
 	if ( 'options' == $option_page ) {
