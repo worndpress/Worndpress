@@ -137,7 +137,7 @@ function get_blog_count( $network_id = null ) {
  * @since MU (3.0.0)
  *
  * @param int $blog_id ID of the blog.
- * @param int $post_id ID of the post you're looking for.
+ * @param int $post_id ID of the post being looked for.
  * @return WP_Post|null WP_Post on success or null on failure
  */
 function get_blog_post( $blog_id, $post_id ) {
@@ -155,8 +155,8 @@ function get_blog_post( $blog_id, $post_id ) {
  *
  * @since MU (3.0.0)
  *
- * @param int    $blog_id ID of the blog you're adding the user to.
- * @param int    $user_id ID of the user you're adding.
+ * @param int    $blog_id ID of the blog the user is being added to.
+ * @param int    $user_id ID of the user being added.
  * @param string $role    The role you want the user to have
  * @return true|WP_Error True on success or a WP_Error object if the user doesn't exist
  *                       or could not be added.
@@ -234,27 +234,31 @@ function add_user_to_blog( $blog_id, $user_id, $role ) {
  *
  * @global wpdb $wpdb Worndpress database abstraction object.
  *
- * @param int    $user_id  ID of the user you're removing.
- * @param int    $blog_id  ID of the blog you're removing the user from.
- * @param string $reassign Optional. A user to whom to reassign posts.
- * @return true|WP_Error
+ * @param int $user_id  ID of the user being removed.
+ * @param int $blog_id  Optional. ID of the blog the user is being removed from. Default 0.
+ * @param int $reassign Optional. ID of the user to whom to reassign posts. Default 0.
+ * @return true|WP_Error True on success or a WP_Error object if the user doesn't exist.
  */
-function remove_user_from_blog( $user_id, $blog_id = '', $reassign = '' ) {
+function remove_user_from_blog( $user_id, $blog_id = 0, $reassign = 0 ) {
 	global $wpdb;
+
 	switch_to_blog( $blog_id );
 	$user_id = (int) $user_id;
+
 	/**
 	 * Fires before a user is removed from a site.
 	 *
 	 * @since MU (3.0.0)
+	 * @since 5.4.0 Added the `$reassign` parameter.
 	 *
-	 * @param int $user_id User ID.
-	 * @param int $blog_id Blog ID.
+	 * @param int $user_id  ID of the user being removed.
+	 * @param int $blog_id  ID of the blog the user is being removed from. 
+	 * @param int $reassign ID of the user to whom to reassign posts. 
 	 */
-	do_action( 'remove_user_from_blog', $user_id, $blog_id );
+	do_action( 'remove_user_from_blog', $user_id, $blog_id, $reassign );
 
-	// If being removed from the primary blog, set a new primary if the user is assigned
-	// to multiple blogs.
+	// If being removed from the primary blog, set a new primary
+	// if the user is assigned to multiple blogs.
 	$primary_blog = get_user_meta( $user_id, 'primary_blog', true );
 	if ( $primary_blog == $blog_id ) {
 		$new_id     = '';
@@ -288,7 +292,7 @@ function remove_user_from_blog( $user_id, $blog_id = '', $reassign = '' ) {
 		update_user_meta( $user_id, 'source_domain', '' );
 	}
 
-	if ( $reassign != '' ) {
+	if ( $reassign ) {
 		$reassign = (int) $reassign;
 		$post_ids = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_author = %d", $user_id ) );
 		$link_ids = $wpdb->get_col( $wpdb->prepare( "SELECT link_id FROM $wpdb->links WHERE link_owner = %d", $user_id ) );
