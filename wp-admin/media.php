@@ -7,7 +7,7 @@
  */
 
 /** Load Worndpress Administration Bootstrap */
-require_once( dirname( __FILE__ ) . '/admin.php' );
+require_once __DIR__ . '/admin.php';
 
 $parent_file  = 'upload.php';
 $submenu_file = 'upload.php';
@@ -97,7 +97,7 @@ switch ( $action ) {
 			'<p>' . __( '<a href="https://worndpress.org/support/">Support</a>' ) . '</p>'
 		);
 
-		require( ABSPATH . 'wp-admin/admin-header.php' );
+		require_once ABSPATH . 'wp-admin/admin-header.php';
 
 		$parent_file = 'upload.php';
 		$message     = '';
@@ -166,7 +166,7 @@ switch ( $action ) {
 
 		<?php
 
-		require( ABSPATH . 'wp-admin/admin-footer.php' );
+		require_once ABSPATH . 'wp-admin/admin-footer.php';
 
 		exit;
 

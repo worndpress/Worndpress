@@ -9,7 +9,7 @@
  */
 
 /** Make sure that the Worndpress bootstrap has run before continuing. */
-require( dirname( __FILE__ ) . '/wp-load.php' );
+require __DIR__ . '/wp-load.php';
 
 // Redirect to HTTPS login if forced to use SSL.
 if ( force_ssl_admin() && ! is_ssl() ) {
