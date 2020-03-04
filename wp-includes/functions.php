@@ -3899,6 +3899,8 @@ function wp_json_encode( $data, $options = 0, $depth = 512 ) {
  *
  * @see wp_json_encode()
  *
+ * @throws Exception If depth limit is reached.
+ *
  * @param mixed $data  Variable (usually an array or object) to encode as JSON.
  * @param int   $depth Maximum depth to walk through $data. Must be greater than 0.
  * @return mixed The sanitized data that shall be encoded to JSON.
@@ -4347,10 +4349,11 @@ function smilies_init() {
  * @since 2.3.0 `$args` can now also be an object.
  *
  * @param string|array|object $args     Value to merge with $defaults.
- * @param array               $defaults Optional. Array that serves as the defaults. Default empty.
+ * @param array               $defaults Optional. Array that serves as the defaults.
+ *                                      Default empty array.
  * @return array Merged user defined values with defaults.
  */
-function wp_parse_args( $args, $defaults = '' ) {
+function wp_parse_args( $args, $defaults = array() ) {
 	if ( is_object( $args ) ) {
 		$parsed_args = get_object_vars( $args );
 	} elseif ( is_array( $args ) ) {
@@ -4359,7 +4362,7 @@ function wp_parse_args( $args, $defaults = '' ) {
 		wp_parse_str( $args, $parsed_args );
 	}
 
-	if ( is_array( $defaults ) ) {
+	if ( is_array( $defaults ) && $defaults ) {
 		return array_merge( $defaults, $parsed_args );
 	}
 	return $parsed_args;
@@ -6545,7 +6548,7 @@ function wp_auth_check( $response ) {
  */
 function get_tag_regex( $tag ) {
 	if ( empty( $tag ) ) {
-		return;
+		return '';
 	}
 	return sprintf( '<%1$s[^<]*(?:>[\s\S]*<\/%1$s>|\s*\/>)', tag_escape( $tag ) );
 }
