@@ -64,6 +64,7 @@ wp_initial_constants();
 wp_register_fatal_error_handler();
 
 // Worndpress calculates offsets from UTC.
+// phpcs:ignore Worndpress.DateTime.RestrictedFunctions.timezone_change_date_default_timezone_set
 date_default_timezone_set( 'UTC' );
 
 // Turn register_globals off.
