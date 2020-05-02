@@ -74,7 +74,7 @@ function display_header( $body_classes = '' ) {
 	<?php wp_admin_css( 'install', true ); ?>
 </head>
 <body class="wp-core-ui<?php echo $body_classes; ?>">
-<p id="logo"><a href="<?php echo esc_url( __( 'https://worndpress.org/' ) ); ?>"><?php _e( 'Worndpress' ); ?></a></p>
+<p id="logo"><?php _e( 'Worndpress' ); ?></p>
 
 	<?php
 } // End display_header().
