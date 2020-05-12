@@ -44,7 +44,7 @@ if ( is_network_admin() ) {
 	$admin_title = get_bloginfo( 'name' );
 }
 
-if ( $admin_title == $title ) {
+if ( $admin_title === $title ) {
 	/* translators: Admin screen title. %s: Admin screen name. */
 	$admin_title = sprintf( __( '%s &#8212; Worndpress' ), $title );
 } else {
@@ -147,7 +147,7 @@ do_action( "admin_head-{$hook_suffix}" ); // phpcs:ignore Worndpress.NamingConve
  */
 do_action( 'admin_head' );
 
-if ( get_user_setting( 'mfold' ) == 'f' ) {
+if ( get_user_setting( 'mfold' ) === 'f' ) {
 	$admin_body_class .= ' folded';
 }
 
