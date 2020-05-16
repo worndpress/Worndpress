@@ -1284,6 +1284,22 @@ function rest_validate_value_from_schema( $value, $args, $param = '' ) {
 			return new WP_Error( 'rest_invalid_param', sprintf( __( '%1$s is not of type %2$s.' ), $param, 'object' ) );
 		}
 
+		if ( isset( $args['required'] ) && is_array( $args['required'] ) ) { // schema version 4
+			foreach ( $args['required'] as $name ) {
+				if ( ! array_key_exists( $name, $value ) ) {
+					/* translators: 1: Property of an object, 2: Parameter. */
+					return new WP_Error( 'rest_property_required', sprintf( __( '%1$s is a required property of %2$s.' ), $name, $param ) );
+				}
+			}
+		} elseif ( isset( $args['properties'] ) ) { // schema version 3
+			foreach ( $args['properties'] as $name => $property ) {
+				if ( isset( $property['required'] ) && true === $property['required'] && ! array_key_exists( $name, $value ) ) {
+					/* translators: 1: Property of an object, 2: Parameter. */
+					return new WP_Error( 'rest_property_required', sprintf( __( '%1$s is a required property of %2$s.' ), $name, $param ) );
+				}
+			}
+		}
+
 		foreach ( $value as $property => $v ) {
 			if ( isset( $args['properties'][ $property ] ) ) {
 				$is_valid = rest_validate_value_from_schema( $v, $args['properties'][ $property ], $param . '[' . $property . ']' );
@@ -1365,6 +1381,14 @@ function rest_validate_value_from_schema( $value, $args, $param = '' ) {
 					number_format_i18n( $args['maxLength'] )
 				)
 			);
+		}
+
+		if ( isset( $args['pattern'] ) ) {
+			$pattern = str_replace( '#', '\\#', $args['pattern'] );
+			if ( ! preg_match( '#' . $pattern . '#u', $value ) ) {
+				/* translators: 1: Parameter, 2: Pattern. */
+				return new WP_Error( 'rest_invalid_pattern', sprintf( __( '%1$s does not match pattern %2$s.' ), $param, $args['pattern'] ) );
+			}
 		}
 	}
 
