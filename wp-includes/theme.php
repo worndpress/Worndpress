@@ -930,7 +930,7 @@ function validate_theme_requirements( $stylesheet ) {
 			'theme_wp_php_incompatible',
 			sprintf(
 				/* translators: %s: Theme name. */
-				_x( '<strong>Error:</strong> Current Worndpress and PHP versions do not meet minimum requirements for %s.', 'theme' ),
+				_x( 'Current Worndpress and PHP versions do not meet minimum requirements for %s.', 'theme' ),
 				$theme->display( 'Name' )
 			)
 		);
@@ -939,7 +939,7 @@ function validate_theme_requirements( $stylesheet ) {
 			'theme_php_incompatible',
 			sprintf(
 				/* translators: %s: Theme name. */
-				_x( '<strong>Error:</strong> Current PHP version does not meet minimum requirements for %s.', 'theme' ),
+				_x( 'Current PHP version does not meet minimum requirements for %s.', 'theme' ),
 				$theme->display( 'Name' )
 			)
 		);
@@ -948,7 +948,7 @@ function validate_theme_requirements( $stylesheet ) {
 			'theme_wp_incompatible',
 			sprintf(
 				/* translators: %s: Theme name. */
-				_x( '<strong>Error:</strong> Current Worndpress version does not meet minimum requirements for %s.', 'theme' ),
+				_x( 'Current Worndpress version does not meet minimum requirements for %s.', 'theme' ),
 				$theme->display( 'Name' )
 			)
 		);
