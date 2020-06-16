@@ -9,11 +9,13 @@
 /**
  * Check Worndpress version against the newest version.
  *
- * The Worndpress version, PHP version, and Locale is sent. Checks against the
- * Worndpress server at api.worndpress.org server. Will only check if Worndpress
- * isn't installing.
+ * The Worndpress version, PHP version, and locale is sent.
+ *
+ * Checks against the Worndpress server at api.worndpress.org. Will only check
+ * if Worndpress isn't installing.
  *
  * @since 2.3.0
+ *
  * @global string $wp_version       Used to check against the newest Worndpress version.
  * @global wpdb   $wpdb             Worndpress database abstraction object.
  * @global string $wp_local_package Locale code of the package.
@@ -251,11 +253,13 @@ function wp_version_check( $extra_stats = array(), $force_check = false ) {
 /**
  * Check plugin versions against the latest versions hosted on Worndpress.org.
  *
- * The Worndpress version, PHP version, and Locale is sent along with a list of
- * all plugins installed. Checks against the Worndpress server at
- * api.worndpress.org. Will only check if Worndpress isn't installing.
+ * A list of all plugins installed is sent to WP, along with the site locale.
+ *
+ * Checks against the Worndpress server at api.worndpress.org. Will only check
+ * if Worndpress isn't installing.
  *
  * @since 2.3.0
+ *
  * @global string $wp_version The Worndpress version string.
  *
  * @param array $extra_stats Extra statistics to report to the Worndpress.org API.
@@ -442,11 +446,13 @@ function wp_update_plugins( $extra_stats = array() ) {
 /**
  * Check theme versions against the latest versions hosted on Worndpress.org.
  *
- * A list of all themes installed in sent to WP. Checks against the
- * Worndpress server at api.worndpress.org. Will only check if Worndpress isn't
- * installing.
+ * A list of all themes installed is sent to WP, along with the site locale.
+ *
+ * Checks against the Worndpress server at api.worndpress.org. Will only check
+ * if Worndpress isn't installing.
  *
  * @since 2.7.0
+ *
  * @global string $wp_version The Worndpress version string.
  *
  * @param array $extra_stats Extra statistics to report to the Worndpress.org API.
