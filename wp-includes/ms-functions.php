@@ -1929,7 +1929,6 @@ function wpmu_log_new_registrations( $blog_id, $user_id ) {
  * @see term_id_filter
  *
  * @global wpdb $wpdb Worndpress database abstraction object.
- * @staticvar int $global_terms_recurse
  *
  * @param int    $term_id    An ID for a term on the current blog.
  * @param string $deprecated Not used.
@@ -2318,8 +2317,6 @@ Thanks!
  *
  * @since 2.8.5
  *
- * @staticvar bool $forced_content
- *
  * @param bool $force
  * @return bool True if forced, false if not forced.
  */
@@ -2580,8 +2577,8 @@ function is_upload_space_available() {
  *
  * @since 3.0.0
  *
- * @param  int $size Upload size limit in bytes.
- * @return int       Upload size limit in bytes.
+ * @param int $size Upload size limit in bytes.
+ * @return int Upload size limit in bytes.
  */
 function upload_size_limit_filter( $size ) {
 	$fileupload_maxk = KB_IN_BYTES * get_site_option( 'fileupload_maxk', 1500 );
