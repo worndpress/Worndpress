@@ -67,7 +67,6 @@ class WP_Widget_Meta extends WP_Widget {
 		}
 		?>
 
-
 		<ul>
 			<?php wp_register(); ?>
 			<li><?php wp_loginout(); ?></li>
@@ -99,11 +98,11 @@ class WP_Widget_Meta extends WP_Widget {
 
 		</ul>
 
-		<?php if ( 'html5' === $format ) : ?>
-			</nav>
-		<?php endif; ?>
-
 		<?php
+		if ( 'html5' === $format ) {
+			echo '</nav>';
+		}
+
 		echo $args['after_widget'];
 	}
 

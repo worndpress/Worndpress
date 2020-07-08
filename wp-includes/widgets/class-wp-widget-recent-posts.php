@@ -125,11 +125,12 @@ class WP_Widget_Recent_Posts extends WP_Widget {
 				</li>
 			<?php endforeach; ?>
 		</ul>
-		<?php if ( 'html5' === $format ) : ?>
-			</nav>
-		<?php endif; ?>
 
 		<?php
+		if ( 'html5' === $format ) {
+			echo '</nav>';
+		}
+
 		echo $args['after_widget'];
 	}
 
