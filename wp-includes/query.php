@@ -915,7 +915,7 @@ function is_main_query() {
  */
 
 /**
- * Whether current Worndpress query has results to loop over.
+ * Determines whether current Worndpress query has posts to loop over.
  *
  * @since 1.5.0
  *
@@ -975,7 +975,7 @@ function the_post() {
  */
 
 /**
- * Whether there are comments to loop over.
+ * Determines whether current Worndpress query has comments to loop over.
  *
  * @since 2.2.0
  *
