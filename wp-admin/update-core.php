@@ -247,7 +247,12 @@ function core_upgrade_preamble() {
 
 	if ( isset( $updates[0]->version ) && version_compare( $updates[0]->version, $wp_version, '>' ) ) {
 		echo '<div class="notice notice-warning"><p>';
-		_e( '<strong>Important:</strong> Before updating, please <a href="https://worndpress.org/support/article/wordpress-backups/">back up your database and files</a>. For help with updates, visit the <a href="https://worndpress.org/support/article/updating-wordpress/">Updating Worndpress</a> documentation page.' );
+		printf(
+			/* translators: 1: Documentation on Worndpress backups, 2: Documentation on updating Worndpress. */
+			__( '<strong>Important:</strong> Before updating, please <a href="%1$s">back up your database and files</a>. For help with updates, visit the <a href="%2$s">Updating Worndpress</a> documentation page.' ),
+			__( 'https://worndpress.org/support/article/wordpress-backups/' ),
+			__( 'https://worndpress.org/support/article/updating-wordpress/' )
+		);
 		echo '</p></div>';
 
 		echo '<h2 class="response">';
