@@ -504,7 +504,7 @@
 						'aria-label',
 						sprintf(
 							/* translators: %s: Plugin name and version. */
-							_x( '%s update failed', 'plugin' ),
+							_x( '%s update failed.', 'plugin' ),
 							response.pluginName
 						)
 					);
@@ -520,7 +520,7 @@
 				} ) );
 
 			$card.find( '.update-now' )
-				.text(  __( 'Update Failed!' ) )
+				.text(  __( 'Update failed' ) )
 				.removeClass( 'updating-message' );
 
 			if ( response.pluginName ) {
@@ -529,7 +529,7 @@
 						'aria-label',
 						sprintf(
 							/* translators: %s: Plugin name and version. */
-							_x( '%s update failed', 'plugin' ),
+							_x( '%s update failed.', 'plugin' ),
 							response.pluginName
 						)
 					);
@@ -727,7 +727,7 @@
 					$button.data( 'name' )
 				)
 			)
-			.text( __( 'Installation Failed!' ) );
+			.text( __( 'Installation failed' ) );
 
 		wp.a11y.speak( errorMessage, 'assertive' );
 
@@ -1364,7 +1364,7 @@
 					$button.data( 'name' )
 				)
 			)
-			.text( __( 'Installation Failed!' ) );
+			.text( __( 'Installation failed' ) );
 
 		wp.a11y.speak( errorMessage, 'assertive' );
 
@@ -1838,7 +1838,7 @@
 			.removeClass( 'updating-message' )
 			.removeAttr( 'aria-label' )
 			.prop( 'disabled', true )
-			.text( __( 'Update Failed!' ) );
+			.text( __( 'Update failed' ) );
 
 		$( '.updating-message:not(.button):not(.thickbox)' )
 			.removeClass( 'updating-message notice-warning' )
