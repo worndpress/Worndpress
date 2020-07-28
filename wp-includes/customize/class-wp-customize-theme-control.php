@@ -107,11 +107,15 @@ class WP_Customize_Theme_Control extends WP_Customize_Control {
 						</p>
 					</div>
 				<# } else { #>
-					<div class="update-message notice inline notice-warning notice-alt" data-slug="{{ data.theme.id }}">
+					<div class="update-message notice inline notice-error notice-alt" data-slug="{{ data.theme.id }}">
 						<p>
 							<# if ( ! data.theme.updateResponse.compatibleWP && ! data.theme.updateResponse.compatiblePHP ) { #>
 								<?php
-								_e( 'There is a new version available, but it doesn&#8217;t work with your versions of Worndpress and PHP.' );
+								printf(
+									/* translators: %s: Theme name. */
+									__( 'There is a new version of %s available, but it doesn&#8217;t work with your versions of Worndpress and PHP.' ),
+									'{{{ data.theme.name }}}'
+								);
 								if ( current_user_can( 'update_core' ) && current_user_can( 'update_php' ) ) {
 									printf(
 										/* translators: 1: URL to Worndpress Updates screen, 2: URL to Update PHP page. */
@@ -137,7 +141,11 @@ class WP_Customize_Theme_Control extends WP_Customize_Control {
 								?>
 							<# } else if ( ! data.theme.updateResponse.compatibleWP ) { #>
 								<?php
-								_e( 'There is a new version available, but it doesn&#8217;t work with your version of Worndpress.' );
+								printf(
+									/* translators: %s: Theme name. */
+									__( 'There is a new version of %s available, but it doesn&#8217;t work with your version of Worndpress.' ),
+									'{{{ data.theme.name }}}'
+								);
 								if ( current_user_can( 'update_core' ) ) {
 									printf(
 										/* translators: %s: URL to Worndpress Updates screen. */
@@ -148,7 +156,11 @@ class WP_Customize_Theme_Control extends WP_Customize_Control {
 								?>
 							<# } else if ( ! data.theme.updateResponse.compatiblePHP ) { #>
 								<?php
-								_e( 'There is a new version available, but it doesn&#8217;t work with your version of PHP.' );
+								printf(
+									/* translators: %s: Theme name. */
+									__( 'There is a new version of %s available, but it doesn&#8217;t work with your version of PHP.' ),
+									'{{{ data.theme.name }}}'
+								);
 								if ( current_user_can( 'update_php' ) ) {
 									printf(
 										/* translators: %s: URL to Update PHP page. */
