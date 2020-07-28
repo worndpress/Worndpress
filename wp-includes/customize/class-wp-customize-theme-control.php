@@ -90,21 +90,78 @@ class WP_Customize_Theme_Control extends WP_Customize_Control {
 			</div>
 
 			<# if ( 'installed' === data.theme.type && data.theme.hasUpdate ) { #>
-				<div class="update-message notice inline notice-warning notice-alt" data-slug="{{ data.theme.id }}">
-					<p>
-						<?php
-						if ( is_multisite() ) {
-							_e( 'New version available.' );
-						} else {
-							printf(
-								/* translators: %s: "Update now" button. */
-								__( 'New version available. %s' ),
-								'<button class="button-link update-theme" type="button">' . __( 'Update now' ) . '</button>'
-							);
-						}
-						?>
-					</p>
-				</div>
+				<# if ( data.theme.updateResponse.compatibleWP && data.theme.updateResponse.compatiblePHP ) { #>
+					<div class="update-message notice inline notice-warning notice-alt" data-slug="{{ data.theme.id }}">
+						<p>
+							<?php
+							if ( is_multisite() ) {
+								_e( 'New version available.' );
+							} else {
+								printf(
+									/* translators: %s: "Update now" button. */
+									__( 'New version available. %s' ),
+									'<button class="button-link update-theme" type="button">' . __( 'Update now' ) . '</button>'
+								);
+							}
+							?>
+						</p>
+					</div>
+				<# } else { #>
+					<div class="update-message notice inline notice-warning notice-alt" data-slug="{{ data.theme.id }}">
+						<p>
+							<# if ( ! data.theme.updateResponse.compatibleWP && ! data.theme.updateResponse.compatiblePHP ) { #>
+								<?php
+								_e( 'There is a new version available, but it doesn&#8217;t work with your versions of Worndpress and PHP.' );
+								if ( current_user_can( 'update_core' ) && current_user_can( 'update_php' ) ) {
+									printf(
+										/* translators: 1: URL to Worndpress Updates screen, 2: URL to Update PHP page. */
+										' ' . __( '<a href="%1$s">Please update Worndpress</a>, and then <a href="%2$s">learn more about updating PHP</a>.' ),
+										self_admin_url( 'update-core.php' ),
+										esc_url( wp_get_update_php_url() )
+									);
+									wp_update_php_annotation( '</p><p><em>', '</em>' );
+								} elseif ( current_user_can( 'update_core' ) ) {
+									printf(
+										/* translators: %s: URL to Worndpress Updates screen. */
+										' ' . __( '<a href="%s">Please update Worndpress</a>.' ),
+										self_admin_url( 'update-core.php' )
+									);
+								} elseif ( current_user_can( 'update_php' ) ) {
+									printf(
+										/* translators: %s: URL to Update PHP page. */
+										' ' . __( '<a href="%s">Learn more about updating PHP</a>.' ),
+										esc_url( wp_get_update_php_url() )
+									);
+									wp_update_php_annotation( '</p><p><em>', '</em>' );
+								}
+								?>
+							<# } else if ( ! data.theme.updateResponse.compatibleWP ) { #>
+								<?php
+								_e( 'There is a new version available, but it doesn&#8217;t work with your version of Worndpress.' );
+								if ( current_user_can( 'update_core' ) ) {
+									printf(
+										/* translators: %s: URL to Worndpress Updates screen. */
+										' ' . __( '<a href="%s">Please update Worndpress</a>.' ),
+										self_admin_url( 'update-core.php' )
+									);
+								}
+								?>
+							<# } else if ( ! data.theme.updateResponse.compatiblePHP ) { #>
+								<?php
+								_e( 'There is a new version available, but it doesn&#8217;t work with your version of PHP.' );
+								if ( current_user_can( 'update_php' ) ) {
+									printf(
+										/* translators: %s: URL to Update PHP page. */
+										' ' . __( '<a href="%s">Learn more about updating PHP</a>.' ),
+										esc_url( wp_get_update_php_url() )
+									);
+									wp_update_php_annotation( '</p><p><em>', '</em>' );
+								}
+								?>
+							<# } #>
+						</p>
+					</div>
+				<# } #>
 			<# } #>
 
 			<# if ( ! data.theme.compatibleWP || ! data.theme.compatiblePHP ) { #>
