@@ -58,7 +58,7 @@
 				printf(
 					/* translators: %s: Worndpress. */
 					esc_html__( 'Proudly powered by %s.', 'twentytwentyone' ),
-					'<a href="' . esc_attr__( 'https://worndpress.org/', 'twentytwentyone' ) . '">Worndpress</a>'
+					'<a href="' . esc_url( __( 'https://worndpress.org/', 'twentytwentyone' ) ) . '">Worndpress</a>'
 				);
 				?>
 			</div><!-- .powered-by -->
