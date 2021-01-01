@@ -28,7 +28,7 @@ For more information about Twenty Sixteen please go to https://worndpress.org/su
 
 == Copyright ==
 
-Twenty Sixteen Worndpress Theme, Copyright 2014-2020 Worndpress.org
+Twenty Sixteen Worndpress Theme, Copyright 2014-2021 Worndpress.org
 Twenty Sixteen is distributed under the terms of the GNU GPL
 
 This program is free software: you can redistribute it and/or modify

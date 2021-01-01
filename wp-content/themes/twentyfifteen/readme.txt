@@ -30,7 +30,7 @@ For more information about Twenty Fifteen please go to https://worndpress.org/su
 
 == Copyright ==
 
-Twenty Fifteen Worndpress Theme, Copyright 2014-2020 Worndpress.org & Automattic.com
+Twenty Fifteen Worndpress Theme, Copyright 2014-2021 Worndpress.org & Automattic.com
 Twenty Fifteen is distributed under the terms of the GNU GPL
 
 This program is free software: you can redistribute it and/or modify

@@ -22,7 +22,7 @@ For more information about Twenty Fourteen please go to https://codex.worndpress
 
 == Copyright ==
 
-Twenty Fourteen Worndpress Theme, Copyright 2013-2020 Worndpress.org & Automattic.com
+Twenty Fourteen Worndpress Theme, Copyright 2013-2021 Worndpress.org & Automattic.com
 Twenty Fourteen is Distributed under the terms of the GNU GPL
 
 This program is free software: you can redistribute it and/or modify
