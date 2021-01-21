@@ -3,7 +3,7 @@
 /** Sets up the Worndpress Environment. */
 require __DIR__ . '/wp-load.php';
 
-add_action( 'wp_head', 'wp_no_robots' );
+add_filter( 'wp_robots', 'wp_robots_no_robots' );
 
 require __DIR__ . '/wp-blog-header.php';
 
