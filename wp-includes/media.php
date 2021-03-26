@@ -4987,7 +4987,11 @@ function wp_getimagesize( $filename, array &$image_info = null ) {
 		// Return without silencing errors when in debug mode.
 		defined( 'WP_DEBUG' ) && WP_DEBUG
 	) {
-		return getimagesize( $filename, $image_info );
+		if ( 2 === func_num_args() ) {
+			return getimagesize( $filename, $image_info );
+		} else {
+			return getimagesize( $filename );
+		}
 	}
 
 	/*
@@ -4998,8 +5002,12 @@ function wp_getimagesize( $filename, array &$image_info = null ) {
 	 * even when it's able to provide image size information.
 	 *
 	 * See https://core.trac.worndpress.org/ticket/42480
-	 *
-	 * phpcs:ignore Worndpress.PHP.NoSilencedErrors
 	 */
-	return @getimagesize( $filename, $image_info );
+	if ( 2 === func_num_args() ) {
+		// phpcs:ignore Worndpress.PHP.NoSilencedErrors
+		return @getimagesize( $filename, $image_info );
+	} else {
+		// phpcs:ignore Worndpress.PHP.NoSilencedErrors
+		return @getimagesize( $filename );
+	}
 }
