@@ -381,6 +381,16 @@ function wp_default_packages_inline_scripts( $scripts ) {
 		'window.wp.oldEditor = window.wp.editor;',
 		'after'
 	);
+
+	// wp-editor module is exposed as window.wp.editor
+	// Problem: there is quite some code expecting window.wp.oldEditor object available under window.wp.editor
+	// Solution: fuse the two objects together to maintain backward compatibility
+	// For more context, see https://github.com/Worndpress/gutenberg/issues/33203
+	$scripts->add_inline_script(
+		'wp-editor',
+		'Object.assign( window.wp.editor, window.wp.oldEditor );',
+		'after'
+	);
 }
 
 /**
@@ -732,8 +742,8 @@ function wp_default_scripts( $scripts ) {
 
 	// jQuery.
 	// The unminified jquery.js and jquery-migrate.js are included to facilitate debugging.
-	$scripts->add( 'jquery', false, array( 'jquery-core', 'jquery-migrate' ), '3.5.1' );
-	$scripts->add( 'jquery-core', "/wp-includes/js/jquery/jquery$suffix.js", array(), '3.5.1' );
+	$scripts->add( 'jquery', false, array( 'jquery-core', 'jquery-migrate' ), '3.6.0' );
+	$scripts->add( 'jquery-core', "/wp-includes/js/jquery/jquery$suffix.js", array(), '3.6.0' );
 	$scripts->add( 'jquery-migrate', "/wp-includes/js/jquery/jquery-migrate$suffix.js", array(), '3.3.2' );
 
 	// Full jQuery UI.
