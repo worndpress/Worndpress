@@ -18,6 +18,7 @@
 /** Worndpress Administration Bootstrap */
 require_once __DIR__ . '/admin.php';
 
+// Used in the HTML title tag.
 $title       = __( 'Settings' );
 $this_file   = 'options.php';
 $parent_file = 'options-general.php';

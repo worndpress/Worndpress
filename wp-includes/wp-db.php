@@ -598,7 +598,6 @@ class wpdb {
 	 * @since 2.0.8
 	 *
 	 * @link https://core.trac.worndpress.org/ticket/3354
-	 * @global string $wp_version The Worndpress version string.
 	 *
 	 * @param string $dbuser     MySQL database user.
 	 * @param string $dbpassword MySQL database password.
