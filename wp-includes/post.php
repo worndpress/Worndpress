@@ -365,6 +365,136 @@ function create_initial_post_types() {
 		)
 	);
 
+	register_post_type(
+		'wp_template_part',
+		array(
+			'labels'                => array(
+				'name'                  => __( 'Template Parts' ),
+				'singular_name'         => __( 'Template Part' ),
+				'add_new'               => _x( 'Add New', 'Template Part' ),
+				'add_new_item'          => __( 'Add New Template Part' ),
+				'new_item'              => __( 'New Template Part' ),
+				'edit_item'             => __( 'Edit Template Part' ),
+				'view_item'             => __( 'View Template Part' ),
+				'all_items'             => __( 'All Template Parts' ),
+				'search_items'          => __( 'Search Template Parts' ),
+				'parent_item_colon'     => __( 'Parent Template Part:' ),
+				'not_found'             => __( 'No template parts found.' ),
+				'not_found_in_trash'    => __( 'No template parts found in Trash.' ),
+				'archives'              => __( 'Template part archives' ),
+				'insert_into_item'      => __( 'Insert into template part' ),
+				'uploaded_to_this_item' => __( 'Uploaded to this template part' ),
+				'filter_items_list'     => __( 'Filter template parts list' ),
+				'items_list_navigation' => __( 'Template parts list navigation' ),
+				'items_list'            => __( 'Template parts list' ),
+			),
+			'description'           => __( 'Template parts to include in your templates.' ),
+			'public'                => false,
+			'_builtin'              => true, /* internal use only. don't use this when registering your own post type. */
+			'has_archive'           => false,
+			'show_ui'               => false,
+			'show_in_menu'          => false,
+			'show_in_rest'          => true,
+			'rewrite'               => false,
+			'rest_base'             => 'template-parts',
+			'rest_controller_class' => 'WP_REST_Templates_Controller',
+			'map_meta_cap'          => true,
+			'capabilities'          => array(
+				'create_posts'           => 'edit_theme_options',
+				'delete_posts'           => 'edit_theme_options',
+				'delete_others_posts'    => 'edit_theme_options',
+				'delete_private_posts'   => 'edit_theme_options',
+				'delete_published_posts' => 'edit_theme_options',
+				'edit_posts'             => 'edit_theme_options',
+				'edit_others_posts'      => 'edit_theme_options',
+				'edit_private_posts'     => 'edit_theme_options',
+				'edit_published_posts'   => 'edit_theme_options',
+				'publish_posts'          => 'edit_theme_options',
+				'read'                   => 'edit_theme_options',
+				'read_private_posts'     => 'edit_theme_options',
+			),
+			'supports'              => array(
+				'title',
+				'slug',
+				'excerpt',
+				'editor',
+				'revisions',
+			),
+		)
+	);
+
+	register_post_type(
+		'wp_global_styles',
+		array(
+			'label'        => __( 'Global Styles', 'gutenberg' ),
+			'description'  => 'CPT to store user design tokens',
+			'public'       => false,
+			'show_ui'      => false,
+			'show_in_rest' => false,
+			'rewrite'      => false,
+			'capabilities' => array(
+				'read'                   => 'edit_theme_options',
+				'create_posts'           => 'edit_theme_options',
+				'edit_posts'             => 'edit_theme_options',
+				'edit_published_posts'   => 'edit_theme_options',
+				'delete_published_posts' => 'edit_theme_options',
+				'edit_others_posts'      => 'edit_theme_options',
+				'delete_others_posts'    => 'edit_theme_options',
+			),
+			'map_meta_cap' => true,
+			'supports'     => array(
+				'title',
+				'editor',
+				'revisions',
+			),
+		)
+	);
+
+	register_post_type(
+		'wp_navigation',
+		array(
+			'labels'                => array(
+				'name'                  => __( 'Navigation Menus', 'gutenberg' ),
+				'singular_name'         => __( 'Navigation Menu', 'gutenberg' ),
+				'menu_name'             => _x( 'Navigation Menus', 'Admin Menu text', 'gutenberg' ),
+				'add_new'               => _x( 'Add New', 'Navigation Menu', 'gutenberg' ),
+				'add_new_item'          => __( 'Add New Navigation Menu', 'gutenberg' ),
+				'new_item'              => __( 'New Navigation Menu', 'gutenberg' ),
+				'edit_item'             => __( 'Edit Navigation Menu', 'gutenberg' ),
+				'view_item'             => __( 'View Navigation Menu', 'gutenberg' ),
+				'all_items'             => __( 'All Navigation Menus', 'gutenberg' ),
+				'search_items'          => __( 'Search Navigation Menus', 'gutenberg' ),
+				'parent_item_colon'     => __( 'Parent Navigation Menu:', 'gutenberg' ),
+				'not_found'             => __( 'No Navigation Menu found.', 'gutenberg' ),
+				'not_found_in_trash'    => __( 'No Navigation Menu found in Trash.', 'gutenberg' ),
+				'archives'              => __( 'Navigation Menu archives', 'gutenberg' ),
+				'insert_into_item'      => __( 'Insert into Navigation Menu', 'gutenberg' ),
+				'uploaded_to_this_item' => __( 'Uploaded to this Navigation Menu', 'gutenberg' ),
+				// Some of these are a bit weird, what are they for?
+				'filter_items_list'     => __( 'Filter Navigation Menu list', 'gutenberg' ),
+				'items_list_navigation' => __( 'Navigation Menus list navigation', 'gutenberg' ),
+				'items_list'            => __( 'Navigation Menus list', 'gutenberg' ),
+			),
+			'description'           => __( 'Navigation menus.', 'gutenberg' ),
+			'public'                => false,
+			'_builtin'              => true, /* internal use only. don't use this when registering your own post type. */
+			'has_archive'           => false,
+			'show_ui'               => false,
+			'show_in_menu'          => 'themes.php',
+			'show_in_admin_bar'     => false,
+			'show_in_rest'          => true,
+			'rewrite'               => false,
+			'map_meta_cap'          => true,
+			'rest_base'             => 'navigation',
+			'rest_controller_class' => 'WP_REST_Posts_Controller',
+			'supports'              => array(
+				'title',
+				'editor',
+				'revisions',
+			),
+		)
+	);
+
 	register_post_status(
 		'publish',
 		array(
@@ -2108,19 +2238,18 @@ function is_post_type_viewable( $post_type ) {
 	/**
 	 * Filters whether a post type is considered "viewable".
 	 *
+	 * The returned filtered value must be a boolean type to ensure
+	 * `is_post_type_viewable()` only returns a boolean. This strictness
+	 * is by design to maintain backwards-compatibility and guard against
+	 * potential type errors in PHP 8.1+. Non-boolean values (even falsey
+	 * and truthy values) will result in the function returning false.
+	 *
 	 * @since 5.9.0
 	 *
-	 * @param bool         $is_viewable Whether the post type is "viewable".
+	 * @param bool         $is_viewable Whether the post type is "viewable" (strict type).
 	 * @param WP_Post_Type $post_type   Post type object.
 	 */
-	$is_viewable = apply_filters( 'is_post_type_viewable', $is_viewable, $post_type );
-
-	// Make sure the filtered value is a boolean type before returning it.
-	if ( ! is_bool( $is_viewable ) ) {
-		return false;
-	}
-
-	return $is_viewable;
+	return true === apply_filters( 'is_post_type_viewable', $is_viewable, $post_type );
 }
 
 /**
@@ -2130,6 +2259,7 @@ function is_post_type_viewable( $post_type ) {
  * For all others, the 'publicly_queryable' value will be used.
  *
  * @since 5.7.0
+ * @since 5.9.0 Added `is_post_status_viewable` hook to filter the result.
  *
  * @param string|stdClass $post_status Post status name or object.
  * @return bool Whether the post status should be considered viewable.
@@ -2150,7 +2280,23 @@ function is_post_status_viewable( $post_status ) {
 		return false;
 	}
 
-	return $post_status->publicly_queryable || ( $post_status->_builtin && $post_status->public );
+	$is_viewable = $post_status->publicly_queryable || ( $post_status->_builtin && $post_status->public );
+
+	/**
+	 * Filters whether a post status is considered "viewable".
+	 *
+	 * The returned filtered value must be a boolean type to ensure
+	 * `is_post_status_viewable()` only returns a boolean. This strictness
+	 * is by design to maintain backwards-compatibility and guard against
+	 * potential type errors in PHP 8.1+. Non-boolean values (even falsey
+	 * and truthy values) will result in the function returning false.
+	 *
+	 * @since 5.9.0
+	 *
+	 * @param bool     $is_viewable Whether the post status is "viewable" (strict type).
+	 * @param stdClass $post_status Post status object.
+	 */
+	return true === apply_filters( 'is_post_status_viewable', $is_viewable, $post_status );
 }
 
 /**
@@ -5183,11 +5329,13 @@ function wp_transition_post_status( $new_status, $old_status, $post ) {
 	 * transitioned to a status, use the {@see 'transition_post_status'} hook instead.
 	 *
 	 * @since 2.3.0
+	 * @since 5.9.0 Added `$old_status` parameter.
 	 *
-	 * @param int     $post_id Post ID.
-	 * @param WP_Post $post    Post object.
+	 * @param int     $post_id    Post ID.
+	 * @param WP_Post $post       Post object.
+	 * @param string  $old_status Old post status.
 	 */
-	do_action( "{$new_status}_{$post->post_type}", $post->ID, $post );
+	do_action( "{$new_status}_{$post->post_type}", $post->ID, $post, $old_status );
 }
 
 /**
