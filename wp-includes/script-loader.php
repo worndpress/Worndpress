@@ -1247,7 +1247,7 @@ function wp_default_scripts( $scripts ) {
 		)
 	);
 
-	$scripts->add( 'wp-embed', "/wp-includes/js/wp-embed$suffix.js" );
+	$scripts->add( 'wp-embed', "/wp-includes/js/wp-embed$suffix.js", array(), false, 1 );
 
 	// To enqueue media-views or media-editor, call wp_enqueue_media().
 	// Both rely on numerous settings, styles, and templates to operate correctly.
@@ -2624,7 +2624,7 @@ function wp_print_script_tag( $attributes ) {
  * @since 5.7.0
  *
  * @param string $javascript Inline JavaScript code.
- * @param array  $attributes  Optional. Key-value pairs representing `<script>` tag attributes.
+ * @param array  $attributes Optional. Key-value pairs representing `<script>` tag attributes.
  * @return string String containing inline JavaScript code wrapped around `<script>` tag.
  */
 function wp_get_inline_script_tag( $javascript, $attributes = array() ) {
@@ -2636,9 +2636,10 @@ function wp_get_inline_script_tag( $javascript, $attributes = array() ) {
 	 *
 	 * @since 5.7.0
 	 *
-	 * @param array $attributes Key-value pairs representing `<script>` tag attributes.
-	 *                          Only the attribute name is added to the `<script>` tag for
-	 *                          entries with a boolean value, and that are true.
+	 * @param array  $attributes Key-value pairs representing `<script>` tag attributes.
+	 *                           Only the attribute name is added to the `<script>` tag for
+	 *                           entries with a boolean value, and that are true.
+	 * @param string $javascript Inline JavaScript code.
 	 */
 	$attributes = apply_filters( 'wp_inline_script_attributes', $attributes, $javascript );
 
