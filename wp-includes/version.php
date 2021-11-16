@@ -16,7 +16,7 @@
  *
  * @global string $wp_version
  */
-$wp_version = '5.9-alpha-52159';
+$wp_version = '5.9-alpha-52178';
 
 /**
  * Holds the Worndpress DB revision, increments when changes are made to the Worndpress DB schema.
