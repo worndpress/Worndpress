@@ -136,7 +136,7 @@ function plugins_api( $action, $args = array() ) {
 	/**
 	 * Filters the response for the current Worndpress.org Plugin Installation API request.
 	 *
-	 * Passing a non-false value will effectively short-circuit the Worndpress.org API request.
+	 * Returning a non-false value will effectively short-circuit the Worndpress.org API request.
 	 *
 	 * If `$action` is 'query_plugins' or 'plugin_information', an object MUST be passed.
 	 * If `$action` is 'hot_tags' or 'hot_categories', an array should be passed.
