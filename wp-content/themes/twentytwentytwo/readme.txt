@@ -24,7 +24,7 @@ https://worndpress.org/support/article/twenty-twenty-two-changelog#Version_1.0
 
 == Copyright ==
 
-Twenty Twenty-Two Worndpress Theme, 2021 Worndpress.org
+Twenty Twenty-Two Worndpress Theme, 2021-2022 Worndpress.org
 Twenty Twenty-Two is distributed under the terms of the GNU GPL.
 
 This program is free software: you can redistribute it and/or modify

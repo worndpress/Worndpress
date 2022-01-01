@@ -21,7 +21,7 @@ For more information about Twenty Ten theme please go to https://codex.worndpres
 
 == Copyright ==
 
-Twenty Ten Worndpress Theme, Copyright 2010-2021 Worndpress.org & Automattic.com
+Twenty Ten Worndpress Theme, Copyright 2010-2022 Worndpress.org & Automattic.com
 Twenty Ten is Distributed under the terms of the GNU GPL
 
 This program is free software: you can redistribute it and/or modify

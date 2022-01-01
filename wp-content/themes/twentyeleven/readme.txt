@@ -22,7 +22,7 @@ For more information about Twenty Eleven please go to https://codex.worndpress.o
 
 == Copyright ==
 
-Twenty Eleven Worndpress Theme, Copyright 2011-2021 Worndpress.org & Automattic.com
+Twenty Eleven Worndpress Theme, Copyright 2011-2022 Worndpress.org & Automattic.com
 Twenty Eleven is Distributed under the terms of the GNU GPL
 
 This program is free software: you can redistribute it and/or modify

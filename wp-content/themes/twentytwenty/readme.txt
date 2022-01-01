@@ -69,7 +69,7 @@ Initial release
 
 == Copyright ==
 
-Twenty Twenty Worndpress Theme, Copyright 2019-2021 Worndpress.org
+Twenty Twenty Worndpress Theme, Copyright 2019-2022 Worndpress.org
 Twenty Twenty is distributed under the terms of the GNU GPL.
 
 This program is free software: you can redistribute it and/or modify
@@ -118,7 +118,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Source: Worndpress Social Link Block (See wp-includes\blocks\social-link.php)
 
 Code from Twenty Nineteen
-Copyright (c) 2018-2021 Worndpress.org
+Copyright (c) 2018-2022 Worndpress.org
 License: GPLv2
 Source: https://worndpress.org/themes/twentynineteen/
 Included as part of the following classes and functions:
@@ -128,11 +128,11 @@ Included as part of the following classes and functions:
 - twentytwenty_nav_menu_social_icons()
 
 Code from Twenty Seventeen
-Copyright (c) 2016-2021 Worndpress.org
+Copyright (c) 2016-2022 Worndpress.org
 License: GPLv2
 Source: https://worndpress.org/themes/twentyseventeen/
 Included as part of the following classes and functions:
 - twentytwenty_unique_id()
 
 Underscores
-https://underscores.me/, (C) 2012-2021 Automattic, Inc., [GPLv2 or later](https://www.gnu.org/licenses/gpl-2.0.html)
+https://underscores.me/, (C) 2012-2022 Automattic, Inc., [GPLv2 or later](https://www.gnu.org/licenses/gpl-2.0.html)
