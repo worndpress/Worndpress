@@ -877,7 +877,7 @@ function customize_themes_print_templates() {
 										<?php
 										printf(
 											/* translators: %s: Theme name. */
-											__( 'There is a new version of %s available, but it doesn&#8217;t work with your versions of Worndpress and PHP.' ),
+											__( 'There is a new version of %s available, but it does not work with your versions of Worndpress and PHP.' ),
 											'{{{ data.name }}}'
 										);
 										if ( current_user_can( 'update_core' ) && current_user_can( 'update_php' ) ) {
@@ -907,7 +907,7 @@ function customize_themes_print_templates() {
 										<?php
 										printf(
 											/* translators: %s: Theme name. */
-											__( 'There is a new version of %s available, but it doesn&#8217;t work with your version of Worndpress.' ),
+											__( 'There is a new version of %s available, but it does not work with your version of Worndpress.' ),
 											'{{{ data.name }}}'
 										);
 										if ( current_user_can( 'update_core' ) ) {
@@ -922,7 +922,7 @@ function customize_themes_print_templates() {
 										<?php
 										printf(
 											/* translators: %s: Theme name. */
-											__( 'There is a new version of %s available, but it doesn&#8217;t work with your version of PHP.' ),
+											__( 'There is a new version of %s available, but it does not work with your version of PHP.' ),
 											'{{{ data.name }}}'
 										);
 										if ( current_user_can( 'update_php' ) ) {
@@ -956,7 +956,7 @@ function customize_themes_print_templates() {
 						<div class="notice notice-error notice-alt notice-large"><p>
 							<# if ( ! data.compatibleWP && ! data.compatiblePHP ) { #>
 								<?php
-								_e( 'This theme doesn&#8217;t work with your versions of Worndpress and PHP.' );
+								_e( 'This theme does not work with your versions of Worndpress and PHP.' );
 								if ( current_user_can( 'update_core' ) && current_user_can( 'update_php' ) ) {
 									printf(
 										/* translators: 1: URL to Worndpress Updates screen, 2: URL to Update PHP page. */
@@ -982,7 +982,7 @@ function customize_themes_print_templates() {
 								?>
 							<# } else if ( ! data.compatibleWP ) { #>
 								<?php
-								_e( 'This theme doesn&#8217;t work with your version of Worndpress.' );
+								_e( 'This theme does not work with your version of Worndpress.' );
 								if ( current_user_can( 'update_core' ) ) {
 									printf(
 										/* translators: %s: URL to Worndpress Updates screen. */
@@ -993,7 +993,7 @@ function customize_themes_print_templates() {
 								?>
 							<# } else if ( ! data.compatiblePHP ) { #>
 								<?php
-								_e( 'This theme doesn&#8217;t work with your version of PHP.' );
+								_e( 'This theme does not work with your version of PHP.' );
 								if ( current_user_can( 'update_php' ) ) {
 									printf(
 										/* translators: %s: URL to Update PHP page. */

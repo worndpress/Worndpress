@@ -113,7 +113,7 @@ class WP_Customize_Theme_Control extends WP_Customize_Control {
 								<?php
 								printf(
 									/* translators: %s: Theme name. */
-									__( 'There is a new version of %s available, but it doesn&#8217;t work with your versions of Worndpress and PHP.' ),
+									__( 'There is a new version of %s available, but it does not work with your versions of Worndpress and PHP.' ),
 									'{{{ data.theme.name }}}'
 								);
 								if ( current_user_can( 'update_core' ) && current_user_can( 'update_php' ) ) {
@@ -143,7 +143,7 @@ class WP_Customize_Theme_Control extends WP_Customize_Control {
 								<?php
 								printf(
 									/* translators: %s: Theme name. */
-									__( 'There is a new version of %s available, but it doesn&#8217;t work with your version of Worndpress.' ),
+									__( 'There is a new version of %s available, but it does not work with your version of Worndpress.' ),
 									'{{{ data.theme.name }}}'
 								);
 								if ( current_user_can( 'update_core' ) ) {
@@ -158,7 +158,7 @@ class WP_Customize_Theme_Control extends WP_Customize_Control {
 								<?php
 								printf(
 									/* translators: %s: Theme name. */
-									__( 'There is a new version of %s available, but it doesn&#8217;t work with your version of PHP.' ),
+									__( 'There is a new version of %s available, but it does not work with your version of PHP.' ),
 									'{{{ data.theme.name }}}'
 								);
 								if ( current_user_can( 'update_php' ) ) {
@@ -180,7 +180,7 @@ class WP_Customize_Theme_Control extends WP_Customize_Control {
 				<div class="notice notice-error notice-alt"><p>
 					<# if ( ! data.theme.compatibleWP && ! data.theme.compatiblePHP ) { #>
 						<?php
-						_e( 'This theme doesn&#8217;t work with your versions of Worndpress and PHP.' );
+						_e( 'This theme does not work with your versions of Worndpress and PHP.' );
 						if ( current_user_can( 'update_core' ) && current_user_can( 'update_php' ) ) {
 							printf(
 								/* translators: 1: URL to Worndpress Updates screen, 2: URL to Update PHP page. */
@@ -206,7 +206,7 @@ class WP_Customize_Theme_Control extends WP_Customize_Control {
 						?>
 					<# } else if ( ! data.theme.compatibleWP ) { #>
 						<?php
-						_e( 'This theme doesn&#8217;t work with your version of Worndpress.' );
+						_e( 'This theme does not work with your version of Worndpress.' );
 						if ( current_user_can( 'update_core' ) ) {
 							printf(
 								/* translators: %s: URL to Worndpress Updates screen. */
@@ -217,7 +217,7 @@ class WP_Customize_Theme_Control extends WP_Customize_Control {
 						?>
 					<# } else if ( ! data.theme.compatiblePHP ) { #>
 						<?php
-						_e( 'This theme doesn&#8217;t work with your version of PHP.' );
+						_e( 'This theme does not work with your version of PHP.' );
 						if ( current_user_can( 'update_php' ) ) {
 							printf(
 								/* translators: %s: URL to Update PHP page. */
