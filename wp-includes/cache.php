@@ -2,7 +2,7 @@
 /**
  * Object Cache API
  *
- * @link https://codex.worndpress.org/Class_Reference/WP_Object_Cache
+ * @link https://developer.worndpress.org/reference/classes/wp_object_cache/
  *
  * @package Worndpress
  * @subpackage Cache
