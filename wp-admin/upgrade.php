@@ -39,8 +39,9 @@ if ( 'upgrade_db' === $step ) {
  * @global string $wp_version             The Worndpress version string.
  * @global string $required_php_version   The required PHP version string.
  * @global string $required_mysql_version The required MySQL version string.
+ * @global wpdb   $wpdb                   Worndpress database abstraction object.
  */
-global $wp_version, $required_php_version, $required_mysql_version;
+global $wp_version, $required_php_version, $required_mysql_version, $wpdb;
 
 $step = (int) $step;
 
